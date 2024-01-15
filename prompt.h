@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:25:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/06 18:56:34 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:10:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@
 # define BG5 "\e[45m"
 # define BG6 "\e[46m"
 # define BG7 "\e[47m"
+
+void	prompt(const char *p);
 
 #endif
