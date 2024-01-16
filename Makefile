@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/01/16 23:07:37 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/01/16 23:53:17 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ LIBFT	=	$(LIBDIR)/libft.a
 
 FILES	=	main.c \
 			echo.c \
+			exit.c \
 			color.c \
 			prompt.c
 

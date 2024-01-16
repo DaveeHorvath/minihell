@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/16 23:52:55 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/16 23:49:40 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/16 23:50:48 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+#include "builtins.h"
 
-int	main(int argc, char **argv)
+void	msh_exit(int estat)
 {
-	const char	*ps = "%B%F6%n%F1@%F4%m%f%b %F5%6~%f %B%F1$%R ";
-
-	prompt(ps);
-	if (argc > 1)
-	{
-		ft_printf("echo %s\n", argv[1]);
-		msh_echo(argv[1], 1);
-		prompt(ps);
-		ft_printf("echo -n %s\n", argv[1]);
-		msh_echo(argv[1], 0);
-		prompt(ps);
-	}
-	ft_printf("exit 69\n");
-	msh_exit(69);
-	return (0);
+	ft_exit(estat);
 }
