@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2023/10/24 14:26:57 by ivalimak          #+#    #+#             */
+/*   Updated: 2023/12/30 00:47:47 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+/**
+ * @file ft_putstr_fd.c
+ */
 
-int	main(void)
+#include "libft.h"
+
+/** @brief Writes s to fd
+ *
+ * @param *s String to write
+ * @param fd File descriptor to write to
+ * @retval int Amount of bytes written or -1 if an error occurred
+ */
+int	ft_putstr_fd(char *s, int fd)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
-
-	prompt(ps);
+	if (!s)
+		return (ft_putstr_fd("(null)", fd));
+	return (write(fd, s, ft_strlen(s)));
 }

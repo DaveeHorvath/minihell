@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_debugnbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/02 15:01:15 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/02 15:16:42 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_debugnbr(long n)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
-
-	prompt(ps);
+	if (n == LONG_MIN)
+	{
+		ft_putstr_fd("-9223372036854775807", DEBUGFD);
+		return ;
+	}
+	if (n < 0)
+	{
+		n = -n;
+		ft_putchar_fd('-', DEBUGFD);
+	}
+	if (n > 9)
+	{
+		ft_debugnbr(n / 10);
+		ft_putchar_fd(n % 10 + '0', DEBUGFD);
+		return ;
+	}
+	ft_putchar_fd(n + '0', DEBUGFD);
 }

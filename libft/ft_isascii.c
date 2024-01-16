@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2023/10/23 16:07:56 by ivalimak          #+#    #+#             */
+/*   Updated: 2023/12/30 12:03:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+/**
+ * @file ft_isascii.c
+ */
 
-int	main(void)
+/** @brief Checks if c is an ascii character
+ *
+ * @param c Character to check
+ * @retval int 1 if c is ascii, 0 if not
+ */
+int	ft_isascii(int c)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
-
-	prompt(ps);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

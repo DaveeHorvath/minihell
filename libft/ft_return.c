@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_return.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2023/12/31 07:43:06 by ivalimak          #+#    #+#             */
+/*   Updated: 2023/12/31 07:45:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+/**
+ * @file ft_return.c
+ */
 
-int	main(void)
+#include "libft.h"
+
+/** @brief Frees all memory before returning
+ *
+ * @param rval Return value
+ * @retval int rval
+ */
+int	ft_return(int rval)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
-
-	prompt(ps);
+	ft_popall();
+	ft_clean();
+	return (rval);
 }

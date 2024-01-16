@@ -1,35 +1,56 @@
-NAME=minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
+#    Updated: 2024/01/16 14:57:47 by dhorvath         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-MAIN=src/main.c
-MAIN_OBJ=obj/main.o
-SRC_DIR=src/
-SRC=$(addprefix $(SRC_DIR), parser.c)
-LIBFT_DIR=libft_p/
-LIBFT=$(LIBFT_DIR)libft.a
-OBJ_DIR=obj/
-OBJ=$(addprefix $(OBJ_DIR), $(notdir $(SRC)))
-FLAGS=-Wall -Wextra -Werror
-INCLUDES=-I include/ -I libft_p/includes
-CC=cc
+NAME	=	minishell
+
+BUILD	=	normal
+
+CC				=	cc
+cflags.common	=	-Wall -Wextra -Werror
+cflags.debug	=	-g
+cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
+cflags.asan		=	$(cflags.debug) -fsanitize=address -static-libsan
+cflags.normal	=	
+CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
+
+LIBDIR	=	libft
+LIBFT	=	$(LIBDIR)/libft.a
+
+SRCS	=	main.c \
+			prompt.c
+
+OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ) $(MAIN_OBJ)
-	$(CC) $(FLAGS) $(INCLUDES) $(OBJ) $(MAIN_OBJ) $(LIBFT) -o $(NAME)
-
-$(OBJ_DIR)%.o: $(SRC_DIR)/%.c
-	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+$(NAME): $(LIBFT) $(OBJS)
+	@echo Compiling $(NAME)...
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
 
 $(LIBFT):
-	make -C bonus $(LIBFT_DIR)
+	@make -C $(LIBDIR) BUILD=$(BUILD)
 
-$(OBJ_DIR):
-	mkdir $(OBJ_DIR)
+%.o: %.c
+	@echo Compiling $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ)
+	@make -C $(LIBDIR) clean
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	@make -C $(LIBDIR) fclean
+	@rm -f $(NAME)
+
+re: fclean all
 
 re: fclean all

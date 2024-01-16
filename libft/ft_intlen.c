@@ -1,20 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2023/11/10 15:16:27 by ivalimak          #+#    #+#             */
+/*   Updated: 2023/12/30 11:54:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+/**
+ * @file ft_intlen.c
+ */
 
-int	main(void)
+#include "libft.h"
+
+/** @brief Calculates the amount of digits in n, including '-'
+ *
+ * @param n Integer to count the digits of
+ * @retval size_t Amount of digits in n
+ */
+size_t	ft_intlen(int n)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
+	int	digits;
 
-	prompt(ps);
+	digits = 1;
+	if (n == INT_MIN)
+		n++;
+	if (n < 0)
+	{
+		n = -n;
+		digits++;
+	}
+	while (n > 9)
+	{
+		n /= 10;
+		digits++;
+	}
+	return (digits);
 }

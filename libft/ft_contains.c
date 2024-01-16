@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_contains.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2023/11/20 19:33:41 by ivalimak          #+#    #+#             */
+/*   Updated: 2023/12/30 11:29:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+/**
+ * @file ft_contains.c
+ */
 
-int	main(void)
+/** @brief Check if s contains c
+ *
+ * Goes through the string s, checking if any of the characters in s are c
+ * @param *s Pointer to the string to look for c in
+ * @param c Character to look for in s
+ * @retval int 0 if c is not found, 1 if c is found
+ */
+int	ft_contains(const char *s, char c)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
-
-	prompt(ps);
+	while (*s)
+	{
+		if (*s++ == c)
+			return (1);
+	}
+	return (0);
 }

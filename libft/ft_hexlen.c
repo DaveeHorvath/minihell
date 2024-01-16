@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_hexlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2023/12/29 15:54:19 by ivalimak          #+#    #+#             */
+/*   Updated: 2023/12/30 11:54:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+/**
+ * @file ft_hexlen.c
+ */
 
-int	main(void)
+#include "libft.h"
+
+/** @brief Calculates the amount of digits in n, treating it as a hex value
+ *
+ * @param n Unsigned long to count the digits of
+ * @retval size_t Amount of digits in n
+ */
+size_t	ft_hexlen(unsigned long n)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
+	size_t	digits;
 
-	prompt(ps);
+	digits = 1;
+	while (n > 15)
+	{
+		n /= 16;
+		digits++;
+	}
+	return (digits);
 }

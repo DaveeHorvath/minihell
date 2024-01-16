@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_getblksize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/09 18:38:15 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/09 18:42:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+/**
+ * @file ft_getblksize.c
+ */
 
-int	main(void)
+#include "libft.h"
+
+/** @brief Finds and returns the size of blk
+ *
+ * @param *blk Pointer to the block
+ * @retval size_t Size of blk or 0 if blk is NULL or not registered with
+ * the garbage collector
+ */
+size_t	ft_getblksize(void *blk)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
+	t_obj	*obj;
 
-	prompt(ps);
+	obj = ft_getobj(blk);
+	if (!obj)
+		return (0);
+	return (obj->blksize);
 }

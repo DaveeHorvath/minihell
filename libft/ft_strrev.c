@@ -1,20 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Created: 2023/11/11 18:31:15 by ivalimak          #+#    #+#             */
+/*   Updated: 2023/12/30 13:58:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minish.h"
+/**
+ * @file ft_strrev.c
+ */
 
-int	main(void)
+#include "libft.h"
+
+/** @brief Reverses the string s
+ *
+ * @param *s String to reverse
+ * @retval char * Pointer to the start of s
+ */
+char	*ft_strrev(char *s)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
+	char	tmp;
+	size_t	i;
+	size_t	j;
 
-	prompt(ps);
+	i = 0;
+	j = ft_strlen(s) - 1;
+	while (i < j)
+	{
+		tmp = s[i];
+		s[i++] = s[j];
+		s[j--] = tmp;
+	}
+	return (s);
 }
