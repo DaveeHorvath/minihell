@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 14:11:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/16 19:08:49 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:34:11 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "prompt.h"
 # define E_MALLOC 1
 # define E_READLINE 2
+# define E_PIPE 3
+# define E_FORK 4
+# define E_DUP 5
 # define E_EXEC 127
 
 typedef struct s_cmd
