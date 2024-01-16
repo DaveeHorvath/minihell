@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+         #
+#    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/01/16 14:57:47 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/01/16 15:33:47 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ LIBDIR	=	libft
 LIBFT	=	$(LIBDIR)/libft.a
 
 SRCS	=	main.c \
+			color.c \
 			prompt.c
 
 OBJS	=	$(patsubst %.c, %.o, $(SRCS))
@@ -50,7 +51,5 @@ clean:
 fclean: clean
 	@make -C $(LIBDIR) fclean
 	@rm -f $(NAME)
-
-re: fclean all
 
 re: fclean all

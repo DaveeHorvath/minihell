@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/15 14:12:10 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/16 18:42:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
+	const char	*ps = "%B%F6%n%F1@%F4%m%f%b %F5%6d%f %B%F1$%R ";
 
 	prompt(ps);
 }
