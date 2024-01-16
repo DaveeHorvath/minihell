@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 14:23:51 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/16 16:54:34 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/16 23:24:31 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/16 23:24:34 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*chcolor(const char *code, const char type)
 {
-	const static char	fg[8][6] = {FG0, FG1, FG2, FG3, FG4, FG5, FG6, FG7};
-	const static char	bg[8][6] = {BG0, BG1, BG2, BG3, BG4, BG5, BG6, BG7};
+	static const char	fg[8][6] = {FG0, FG1, FG2, FG3, FG4, FG5, FG6, FG7};
+	static const char	bg[8][6] = {BG0, BG1, BG2, BG3, BG4, BG5, BG6, BG7};
 
 	if (type == 'F')
 		ft_printf("%s", fg[*code - '0']);

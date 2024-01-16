@@ -3,22 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
-<<<<<<< HEAD:main.c
-/*   Updated: 2024/01/16 14:59:08 by dhorvath         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/16 18:42:27 by ivalimak         ###   ########.fr       */
->>>>>>> 1bb6efb5515e735496fe353ca9b04d693e9923b3:src/main.c
+/*   Updated: 2024/01/16 23:22:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	const char	*ps = "%B%F6%n%F1@%F4%m%f%b %F5%6d%f %B%F1$%R ";
+	const char	*ps = "%B%F6%n%F1@%F4%m%f%b %F5%6~%f %B%F1$%R ";
 
 	prompt(ps);
+	if (argc > 1)
+	{
+		ft_printf("echo %s\n", argv[1]);
+		msh_echo(argv[1], 1);
+		prompt(ps);
+		ft_printf("echo -n %s\n", argv[1]);
+		msh_echo(argv[1], 0);
+	}
+	return (0);
 }
