@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 19:42:00 by dhorvath          #+#    #+#             */
-/*   Updated: 2023/10/24 19:46:53 by dhorvath         ###   ########.fr       */
+/*   Created: 2024/01/15 14:06:00 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/16 14:59:08 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minish.h"
 
-int	ft_lstsize(t_list *lst)
+int	main(void)
 {
-	int	i;
+	const char	*ps = "%B%f6USER%f1@%f4HOST%R %f5CURDIR%R %B%f1$%R ";
 
-	if (!lst)
-		return (0);
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
+	prompt(ps);
 }
