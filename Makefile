@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/01/16 15:33:47 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/01/16 19:24:24 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,25 +22,31 @@ cflags.asan		=	$(cflags.debug) -fsanitize=address -static-libsan
 cflags.normal	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
 
+SRCDIR	=	src
+OBJDIR	=	obj
 LIBDIR	=	libft
 LIBFT	=	$(LIBDIR)/libft.a
 
-SRCS	=	main.c \
+FILES	=	main.c \
 			color.c \
 			prompt.c
 
-OBJS	=	$(patsubst %.c, %.o, $(SRCS))
+SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))
+OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
-all: $(NAME)
+all: $(OBJDIR) $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	@echo Compiling $(NAME)...
 	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
 
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
+
 $(LIBFT):
 	@make -C $(LIBDIR) BUILD=$(BUILD)
 
-%.o: %.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo Compiling $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -50,6 +56,7 @@ clean:
 
 fclean: clean
 	@make -C $(LIBDIR) fclean
+	@rm -rf $(OBJDIR)
 	@rm -f $(NAME)
 
 re: fclean all
