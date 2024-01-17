@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/09 18:35:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:40:39 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ t_obj	*ft_getobj(void *blk);
 t_obj	*ft_newobj(t_vm *vm, size_t n);
 t_vm	*ft_getvm(void);
 void	*ft_pop(void);
+void	*ft_register(void *blk);
 void	*ft_push(void *blk);
 void	*ft_pusharr(void *arr);
 void	ft_pushn(size_t blks, ...);
