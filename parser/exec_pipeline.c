@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:47:57 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/20 20:11:54 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/01/20 20:13:34 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,12 +180,10 @@ void	make_cmd(t_list *toparse, t_cmd *commands, int *fds)
 	commands->pid = call_cmd(commands, fds);
 }
 
-
 // split the string on isspace, for <, >> and > open the correct fd
 // if it fails give an error
 // check for heredocs to take, if yes read it to a temp file
 // and then at the end unlink
-
 void parse_fds(char *to_parse, int fds[2])
 {
 	return;
