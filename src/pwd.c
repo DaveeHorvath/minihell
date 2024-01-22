@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 23:03:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/22 15:39:43 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/22 15:33:01 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/22 15:38:02 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	msh_echo(char *s, char nl)
+int	msh_pwd(void)
 {
-	if (nl)
-		ft_putendl_fd(s, 1);
-	else
-		ft_putstr_fd(s, 1);
+	char	*path;
+
+	path = getenv("PWD");
+	if (!path)
+		return (1);
+	ft_putstr_fd(path, 1);
 	return (0);
 }
