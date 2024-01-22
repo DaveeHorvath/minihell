@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:47:57 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/22 23:41:25 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/01/22 23:47:25 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	exec_pipeline(char *s)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	if (argc < 2)
 		return (1);
