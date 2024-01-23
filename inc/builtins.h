@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 23:00:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 14:58:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:56:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	msh_echo(char *s, char nl);
 
 // cd
-void	msh_cd(char *path);
+int		msh_cd(char *path);
 
 // pwd
 void	msh_pwd(void);
