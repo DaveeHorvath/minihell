@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:43:15 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 11:17:15 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:26:48 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ typedef struct s_value
 	size_t			total;
 }	t_value;
 
-// environment.c
-char	**msh_getenvarr(void);
+// env.c
 char	*msh_getenv(char *var);
-void	msh_cpyenv(char **env);
+int		msh_unsetenv(char *var);
 int		msh_setenv(char *var, char *val);
 
 // envutils.c
 t_value	**msh_getenvhead(void);
+char	**msh_getenvarr(void);
+void	msh_cpyenv(char **env);
+int		popenv(t_value *value);
 
 #endif

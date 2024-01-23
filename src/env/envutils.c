@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:13:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 11:28:13 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:25:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,55 @@ t_value	**msh_getenvhead(void)
 	return (&env);
 }
 
+char	**msh_getenvarr(void)
+{
+	char	**out;
+	t_value	*env;
+	size_t	i;
+
+	env = *msh_getenvhead();
+	if (!env)
+		return (NULL);
+	out = ft_push(ft_alloc((env->total + 1) * sizeof(char *)));
+	if (!out)
+		return (NULL);
+	i = 0;
+	while (env)
+	{
+		out[i] = ft_push(ft_strsjoin(env->var, env->val, '='));
+		if (!out[i++])
+			return (NULL);
+		env = env->next;
+	}
+	out[i++] = NULL;
+	ft_popn(i);
+	return (out);
+}
+
+void	msh_cpyenv(char **env)
+{
+	char	*var;
+	char	*val;
+
+	if (!env)
+		return ;
+	while (*env)
+	{
+		var = ft_substr(*env, 0, ft_strclen(*env, '='));
+		val = ft_strchr(*env, '=');
+		if (val)
+			val++;
+		msh_setenv(var, val);
+		env++;
+	}
+}
+
+int	popenv(t_value *value)
+{
+	if (!value)
+		return (0);
+	ft_popblk(value);
+	ft_popblk(value->var);
+	ft_popblk(value->val);
+	return (1);
+}
