@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 17:34:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/22 17:56:41 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/16 23:03:20 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:15:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	msh_export(char *variable)
+void	msh_echo(char *s, char nl)
 {
-	size_t	i;
-	char	*var;
-	char	*val;
-
-	if (!variable)
-		exit(1);
-	if (!*variable)
-		msh_env();
-	var = variable;
-	val = ft_strchr(variable, '=');
-	if (val)
-	{
-		*val = '\0';
-		val++;
-	}
-	if (ft_setenv(var, val))
-		exit(0);
-	exit (1);
+	if (nl)
+		ft_putendl_fd(s, 1);
+	else
+		ft_putstr_fd(s, 1);
+	exit(0);
 }

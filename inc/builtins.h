@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:33:01 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/22 17:25:18 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/16 23:00:21 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:17:55 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#ifndef BUILTINS_H
+# define BUILTINS_H
+# include "env.h"
+# include "libft.h"
 
-int	msh_pwd(void)
-{
-	char	*path;
+// echo
+void	msh_echo(char *s, char nl);
 
-	path = msh_getenv("PWD");
-	if (!path)
-		return (1);
-	ft_putstr_fd(path, 1);
-	return (0);
-}
+// cd
+void	msh_cd(char *path);
+
+// pwd
+void	msh_pwd(void);
+
+// export
+void	msh_export(char *variable);
+
+// unset
+void	msh_unset(char *name);
+
+// env
+void	msh_env(void);
+
+// exit
+void	msh_exit(int estatus);
+
+#endif

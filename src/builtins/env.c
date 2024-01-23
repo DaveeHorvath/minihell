@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 23:00:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/22 17:25:33 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/22 17:26:14 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:15:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
-# include "env.h"
-# include "libft.h"
+#include "builtins.h"
 
-// echo
-int		msh_echo(char *s, char nl);
+void	msh_env(void)
+{
+	size_t	i;
+	char	**env;
 
-// cd
-int		msh_cd(char *path);
-
-// pwd
-int		msh_pwd(void);
-
-// export
-int		msh_export(char *variable);
-
-// unset
-int		msh_unset(char *name);
-
-// env
-int		msh_env(void);
-
-// exit
-void	msh_exit(int estatus);
-
-#endif
+	env = msh_getenvarr();
+	if (!env)
+		exit(1);
+	i = 0;
+	while (env[i])
+		ft_putendl_fd(env[i++], 1);
+	exit(0);
+}

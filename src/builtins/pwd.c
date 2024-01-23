@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 17:26:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/22 17:29:51 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/22 15:33:01 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:16:52 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	msh_env(void)
+void	msh_pwd(void)
 {
-	size_t	i;
-	char	**env;
+	char	*path;
 
-	env = msh_getenvarr();
-	if (!env)
-		return (0);
-	i = 0;
-	while (env[i])
-		ft_putendl_fd(env[i++], 1);
-	return (1);
+	path = msh_getenv("PWD");
+	if (!path)
+		exit(1);
+	ft_putstr_fd(path, 1);
+	exit(0);
 }
