@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 11:34:17 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:47:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
+#  define BUFFER_SIZE 512
 # endif
 
 # ifndef DEBUG_MSG
@@ -164,6 +164,7 @@ char	*bufcopy(char *buf, char **out);
 
 /// blk
 size_t	ft_getblksize(void *blk);
+void	*ft_register(void *blk);
 
 /// obj
 t_obj	*ft_getobj(void *blk);
