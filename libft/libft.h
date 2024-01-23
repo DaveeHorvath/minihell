@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/09 18:35:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:47:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
+#  define BUFFER_SIZE 512
 # endif
 
 # ifndef DEBUG_MSG
@@ -161,20 +161,32 @@ char	*bufshift(char *buf, char *src, size_t n);
 char	*bufcopy(char *buf, char **out);
 
 // gc
+
+/// blk
 size_t	ft_getblksize(void *blk);
+void	*ft_register(void *blk);
+
+/// obj
 t_obj	*ft_getobj(void *blk);
 t_obj	*ft_newobj(t_vm *vm, size_t n);
-t_vm	*ft_getvm(void);
+void	ft_unmarkall(t_vm *vm);
+void	ft_markall(t_vm *vm);
+
+/// pop
 void	*ft_pop(void);
+void	ft_popall(void);
+void	ft_popblk(void *blk);
+void	ft_popn(size_t blks);
+
+/// push
 void	*ft_push(void *blk);
 void	*ft_pusharr(void *arr);
 void	ft_pushn(size_t blks, ...);
-void	ft_unmarkall(t_vm *vm);
-void	ft_markall(t_vm *vm);
+
+/// utils
+t_vm	*ft_getvm(void);
 void	ft_sweep(t_vm *vm);
 void	ft_clean(void);
-void	ft_popall(void);
-void	ft_popn(size_t blks);
 void	ft_exit(int estat);
 int		ft_return(int rval);
 
