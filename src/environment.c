@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:46:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/22 17:21:05 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:27:14 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-static t_value	**msh_getenvhead(void)
+static int	msh_editenv(char *var, char *val)
 {
-	static t_value	*env;
+	t_value	*env;
 
-	return (&env);
+	env = *msh_getenvhead();
+	if (!env)
+		return (0);
+	while (env)
+	{
+		if (!ft_strncmp(env->var, var, ft_strlen(var)))
+			break ;
+		env++;
+	}
+	if (!env)
+		return (0);
+	ft_popblk(env->val);
+	env->val = ft_push(ft_strdup(val));
+	return (1);
 }
 
 char	**msh_getenvarr(void)
@@ -58,11 +71,31 @@ char	*msh_getenv(char *var)
 	return (NULL);
 }
 
+void	msh_cpyenv(char **env)
+{
+	char	*var;
+	char	*val;
+
+	if (!env)
+		return ;
+	while (*env)
+	{
+		var = ft_substr(*env, 0, ft_strclen(*env, '='));
+		val = ft_strchr(*env, '=');
+		if (val)
+			val++;
+		msh_setenv(var, val);
+		env++;
+	}
+}
+
 int	msh_setenv(char *var, char *val)
 {
 	t_value	**env;
 	t_value	*new;
 
+	if (msh_editenv(var, val))
+		return (1);
 	new = ft_push(ft_alloc(sizeof(t_value)));
 	if (!new)
 		return (0);
