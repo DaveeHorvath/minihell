@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/23 00:26:58 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:37:14 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,36 @@ int	get_sep_index(char *s)
 	return (-2);
 }
 
+char	*strip_brackets(char *s)
+{
+	int		i;
+	char	quote;
+	int		end;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	end = ft_strlen(s) - 1;
+	if (get_sep_index(s) == -1)
+	{
+		while (s[i] && isspace(s[i]) && s[i] != '(')
+			i++;
+		if (!s[i] || s[i] != '(')
+			return (s);
+		while (end >= 0 && isspace(s[end]) && s[end] != ')')
+			end--;
+		return (strip_brackets(ft_substr(s, i, end - i)));
+	}
+	else
+		return (s);	
+}
+
 t_node	*make_tree(char *s)
 {
 	t_node	res;
 	int		sep_index;
 
+	s = strip_brackets(s);
 	if (!s)
 		return (NULL);
 	sep_index = get_sep_index(s);

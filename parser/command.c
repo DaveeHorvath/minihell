@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:33:29 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/22 23:47:36 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:42:35 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	make_cmd(t_list *toparse, t_cmd *commands, int *fds)
 
 char	**get_arguments(char *toparse)
 {
+	char	**tokens;
+
 	return (0);
 }
 
