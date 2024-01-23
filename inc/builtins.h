@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 23:00:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 14:17:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:58:24 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	msh_pwd(void);
 void	msh_export(char *variable);
 
 // unset
-void	msh_unset(char *name);
+void	msh_unset(char *var);
 
 // env
 void	msh_env(void);
