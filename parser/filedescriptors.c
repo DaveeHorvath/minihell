@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:33:56 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/22 23:41:58 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:14:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	parse_fds(char *to_parse, int fds[2])
 {
+	
 	return ;
 }
 

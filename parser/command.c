@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:33:29 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/23 21:42:35 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:09:13 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	make_cmd(t_list *toparse, t_cmd *commands, int *fds)
 {
-	extern char	**environ;
-
 	commands->argv = get_arguments(toparse);
-	commands->env = environ;
+	commands->env = get_env();
 	commands->pid = call_cmd(commands, fds);
 }
 
