@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/26 10:40:44 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/01/26 10:48:42 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,7 @@ typedef struct s_node
 }	t_node;
 */
 
+t_node	*make_tree(char *s)
+{
+	
+}
