@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:46:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 15:46:46 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/30 12:17:05 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	msh_unsetenv(char *var)
 	if (prev)
 		prev->next = current->next;
 	else
-		(*env)->next = current->next;
+		*env = current->next;
 	return (0);
 }
 
