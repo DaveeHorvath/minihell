@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 11:47:45 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/30 13:37:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ size_t	ft_hexlen(unsigned long n);
 
 // str
 size_t	ft_strlen(const char *s);
+size_t	ft_wordcount(const char *s);
 size_t	ft_strclen(const char *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
