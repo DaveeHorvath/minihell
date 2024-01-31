@@ -6,15 +6,18 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/30 13:37:01 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:16:44 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# include "keys.h"
+# include "termctrl.h"
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
+# include <termios.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 512
@@ -190,5 +193,15 @@ void	ft_sweep(t_vm *vm);
 void	ft_clean(void);
 void	ft_exit(int estat);
 int		ft_return(int rval);
+
+// readline
+
+/// ft_readline.c
+char	*ft_readline(const char *p);
+
+/// ft_rl_termutils.c
+void	ft_rl_setcurcol(size_t i);
+void	ft_rl_altcmd(size_t *i);
+void	ft_rl_ctrlcmd(char c);
 
 #endif

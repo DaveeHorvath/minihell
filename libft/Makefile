@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/01/30 13:38:54 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/01/31 20:01:18 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,7 +103,9 @@ SRCS	=	ft_atoi.c \
 			ft_push.c \
 			ft_pop.c \
 			ft_obj.c \
-			ft_vm.c
+			ft_vm.c \
+			ft_readline.c \
+			ft_rl_termutils.c
 
 OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 
