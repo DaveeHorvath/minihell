@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:46:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/30 12:17:05 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:39:25 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,12 @@ int	msh_setenv(char *var, char *val)
 
 	if (msh_editenv(var, val))
 		return (1);
-	new = ft_push(ft_alloc(sizeof(t_value)));
+	new = ft_push(ft_calloc(1, sizeof(t_value)));
 	if (!new)
 		return (0);
 	new->var = ft_push(ft_strdup(var));
-	new->val = ft_push(ft_strdup(val));
+	if (val)
+		new->val = ft_push(ft_strdup(val));
 	env = msh_getenvhead();
 	if (!(*env))
 	{

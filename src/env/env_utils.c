@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envutils.c                                         :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:13:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 15:25:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:41:24 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ char	**msh_getenvarr(void)
 	i = 0;
 	while (env)
 	{
-		out[i] = ft_push(ft_strsjoin(env->var, env->val, '='));
+		if (env->val)
+			out[i] = ft_push(ft_strsjoin(env->var, env->val, '='));
+		else
+			out[i] = ft_push(ft_strjoin(env->var, "="));
 		if (!out[i++])
 			return (NULL);
 		env = env->next;
