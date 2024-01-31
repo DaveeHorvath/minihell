@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 20:24:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/31 23:17:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,15 @@ static char	*readinput(const char *p)
 	int		rv;
 
 	i = 0;
-	(void)p;
 	line = NULL;
 	ft_printf("%s", p);
 	rv = read(0, &c, 1);
 	while (rv > 0)
 	{
 		if (c == KEY_ALT)
-			ft_rl_altcmd(&i);
+			ft_rl_altcmd(&i, (char *)p, line);
 		else if (c >= KEY_C_A && c <= KEY_C_Z)
-			ft_rl_ctrlcmd(c);
+			ft_rl_ctrlcmd(c, &i, (char *)p, line);
 		else
 		{
 			if (c != KEY_DEL)
@@ -66,13 +65,15 @@ static char	*readinput(const char *p)
 			else
 			{
 				line = removechar(line, i);
+				ft_rl_setcurcol(ft_strlen(p) + ft_strlen(line) + 1);
+				ft_printf("%s", TERM_CLEAR_END);
 				if (i)
 					i--;
 			}
-			ft_printf("\n%s", p);
+			ft_rl_setcurcol(ft_strlen(p) + 1);
 			if (line)
-				ft_printf("%s", line);
-			ft_rl_setcurcol(ft_strlen(line) - i);
+				ft_putstr_fd(line, 1);
+			ft_rl_setcurcol(ft_strlen(p) + i + 1);
 		}
 		rv = read(0, &c, 1);
 	}
@@ -85,19 +86,18 @@ static char	*addchar(char *s, char c, size_t i)
 
 	if (!s)
 	{
-		out = ft_calloc(2, sizeof(char));
+		out = ft_push(ft_calloc(2, sizeof(char)));
 		if (out)
 			*out = c;
 		return (out);
 	}
-	ft_push(s);
-	out = ft_calloc(ft_getblksize(s) + 1, sizeof(char));
+	out = ft_push(ft_calloc(ft_getblksize(s) + 1, sizeof(char)));
 	if (!out)
 		return (NULL);
 	ft_strlcpy(out, s, i + 1);
 	out[i] = c;
-	ft_strlcpy(&out[i + 1], &s[i], ft_strlen(&s[i]));
-	ft_pop();
+	ft_strlcpy(&out[i + 1], &s[i], ft_strlen(&s[i]) + 1);
+	ft_popblk(s);
 	return (out);
 }
 
@@ -107,12 +107,11 @@ static char	*removechar(char *s, size_t i)
 
 	if (!s || ft_getblksize(s) == 1)
 		return (NULL);
-	ft_push(s);
-	out = ft_calloc(ft_getblksize(s) + 1, sizeof(char));
+	out = ft_push(ft_calloc(ft_getblksize(s) + 1, sizeof(char)));
 	if (!out)
 		return (NULL);
 	ft_strlcpy(out, s, i);
 	ft_strlcpy(&out[i - 1], &s[i], ft_strlen(&s[i]) + 1);
-	ft_pop();
+	ft_popblk(s);
 	return (out);
 }

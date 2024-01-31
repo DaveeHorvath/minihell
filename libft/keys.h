@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:41:05 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 19:17:35 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/31 23:01:52 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 // misc
 # define KEY_ALT 27
-# define KEY_SPACE 32
 # define KEY_DEL 127
+# define KEY_ENTER 10
+# define KEY_SPACE 32
 
 // numeric
 # define KEY_0 48

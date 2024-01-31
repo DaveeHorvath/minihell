@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 20:16:44 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/31 23:33:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,9 +199,13 @@ int		ft_return(int rval);
 /// ft_readline.c
 char	*ft_readline(const char *p);
 
+/// ft_rl_lineutils.c
+void	ft_rl_nextword(size_t *i, char *line, size_t plen);
+void	ft_rl_lastword(size_t *i, char *line, size_t plen);
+
 /// ft_rl_termutils.c
 void	ft_rl_setcurcol(size_t i);
-void	ft_rl_altcmd(size_t *i);
-void	ft_rl_ctrlcmd(char c);
+void	ft_rl_altcmd(size_t *i, char *p, char *line);
+void	ft_rl_ctrlcmd(char c, size_t *i, char *p, char *line);
 
 #endif
