@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/01 12:31:30 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/01 22:12:49 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@
 # define STACK_MAX 2048
 # define E_STACKOF 23
 # define E_STACKUF 24
+
+typedef struct s_list
+{
+	void			*blk;
+	size_t			*size;
+	struct s_list	*next;
+	struct s_list	*prev;
+}	t_list;
 
 typedef struct s_obj
 {
@@ -144,6 +152,17 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
+// lst
+t_list	*ft_lstnew(void *blk);
+t_list	*ft_lstpop(t_list *node);
+t_list	*ft_lstpush(t_list *node);
+t_list	*ft_lstlast(t_list *list);
+void	ft_lstadd_front(t_list **list, t_list *node);
+void	ft_lstadd_back(t_list **list, t_list *node);
+void	ft_lstrmnode(t_list **list, t_list *node);
+void	ft_lstpushall(t_list *list);;
+void	ft_lstpopall(t_list *list);
+
 // printf
 void	ft_pfsetfd(int fd);
 int		ft_pfgetfd(void);
@@ -198,6 +217,15 @@ int		ft_return(int rval);
 
 /// ft_readline.c
 char	*ft_readline(const char *p);
+
+/// ft_rl_history.c
+char	*ft_rl_history_next(char r);
+char	*ft_rl_history_prev(char r);
+
+/// ft_rl_historyutils.c
+t_list	**ft_rl_history_gethead(void);
+void	ft_rl_history_add(char *line);
+void	ft_rl_history_rm(t_list *node);
 
 /// ft_rl_lineutils.c
 void	ft_rl_nextword(size_t *i, char *line, size_t plen);
