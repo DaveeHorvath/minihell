@@ -6,14 +6,14 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 23:33:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:31:30 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include "keys.h"
-# include "termctrl.h"
+# include "lft_keys.h"
+# include "lft_termctrl.h"
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>

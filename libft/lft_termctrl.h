@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   termctrl.h                                         :+:      :+:    :+:   */
+/*   lft_termctrl.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:48:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 23:27:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:30:39 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TERMCTRL_H
-# define TERMCTRL_H
+#ifndef LFT_TERMCTRL_H
+# define LFT_TERMCTRL_H
 
 // clear
 # define TERM_CLEAR_END "\e[0J"
