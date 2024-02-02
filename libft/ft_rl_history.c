@@ -6,40 +6,61 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 22:11:12 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/01 22:20:13 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/02 08:04:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_rl_history_next(char r)
+char	*ft_rl_history_next(void)
 {
-	static t_list	*history = NULL;
+	t_list	*current;
 
-	if (r)
-	{
-		history = NULL;
-		return (NULL);
-	}
-	if (!history)
-		history = *ft_rl_history_gethead();
-	if (history->next)
-		history = history->next;
-	return (history->blk);
+	current = *ft_rl_history_getcurrent(0);
+	if (current->next)
+		current = current->next;
+	ft_rl_history_setcurrent(current);
+	return (current->blk);
 }
 
-char	*ft_rl_history_prev(char r)
+char	*ft_rl_history_prev(void)
 {
-	static t_list	*history = NULL;
+	t_list	*current;
 
-	if (r)
+	current = *ft_rl_history_getcurrent(0);
+	if (current->prev)
+		current = current->prev;
+	ft_rl_history_setcurrent(current);
+	return (current->blk);
+}
+
+void	ft_rl_history_update(char *line)
+{
+	t_list	*current;
+
+	current = *ft_rl_history_getcurrent(0);
+	if (!current->prev)
+		current->blk = line;
+}
+
+void	ft_rl_history_commit(char *line)
+{
+	t_list	**head;
+	t_list	*current;
+	t_list	*new;
+
+	head = ft_rl_history_gethead();
+	current = *ft_rl_history_getcurrent(0);
+	if (line && current->prev)
 	{
-		history = NULL;
-		return (NULL);
+		ft_lstrmnode(head, *head);
+		if (!ft_strequals(current->blk, line))
+			new = ft_lstnew(line);
+		else
+			new = ft_lstdup(current);
+		ft_lstadd_front(head, new);
 	}
-	if (!history)
-		history = *ft_rl_history_gethead();
-	if (history->prev)
-		history = history->prev;
-	return (history->blk);
+	else if (!current->blk)
+		ft_lstrmnode(head, *head);
+	ft_rl_history_getcurrent(1);
 }
