@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/02 08:08:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:58:05 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,24 @@ char	*ft_readline(const char *p)
 {
 	struct termios	oldsettings;
 	struct termios	newsettings;
+	static char		init = 0;
+	t_list			*history;
 	char			*line;
 
+	if (!init)
+	{
+		ft_rl_history_load();
+		init = 1;
+	}
 	tcgetattr(0, &oldsettings);
 	newsettings = oldsettings;
 	newsettings.c_lflag &= (~ICANON & ~ECHO);
 	tcsetattr(0, TCSANOW, &newsettings);
-	ft_lstadd_front(ft_rl_history_gethead(), ft_lstnew(NULL));
+	history = *ft_rl_history_gethead();
+	if (!history || *history->size <= RL_HISTORY_SIZE)
+		ft_lstadd_front(ft_rl_history_gethead(), ft_lstnew(NULL));
+	else
+		ft_rl_history_recycle();
 	line = readinput(p);
 	ft_rl_history_commit(line);
 	tcsetattr(0, TCSANOW, &oldsettings);

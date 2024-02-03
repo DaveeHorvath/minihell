@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/02 07:36:22 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:14:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include "lft_keys.h"
 # include "lft_termctrl.h"
+# include <fcntl.h>
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
@@ -25,6 +26,14 @@
 
 # ifndef DEBUG_MSG
 #  define DEBUG_MSG 0
+# endif
+
+# ifndef RLHFNAME
+#  define RLHFNAME ".rl_history"
+# endif
+
+# ifndef RL_HISTORY_SIZE
+#  define RL_HISTORY_SIZE 100
 # endif
 
 # ifndef INT_MIN
@@ -226,12 +235,15 @@ char	*ft_rl_history_prev(void);
 void	ft_rl_history_update(char *line);
 void	ft_rl_history_commit(char *line);
 
+/// ft_rl_historyfile.c
+void	ft_rl_history_load(void);
+void	ft_rl_history_save(void);
+
 /// ft_rl_historyutils.c
 t_list	**ft_rl_history_gethead(void);
 t_list	**ft_rl_history_getcurrent(char r);
 void	ft_rl_history_setcurrent(t_list *node);
-void	ft_rl_history_rm(t_list *node);
-void	ft_rl_history_add(char *line);
+void	ft_rl_history_recycle(void);
 
 // ft_rl_altcmds.c
 void	ft_rl_altcmd(size_t *i, char *p, char **line);

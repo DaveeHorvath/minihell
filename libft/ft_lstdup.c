@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:21:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/02 06:23:09 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:49:06 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 t_list	*ft_lstdup(t_list *node)
 {
 	t_list	*out;
+	size_t	asize;
 
+	asize = ft_getblksize(node->blk);
 	ft_lstpush(node);
-	out = ft_calloc(1, sizeof(t_list));
+	out = ft_push(ft_calloc(1, sizeof(t_list)));
 	ft_lstpop(node);
 	if (!out)
 		return (NULL);
-	out->blk = node->blk;
+	out->blk = ft_alloc(asize);
+	ft_memcpy(out->blk, node->blk, asize);
 	out->size = node->size;
+	ft_pop();
 	return (out);
 }
