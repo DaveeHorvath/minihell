@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/02 06:48:04 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:04:55 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	ft_rl_ctrlcmd(char c, size_t *i, char *p, char **line)
 		*i = ft_strlen(*line);
 	}
 	else if (c == KEY_C_F)
-		movencursor(1, KEY_U_C, i, ft_strlen(*line));
+		ft_rl_movencursor(1, KEY_U_C, i, ft_strlen(*line));
 	else if (c == KEY_C_B)
-		movencursor(1, KEY_U_D, i, ft_strlen(*line));
+		ft_rl_movencursor(1, KEY_U_D, i, ft_strlen(*line));
 	else if (c == KEY_C_L && *line)
 		ft_printf("%s%s%s%s", TERM_CLEAR_SCREEN, TERM_CUR_RESET, p, *line);
 	else if (c == KEY_C_L)

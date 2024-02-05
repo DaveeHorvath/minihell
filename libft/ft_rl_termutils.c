@@ -6,13 +6,13 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:44:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/02 06:45:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:04:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	movecursor(size_t *i, size_t llen, char c)
+void	ft_rl_movecursor(size_t *i, size_t llen, char c)
 {
 	if (c == KEY_U_C && *i < llen)
 	{
@@ -26,7 +26,7 @@ void	movecursor(size_t *i, size_t llen, char c)
 	}
 }
 
-void	movencursor(size_t n, char dir, size_t *i, size_t llen)
+void	ft_rl_movencursor(size_t n, char dir, size_t *i, size_t llen)
 {
 	if (dir == KEY_U_C)
 	{

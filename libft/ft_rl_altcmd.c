@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:02 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/02 08:01:14 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:04:42 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	arrowcmd(size_t *i, char **line)
 	if (read(0, &c, 1) < 1)
 		return ;
 	if (c == KEY_LEFT || c == KEY_RIGHT)
-		movecursor(i, ft_strlen(*line), c);
+		ft_rl_movecursor(i, ft_strlen(*line), c);
 	else if (c == KEY_UP)
 		*line = ft_rl_history_next();
 	else if (c == KEY_DOWN)
