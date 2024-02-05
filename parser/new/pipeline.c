@@ -6,12 +6,12 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 20:34:30 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/05 22:50:30 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
+#include "libft.h"
 static void	add_cmd(t_cmd **head, t_cmd *new)
 {
 	t_cmd	*cur;
@@ -42,6 +42,25 @@ static int	wait_for_done(t_cmd *head)
 		return (WSTOPSIG(status));
 	else
 		return (0);
+}
+
+char	*get_path(char *name)
+{
+	const char	*path = ft_split(msh_getenv("PATH"), ':');
+	char		*c_path;
+	int			i;
+
+	while (path[i])
+	{
+		c_path = ft_push(ft_strsjoin(path[i], name, '/'));
+		if (access(c_path, F_OK))
+			return (c_path);
+		ft_pop();
+		i++;
+	}
+	if (access(ft_strjoin("./", name), F_OK))
+		return (ft_strjoin("./", name));
+	return (NULL);
 }
 
 static void	do_cmd(t_cmd *cmd)
