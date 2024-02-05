@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:05:19 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 15:52:08 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:11:55 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,16 @@ t_node	make_tree(char *s)
 		return ((t_node){.left = NULL, .right = NULL, .content = s});
 	else
 	{
-		out.content = ft_substr(s, separator_index, 2);
+		out.content = ft_push(ft_substr(s, separator_index, 2));
 		if (!out.content)
 		{
 			out.left = NULL;
 			out.right = NULL;
 			return (out);
 		}
-		out.left = make_tree(ft_substr(s, 0, separator_index));
-		out.left = make_tree(ft_substr(s, separator_index + 2, ft_strlen(s)));
+		out.left = make_tree(ft_push(ft_substr(s, 0, separator_index)));
+		out.right = make_tree(ft_push(ft_substr(s, separator_index + 2,
+						ft_strlen(s))));
 		return (out);
 	}
 }
