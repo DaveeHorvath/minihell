@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 21:09:00 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/05 22:35:54 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	get_fds(char **tokens, int fds[2])
 	i = 0;
 	while (tokens[i])
 	{
+		if (ft_strchr(tokens[i], '<') || ft_strchr(tokens[i], '>'))
+			parse_token(tokens, &i);
 		i++;
 	}
 }
