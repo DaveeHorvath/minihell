@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 15:53:10 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:57:00 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-int		isspace(char c);
 t_node	make_tree(char *s);
+int		execute_string(char *s);
+/* utility functions */
+int		isspace(char c);
 
 #endif
