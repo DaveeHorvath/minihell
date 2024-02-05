@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_command_parser.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/01 16:11:01 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:02:53 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,25 @@ char	**get_tokens(char *s)
 	return (tokens);
 }
 
+void	get_fds(char **tokens, int fds[2])
+{
+	(void)tokens;
+	fds[0] = 0;
+	fds[1] = 1;
+}
+
+char	**get_args(char **tokens)
+{
+	return (tokens);
+}
+
 t_cmd	*get_command(char *s)
 {
 	t_cmd	out;
 	char	**tokens;
 
 	tokens = get_tokens(s);
-	out.env = get_env();
+	out.env = msh_getenv();
 	get_fds(tokens, out.fd);
 	out.argv = get_args(tokens);
 	out.next = NULL;
