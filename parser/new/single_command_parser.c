@@ -6,11 +6,12 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 12:02:53 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:09:00 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "libft.h"
 
 char	*expand_token(char *s, size_t start, size_t end)
 {
@@ -48,14 +49,42 @@ char	**get_tokens(char *s)
 
 void	get_fds(char **tokens, int fds[2])
 {
-	(void)tokens;
-	fds[0] = 0;
-	fds[1] = 1;
+	int		i;
+	char	*s;
+
+	i = 0;
+	while (tokens[i])
+	{
+		i++;
+	}
 }
 
 char	**get_args(char **tokens)
 {
-	return (tokens);
+	int		i;
+	int		count;
+	char	**args;
+
+	i = 0;
+	count = 0;
+	while (tokens[i])
+	{
+		if (is_redirection(tokens, i++))
+			i += is_redirection(tokens, i - 1) - 1;
+		else
+			count++;
+	}
+	args = calloc(count + 1, sizeof(char *));
+	i = 0;
+	count = 0;
+	while (tokens[i])
+	{
+		if (is_redirection(tokens, i))
+			i += is_redirection(tokens, i);
+		else
+			args[count++] = tokens[i++];
+	}
+	return (args);
 }
 
 t_cmd	*get_command(char *s)
