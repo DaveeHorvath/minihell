@@ -3,22 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/26 10:59:57 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:02:32 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+int	run_tree(t_node tree)
+{
+	int	exitcode;
+
+	if (tree.left && tree.right)
+	{
+		exitcode = run_tree(tree.left);
+		if (ft_strncmp(tree.content, "||", 2) == 0)
+		{
+			if (exitcode != 0)
+				return (run_tree(tree.right));
+			else
+				return (exitcode);
+		}
+		else if (ft_strncmp(tree.content, "&&", 2) == 0)
+		{
+			if (exitcode == 0)
+				return (run_tree(tree.right));
+			else
+				return (exitcode);
+		}
+	}
+}
+
 int	execute_string(char *s)
 {
-	t_node	*tree;
+	t_node	tree;
 
-	s = parse_string(s);
 	tree = make_tree(s);
-	if (!tree)
+	if (!validate_tree(tree))
 		return (-1);
 	run_tree(tree);
 }
