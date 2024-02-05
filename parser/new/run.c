@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 16:02:32 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:06:14 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	run_tree(t_node tree)
 				return (exitcode);
 		}
 	}
+	else
+		return (exec_pipeline(tree.content));
 }
 
 int	execute_string(char *s)
