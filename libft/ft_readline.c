@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 23:17:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:58:05 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,26 @@ char	*ft_readline(const char *p)
 {
 	struct termios	oldsettings;
 	struct termios	newsettings;
+	static char		init = 0;
+	t_list			*history;
 	char			*line;
 
+	if (!init)
+	{
+		ft_rl_history_load();
+		init = 1;
+	}
 	tcgetattr(0, &oldsettings);
 	newsettings = oldsettings;
 	newsettings.c_lflag &= (~ICANON & ~ECHO);
 	tcsetattr(0, TCSANOW, &newsettings);
+	history = *ft_rl_history_gethead();
+	if (!history || *history->size <= RL_HISTORY_SIZE)
+		ft_lstadd_front(ft_rl_history_gethead(), ft_lstnew(NULL));
+	else
+		ft_rl_history_recycle();
 	line = readinput(p);
+	ft_rl_history_commit(line);
 	tcsetattr(0, TCSANOW, &oldsettings);
 	return (line);
 }
@@ -54,10 +67,21 @@ static char	*readinput(const char *p)
 	rv = read(0, &c, 1);
 	while (rv > 0)
 	{
+		if (c == KEY_RET)
+		{
+			ft_rl_setcurcol(ft_strlen(p) + i + 1);
+			ft_putchar_fd('\n', 1);
+			if (line && !*line)
+			{
+				ft_popblk(line);
+				line = NULL;
+			}
+			return (line);
+		}
 		if (c == KEY_ALT)
-			ft_rl_altcmd(&i, (char *)p, line);
+			ft_rl_altcmd(&i, (char *)p, &line);
 		else if (c >= KEY_C_A && c <= KEY_C_Z)
-			ft_rl_ctrlcmd(c, &i, (char *)p, line);
+			ft_rl_ctrlcmd(c, &i, (char *)p, &line);
 		else
 		{
 			if (c != KEY_DEL)
@@ -65,16 +89,16 @@ static char	*readinput(const char *p)
 			else
 			{
 				line = removechar(line, i);
-				ft_rl_setcurcol(ft_strlen(p) + ft_strlen(line) + 1);
-				ft_printf("%s", TERM_CLEAR_END);
 				if (i)
 					i--;
 			}
-			ft_rl_setcurcol(ft_strlen(p) + 1);
-			if (line)
-				ft_putstr_fd(line, 1);
-			ft_rl_setcurcol(ft_strlen(p) + i + 1);
+			ft_rl_history_update(line);
 		}
+		ft_rl_setcurcol(ft_strlen(p) + 1);
+		ft_printf("%s", TERM_CLEAR_END);
+		if (line)
+			ft_putstr_fd(line, 1);
+		ft_rl_setcurcol(ft_strlen(p) + i + 1);
 		rv = read(0, &c, 1);
 	}
 	return (NULL);

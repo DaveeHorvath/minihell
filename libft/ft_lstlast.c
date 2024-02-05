@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/28 22:46:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/03 19:15:02 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/01 21:17:50 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/01 21:19:02 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * @file ft_exit.c
- */
-
 #include "libft.h"
 
-/** @brief Frees all allocated memory and exits the program
- *
- * @param estat Exit status to be passed to exit() after garbage collection
- */
-void	ft_exit(int estat)
+t_list	*ft_lstlast(t_list *list)
 {
-	ft_rl_history_save();
-	ft_popall();
-	ft_clean();
-	exit(estat);
+	if (!list)
+		return (NULL);
+	while (list->next)
+		list = list->next;
+	return (list);
 }

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/01 12:31:30 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:14:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include "lft_keys.h"
 # include "lft_termctrl.h"
+# include <fcntl.h>
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
@@ -25,6 +26,14 @@
 
 # ifndef DEBUG_MSG
 #  define DEBUG_MSG 0
+# endif
+
+# ifndef RLHFNAME
+#  define RLHFNAME ".rl_history"
+# endif
+
+# ifndef RL_HISTORY_SIZE
+#  define RL_HISTORY_SIZE 100
 # endif
 
 # ifndef INT_MIN
@@ -54,6 +63,14 @@
 # define STACK_MAX 2048
 # define E_STACKOF 23
 # define E_STACKUF 24
+
+typedef struct s_list
+{
+	void			*blk;
+	size_t			*size;
+	struct s_list	*next;
+	struct s_list	*prev;
+}	t_list;
 
 typedef struct s_obj
 {
@@ -131,6 +148,7 @@ char	*ft_strupper(char *s);
 char	*ft_strlower(char *s);
 char	*ft_strrev(char *s);
 int		ft_contains(const char *s, char c);
+int		ft_strequals(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // mem
@@ -143,6 +161,18 @@ void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
+
+// lst
+t_list	*ft_lstnew(void *blk);
+t_list	*ft_lstdup(t_list *node);
+t_list	*ft_lstpop(t_list *node);
+t_list	*ft_lstpush(t_list *node);
+t_list	*ft_lstlast(t_list *list);
+void	ft_lstadd_front(t_list **list, t_list *node);
+void	ft_lstadd_back(t_list **list, t_list *node);
+void	ft_lstrmnode(t_list **list, t_list *node);
+void	ft_lstpushall(t_list *list);;
+void	ft_lstpopall(t_list *list);
 
 // printf
 void	ft_pfsetfd(int fd);
@@ -199,13 +229,35 @@ int		ft_return(int rval);
 /// ft_readline.c
 char	*ft_readline(const char *p);
 
+/// ft_rl_history.c
+char	*ft_rl_history_next(void);
+char	*ft_rl_history_prev(void);
+void	ft_rl_history_update(char *line);
+void	ft_rl_history_commit(char *line);
+
+/// ft_rl_historyfile.c
+void	ft_rl_history_load(void);
+void	ft_rl_history_save(void);
+
+/// ft_rl_historyutils.c
+t_list	**ft_rl_history_gethead(void);
+t_list	**ft_rl_history_getcurrent(char r);
+void	ft_rl_history_setcurrent(t_list *node);
+void	ft_rl_history_recycle(void);
+
+// ft_rl_altcmds.c
+void	ft_rl_altcmd(size_t *i, char *p, char **line);
+
+// ft_rl_ctrlcmds.c
+void	ft_rl_ctrlcmd(char c, size_t *i, char *p, char **line);
+
 /// ft_rl_lineutils.c
 void	ft_rl_nextword(size_t *i, char *line, size_t plen);
 void	ft_rl_lastword(size_t *i, char *line, size_t plen);
 
 /// ft_rl_termutils.c
+void	movecursor(size_t *i, size_t llen, char c);
+void	movencursor(size_t n, char dir, size_t *i, size_t llen);
 void	ft_rl_setcurcol(size_t i);
-void	ft_rl_altcmd(size_t *i, char *p, char *line);
-void	ft_rl_ctrlcmd(char c, size_t *i, char *p, char *line);
 
 #endif

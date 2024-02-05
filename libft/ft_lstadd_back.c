@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/28 22:46:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/03 19:15:02 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/01 21:29:29 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/03 20:57:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * @file ft_exit.c
- */
-
 #include "libft.h"
 
-/** @brief Frees all allocated memory and exits the program
- *
- * @param estat Exit status to be passed to exit() after garbage collection
- */
-void	ft_exit(int estat)
+void	ft_lstadd_back(t_list **list, t_list *node)
 {
-	ft_rl_history_save();
-	ft_popall();
-	ft_clean();
-	exit(estat);
+	t_list	*last;
+
+	if (!list || !node)
+		return ;
+	ft_lstpush(node);
+	last = ft_lstlast(*list);
+	if (!last)
+	{
+		node->size = ft_push(ft_calloc(1, sizeof(size_t)));
+		if (!node->size)
+			return ;
+		*list = node;
+	}
+	else
+	{
+		node->size = last->size;
+		node->prev = last;
+		last->next = node;
+	}
+	(*node->size)++;
 }

@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_strequals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/28 22:46:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/03 19:15:02 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/02 07:36:40 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/02 07:43:06 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * @file ft_exit.c
+ * @file ft_strequals.c
  */
 
 #include "libft.h"
 
-/** @brief Frees all allocated memory and exits the program
+/** @brief Checks if s1 and s2 are the same
  *
- * @param estat Exit status to be passed to exit() after garbage collection
+ * @param *s1 First string
+ * @param *s2 Second string
+ * @retval int 1 if s1 and s2 are the same or 0 if they are not
  */
-void	ft_exit(int estat)
+int		ft_strequals(const char *s1, const char *s2)
 {
-	ft_rl_history_save();
-	ft_popall();
-	ft_clean();
-	exit(estat);
+	size_t	len1;
+
+	if (!s1 || !s2)
+		return (0);
+	len1 = ft_strlen(s1);
+	if (ft_strncmp(s1, s2, len1))
+		return (0);
+	if (len1 != ft_strlen(s2))
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:41:05 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/01 12:30:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/02 07:09:17 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 # define LFT_KEYS_H
 
 // misc
+# define KEY_RET 10
 # define KEY_ALT 27
 # define KEY_DEL 127
-# define KEY_ENTER 10
 # define KEY_SPACE 32
+
+// arrow
+# define KEY_UP 65
+# define KEY_DOWN 66
+# define KEY_LEFT 68
+# define KEY_RIGHT 67
 
 // numeric
 # define KEY_0 48

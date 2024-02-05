@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/01/31 23:30:01 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/02/03 18:25:03 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS	=	ft_atoi.c \
 			ft_striteri.c \
 			ft_wordcount.c \
 			ft_strremove.c \
+			ft_strequals.c \
 			ft_strupper.c \
 			ft_strlower.c \
 			ft_strsjoin.c \
@@ -78,6 +79,16 @@ SRCS	=	ft_atoi.c \
 			ft_substr.c \
 			ft_tolower.c \
 			ft_toupper.c \
+			ft_lstnew.c \
+			ft_lstdup.c \
+			ft_lstpop.c \
+			ft_lstpush.c \
+			ft_lstlast.c \
+			ft_lstrmnode.c \
+			ft_lstpopall.c \
+			ft_lstpushall.c \
+			ft_lstadd_back.c \
+			ft_lstadd_front.c \
 			ft_dprintf.c \
 			ft_printf.c \
 			ft_format.c \
@@ -105,6 +116,11 @@ SRCS	=	ft_atoi.c \
 			ft_obj.c \
 			ft_vm.c \
 			ft_readline.c \
+			ft_rl_altcmd.c \
+			ft_rl_ctrlcmd.c \
+			ft_rl_history.c \
+			ft_rl_historyfile.c \
+			ft_rl_historyutils.c \
 			ft_rl_termutils.c \
 			ft_rl_lineutils.c
 
