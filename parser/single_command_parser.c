@@ -6,16 +6,47 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/06 12:44:56 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:18:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 
-char	*expand_token(char *s, size_t start, size_t end)
+int	handle_quotes(char *s)
 {
-	return (ft_substr(s, start, end));
+	int	i;
+	char c;
+
+	c = *s;
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
+}
+
+int	handle_redirect(char *s, t_list **tokens, int start)
+{
+	int	i;
+
+	i = start;
+	while (s[i] && s[i] == ' ')
+		i++;
+	while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>')
+		i++;
+	append(tokens, ft_substr(s, 0, i));
+	return (i);
+}
+
+int	handle_sppace(char *s, int i, int *old_i, t_list **tokens)
+{
+	int	counter;
+
+	append(tokens, ft_substr(s, 0, i));
+	counter = 0;
+	while (s[i + counter] && s[i + counter] == ' ')
+		counter++;
+	*old_i = i + counter;
+	return (counter);
 }
 
 char	**get_tokens(char *s)
@@ -28,20 +59,22 @@ char	**get_tokens(char *s)
 
 	i = 0;
 	old_i = 0;
+	tokens = NULL;
 	while (s[i])
 	{
 		if (s[i] == '\'' || s[i] == '\"')
 			i += handle_quotes(&s[i]);
 		else if (ft_strncmp(&s[i], "<<", 2) == 0
 			|| ft_strncmp(&s[i], ">>", 2) == 0)
-			i += handle_double_redirect(&s[i], &tokens);
+			i += handle_redirect(&s[i], &tokens, 2);
 		else if (s[i] == '<' || s[i] == '>')
-			i += handle_simple_redirect(&s[i], &tokens);
+			i += handle_redirect(&s[i], &tokens, 1);
 		else if (s[i] == ' ')
-			i += handle_space(&s[i], i, &old_i, &tokens);
+			i += handle_space(&s[old_i], i, &old_i, &tokens);
 		else
 			i++;
 	}
+	handle_endofstring();
 	return (tokens);
 }
 
