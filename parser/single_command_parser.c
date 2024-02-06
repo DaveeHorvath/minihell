@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 22:35:54 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:44:56 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,23 @@ char	**get_tokens(char *s)
 	int		current_token;
 	size_t	i;
 	size_t	old_i;
-	char	**tokens;
+	t_list	*tokens;
 
 	i = 0;
-	current_token = 0;
-	token_count = count_tokens(s);
-	tokens = calloc(token_count, sizeof(char *));
+	old_i = 0;
 	while (s[i])
 	{
-		while (isspace(s[i]))
+		if (s[i] == '\'' || s[i] == '\"')
+			i += handle_quotes(&s[i]);
+		else if (ft_strncmp(&s[i], "<<", 2) == 0
+			|| ft_strncmp(&s[i], ">>", 2) == 0)
+			i += handle_double_redirect(&s[i], &tokens);
+		else if (s[i] == '<' || s[i] == '>')
+			i += handle_simple_redirect(&s[i], &tokens);
+		else if (s[i] == ' ')
+			i += handle_space(&s[i], i, &old_i, &tokens);
+		else
 			i++;
-		old_i = i;
-		while (!isspace(s[i]) && s[i])
-		{
-			if (s[i] == '\'' || s[i] == '\"')
-				i += skip_til(s[i]);
-			i++;
-		}
-		if (i != old_i)
-			tokens[current_token++] = expand_token(s, old_i, i);
 	}
 	return (tokens);
 }
