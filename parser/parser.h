@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 16:57:00 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:36:55 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,8 @@ int		execute_string(char *s);
 /* utility functions */
 int		isspace(char c);
 
+/* handling tokens */
+int	handle_quotes(char *s);
+int	handle_redirect(char *s, t_list **tokens, int start);
+int	handle_sppace(char *s, int i, int *old_i, t_list **tokens);
 #endif
