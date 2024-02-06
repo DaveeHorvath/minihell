@@ -6,12 +6,13 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/05 22:50:30 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:11:28 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+
 static void	add_cmd(t_cmd **head, t_cmd *new)
 {
 	t_cmd	*cur;

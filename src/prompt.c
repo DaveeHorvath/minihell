@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/16 18:35:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:11:12 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
+
 static char	*printcmd(const char *cmd);
 static char	*gethname(const char trunc);
 static char	*getdir(const char type, size_t depth);
@@ -79,7 +80,7 @@ static char	*gethname(const char trunc)
 	return (out);
 }
 
-static char *getdir(const char type, size_t depth)
+static char	*getdir(const char type, size_t depth)
 {
 	char	*home;
 	char	*out;
