@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:02 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/09 22:25:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/09 22:39:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_rl_altcmd(size_t *i, char *p, char **line)
 	else if (c == KEY_F)
 		ft_rl_nextword(i, *line, ft_strlen(p));
 	else if (c == KEY_B)
-		ft_rl_lastword(i, *line, ft_strlen(p));
+		ft_rl_prevword(i, *line, ft_strlen(p));
 	else if (c == '>')
 		ft_rl_history_setcurrent(*ft_rl_history_gethead());
 	else if (c == '<' )
