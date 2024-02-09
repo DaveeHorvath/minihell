@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:02 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/05 14:04:42 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/09 22:25:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	arrowcmd(size_t *i, char **line)
 		*line = ft_rl_history_next();
 	else if (c == KEY_DOWN)
 		*line = ft_rl_history_prev();
+	if (c == KEY_UP || c == KEY_DOWN)
+		*i = ft_strlen(*line);
 }
 
 void	ft_rl_altcmd(size_t *i, char *p, char **line)
@@ -43,6 +45,8 @@ void	ft_rl_altcmd(size_t *i, char *p, char **line)
 	else if (c == '<' )
 		ft_rl_history_setcurrent(ft_lstlast(*ft_rl_history_getcurrent(0)));
 	if (c == '>' || c == '<')
+	{
 		*line = (*ft_rl_history_getcurrent(0))->blk;
-	*i = ft_strlen(*line);
+		*i = ft_strlen(*line);
+	}
 }
