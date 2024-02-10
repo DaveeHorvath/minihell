@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 07:36:40 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/02 07:43:06 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/09 23:55:26 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @param *s2 Second string
  * @retval int 1 if s1 and s2 are the same or 0 if they are not
  */
-int		ft_strequals(const char *s1, const char *s2)
+int	ft_strequals(const char *s1, const char *s2)
 {
 	size_t	len1;
 

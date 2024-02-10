@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:44:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/03 21:02:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 02:10:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_readline.h"
 
 void	ft_rl_history_load(void)
 {
@@ -44,7 +44,8 @@ void	ft_rl_history_save(void)
 	if (fd < 0)
 		return ;
 	history = *ft_rl_history_gethead();
-	history = history->next;
+	if (history)
+		history = history->next;
 	while (history)
 	{
 		ft_putendl_fd(history->blk, fd);
