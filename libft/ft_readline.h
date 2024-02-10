@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 17:42:49 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 00:00:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ char	*ft_readline(const char *p);
 
 // ft_rl_input.c
 void	ft_rl_updateinput(t_rl_input *input, char *newinput);
+void	ft_rl_addchar(t_rl_input *input, char c);
+void	ft_rl_rmchar(t_rl_input *input);
 int		ft_rl_getinput(t_rl_input *input);
 
 // ft_rl_completion.c
-void	ft_rl_complete(t_rl_input *input);
+int		ft_rl_complete(t_rl_input *input);
 
 // ft_rl_replace.c
-void	ft_rl_complete_replace(t_rl_input *input, char *word);
-void	ft_rl_complete_display(t_rl_input *input, t_list *completions);
+int		ft_rl_complete_replace(t_rl_input *input, char *word);
+int		ft_rl_complete_multiple(t_rl_input *input, t_list *completions);
 
 // ft_rl_history.c
 char	*ft_rl_history_next(void);
@@ -55,7 +57,7 @@ void	ft_rl_history_save(void);
 
 // ft_rl_command.c
 int		ft_rl_exec(t_rl_input *input, char c);
-int		ft_rl_iscommand(t_rl_input *input, char c);
+int		ft_rl_iscommand(char c);
 
 // ft_rl_altcmds.c
 void	ft_rl_altcmd(t_rl_input *input);

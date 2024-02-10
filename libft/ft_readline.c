@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 20:48:51 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 00:34:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_readline(const char *p)
 static char	*getline(const char *p)
 {
 	t_rl_input	input;
-	int		rv;
+	int			rv;
 
 	input.i = 0;
 	input.input = NULL;
