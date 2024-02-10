@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:25:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 20:51:08 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:12:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,13 @@ void	ft_rl_movecursor(t_rl_input *input, size_t n, char direction)
 
 void	ft_rl_resetscreen(t_rl_input *input)
 {
+	int	row;
+	int	col;
+
 	ft_putstr_fd(TERM_CLEAR_SCREEN, 1);
 	ft_rl_term_cur_setpos(1, 1);
 	ft_rl_term_cur_updatepos(input->promptlen);
+	ft_rl_term_cur_getpos(&row, &col, 0);
 	ft_printf("%s%s", input->prompt, input->input);
+	ft_rl_term_cur_setpos(row, col + input->promptlen + input->i);
 }
