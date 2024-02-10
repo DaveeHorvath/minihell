@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:44:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/05 14:04:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 02:10:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_readline.h"
 
 void	ft_rl_movecursor(size_t *i, size_t llen, char c)
 {

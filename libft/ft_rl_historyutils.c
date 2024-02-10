@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 21:57:38 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/09 23:54:41 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 02:10:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_readline.h"
 
 t_list	**ft_rl_history_gethead(void)
 {

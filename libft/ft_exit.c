@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 22:46:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/03 19:15:02 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 02:13:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
  */
 
 #include "libft.h"
+#include "ft_readline.h"
 
 /** @brief Frees all allocated memory and exits the program
  *

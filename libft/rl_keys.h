@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lft_keys.h                                         :+:      :+:    :+:   */
+/*   rl_keys.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:41:05 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/02 07:09:17 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 02:02:05 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LFT_KEYS_H
-# define LFT_KEYS_H
+#ifndef RL_KEYS_H
+# define RL_KEYS_H
 
 // misc
+# define KEY_TAB 9
 # define KEY_RET 10
 # define KEY_ALT 27
 # define KEY_DEL 127

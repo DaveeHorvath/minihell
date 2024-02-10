@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/03 20:58:05 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 02:12:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
  * @file ft_readline.c
  */
 
-#include "libft.h"
+#include "ft_readline.h"
 
 static char	*readinput(const char *p);
 static char	*addchar(char *s, char c, size_t pos);
@@ -78,7 +78,9 @@ static char	*readinput(const char *p)
 			}
 			return (line);
 		}
-		if (c == KEY_ALT)
+		if (c == KEY_TAB)
+			ft_rl_complete(&i, ft_strlen(p), &line);
+		else if (c == KEY_ALT)
 			ft_rl_altcmd(&i, (char *)p, &line);
 		else if (c >= KEY_C_A && c <= KEY_C_Z)
 			ft_rl_ctrlcmd(c, &i, (char *)p, &line);
