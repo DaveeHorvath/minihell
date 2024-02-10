@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 02:13:41 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 16:59:42 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	ft_debugnbr(long n);
 void	ft_debugunbr(unsigned long n);
 void	ft_debugxnbr(unsigned long n, char f);
 int		ft_putchar_fd(char c, int fd);
-int		ft_putstr_fd(char *s, int fd);
-int		ft_putendl_fd(char *s, int fd);
+int		ft_putstr_fd(const char *s, int fd);
+int		ft_putendl_fd(const char *s, int fd);
 int		ft_putnbr_fd(int n, int fd, int *flags);
 int		ft_putunbr_fd(unsigned int n, int fd);
 int		ft_putxnbr_fd(unsigned long n, int fd, int upper);
@@ -214,7 +214,5 @@ void	ft_sweep(t_vm *vm);
 void	ft_clean(void);
 void	ft_exit(int estat);
 int		ft_return(int rval);
-
-// readline
 
 #endif

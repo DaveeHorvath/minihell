@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:44:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 02:10:10 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:04:49 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_rl_history_save(void)
 	if (fd < 0)
 		return ;
 	history = *ft_rl_history_gethead();
-	if (history)
+	if (history && !history->blk)
 		history = history->next;
 	while (history)
 	{

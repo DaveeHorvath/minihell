@@ -6,34 +6,26 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 02:10:10 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:55:23 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-void	ft_rl_ctrlcmd(char c, size_t *i, char *p, char **line)
+void	ft_rl_ctrlcmd(t_rl_input *input, char c)
 {
 	if (c == KEY_C_A)
-	{
-		ft_rl_setcurcol(ft_strlen(p) + 1);
-		*i = 0;
-	}
+		ft_rl_movecursor(input, input->i, KEY_LEFT);
 	else if (c == KEY_C_E)
-	{
-		ft_rl_setcurcol(ft_strlen(p) + ft_strlen(*line) + 1);
-		*i = ft_strlen(*line);
-	}
+		ft_rl_movecursor(input, input->inputlen - input->i, KEY_RIGHT);
 	else if (c == KEY_C_F)
-		ft_rl_movencursor(1, KEY_U_C, i, ft_strlen(*line));
+		ft_rl_movecursor(input, 1, KEY_RIGHT);
 	else if (c == KEY_C_B)
-		ft_rl_movencursor(1, KEY_U_D, i, ft_strlen(*line));
-	else if (c == KEY_C_L && *line)
-		ft_printf("%s%s%s%s", TERM_CLEAR_SCREEN, TERM_CUR_RESET, p, *line);
+		ft_rl_movecursor(input, 1, KEY_LEFT);
 	else if (c == KEY_C_L)
-		ft_printf("%s%s%s", TERM_CLEAR_SCREEN, TERM_CUR_RESET, p);
+		ft_rl_resetscreen(input);
 	else if (c == KEY_C_P)
-		*line = ft_rl_history_next();
+		ft_rl_updateinput(input, ft_rl_history_next());
 	else if (c == KEY_C_N)
-		*line = ft_rl_history_prev();
+		ft_rl_updateinput(input, ft_rl_history_prev());
 }

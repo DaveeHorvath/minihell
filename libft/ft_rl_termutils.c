@@ -6,51 +6,83 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:44:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 02:10:10 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:00:09 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-void	ft_rl_movecursor(size_t *i, size_t llen, char c)
+static t_rl_termstate	*ft_rl_term_getstate(void)
 {
-	if (c == KEY_U_C && *i < llen)
-	{
-		ft_printf("%s", TERM_CUR_RIGHT);
-		*i = *i + 1;
-	}
-	else if (c == KEY_U_D && *i > 0)
-	{
-		ft_printf("%s", TERM_CUR_LEFT);
-		*i = *i - 1;
-	}
+	static t_rl_termstate	state;
+
+	return (&state);
 }
 
-void	ft_rl_movencursor(size_t n, char dir, size_t *i, size_t llen)
+void	ft_rl_term_cur_updatepos(size_t promptlen)
 {
-	if (dir == KEY_U_C)
-	{
-		while (n-- && *i < llen)
-		{
-			ft_printf("%s", TERM_CUR_RIGHT);
-			*i = *i + 1;
-		}
-	}
-	else
-	{
-		while (n-- && *i > 0)
-		{
-			ft_printf("%s", TERM_CUR_LEFT);
-			*i = *i - 1;
-		}
-	}
+	struct winsize	winsize;
+	t_rl_termstate	*state;
+
+	state = ft_rl_term_getstate();
+	ioctl(1, TIOCGWINSZ, &winsize);
+	state->t_rows = winsize.ws_row;
+	state->t_cols = winsize.ws_col;
+	ft_rl_term_cur_getpos(&state->t_row, &state->t_col, 1);
+	state->i_row = state->t_row;
+	state->i_col = state->t_col + promptlen;
 }
 
-void	ft_rl_setcurcol(size_t i)
+void	ft_rl_term_cur_inputstart(void)
 {
-	char	*cmd;
+	t_rl_termstate	*state;
 
-	cmd = ft_strjoin("\e[", ft_uitoa(i));
-	cmd = ft_strjoin(cmd, "G");
-	ft_printf("%s", cmd);
+	state = ft_rl_term_getstate();
+	ft_rl_term_cur_setpos(state->i_row, state->i_col);
+}
+
+void	ft_rl_term_cur_getpos(int *row, int *col, char update)
+{
+	size_t			i;
+	t_rl_termstate	*state;
+	char			buf[16];
+
+	if (!update)
+	{
+		state = ft_rl_term_getstate();
+		*row = state->t_row;
+		*col = state->t_col;
+		return ;
+	}
+	i = 0;
+	ft_putstr_fd(TERM_STATUS, 1);
+	read(0, buf, 16);
+	while (buf[i] && !ft_isdigit(buf[i]))
+		i++;
+	*row = ft_atoi(&buf[i]);
+	while (ft_isdigit(buf[i]))
+		i++;
+	while (buf[i] && !ft_isdigit(buf[i]))
+		i++;
+	*col = ft_atoi(&buf[i]);
+}
+
+void	ft_rl_term_cur_setpos(int row, int col)
+{
+	t_rl_termstate	*state;
+
+	state = ft_rl_term_getstate();
+	while (col > state->t_cols)
+	{
+		row++;
+		col -= state->t_cols;
+	}
+	while (col < 0)
+	{
+		row--;
+		col += state->t_cols;
+	}
+	ft_printf("\e[%d;%dH", row, col);
+	state->t_row = row;
+	state->t_col = col;
 }
