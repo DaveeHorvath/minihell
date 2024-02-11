@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:02 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 13:39:49 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:33:55 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_rl_altcmd(t_rl_input *input, char redisplay)
 		ft_rl_history_setcurrent(*ft_rl_history_gethead());
 	else if (c == '<' )
 		ft_rl_history_setcurrent(ft_lstlast(*ft_rl_history_getcurrent(0)));
+	else
+		addmeta(input);
 	if (c == '>' || c == '<')
 		ft_rl_updateinput(input, (*ft_rl_history_getcurrent(0))->blk);
 	if (redisplay)
@@ -52,6 +54,8 @@ static void	arrowcmd(t_rl_input *input)
 		ft_rl_updateinput(input, ft_rl_history_next());
 	else if (c == KEY_DOWN)
 		ft_rl_updateinput(input, ft_rl_history_prev());
+	else
+		addmeta(input);
 }
 
 static void	addmeta(t_rl_input *input)
@@ -66,21 +70,21 @@ static void	addmeta(t_rl_input *input)
 	charlen = ft_strlen(metachar);
 	if (charlen == 2 && *metachar == '[')
 		ft_rl_addchar(input, '0');
-	else if (charlen == 3 && *metachar == '[')
-		ft_rl_addchar(input, '[');
-	else
+	else if (*metachar == '[' || ft_isdigit(*metachar))
 		ft_rl_addchar(input, *metachar);
+	else if (metachar[ft_strlen(metachar) - 1] != '~')
+		ft_rl_addchar(input, *metachar);
+	else
+		charlen--;
 	i = 1;
-	while (i < charlen)
+	while (i < RL_METACHAR_SIZE && metachar[i])
 		ft_rl_addchar(input, metachar[i++]);
 	ft_rl_term_cur_getpos(&row, &col, 0);
 	col += charlen;
 	if (col == (int)charlen + 1)
 		col += input->promptlen;
-	ft_rl_term_cur_inputstart();
-	ft_putstr_fd(TERM_CLEAR_END, 1);
-	ft_putstr_fd(input->input, 1);
 	ft_rl_term_cur_setpos(row, col);
+	ft_rl_redisplay(input);
 }
 
 static void	getmeta(char *metachar)

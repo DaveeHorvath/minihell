@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:41:05 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 02:02:05 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:08:26 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define KEY_ALT 27
 # define KEY_DEL 127
 # define KEY_SPACE 32
+# define KEY_PERIOD 46
 
 // arrow
 # define KEY_UP 65
