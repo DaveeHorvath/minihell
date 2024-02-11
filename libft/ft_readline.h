@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 17:42:49 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:16:38 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # ifndef RL_HISTORY_SIZE
 #  define RL_HISTORY_SIZE 100
 # endif
+
+# define RL_METACHAR_SIZE 8
 
 // ft_readline.c
 char	*ft_readline(const char *p);
@@ -78,4 +80,4 @@ void	ft_rl_history_recycle(void);
 void	ft_rl_nextword(t_rl_input *input);
 void	ft_rl_prevword(t_rl_input *input);
 
-# endif
+#endif
