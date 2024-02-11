@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:38:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 00:04:08 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:39:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ static void	printcompletions(t_list *completions, char *current)
 	size_t	maxwidth;
 	size_t	cpl;
 	size_t	i;
-	int		pos[2];
+	int		cur[2];
 	int		row;
 
-	ft_rl_term_cur_getpos(&pos[0], &pos[1], 0);
+	ft_rl_term_cur_getpos(&cur[0], &cur[1], 0);
 	calculateoutput(completions, &maxwidth, &cpl);
 	i = 0;
-	row = pos[0];
+	row = cur[0];
 	ft_rl_term_cur_setpos(++row, 1);
 	while (completions)
 	{
@@ -91,7 +91,7 @@ static void	printcompletions(t_list *completions, char *current)
 		}
 		completions = completions->next;
 	}
-	ft_rl_term_cur_setpos(pos[0], pos[1]);
+	ft_rl_term_cur_setpos(cur[0], cur[1]);
 }
 
 static void	calculateoutput(t_list *completions, size_t *maxwidth, size_t *cpl)
@@ -120,7 +120,7 @@ static int	addinput(t_rl_input *input, char c)
 	int	col;
 
 	if (ft_rl_iscommand(c))
-		return (ft_rl_exec(input, c));
+		return (ft_rl_exec(input, c, 1));
 	else
 	{
 		if (c != KEY_DEL)

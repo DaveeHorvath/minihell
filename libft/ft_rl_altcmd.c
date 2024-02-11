@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:02 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 13:12:00 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:39:49 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	arrowcmd(t_rl_input *input);
 static void	addmeta(t_rl_input *input);
 static void	getmeta(char *metachar);
 
-void	ft_rl_altcmd(t_rl_input *input)
+void	ft_rl_altcmd(t_rl_input *input, char redisplay)
 {
 	char	c;
 
@@ -36,6 +36,8 @@ void	ft_rl_altcmd(t_rl_input *input)
 		ft_rl_history_setcurrent(ft_lstlast(*ft_rl_history_getcurrent(0)));
 	if (c == '>' || c == '<')
 		ft_rl_updateinput(input, (*ft_rl_history_getcurrent(0))->blk);
+	if (redisplay)
+		ft_rl_redisplay(input);
 }
 
 static void	arrowcmd(t_rl_input *input)

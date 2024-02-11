@@ -6,11 +6,24 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 00:35:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:42:04 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+
+void	ft_rl_redisplay(t_rl_input *input)
+{
+	int	row;
+	int	col;
+
+	ft_rl_term_cur_getpos(&row, &col, 0);
+	ft_rl_term_cur_inputstart();
+	ft_putstr_fd(TERM_CLEAR_END, 1);
+	if (input->input)
+		ft_putstr_fd(input->input, 1);
+	ft_rl_term_cur_setpos(row, col);
+}
 
 void	ft_rl_updateinput(t_rl_input *input, char *newinput)
 {
@@ -86,7 +99,7 @@ int	ft_rl_getinput(t_rl_input *input)
 	if (read(0, &c, 1) < 0)
 		return (-1);
 	if (ft_rl_iscommand(c))
-		return (ft_rl_exec(input, c));
+		return (ft_rl_exec(input, c, 0));
 	if (c != KEY_DEL)
 		ft_rl_addchar(input, c);
 	else if (input->i)
