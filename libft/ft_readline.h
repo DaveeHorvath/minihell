@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 13:38:51 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:08:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ int		ft_rl_getinput(t_rl_input *input);
 // ft_rl_completion.c
 int		ft_rl_complete(t_rl_input *input);
 
+// ft_rl_match.c
+t_list	*ft_rl_complete_env(char *word);
+t_list	*ft_rl_complete_cmd(char *word);
+t_list	*ft_rl_complete_file(char *word);
+
+// ft_rl_increment.c
+void	ft_rl_complete_increment(t_list *completions);
+
 // ft_rl_replace.c
 int		ft_rl_complete_replace(t_rl_input *input, char *word);
 int		ft_rl_complete_multiple(t_rl_input *input, t_list *completions);
@@ -69,9 +77,7 @@ void	ft_rl_altcmd(t_rl_input *input, char redisplay);
 void	ft_rl_ctrlcmd(t_rl_input *input, char c, char redisplay);
 
 // ft_rl_completionutils.c
-t_list	*ft_rl_complete_env(char *word);
-t_list	*ft_rl_complete_cmd(char *word);
-t_list	*ft_rl_complete_file(char *word);
+size_t	ft_rl_complete_getlongest(t_list *completions);
 
 // ft_rl_historyutils.c
 t_list	**ft_rl_history_gethead(void);

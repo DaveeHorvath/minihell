@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:35:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 00:35:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:42:16 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_rl_complete(t_rl_input *input)
 	completions = getcompletions(word, hascmd(input, &i));
 	if (!completions)
 		return (1);
+	ft_rl_complete_increment(completions);
 	if (!completions->next)
 		rv = ft_rl_complete_replace(input, completions->blk);
 	else

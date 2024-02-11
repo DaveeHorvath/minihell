@@ -5,101 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 23:01:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 19:55:23 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/11 20:09:33 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/11 20:11:15 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-static void	matchfiles(char *word, char *path, int cmd, t_list **completions);
-static int	iscmd(char *path, char *cmd);
-
-t_list	*ft_rl_complete_env(char *word)
+size_t	ft_rl_complete_getlongest(t_list *completions)
 {
-	size_t		wordlen;
-	t_list		*completions;
-	extern char	**environ;
-	char		*var;
+	size_t	maxlen;
+	size_t	len;
 
-	completions = NULL;
-	while (*word == '$')
-		word++;
-	wordlen = ft_strlen(word);
-	while (*environ)
+	maxlen = 0;
+	while (completions)
 	{
-		var = ft_substr(*environ, 0, ft_strclen(*environ, '='));
-		if (!var)
-		{
-			ft_lstpopall(completions);
-			return (NULL);
-		}
-		if (!ft_strncmp(var, word, wordlen))
-			ft_lstadd_back(&completions, ft_lstnew(var));
-		environ++;
+		len = ft_strlen(completions->blk);
+		if (len > maxlen)
+			maxlen = len;
+		completions = completions->next;
 	}
-	return (completions);
-}
-
-t_list	*ft_rl_complete_cmd(char *word)
-{
-	t_list	*completions;
-	char	**path;
-
-	path = ft_pusharr(ft_split(getenv("PATH"), ':'));
-	if (!path)
-		return (NULL);
-	completions = NULL;
-	while (*path)
-	{
-		matchfiles(word, *path, 1, &completions);
-		ft_popblk(*path++);
-	}
-	ft_popblk(path);
-	matchfiles(word, ".", 1, &completions);
-	return (completions);
-}
-
-t_list	*ft_rl_complete_file(char *word)
-{
-	t_list	*completions;
-
-	completions = NULL;
-	matchfiles(word, ".", 0, &completions);
-	return (completions);
-}
-
-static void	matchfiles(char *word, char *path, int cmd, t_list **completions)
-{
-	DIR				*dir;
-	struct dirent	*data;
-	size_t			wordlen;
-
-	dir = opendir(path);
-	if (!dir)
-		return ;
-	data = readdir(dir);
-	wordlen = ft_strlen(word);
-	while (data)
-	{
-		if (!ft_strncmp(data->d_name, word, wordlen))
-		{
-			if (!cmd || iscmd(path, data->d_name))
-				ft_lstadd_back(completions, ft_lstnew(ft_strdup(data->d_name)));
-		}
-		data = readdir(dir);
-	}
-	closedir(dir);
-}
-
-static int	iscmd(char *path, char *cmd)
-{
-	char	*cmdpath;
-
-	cmdpath = ft_strsjoin(path, cmd, '/');
-	if (!cmdpath)
-		return (0);
-	if (!access(cmdpath, X_OK))
-		return (1);
-	return (0);
+	return (maxlen);
 }
