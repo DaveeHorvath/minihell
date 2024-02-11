@@ -6,13 +6,13 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:44:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 21:00:09 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:53:19 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-static t_rl_termstate	*ft_rl_term_getstate(void)
+t_rl_termstate	*ft_rl_term_getstate(void)
 {
 	static t_rl_termstate	state;
 

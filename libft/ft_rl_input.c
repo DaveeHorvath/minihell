@@ -6,14 +6,24 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 21:03:53 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:42:04 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-static void	addchar(t_rl_input *input, char c);
-static void	rmchar(t_rl_input *input);
+void	ft_rl_redisplay(t_rl_input *input)
+{
+	int	row;
+	int	col;
+
+	ft_rl_term_cur_getpos(&row, &col, 0);
+	ft_rl_term_cur_inputstart();
+	ft_putstr_fd(TERM_CLEAR_END, 1);
+	if (input->input)
+		ft_putstr_fd(input->input, 1);
+	ft_rl_term_cur_setpos(row, col);
+}
 
 void	ft_rl_updateinput(t_rl_input *input, char *newinput)
 {
@@ -32,35 +42,7 @@ void	ft_rl_updateinput(t_rl_input *input, char *newinput)
 	ft_rl_term_cur_setpos(row, col + input->inputlen);
 }
 
-int	ft_rl_getinput(t_rl_input *input)
-{
-	int		row;
-	int		col;
-	char	c;
-
-	if (read(0, &c, 1) < 0)
-		return (-1);
-	if (ft_rl_iscommand(input, c))
-		return (ft_rl_exec(input, c));
-	if (c != KEY_DEL)
-		addchar(input, c);
-	else if (input->i)
-		rmchar(input);
-	ft_rl_term_cur_getpos(&row, &col, 1);
-	if (c != KEY_DEL)
-		col++;
-	else if (col > (int)input->promptlen + 1)
-		col--;
-	ft_rl_history_update(input->input);
-	ft_rl_term_cur_inputstart();
-	ft_putstr_fd(TERM_CLEAR_END, 1);
-	if (input->input)
-		ft_putstr_fd(input->input, 1);
-	ft_rl_term_cur_setpos(row, col);
-	return (1);
-}
-
-static void	addchar(t_rl_input *input, char c)
+void	ft_rl_addchar(t_rl_input *input, char c)
 {
 	char	*newinput;
 
@@ -87,7 +69,7 @@ static void	addchar(t_rl_input *input, char c)
 	input->inputlen = ft_strlen(newinput);
 }
 
-static void	rmchar(t_rl_input *input)
+void	ft_rl_rmchar(t_rl_input *input)
 {
 	char	*newinput;
 
@@ -106,4 +88,32 @@ static void	rmchar(t_rl_input *input)
 	input->i--;
 	input->input = ft_push(newinput);
 	input->inputlen = ft_strlen(newinput);
+}
+
+int	ft_rl_getinput(t_rl_input *input)
+{
+	int		row;
+	int		col;
+	char	c;
+
+	if (read(0, &c, 1) < 0)
+		return (-1);
+	if (ft_rl_iscommand(c))
+		return (ft_rl_exec(input, c, 0));
+	if (c != KEY_DEL)
+		ft_rl_addchar(input, c);
+	else if (input->i)
+		ft_rl_rmchar(input);
+	ft_rl_term_cur_getpos(&row, &col, 1);
+	if (c != KEY_DEL)
+		col++;
+	else if (col > (int)input->promptlen + 1)
+		col--;
+	ft_rl_history_update(input->input);
+	ft_rl_term_cur_inputstart();
+	ft_putstr_fd(TERM_CLEAR_END, 1);
+	if (input->input)
+		ft_putstr_fd(input->input, 1);
+	ft_rl_term_cur_setpos(row, col);
+	return (1);
 }

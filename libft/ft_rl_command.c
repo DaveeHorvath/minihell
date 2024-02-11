@@ -6,13 +6,13 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 17:32:41 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 20:18:26 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/11 13:39:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-int	ft_rl_exec(t_rl_input *input, char c)
+int	ft_rl_exec(t_rl_input *input, char c, char redisplay)
 {
 	if (c == KEY_RET)
 	{
@@ -26,17 +26,16 @@ int	ft_rl_exec(t_rl_input *input, char c)
 		return (0);
 	}
 	if (c == KEY_TAB)
-		ft_rl_complete(input);
+		return (ft_rl_complete(input));
 	if (c == KEY_ALT)
-		ft_rl_altcmd(input);
-	if (c >= KEY_C_A && c <= KEY_C_Z)
-		ft_rl_ctrlcmd(input, c);
+		ft_rl_altcmd(input, redisplay);
+	else if (c >= KEY_C_A && c <= KEY_C_Z)
+		ft_rl_ctrlcmd(input, c, redisplay);
 	return (1);
 }
 
-int	ft_rl_iscommand(t_rl_input *input, char c)
+int	ft_rl_iscommand(char c)
 {
-	(void)input;
 	if (c == KEY_RET)
 		return (1);
 	if (c == KEY_TAB)
