@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/12 14:58:05 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:05:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #  define RL_HISTORY_SIZE 100
 # endif
 
-# define RL_METACHAR_SIZE 8
+# define RL_ALTKEY_SIZE 8
 
 // ft_readline.c
 char	*ft_readline(const char *p);

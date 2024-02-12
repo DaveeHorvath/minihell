@@ -6,98 +6,59 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:02 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 15:33:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:09:46 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-static void	arrowcmd(t_rl_input *input);
-static void	addmeta(t_rl_input *input);
-static void	getmeta(char *metachar);
+static void	arrowcmd(t_rl_input *input, char c);
+static int	getkey(char *key);
 
 void	ft_rl_altcmd(t_rl_input *input, char redisplay)
 {
-	char	c;
+	char	key[RL_ALTKEY_SIZE];
 
-	if (read(0, &c, 1) < 1)
+	if (getkey(key) < 0)
 		return ;
-	if (c == '[')
-		arrowcmd(input);
-	else if (c == KEY_ALT)
-		addmeta(input);
-	else if (c == KEY_F)
+	if (*key == '[')
+		arrowcmd(input, key[1]);
+	else if (*key == KEY_F)
 		ft_rl_nextword(input);
-	else if (c == KEY_B)
+	else if (*key == KEY_B)
 		ft_rl_prevword(input);
-	else if (c == '>')
+	else if (*key == '>')
 		ft_rl_history_setcurrent(*ft_rl_history_gethead());
-	else if (c == '<' )
+	else if (*key == '<' )
 		ft_rl_history_setcurrent(ft_lstlast(*ft_rl_history_getcurrent(0)));
-	else
-		addmeta(input);
-	if (c == '>' || c == '<')
+	if (*key == '>' || *key == '<')
 		ft_rl_updateinput(input, (*ft_rl_history_getcurrent(0))->blk);
 	if (redisplay)
 		ft_rl_redisplay(input);
 }
 
-static void	arrowcmd(t_rl_input *input)
+static void	arrowcmd(t_rl_input *input, char c)
 {
-	char	c;
-
-	if (read(0, &c, 1) < 1)
-		return ;
 	if (c == KEY_LEFT || c == KEY_RIGHT)
 		ft_rl_movecursor(input, 1, c);
 	else if (c == KEY_UP)
 		ft_rl_updateinput(input, ft_rl_history_next());
 	else if (c == KEY_DOWN)
 		ft_rl_updateinput(input, ft_rl_history_prev());
-	else
-		addmeta(input);
 }
 
-static void	addmeta(t_rl_input *input)
-{
-	size_t	i;
-	size_t	charlen;
-	char	metachar[RL_METACHAR_SIZE];
-	int		row;
-	int		col;
-
-	getmeta(metachar);
-	charlen = ft_strlen(metachar);
-	if (charlen == 2 && *metachar == '[')
-		ft_rl_addchar(input, '0');
-	else if (*metachar == '[' || ft_isdigit(*metachar))
-		ft_rl_addchar(input, *metachar);
-	else if (metachar[ft_strlen(metachar) - 1] != '~')
-		ft_rl_addchar(input, *metachar);
-	else
-		charlen--;
-	i = 1;
-	while (i < RL_METACHAR_SIZE && metachar[i])
-		ft_rl_addchar(input, metachar[i++]);
-	ft_rl_term_cur_getpos(&row, &col, 0);
-	col += charlen;
-	if (col == (int)charlen + 1)
-		col += input->promptlen;
-	ft_rl_term_cur_setpos(row, col);
-	ft_rl_redisplay(input);
-}
-
-static void	getmeta(char *metachar)
+static int	getkey(char *key)
 {
 	struct termios	old;
 	struct termios	new;
+	int				rv;
 
 	tcgetattr(0, &old);
 	new = old;
 	new.c_cc[VTIME] = 1;
 	tcsetattr(0, TCSANOW, &new);
-	ft_bzero(metachar, RL_METACHAR_SIZE);
-	if (read(0, metachar, RL_METACHAR_SIZE) < 0)
-		return ;
+	ft_bzero(key, RL_ALTKEY_SIZE);
+	rv = read(0, key, RL_ALTKEY_SIZE);
 	tcsetattr(0, TCSANOW, &old);
+	return (rv);
 }
