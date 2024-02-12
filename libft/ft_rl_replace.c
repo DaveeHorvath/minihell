@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:38:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 13:39:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:37:09 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_rl_complete_replace(t_rl_input *input, char *word)
 	char	*before;
 	char	*after;
 
+	ft_rl_wordstart(input);
 	j = input->i;
 	before = ft_push(ft_substr(input->input, 0, j));
 	while (input->input[j] && !ft_isspace(input->input[j]))
@@ -47,6 +48,7 @@ int	ft_rl_complete_multiple(t_rl_input *input, t_list *completions)
 	t_list	*first;
 
 	first = completions;
+	ft_rl_wordend(input);
 	printcompletions(completions, NULL);
 	if (read(0, &c, 1) < 0)
 		return (-1);

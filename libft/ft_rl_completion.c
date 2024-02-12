@@ -6,15 +6,15 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:35:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 20:42:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:12:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
 static t_list	*getcompletions(char *word, int hascmd);
-static char		*getword(t_rl_input *input, size_t *i);
-static int		hascmd(t_rl_input *input, size_t *i);
+static char		*getword(t_rl_input *input);
+static int		hascmd(t_rl_input *input);
 
 int	ft_rl_complete(t_rl_input *input)
 {
@@ -23,20 +23,25 @@ int	ft_rl_complete(t_rl_input *input)
 	char	*word;
 	int		rv;
 
+	if (!input->i
+		|| (ft_isspace(input->input[input->i - 1]) && !input->input[input->i]))
+		return (1);
 	i = input->i;
-	word = getword(input, &i);
+	word = getword(input);
 	if (!word)
 		return (-1);
-	completions = getcompletions(word, hascmd(input, &i));
+	if (!*word)
+		return (0);
+	completions = getcompletions(ft_push(word), hascmd(input));
+	ft_popblk(word);
 	if (!completions)
 		return (1);
-	ft_rl_complete_increment(completions);
+	ft_rl_complete_increment(completions, word);
 	if (!completions->next)
 		rv = ft_rl_complete_replace(input, completions->blk);
 	else
 		rv = ft_rl_complete_multiple(input, completions);
 	ft_lstpopall(completions);
-	ft_popblk(word);
 	return (rv);
 }
 
@@ -53,31 +58,30 @@ static t_list	*getcompletions(char *word, int hascmd)
 	return (completions);
 }
 
-static char	*getword(t_rl_input *input, size_t *i)
+static char	*getword(t_rl_input *input)
 {
 	char	*out;
 
-	while (*i > 0 && !ft_isspace(input->input[*i]))
-		(*i)--;
-	if (ft_isspace(input->input[*i]))
-		(*i)++;
-	out = ft_push(ft_substr(input->input, *i,
-				ft_strclen(input->input + *i, ' ')));
+	ft_rl_wordstart(input);
+	out = ft_push(ft_substr(input->input, input->i, input->inputlen - input->i));
 	return (out);
 }
 
 // shit, improve
-static int	hascmd(t_rl_input *input, size_t *i)
+static int	hascmd(t_rl_input *input)
 {
-	while (*i > 0)
+	size_t	i;
+
+	i = input->i;
+	while (i > 0)
 	{
-		if (!ft_isspace(input->input[*i - 1]))
+		if (!ft_isspace(input->input[i - 1]))
 		{
-			if (input->input[*i - 1] == '|' || input->input[*i - 1] == '&')
+			if (input->input[i - 1] == '|' || input->input[i - 1] == '&')
 				return (0);
 			return (1);
 		}
-		(*i)--;
+		(i)--;
 	}
 	return (0);
 }

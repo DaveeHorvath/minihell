@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/12 14:08:35 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:58:05 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_list	*ft_rl_complete_cmd(char *word);
 t_list	*ft_rl_complete_file(char *word);
 
 // ft_rl_increment.c
-void	ft_rl_complete_increment(t_list *completions);
+void	ft_rl_complete_increment(t_list *completions, char *word);
 
 // ft_rl_replace.c
 int		ft_rl_complete_replace(t_rl_input *input, char *word);

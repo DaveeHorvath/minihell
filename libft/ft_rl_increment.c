@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:02:50 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 20:53:54 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:01:14 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	compare(t_list *start, t_list *completions, char *common);
 
-void	ft_rl_complete_increment(t_list *completions)
+void	ft_rl_complete_increment(t_list *completions, char *word)
 {
 	char	*common;
 	t_list	*start;
@@ -26,7 +26,7 @@ void	ft_rl_complete_increment(t_list *completions)
 		return ;
 	start = completions;
 	compare(start, completions, common);
-	if (!*common)
+	if (!*common || ft_strequals(word, common))
 		return ;
 	completions = start;
 	ft_popblk(completions->blk);
@@ -52,8 +52,6 @@ static void	compare(t_list *start, t_list *completions, char *common)
 			current = *((char *)completions->blk + i);
 			continue ;
 		}
-		ft_dprintf(2, "compare: current: %c\n", current);
-		ft_dprintf(2, "compare: newchar: %c\n", *(char *)completions->blk + i);
 		if (*((char *)completions->blk + i) == current)
 			continue ;
 		break ;
