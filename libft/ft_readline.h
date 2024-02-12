@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 20:08:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:08:35 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ void	ft_rl_history_recycle(void);
 // ft_rl_inpututils.c
 void	ft_rl_nextword(t_rl_input *input);
 void	ft_rl_prevword(t_rl_input *input);
+void	ft_rl_wordstart(t_rl_input *input);
+void	ft_rl_wordend(t_rl_input *input);
 
 #endif
