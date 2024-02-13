@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/12 16:05:27 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:28:14 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ char	*ft_rl_history_prev(void);
 void	ft_rl_history_update(char *line);
 void	ft_rl_history_commit(char *line);
 
+// ft_rl_search.c
+void	ft_rl_history_search(char direction);
+
 // ft_rl_historyfile.c
 void	ft_rl_history_load(void);
 void	ft_rl_history_save(void);
@@ -81,9 +84,13 @@ size_t	ft_rl_complete_getlongest(t_list *completions);
 
 // ft_rl_historyutils.c
 t_list	**ft_rl_history_gethead(void);
-t_list	**ft_rl_history_getcurrent(char r);
+t_list	**ft_rl_history_getcurrent(char reset);
 void	ft_rl_history_setcurrent(t_list *node);
 void	ft_rl_history_recycle(void);
+
+// ft_rl_searchutils.c
+int		ft_rl_history_getpattern(t_rl_input *input, int irow, int icol);
+int		ft_rl_history_match(t_list **start, char *pattern, char direction);
 
 // ft_rl_inpututils.c
 void	ft_rl_nextword(t_rl_input *input);

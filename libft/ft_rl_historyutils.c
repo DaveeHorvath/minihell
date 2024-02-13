@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 21:57:38 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 19:55:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:35:55 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ t_list	**ft_rl_history_gethead(void)
 	return (&head);
 }
 
-t_list	**ft_rl_history_getcurrent(char r)
+t_list	**ft_rl_history_getcurrent(char reset)
 {
 	static t_list	*current = NULL;
 
-	if (r)
+	if (reset)
 	{
 		current = NULL;
 		return (NULL);
