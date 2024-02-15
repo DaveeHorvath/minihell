@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/15 13:33:26 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:56:49 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	open_file(char *s, int fds[2], int type)
 	if (type == 1)
 	{
 		old_fd == fds[0];
-		fds[0] = open(&s[1], O_RDONLY);
+		fds[0] = open(expand_token(&s[1], NULL, none), O_RDONLY);
 		if (fds[0] == -1)
 			printf("file doenst exist\n");
 		else if (old_fd != -1)
@@ -58,20 +58,22 @@ void	open_file(char *s, int fds[2], int type)
 	else if (type == 2)
 	{
 		old_fd == fds[1];
-		fds[1] = open(&s[2], O_APPEND | O_CREAT, 0644);
+		fds[1] = open(expand_token(&s[2], NULL, none),
+				O_APPEND | O_CREAT, 0644);
 		if (fds[1] == -1)
 			printf("error while opening file\n");
 		else if (old_fd != -1)
 			close(old_fd);
 	}
-	else
+	else if (type == 3)
 	{
 		old_fd == fds[1];
-		fds[1] = open(&s[1], O_WRONLY | O_TRUNC |O_CREAT, 0644);
+		fds[1] = open(expand_token(&s[1], NULL, none),
+				O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (fds[1] == -1)
 			printf("error while opening file\n");
 		else if (old_fd != -1)
-			close(old_fd);	
+			close(old_fd);
 	}
 }
 
@@ -99,7 +101,28 @@ void	get_fds(t_list *tokens, int fds[2])
 
 char	**get_args(t_list *tokens)
 {
-	
+	int		arg_count;
+	char	**args;
+	t_list	*start;
+
+	start = tokens;
+	arg_count = 0;
+	while (tokens)
+	{
+		if (tokens->content[0] != '<' && tokens->content[0] != '>')
+			arg_count++;
+		tokens = tokens->next;
+	}
+	args = ft_calloc(arg_count + 1, sizeof(char *));
+	arg_count = 0;
+	tokens = start;
+	while (tokens)
+	{
+		if (tokens->content[0] != '<' && tokens->content[0] != '>')
+			args[arg_count++] = expand_token(tokens->content, NULL, none);
+		tokens = tokens->next;
+	}
+	return (args);
 }
 
 t_cmd	*get_command(char *s)
