@@ -6,53 +6,16 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/06 13:18:09 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:33:26 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+#include <fcntl.h>
 
-int	handle_quotes(char *s)
+t_list	*get_tokens(char *s)
 {
-	int	i;
-	char c;
-
-	c = *s;
-	while (s[i] && s[i] != c)
-		i++;
-	return (i);
-}
-
-int	handle_redirect(char *s, t_list **tokens, int start)
-{
-	int	i;
-
-	i = start;
-	while (s[i] && s[i] == ' ')
-		i++;
-	while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>')
-		i++;
-	append(tokens, ft_substr(s, 0, i));
-	return (i);
-}
-
-int	handle_sppace(char *s, int i, int *old_i, t_list **tokens)
-{
-	int	counter;
-
-	append(tokens, ft_substr(s, 0, i));
-	counter = 0;
-	while (s[i + counter] && s[i + counter] == ' ')
-		counter++;
-	*old_i = i + counter;
-	return (counter);
-}
-
-char	**get_tokens(char *s)
-{
-	int		token_count;
-	int		current_token;
 	size_t	i;
 	size_t	old_i;
 	t_list	*tokens;
@@ -74,56 +37,75 @@ char	**get_tokens(char *s)
 		else
 			i++;
 	}
-	handle_endofstring();
+	if (old_i != i)
+		handle_sppace(&s[old_i], i, &old_i, &tokens);
 	return (tokens);
 }
 
-void	get_fds(char **tokens, int fds[2])
+void	open_file(char *s, int fds[2], int type)
 {
-	int		i;
-	char	*s;
+	int	old_fd;
 
-	i = 0;
-	while (tokens[i])
+	if (type == 1)
 	{
-		if (ft_strchr(tokens[i], '<') || ft_strchr(tokens[i], '>'))
-			parse_token(tokens, &i);
-		i++;
+		old_fd == fds[0];
+		fds[0] = open(&s[1], O_RDONLY);
+		if (fds[0] == -1)
+			printf("file doenst exist\n");
+		else if (old_fd != -1)
+			close(old_fd);
+	}
+	else if (type == 2)
+	{
+		old_fd == fds[1];
+		fds[1] = open(&s[2], O_APPEND | O_CREAT, 0644);
+		if (fds[1] == -1)
+			printf("error while opening file\n");
+		else if (old_fd != -1)
+			close(old_fd);
+	}
+	else
+	{
+		old_fd == fds[1];
+		fds[1] = open(&s[1], O_WRONLY | O_TRUNC |O_CREAT, 0644);
+		if (fds[1] == -1)
+			printf("error while opening file\n");
+		else if (old_fd != -1)
+			close(old_fd);	
 	}
 }
 
-char	**get_args(char **tokens)
+void	get_fds(t_list *tokens, int fds[2])
 {
-	int		i;
-	int		count;
-	char	**args;
+	while (tokens)
+	{
+		if (tokens->content[0] && (tokens->content[0] == '<'))
+		{
+			if (ft_strncmp(tokens->content, "<<", 2) == 0)
+				open_file(tokens->content, fds, 0);
+			else
+				open_file(tokens->content, fds, 1);
+		}
+		else if (tokens->content[0] && tokens->content[0] == '>')
+		{
+			if (ft_strncmp(tokens->content, ">>", 2) == 0)
+				open_file(tokens->content, fds, 2);
+			else
+				open_file(tokens->content, fds, 3);
+		}
+		tokens = tokens->next;
+	}
+}
 
-	i = 0;
-	count = 0;
-	while (tokens[i])
-	{
-		if (is_redirection(tokens, i++))
-			i += is_redirection(tokens, i - 1) - 1;
-		else
-			count++;
-	}
-	args = calloc(count + 1, sizeof(char *));
-	i = 0;
-	count = 0;
-	while (tokens[i])
-	{
-		if (is_redirection(tokens, i))
-			i += is_redirection(tokens, i);
-		else
-			args[count++] = tokens[i++];
-	}
-	return (args);
+char	**get_args(t_list *tokens)
+{
+	
 }
 
 t_cmd	*get_command(char *s)
 {
 	t_cmd	out;
-	char	**tokens;
+	t_list	*tokens;
 
 	tokens = get_tokens(s);
 	out.env = msh_getenv();
