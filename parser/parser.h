@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/06 14:36:55 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:36:59 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+enum	e_quotes
+{
+	none,
+	doublequote,
+	singlequote
+};
 
 typedef struct s_node
 {
