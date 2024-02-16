@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:44:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 21:04:49 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:13:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_rl_history_load(void)
 	char	*line;
 	char	*fname;
 
-	fname = ft_strsjoin(getenv("HOME"), RLHFNAME, '/');
+	fname = ft_strsjoin(getenv("HOME"), RL_HFNAME, '/');
 	if (!fname)
 		return ;
 	fd = open(fname, O_RDONLY);
@@ -37,7 +37,7 @@ void	ft_rl_history_save(void)
 	char	*fname;
 	t_list	*history;
 
-	fname = ft_strsjoin(getenv("HOME"), RLHFNAME, '/');
+	fname = ft_strsjoin(getenv("HOME"), RL_HFNAME, '/');
 	if (!fname)
 		return ;
 	fd = open(fname, O_WRONLY | O_TRUNC | O_CREAT, 0644);

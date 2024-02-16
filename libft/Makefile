@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/11 20:40:09 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/02/16 18:54:20 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,6 +122,7 @@ SRCS	=	ft_atoi.c \
 			ft_readline.c \
 			ft_rl_input.c \
 			ft_rl_match.c \
+			ft_rl_search.c \
 			ft_rl_cursor.c \
 			ft_rl_altcmd.c \
 			ft_rl_ctrlcmd.c \
@@ -133,6 +134,7 @@ SRCS	=	ft_atoi.c \
 			ft_rl_historyfile.c \
 			ft_rl_historyutils.c \
 			ft_rl_completionutils.c \
+			ft_rl_searchutils.c \
 			ft_rl_inpututils.c \
 			ft_rl_termutils.c
 

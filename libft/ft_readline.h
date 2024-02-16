@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/13 18:28:14 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:31:42 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <termios.h>
 # include <sys/ioctl.h>
 
-# ifndef RLHFNAME
-#  define RLHFNAME ".rl_history"
+# ifndef RL_HFNAME
+#  define RL_HFNAME ".rl_history"
 # endif
 
 # ifndef RL_HISTORY_SIZE
@@ -63,7 +63,7 @@ void	ft_rl_history_update(char *line);
 void	ft_rl_history_commit(char *line);
 
 // ft_rl_search.c
-void	ft_rl_history_search(char direction);
+void	ft_rl_history_search(t_rl_input *input, char direction);
 
 // ft_rl_historyfile.c
 void	ft_rl_history_load(void);
@@ -89,8 +89,8 @@ void	ft_rl_history_setcurrent(t_list *node);
 void	ft_rl_history_recycle(void);
 
 // ft_rl_searchutils.c
+t_list	*ft_rl_history_match(t_list *start, char *pattern, char direction);
 int		ft_rl_history_getpattern(t_rl_input *input, int irow, int icol);
-int		ft_rl_history_match(t_list **start, char *pattern, char direction);
 
 // ft_rl_inpututils.c
 void	ft_rl_nextword(t_rl_input *input);

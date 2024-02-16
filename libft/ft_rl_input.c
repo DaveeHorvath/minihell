@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 19:26:28 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:10:47 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_rl_addchar(t_rl_input *input, char c)
 {
 	char	*newinput;
 
+	ft_dprintf(2, "addchar: char: '%c' (%d)\n", c, c);
 	if (!input->input)
 	{
 		input->input = ft_push(ft_calloc(2, sizeof(char)));
@@ -73,6 +74,8 @@ void	ft_rl_rmchar(t_rl_input *input)
 {
 	char	*newinput;
 
+	if (input->i)
+		ft_dprintf(2, "rmchar: char: '%c' (%d)\n", input->input[input->i - 1], input->input[input->i - 1]);
 	if (!input->input)
 		return ;
 	newinput = NULL;
