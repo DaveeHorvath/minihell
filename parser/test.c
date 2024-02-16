@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 15:23:12 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/01 15:36:22 by dhorvath         ###   ########.fr       */
+/*   Created: 2024/02/16 17:16:22 by dhorvath          #+#    #+#             */
+/*   Updated: 2024/02/16 20:18:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	isspace(char c)
+#include "parser.h"
+#include <stdio.h>
+
+int	main(void)
 {
-	return (c == 32 || (9 <= c && c <= 13));
+	get_command(" >a teasdst >>     test \'<a\' >b   <<   \"ad\"  testststatas  testasd ");
+	//printf("%s\n", cmd->argv[0]);
 }

@@ -6,7 +6,7 @@
 #    By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/01/16 19:49:40 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/02/16 18:34:52 by dhorvath         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,15 @@ cflags.asan		=	$(cflags.debug) -fsanitize=address -static-libsan
 cflags.normal	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
 
-SRCDIR	=	src
+SRCDIR	=	parser
 OBJDIR	=	obj
 LIBDIR	=	libft
 LIBFT	=	$(LIBDIR)/libft.a
 
-FILES	=	main.c \
-			color.c \
-			prompt.c
+FILES	=	test.c \
+			expand_token.c \
+			handle_tokens.c \
+			single_command_parser.c \
 
 SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))
 OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))

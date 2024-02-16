@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/15 14:36:59 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:19:48 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-enum	e_quotes
+enum e_quotes
 {
 	none,
 	doublequote,
-	singlequote
+	singlequote,
 };
 
 typedef struct s_node
 {
-	struct s_node	left;
-	struct s_node	right;
+	struct s_node	*left;
+	struct s_node	*right;
 	char			*content;
 }	t_node;
 
@@ -59,11 +59,11 @@ typedef struct s_cmd
 
 t_node	make_tree(char *s);
 int		execute_string(char *s);
-/* utility functions */
-int		isspace(char c);
+t_cmd	*get_command(char *s);
 
 /* handling tokens */
-int	handle_quotes(char *s);
-int	handle_redirect(char *s, t_list **tokens, int start);
-int	handle_sppace(char *s, int i, int *old_i, t_list **tokens);
+char	*expand_token(char *token, char *content, enum e_quotes quote);
+int		handle_quotes(char *s, int i);
+int		handle_redirect(char *s, int i, t_list **tokens, int start);
+int		handle_space(char *s, int i, int *old_i, t_list **tokens);
 #endif

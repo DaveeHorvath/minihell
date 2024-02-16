@@ -6,39 +6,51 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/15 14:56:49 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:20:18 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "libft.h"
+#include "../libft/libft.h"
 #include <fcntl.h>
 
 t_list	*get_tokens(char *s)
 {
-	size_t	i;
-	size_t	old_i;
+	int		i;
+	int		old_i;
 	t_list	*tokens;
 
 	i = 0;
-	old_i = 0;
 	tokens = NULL;
+	while (s[i] == ' ')
+		i++;
+	old_i = i;
 	while (s[i])
 	{
 		if (s[i] == '\'' || s[i] == '\"')
-			i += handle_quotes(&s[i]);
+			i += handle_quotes(s, i) + 1;
 		else if (ft_strncmp(&s[i], "<<", 2) == 0
 			|| ft_strncmp(&s[i], ">>", 2) == 0)
-			i += handle_redirect(&s[i], &tokens, 2);
+		{
+			i += handle_redirect(s, i, &tokens, 2);
+			while (s[i] == ' ')
+				i++;
+			old_i = i;
+		}
 		else if (s[i] == '<' || s[i] == '>')
-			i += handle_redirect(&s[i], &tokens, 1);
+		{
+			i += handle_redirect(s, i, &tokens, 1);
+			while (s[i] == ' ')
+				i++;
+			old_i = i;
+		}
 		else if (s[i] == ' ')
-			i += handle_space(&s[old_i], i, &old_i, &tokens);
+			i += handle_space(s, i, &old_i, &tokens);
 		else
 			i++;
 	}
 	if (old_i != i)
-		handle_sppace(&s[old_i], i, &old_i, &tokens);
+		handle_space(s, i, &old_i, &tokens);
 	return (tokens);
 }
 
@@ -46,34 +58,39 @@ void	open_file(char *s, int fds[2], int type)
 {
 	int	old_fd;
 
+	(void) old_fd;
+	(void) fds;
 	if (type == 1)
 	{
-		old_fd == fds[0];
-		fds[0] = open(expand_token(&s[1], NULL, none), O_RDONLY);
-		if (fds[0] == -1)
-			printf("file doenst exist\n");
-		else if (old_fd != -1)
-			close(old_fd);
+		printf("opening %s as read\n", s);
+		// old_fd == fds[0];
+		// fds[0] = open(expand_token(&s[1], NULL, none), O_RDONLY);
+		// if (fds[0] == -1)
+		// 	printf("file doenst exist\n");
+		// else if (old_fd != -1)
+		// 	close(old_fd);
 	}
 	else if (type == 2)
 	{
-		old_fd == fds[1];
-		fds[1] = open(expand_token(&s[2], NULL, none),
-				O_APPEND | O_CREAT, 0644);
-		if (fds[1] == -1)
-			printf("error while opening file\n");
-		else if (old_fd != -1)
-			close(old_fd);
+		printf("opening %s as append\n", s);
+		// old_fd == fds[1];
+		// fds[1] = open(expand_token(&s[2], NULL, none),
+		// 		O_APPEND | O_CREAT, 0644);
+		// if (fds[1] == -1)
+		// 	printf("error while opening file\n");
+		// else if (old_fd != -1)
+		// 	close(old_fd);
 	}
 	else if (type == 3)
 	{
-		old_fd == fds[1];
-		fds[1] = open(expand_token(&s[1], NULL, none),
-				O_WRONLY | O_TRUNC | O_CREAT, 0644);
-		if (fds[1] == -1)
-			printf("error while opening file\n");
-		else if (old_fd != -1)
-			close(old_fd);
+		printf("opening %s as write\n", s);
+		// old_fd == fds[1];
+		// fds[1] = open(expand_token(&s[1], NULL, none),
+		// 		O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		// if (fds[1] == -1)
+		// 	printf("error while opening file\n");
+		// else if (old_fd != -1)
+		// 	close(old_fd);
 	}
 }
 
@@ -127,13 +144,20 @@ char	**get_args(t_list *tokens)
 
 t_cmd	*get_command(char *s)
 {
-	t_cmd	out;
+	t_cmd	*out;
 	t_list	*tokens;
 
+	out = ft_alloc(sizeof(t_cmd));
 	tokens = get_tokens(s);
-	out.env = msh_getenv();
-	get_fds(tokens, out.fd);
-	out.argv = get_args(tokens);
-	out.next = NULL;
-	return (&out);
+	while (tokens)
+	{
+		printf("tokens: %s\n", tokens->content);
+		tokens = tokens->next;
+	}
+	printf("\n");
+	//out.env = msh_getenv();
+	//get_fds(tokens, out->fd);
+	//out->argv = get_args(tokens);
+	//out->next = NULL;
+	return (out);
 }
