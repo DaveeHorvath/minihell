@@ -6,7 +6,7 @@
 #    By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/16 18:34:52 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/02/17 19:44:11 by dhorvath         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,10 @@ FILES	=	test.c \
 			expand_token.c \
 			handle_tokens.c \
 			single_command_parser.c \
+			pipeline.c \
+			errors.c \
+			tree.c \
+			run.c
 
 SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))
 OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
