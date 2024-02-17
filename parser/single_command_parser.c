@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/16 20:20:18 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/17 19:16:05 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ t_list	*get_tokens(char *s)
 	return (tokens);
 }
 
+char	*get_filename(char *s, int start)
+{
+	int	i;
+
+	i = start;
+	while (s[i] == ' ')
+		i++;
+	return (ft_push(ft_strdup(&s[i])));
+}
+
 void	open_file(char *s, int fds[2], int type)
 {
 	int	old_fd;
@@ -62,7 +72,7 @@ void	open_file(char *s, int fds[2], int type)
 	(void) fds;
 	if (type == 1)
 	{
-		printf("opening %s as read\n", s);
+		printf("opening -%s- as read\n", expand_token(get_filename(s, 1), NULL, none));
 		// old_fd == fds[0];
 		// fds[0] = open(expand_token(&s[1], NULL, none), O_RDONLY);
 		// if (fds[0] == -1)
@@ -72,7 +82,7 @@ void	open_file(char *s, int fds[2], int type)
 	}
 	else if (type == 2)
 	{
-		printf("opening %s as append\n", s);
+		printf("opening -%s- as append\n", expand_token(get_filename(s, 2), NULL, none));
 		// old_fd == fds[1];
 		// fds[1] = open(expand_token(&s[2], NULL, none),
 		// 		O_APPEND | O_CREAT, 0644);
@@ -83,7 +93,7 @@ void	open_file(char *s, int fds[2], int type)
 	}
 	else if (type == 3)
 	{
-		printf("opening %s as write\n", s);
+		printf("opening -%s- as write\n", expand_token(get_filename(s, 1), NULL, none));
 		// old_fd == fds[1];
 		// fds[1] = open(expand_token(&s[1], NULL, none),
 		// 		O_WRONLY | O_TRUNC | O_CREAT, 0644);
@@ -130,7 +140,7 @@ char	**get_args(t_list *tokens)
 			arg_count++;
 		tokens = tokens->next;
 	}
-	args = ft_calloc(arg_count + 1, sizeof(char *));
+	args = ft_push(ft_calloc(arg_count + 1, sizeof(char *)));
 	arg_count = 0;
 	tokens = start;
 	while (tokens)
@@ -147,17 +157,17 @@ t_cmd	*get_command(char *s)
 	t_cmd	*out;
 	t_list	*tokens;
 
-	out = ft_alloc(sizeof(t_cmd));
+	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	tokens = get_tokens(s);
-	while (tokens)
-	{
-		printf("tokens: %s\n", tokens->content);
-		tokens = tokens->next;
-	}
-	printf("\n");
+	// while (tokens)
+	// {
+	// 	printf("tokens: %s\n", tokens->content);
+	//  	tokens = tokens->next;
+	// }
+	// printf("\n");
 	//out.env = msh_getenv();
 	//get_fds(tokens, out->fd);
-	//out->argv = get_args(tokens);
-	//out->next = NULL;
+	out->argv = get_args(tokens);
+	out->next = NULL;
 	return (out);
 }
