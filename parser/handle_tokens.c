@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:34:48 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/16 20:20:10 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:21:38 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	handle_quotes(char *s, int i)
 	char	c;
 	int		count;
 
-	count = 0;
+	count = 1;
 	c = s[i];
 	while (s[i + count] && s[i + count] != c)
 		count++;
@@ -46,13 +46,20 @@ int	handle_quotes(char *s, int i)
 
 int	handle_redirect(char *s, int i, t_list **tokens, int start)
 {
-	int	j;
+	int				j;
+	enum e_quotes	quote;
 
+	quote = none;
 	j = i + start;
 	while (s[j] && s[j] == ' ')
 		j++;
-	while (s[j] && s[j] != ' ' && s[j] != '<' && s[j] != '>')
+	while (s[j] && !((s[j] == ' ' && quote == none)
+			|| (s[j] == '<' && quote == none)
+			|| (s[j] == '>' && quote == none)))
+	{
+		update_quote(s[j], &quote);
 		j++;
+	}
 	append(tokens, ft_push(ft_substr(s, i, j - i)));
 	return (j - i);
 }
