@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/16 20:19:48 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/17 18:29:12 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,17 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-t_node	make_tree(char *s);
+t_node	*make_tree(char *s);
 int		execute_string(char *s);
 t_cmd	*get_command(char *s);
+int		update_quote(char c, enum e_quotes *quote);
+int		exec_pipeline(char *s);
+
+void	do_cmd(t_cmd *cmd);
+
+/* errors */
+void	cmd_not_found(void);
+void	child_error(void);
 
 /* handling tokens */
 char	*expand_token(char *token, char *content, enum e_quotes quote);
