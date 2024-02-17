@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/16 18:05:53 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:56:27 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*msh_getenv(char *s)
 }
 
 
-static int	update_quote(char c, enum e_quotes *quote)
+int	update_quote(char c, enum e_quotes *quote)
 {
 	if (c == '\'' && *quote == none)
 	{
@@ -50,6 +50,7 @@ char	*expand_token(char *token, char *content, enum e_quotes quote)
 	int		i;
 	int		old_i;
 
+	//printf("token: %s\n", token);
 	i = 0;
 	old_i = 0;
 	while (token[i])
