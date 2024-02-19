@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/17 19:43:49 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:40:36 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,25 @@ static void	add_cmd(t_cmd **head, t_cmd *new)
 	while (cur->next)
 		cur = cur->next;
 	cur->next = new;
+	new->next = NULL;
 }
 
 static int	wait_for_done(t_cmd *head)
 {
 	int	status;
-	int exitstatus = 0;
+	int exitstatus;
 
+	exitstatus = 0;
 	while (head)
 	{
-		waitpid(head->pid, &status, 0);
+		if (head->exitcode != -1)
+		{
+			waitpid(head->pid, &status, 0);
+			if (WIFEXITED(status))
+				exitstatus = WEXITSTATUS(status);
+		}
+		else
+			exitstatus = 1;
 		head = head->next;
 	}
 	return (exitstatus);
@@ -62,7 +71,7 @@ char	*get_path(char *name)
 		ft_pop();
 		i++;
 	}
-	if (access(ft_strjoin("./", name), F_OK))
+	if (access(ft_strjoin("./", name), F_OK) == 0)
 		return (ft_push(ft_strjoin("./", name)));
 	return (NULL);
 }
@@ -79,66 +88,48 @@ void	do_cmd(t_cmd *cmd)
 	else if (id == 0)
 	{
 		path = get_path(cmd->argv[0]);
-		if (!path)
-			cmd_not_found();
-		if (dup2(cmd->fd[0], 0) == -1
-			|| dup2(cmd->fd[1], 1) == -1)
-			child_error();
+		if (!path && cmd->argv[0])
+			cmd_not_found(cmd);
+		else if (!path)
+			exit(0);
+		printf("%s\n", path);
+		dup2(cmd->fd[0], 0);
+		dup2(cmd->fd[1], 1);
+		if (cmd->fd[0] != 0)
+			close(cmd->fd[0]);
+		if (cmd->fd[1] != 1)
+			close(cmd->fd[1]);
 		execve(path, cmd->argv, cmd->env);
 	}
 	else
 		cmd->pid = id;
 }
 
-void	get_def_filedesc(int i, int need_pipe, int *prev_out, t_cmd *current)
-{
-	int	pipefds[2];
-
-	if (need_pipe)
-	{
-		pipe(pipefds);
-		current->fd[1] = pipefds[1];
-		*prev_out = pipefds[0];
-	}
-	else
-	{
-		current->fd[1] = 1;
-	}
-	if (i != 0)
-	{
-		current->fd[0] = *prev_out;
-	}
-	else
-	{
-		current->fd[0] = 0;
-	}
-}
-
 int	exec_pipeline(char *s)
 {
-	t_cmd	*head = NULL;
+	t_cmd	*head;
 	t_cmd	*current;
 	char	**commands;
 	int		i;
-	int		prev_out = -1;
+	int		prev_out;
 
 	i = 0;
+	head = NULL;
+	prev_out = -1;
 	commands = ft_pusharr(ft_split(s, '|'));
 	while (commands[i])
 	{
-		current = get_command(commands[i]);
-		if (commands[i + 1])
-			get_def_filedesc(i, 1, &prev_out, current);
-		else
-			get_def_filedesc(i, 0, &prev_out, current);
+		current = get_command(commands[i], commands, &prev_out, i);
 		add_cmd(&head, current);
-		do_cmd(current);
-		if (current->fd[0] != 0)
-			close(current->fd[0]);
-		if (current->fd[1] != 1)
-			close(current->fd[1]);
+		if (current->exitcode != -1)
+		{
+			do_cmd(current);
+			if (current->fd[0] != 0)
+				close(current->fd[0]);
+			if (current->fd[1] != 1)
+				close(current->fd[1]);
+		}
 		i++;
 	}
-	close(prev_out);
 	return (wait_for_done(head));
 }
