@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:46:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 11:27:14 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 13:51:51 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ static int	msh_editenv(char *var, char *val)
 		return (0);
 	while (env)
 	{
-		if (!ft_strncmp(env->var, var, ft_strlen(var)))
+		if (!ft_strncmp(env->var, var, ft_strlen(env->var))
+			&& ft_strlen(env->var) == ft_strlen(var))
 			break ;
-		env++;
+		env = env->next;
 	}
 	if (!env)
 		return (0);
@@ -64,7 +65,8 @@ char	*msh_getenv(char *var)
 	env = *msh_getenvhead();
 	while (env)
 	{
-		if (!ft_strncmp(env->var, var, ft_strlen(var)))
+		if (!ft_strncmp(env->var, var, ft_strlen(env->var))
+			&& ft_strlen(env->var) == ft_strlen(var))
 			return (env->val);
 		env = env->next;
 	}
