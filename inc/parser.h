@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/22 23:59:35 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:15:04 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+enum e_quotes
+{
+	none,
+	doublequote,
+	singlequote,
+};
+
+
 typedef struct s_node
 {
 	struct s_node	*left;
@@ -48,6 +56,25 @@ typedef struct s_cmd
 	char			**env;
 	pid_t			pid;
 	struct s_cmd	*next;
+	int				exitcode;
 }	t_cmd;
+
+t_node	*make_tree(char *s);
+int		execute_string(char *s);
+t_cmd	*get_command(char *s, char **commands, int *prev_out, int i);
+int		update_quote(char c, enum e_quotes *quote);
+int		exec_pipeline(char *s);
+
+void	do_cmd(t_cmd *cmd);
+
+/* errors */
+void	cmd_not_found(t_cmd *cmd);
+void	child_error(void);
+
+/* handling tokens */
+char	*expand_token(char *token, char *content, enum e_quotes quote);
+int		handle_quotes(char *s, int i);
+int		handle_redirect(char *s, int i, t_list **tokens, int start);
+int		handle_space(char *s, int i, int *old_i, t_list **tokens);
 
 #endif
