@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minish.h                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:11:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 13:40:41 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/23 14:57:12 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:59:38 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISH_H
-# define MINISH_H
-# include "env.h"
-# include "libft.h"
-# include "prompt.h"
-# include "builtins.h"
-# define E_MALLOC 1
-# define E_READLINE 2
-# define E_PIPE 3
-# define E_FORK 4
-# define E_DUP 5
-# define E_EXEC 127
+#include "builtins.h"
 
-typedef struct s_cmd
+void	msh_unset(char *var)
 {
-	int				fd[2];
-	char			wait;
-	char			**argv;
-	char			**env;
-	pid_t			pid;
-	struct s_cmd	*next;
-}	t_cmd;
-
-#endif
+	exit(msh_unsetenv(var));
+}

@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minish.h                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 14:11:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 13:40:41 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/22 17:26:14 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:15:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISH_H
-# define MINISH_H
-# include "env.h"
-# include "libft.h"
-# include "prompt.h"
-# include "builtins.h"
-# define E_MALLOC 1
-# define E_READLINE 2
-# define E_PIPE 3
-# define E_FORK 4
-# define E_DUP 5
-# define E_EXEC 127
+#include "builtins.h"
 
-typedef struct s_cmd
+void	msh_env(void)
 {
-	int				fd[2];
-	char			wait;
-	char			**argv;
-	char			**env;
-	pid_t			pid;
-	struct s_cmd	*next;
-}	t_cmd;
+	size_t	i;
+	char	**env;
 
-#endif
+	env = msh_getenvarr();
+	if (!env)
+		exit(1);
+	i = 0;
+	while (env[i])
+		ft_putendl_fd(env[i++], 1);
+	exit(0);
+}
