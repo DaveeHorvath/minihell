@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 11:57:12 by ivalimak          #+#    #+#             */
-/*   Updated: 2023/12/30 12:55:34 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:55:19 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  */
 int	ft_isupper(int c)
 {
-	if (c >= 'A' || c <= 'Z')
+	if (c >= 'A' && c <= 'Z')
 		return (1);
 	return (0);
 }
