@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:05:19 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/17 18:22:54 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:44:10 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@ static char	*trim_parenthesies(char *s)
 	int	start;
 	int	end;
 
-	start = ft_strchr(s, '(') - s + 1;
-	end = ft_strrchr(s, ')') - s;
-	return (ft_push(ft_substr(s, start, end - start)));
+	if (ft_strchr(s, '(') && ft_strchr(s, ')'))
+	{
+		start = ft_strchr(s, '(') - s + 1;
+		end = ft_strrchr(s, ')') - s;
+		return (ft_push(ft_substr(s, start, end - start)));
+	}
+	return (s);
 }
 
 static int	need_parenthesies_remove(char *s)
@@ -84,7 +88,6 @@ t_node	*make_tree(char *s)
 	t_node	*out;
 	int		separator_index;
 
-	// printf("%s\n", s);
 	out = ft_push(ft_alloc(sizeof(t_node)));
 	separator_index = get_separator_index(s);
 	if (separator_index == -2)
@@ -93,7 +96,7 @@ t_node	*make_tree(char *s)
 	{
 		out->left = NULL;
 		out->right = NULL;
-		out->content = s;
+		out->content = trim_parenthesies(s);
 		return (out);
 	}
 	else
