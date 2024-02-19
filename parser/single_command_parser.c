@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/17 19:16:05 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:36:58 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_filename(char *s, int start)
 	return (ft_push(ft_strdup(&s[i])));
 }
 
-void	open_file(char *s, int fds[2], int type)
+int	open_file(char *s, int fds[2], int type)
 {
 	int	old_fd;
 
@@ -72,58 +72,78 @@ void	open_file(char *s, int fds[2], int type)
 	(void) fds;
 	if (type == 1)
 	{
-		printf("opening -%s- as read\n", expand_token(get_filename(s, 1), NULL, none));
-		// old_fd == fds[0];
-		// fds[0] = open(expand_token(&s[1], NULL, none), O_RDONLY);
-		// if (fds[0] == -1)
-		// 	printf("file doenst exist\n");
-		// else if (old_fd != -1)
-		// 	close(old_fd);
+		old_fd = fds[0];
+		fds[0] = open(expand_token(get_filename(s, 1), NULL, none), O_RDONLY);
+		if (fds[0] == -1)
+		{
+			printf("file %s doenst exist\n", expand_token(get_filename(s, 1), NULL, none));
+			return (1);
+		}
+		if (old_fd != -1)
+			close(old_fd);
 	}
 	else if (type == 2)
 	{
-		printf("opening -%s- as append\n", expand_token(get_filename(s, 2), NULL, none));
-		// old_fd == fds[1];
-		// fds[1] = open(expand_token(&s[2], NULL, none),
-		// 		O_APPEND | O_CREAT, 0644);
-		// if (fds[1] == -1)
-		// 	printf("error while opening file\n");
-		// else if (old_fd != -1)
-		// 	close(old_fd);
+		old_fd = fds[1];
+		fds[1] = open(expand_token(get_filename(s, 2), NULL, none),
+				O_CREAT | O_APPEND | O_WRONLY, 0644);
+		if (fds[1] == -1)
+		{
+			printf("file %s doenst exist\n", expand_token(get_filename(s, 2), NULL, none));
+			return (1);
+		}
+		if (old_fd != -1)
+			close(old_fd);
 	}
 	else if (type == 3)
 	{
-		printf("opening -%s- as write\n", expand_token(get_filename(s, 1), NULL, none));
-		// old_fd == fds[1];
-		// fds[1] = open(expand_token(&s[1], NULL, none),
-		// 		O_WRONLY | O_TRUNC | O_CREAT, 0644);
-		// if (fds[1] == -1)
-		// 	printf("error while opening file\n");
-		// else if (old_fd != -1)
-		// 	close(old_fd);
+		old_fd = fds[1];
+		fds[1] = open(expand_token(get_filename(s, 1), NULL, none),
+				O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		if (fds[1] == -1)
+		{
+			printf("file %s doenst exist\n", expand_token(get_filename(s, 1), NULL, none));
+			return (1);
+		}
+		if (old_fd != -1)
+			close(old_fd);
 	}
+	return (0);
 }
 
-void	get_fds(t_list *tokens, int fds[2])
+int	get_fds(t_list *tokens, int fds[2])
 {
 	while (tokens)
 	{
 		if (tokens->content[0] && (tokens->content[0] == '<'))
 		{
 			if (ft_strncmp(tokens->content, "<<", 2) == 0)
-				open_file(tokens->content, fds, 0);
+			{
+				if (open_file(tokens->content, fds, 0) == 1)
+					return (0);
+			}
 			else
-				open_file(tokens->content, fds, 1);
+			{
+				if (open_file(tokens->content, fds, 1) == 1)
+					return (0);
+			}
 		}
 		else if (tokens->content[0] && tokens->content[0] == '>')
 		{
 			if (ft_strncmp(tokens->content, ">>", 2) == 0)
-				open_file(tokens->content, fds, 2);
+			{
+				if (open_file(tokens->content, fds, 2) == 1)
+					return (0);
+			}
 			else
-				open_file(tokens->content, fds, 3);
+			{
+				if (open_file(tokens->content, fds, 3) == 1)
+					return (0);
+			}
 		}
 		tokens = tokens->next;
 	}
+	return (1);
 }
 
 char	**get_args(t_list *tokens)
@@ -152,21 +172,40 @@ char	**get_args(t_list *tokens)
 	return (args);
 }
 
-t_cmd	*get_command(char *s)
+void	get_def_filedesc(int i, int need_pipe, int *prev_out, t_cmd *current)
+{
+	int	pipefds[2];
+
+	if (i != 0)
+		current->fd[0] = *prev_out;
+	else
+		current->fd[0] = 0;
+	if (need_pipe)
+	{
+		pipe(pipefds);
+		current->fd[1] = pipefds[1];
+		*prev_out = pipefds[0];
+	}
+	else
+		current->fd[1] = 1;
+}
+
+t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 {
 	t_cmd	*out;
 	t_list	*tokens;
 
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	tokens = get_tokens(s);
-	// while (tokens)
-	// {
-	// 	printf("tokens: %s\n", tokens->content);
-	//  	tokens = tokens->next;
-	// }
-	// printf("\n");
-	//out.env = msh_getenv();
-	//get_fds(tokens, out->fd);
+	//out->env = msh_getenv();
+	if (commands[i + 1])
+		get_def_filedesc(i, 1, prev_out, out);
+	else
+		get_def_filedesc(i, 0, prev_out, out);
+	if (get_fds(tokens, out->fd) == 0)
+		out->exitcode = -1;
+	else
+		out->exitcode = 0;
 	out->argv = get_args(tokens);
 	out->next = NULL;
 	return (out);
