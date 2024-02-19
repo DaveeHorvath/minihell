@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 12:00:11 by ivalimak          #+#    #+#             */
-/*   Updated: 2023/12/30 12:00:53 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:55:18 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  */
 int	ft_islower(int c)
 {
-	if (c >= 'a' || c <= 'z')
+	if (c >= 'a' && c <= 'z')
 		return (1);
 	return (0);
 }
