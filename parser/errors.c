@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/17 17:15:16 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:56:27 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 #include "parser.h"
 #include <string.h>
 
-void	cmd_not_found(void)
+void	cmd_not_found(t_cmd *cmd)
 {
-	ft_putstr_fd("command not found: ", 1);
+	ft_putstr_fd("command not found: ", 2);
+	ft_putstr_fd(cmd->argv[0], 2);
+	ft_putstr_fd("\n", 2);
 	exit(127);
 }
 
