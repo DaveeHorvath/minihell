@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/19 21:40:36 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:58:38 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	do_cmd(t_cmd *cmd)
 			cmd_not_found(cmd);
 		else if (!path)
 			exit(0);
-		printf("%s\n", path);
 		dup2(cmd->fd[0], 0);
 		dup2(cmd->fd[1], 1);
 		if (cmd->fd[0] != 0)
