@@ -35,6 +35,7 @@ enum e_quotes
 	singlequote,
 };
 
+
 typedef struct s_node
 {
 	struct s_node	*left;
@@ -75,4 +76,5 @@ char	*expand_token(char *token, char *content, enum e_quotes quote);
 int		handle_quotes(char *s, int i);
 int		handle_redirect(char *s, int i, t_list **tokens, int start);
 int		handle_space(char *s, int i, int *old_i, t_list **tokens);
+
 #endif

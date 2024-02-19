@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:30:43 by ivalimak          #+#    #+#             */
-/*   Updated: 2023/12/30 01:11:17 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:55:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @fd File descriptor of the file to write to
  * @retval int Amount of bytes written or -1 if an error occurred
  */
-int	ft_putendl_fd(char *s, int fd)
+int	ft_putendl_fd(const char *s, int fd)
 {
 	int	out;
 	int	ret;
