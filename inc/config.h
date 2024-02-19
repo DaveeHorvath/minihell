@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 23:00:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 14:58:24 by ivalimak         ###   ########.fr       */
-/*   Updated: 2024/01/23 16:56:01 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/30 12:58:07 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/31 14:29:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#ifndef CONFIG_H
+# define CONFIG_H
 # include "env.h"
 # include "libft.h"
+# include <fcntl.h>
 
-// echo
-void	msh_echo(char *s, char nl);
+# define MSHRC ".mshrc"
+# define DEFAULTPROMPT "%B%U%F3%n%K1%F0@%F1%K0%K7%m %u%F1%K4putchar >%R "
 
-// cd
-int		msh_cd(char *path);
+// config.c
+int		parseconfig(void);
 
-// pwd
-void	msh_pwd(void);
-
-// export
-void	msh_export(char *variable);
-
-// unset
-void	msh_unset(char *var);
-
-// env
-void	msh_env(void);
-
-// exit
-void	msh_exit(int estatus);
+// config_utils.c
+size_t	cfg_varcount(char *line);
+void	cfg_err(size_t lnbr, char *msg);
+int		cfg_matchkw(char *line);
 
 #endif

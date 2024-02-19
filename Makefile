@@ -22,10 +22,11 @@ cflags.asan		=	$(cflags.debug) -fsanitize=address -static-libsan
 cflags.normal	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
 
-SRCDIR	=	src
+SRCDIR	=	parser
 OBJDIR	=	obj
 LIBDIR	=	libft
 LIBFT	=	$(LIBDIR)/libft.a
+
 
 FILES	=	main.c \
 			echo.c \
