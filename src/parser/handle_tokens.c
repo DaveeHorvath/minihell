@@ -6,31 +6,12 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:34:48 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/17 17:21:38 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 22:56:16 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../libft/libft.h"
-
-static void	append(t_list **list, char *s)
-{
-	t_list	*current;
-	t_list	*new;
-
-	current = *list;
-	new = ft_push(ft_alloc(sizeof(t_list)));
-	new->content = s;
-	new->next = NULL;
-	if (!current)
-	{
-		*list = new;
-		return ;
-	}
-	while (current->next)
-		current = current->next;
-	current->next = new;
-}
+#include "libft.h"
 
 int	handle_quotes(char *s, int i)
 {
@@ -44,7 +25,7 @@ int	handle_quotes(char *s, int i)
 	return (count);
 }
 
-int	handle_redirect(char *s, int i, t_list **tokens, int start)
+int	handle_redirect(char *s, int i, t_tokens **tokens, int start)
 {
 	int				j;
 	enum e_quotes	quote;
@@ -64,16 +45,33 @@ int	handle_redirect(char *s, int i, t_list **tokens, int start)
 	return (j - i);
 }
 
-/* tested mostly */
-int	handle_space(char *s, int i, int *old_i, t_list **tokens)
+int	handle_space(char *s, int i, int *old_i, t_tokens **tokens)
 {
 	int	counter;
 
-	// printf("-%s-  oldi: %i i: %i\n", ft_substr(s, *old_i, i - *old_i), *old_i, i);
 	append(tokens, ft_push(ft_substr(s, *old_i, i - *old_i)));
 	counter = 0;
 	while (s[i + counter] == ' ')
 		counter++;
 	*old_i = i + counter;
 	return (counter);
+}
+
+static void	append(t_tokens **list, char *s)
+{
+	t_tokens	*current;
+	t_tokens	*new;
+
+	current = *list;
+	new = ft_push(ft_alloc(sizeof(t_list)));
+	new->content = s;
+	new->next = NULL;
+	if (!current)
+	{
+		*list = new;
+		return ;
+	}
+	while (current->next)
+		current = current->next;
+	current->next = new;
 }

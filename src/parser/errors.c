@@ -6,13 +6,12 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/19 18:56:27 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 22:44:32 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include "parser.h"
-#include <string.h>
 
 void	cmd_not_found(t_cmd *cmd)
 {
