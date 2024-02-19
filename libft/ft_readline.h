@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/16 18:31:42 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:56:48 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_rl_history_update(char *line);
 void	ft_rl_history_commit(char *line);
 
 // ft_rl_search.c
-void	ft_rl_history_search(t_rl_input *input, char direction);
+int		ft_rl_history_search(t_rl_input *input, char direction);
 
 // ft_rl_historyfile.c
 void	ft_rl_history_load(void);
@@ -73,11 +73,11 @@ void	ft_rl_history_save(void);
 int		ft_rl_exec(t_rl_input *input, char c, char redisplay);
 int		ft_rl_iscommand(char c);
 
-// ft_rl_altcmds.c
+// ft_rl_altcmd.c
 void	ft_rl_altcmd(t_rl_input *input, char redisplay);
 
-// ft_rl_ctrlcmds.c
-void	ft_rl_ctrlcmd(t_rl_input *input, char c, char redisplay);
+// ft_rl_ctrlcmd.c
+int		ft_rl_ctrlcmd(t_rl_input *input, char c, char redisplay);
 
 // ft_rl_completionutils.c
 size_t	ft_rl_complete_getlongest(t_list *completions);

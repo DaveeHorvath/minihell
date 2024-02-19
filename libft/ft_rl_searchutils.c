@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:26:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/16 20:12:25 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:41:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_rl_history_getpattern(t_rl_input *input, int irow, int icol)
 	int		row;
 	int		col;
 
-	if (read(0, &c, 1) < 0 || (!ft_isprint(c) && c != KEY_DEL))
+	if (read(0, &c, 1) < 0 || (!ft_isprint(c) && c != KEY_DEL && c != KEY_RET))
 		return (0);
 	if (c == KEY_ALT)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 17:32:41 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/12 16:50:08 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:59:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	ft_rl_exec(t_rl_input *input, char c, char redisplay)
 		return (ft_rl_complete(input));
 	if (c == KEY_ALT)
 		ft_rl_altcmd(input, redisplay);
-	else if (c >= KEY_C_A && c <= KEY_C_Z)
-		ft_rl_ctrlcmd(input, c, redisplay);
+	else if (c >= KEY_C_A && c <= KEY_C_Z
+		&& ft_rl_ctrlcmd(input, c, redisplay))
+		return (ft_rl_exec(input, KEY_RET, 0));
 	return (1);
 }
 

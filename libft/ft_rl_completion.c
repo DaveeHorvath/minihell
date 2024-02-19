@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:35:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/12 15:12:01 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/19 22:00:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static char	*getword(t_rl_input *input)
 	char	*out;
 
 	ft_rl_wordstart(input);
-	out = ft_push(ft_substr(input->input, input->i, input->inputlen - input->i));
+	out = ft_push(ft_substr(input->input, input->i,
+				input->inputlen - input->i));
 	return (out);
 }
 

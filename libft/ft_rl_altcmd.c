@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:02 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/12 16:09:46 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:42:52 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_rl_altcmd(t_rl_input *input, char redisplay)
 		ft_rl_history_setcurrent(*ft_rl_history_gethead());
 	else if (*key == '<' )
 		ft_rl_history_setcurrent(ft_lstlast(*ft_rl_history_getcurrent(0)));
+	else if (*key == KEY_C_R)
+		ft_rl_history_search(input, KEY_DOWN);
 	if (*key == '>' || *key == '<')
 		ft_rl_updateinput(input, (*ft_rl_history_getcurrent(0))->blk);
 	if (redisplay)
