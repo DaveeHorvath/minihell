@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_command_parser.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/20 14:17:51 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:08:44 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

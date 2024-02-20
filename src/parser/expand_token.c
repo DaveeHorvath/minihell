@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/20 13:10:57 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:09:18 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

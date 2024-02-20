@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:34:48 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/20 14:19:05 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:08:40 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
