@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/19 18:51:58 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:08:43 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include "parser.h"
+
+int	execute_string(char *s)
+{
+	t_node	*tree;
+
+	tree = make_tree(s);
+	run_tree(tree);
+	return (0);
+}
 
 static int	run_tree(t_node *tree)
 {
@@ -39,26 +48,4 @@ static int	run_tree(t_node *tree)
 	}
 	else
 		return (exec_pipeline(tree->content));
-}
-
-static void	print_tree(t_node *tree, int depth)
-{
-	if (tree)
-	{
-		printf("depth: %i content: %s\n", depth, tree->content);
-		print_tree(tree->left, depth + 1);
-		print_tree(tree->right, depth + 1);
-	}
-}
-
-int	execute_string(char *s)
-{
-	t_node	*tree;
-
-	tree = make_tree(s);
-	//if (!validate_tree(tree))
-	//	return (-1);
-	print_tree(tree, 0);
-	run_tree(tree);
-	return (0);
 }

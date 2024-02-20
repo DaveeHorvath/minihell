@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:43:15 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 15:26:48 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/16 23:00:21 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:58:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:56:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
+# include "env.h"
 # include "libft.h"
 
-typedef struct s_value
-{
-	char			*var;
-	char			*val;
-	struct s_value	*next;
-	size_t			total;
-}	t_value;
+// echo
+void	msh_echo(char *s, char nl);
 
-// env.c
-char	*msh_getenv(char *var);
-int		msh_unsetenv(char *var);
-int		msh_setenv(char *var, char *val);
+// cd
+int		msh_cd(char *path);
 
-// envutils.c
-t_value	**msh_getenvhead(void);
-char	**msh_getenvarr(void);
-void	msh_cpyenv(char **env);
-int		popenv(t_value *value);
+// pwd
+void	msh_pwd(void);
+
+// export
+void	msh_export(char *variable);
+
+// unset
+void	msh_unset(char *var);
+
+// env
+void	msh_env(void);
+
+// exit
+void	msh_exit(int estatus);
 
 #endif

@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_error.c                                     :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 23:34:37 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/01/22 23:41:23 by dhorvath         ###   ########.fr       */
+/*   Created: 2024/01/22 17:26:14 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:15:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	*clean(void)
-{
-	return (0);
-}
+#include "builtins.h"
 
-void	child_error(void)
+void	msh_env(void)
 {
-	clean();
-	printf("something went stupid\n");
-	exit(-1);
-}
+	size_t	i;
+	char	**env;
 
-void	command_not_found(void)
-{
-	clean();
-	printf("no such command stupid\n");
-	exit(-1);
+	env = msh_getenvarr();
+	if (!env)
+		exit(1);
+	i = 0;
+	while (env[i])
+		ft_putendl_fd(env[i++], 1);
+	exit(0);
 }

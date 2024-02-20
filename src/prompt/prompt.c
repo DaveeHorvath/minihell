@@ -6,53 +6,61 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/16 18:35:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/19 23:10:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
-static char	*printcmd(const char *cmd);
+
+static char	*expandformat(const char *cmd, char **out);
 static char	*gethname(const char trunc);
 static char	*getdir(const char type, size_t depth);
 static char	*truncdir(const char *path, size_t depth);
 
-void	prompt(const char *p)
+char	*prompt(const char *p)
 {
+	char	*out;
+
 	if (!p)
-		return ;
+		return (NULL);
+	out = NULL;
 	while (*p)
 	{
 		if (*p != '%')
-			p = p + ft_printf("%.*s", ft_strclen(p, '%'), p);
+		{
+			out = ft_strjoin(out, ft_substr(p, 0, ft_strclen(p, '%')));
+			p += ft_strclen(p, '%');
+		}
 		else
-			p = printcmd(p + 1);
+			p = expandformat(p + 1, &out);
 	}
+	return (out);
 }
 
-static char	*printcmd(const char *cmd)
+static char	*expandformat(const char *cmd, char **out)
 {
 	size_t	depth;
 
 	if (*cmd == 'F' || *cmd == 'K' || *cmd == 'B' || *cmd == 'U')
-		return (chcolor(cmd + 1, *cmd));
+		return (chcolor(cmd + 1, *cmd, out));
 	else if (*cmd == 'f' || *cmd == 'k' || *cmd == 'b' || *cmd == 'u')
-		return (chcolor(cmd + 1, *cmd));
+		return (chcolor(cmd + 1, *cmd, out));
 	if (*cmd == 'R')
-		ft_printf("%s", RESET);
+		*out = ft_strjoin(*out, SGR_RESET);
 	else if (*cmd == '%')
-		ft_printf("%%");
+		*out = ft_strjoin(*out, "%");
 	else if (*cmd == 'n')
-		ft_printf("%s", getenv("USER"));
+		*out = ft_strjoin(*out, msh_getenv("USER"));
 	else if (*cmd == 'M')
-		ft_printf("%s", gethname(0));
+		*out = ft_strjoin(*out, gethname(0));
 	else if (*cmd == 'm')
-		ft_printf("%s", gethname(1));
+		*out = ft_strjoin(*out, gethname(1));
 	else if (*cmd == 'd' || *cmd == 'D' || ft_isdigit(*cmd))
 	{
 		depth = ft_atoi(cmd);
 		while (ft_isdigit(*cmd))
 			cmd++;
-		ft_printf("%s", getdir(*cmd, depth));
+		*out = ft_strjoin(*out, getdir(*cmd, depth));
 	}
 	return ((char *)cmd + 1);
 }
@@ -74,12 +82,12 @@ static char	*gethname(const char trunc)
 	close(pfd[1]);
 	out = ft_strtrim(get_next_line(pfd[0]), "\n");
 	close(pfd[0]);
-	if (out && trunc)
+	if (out && trunc && ft_strrchr(out, '.'))
 		*ft_strchr(out, '.') = '\0';
 	return (out);
 }
 
-static char *getdir(const char type, size_t depth)
+static char	*getdir(const char type, size_t depth)
 {
 	char	*home;
 	char	*out;
@@ -92,7 +100,7 @@ static char *getdir(const char type, size_t depth)
 		home = getenv("HOME");
 		if (!ft_strncmp(dir, home, ft_strlen(home)))
 		{
-			out += ft_strlen(home) - 1;
+			out = ft_strdup(out) + ft_strlen(home) - 1;
 			*out = '~';
 		}
 	}

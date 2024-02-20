@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/19 18:56:27 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:08:35 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include "parser.h"
-#include <string.h>
 
 void	cmd_not_found(t_cmd *cmd)
 {
@@ -26,4 +25,11 @@ void	child_error(void)
 {
 	ft_putstr_fd("something went to shit, the child is crying again\n", 1);
 	exit(-1);
+}
+
+int	handle_file_error(int start, char *s)
+{
+	printf("file %s doenst exist\n",
+		expand_token(get_filename(s, start), NULL, none));
+	return (1);
 }

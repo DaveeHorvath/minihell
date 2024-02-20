@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:43:15 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 15:26:48 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/16 23:03:20 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/23 14:15:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
-# include "libft.h"
+#include "builtins.h"
 
-typedef struct s_value
+void	msh_echo(char *s, char nl)
 {
-	char			*var;
-	char			*val;
-	struct s_value	*next;
-	size_t			total;
-}	t_value;
-
-// env.c
-char	*msh_getenv(char *var);
-int		msh_unsetenv(char *var);
-int		msh_setenv(char *var, char *val);
-
-// envutils.c
-t_value	**msh_getenvhead(void);
-char	**msh_getenvarr(void);
-void	msh_cpyenv(char **env);
-int		popenv(t_value *value);
-
-#endif
+	if (nl)
+		ft_putendl_fd(s, 1);
+	else
+		ft_putstr_fd(s, 1);
+	exit(0);
+}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+         #
+#    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/19 18:11:30 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/01/16 23:53:17 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,14 +27,12 @@ OBJDIR	=	obj
 LIBDIR	=	libft
 LIBFT	=	$(LIBDIR)/libft.a
 
-FILES	=	test.c \
-			expand_token.c \
-			handle_tokens.c \
-			single_command_parser.c \
-			pipeline.c \
-			errors.c \
-			tree.c \
-			run.c
+
+FILES	=	main.c \
+			echo.c \
+			exit.c \
+			color.c \
+			prompt.c
 
 SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))
 OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))

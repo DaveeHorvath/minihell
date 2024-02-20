@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/19 21:15:04 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/19 22:43:47 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+#include <fcntl.h>
 
 enum e_quotes
 {
@@ -43,11 +44,11 @@ typedef struct s_node
 	char			*content;
 }	t_node;
 
-typedef struct s_list
+typedef struct s_tokens
 {
 	char			*content;
 	struct s_list	*next;
-}	t_list;
+}	t_tokens;
 
 typedef struct s_cmd
 {

@@ -6,33 +6,35 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:23:51 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/16 16:54:34 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/19 23:11:11 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-char	*chcolor(const char *code, const char type)
+char	*chcolor(const char *code, const char type, char **out)
 {
-	const static char	fg[8][6] = {FG0, FG1, FG2, FG3, FG4, FG5, FG6, FG7};
-	const static char	bg[8][6] = {BG0, BG1, BG2, BG3, BG4, BG5, BG6, BG7};
+	const static char	fg[8][6] = {SGR_FG0, SGR_FG1, SGR_FG2, SGR_FG3,
+		SGR_FG4, SGR_FG5, SGR_FG6, SGR_FG7};
+	const static char	bg[8][6] = {SGR_BG0, SGR_BG1, SGR_BG2, SGR_BG3,
+		SGR_BG4, SGR_BG5, SGR_BG6, SGR_BG7};
 
 	if (type == 'F')
-		ft_printf("%s", fg[*code - '0']);
+		*out = ft_strjoin(*out, fg[*code - '0']);
 	else if (type == 'K')
-		ft_printf("%s", bg[*code - '0']);
+		*out = ft_strjoin(*out, bg[*code - '0']);
 	else if (type == 'B')
-		ft_printf("%s", BOLD);
+		*out = ft_strjoin(*out, SGR_BOLDON);
 	else if (type == 'U')
-		ft_printf("%s", ULINE);
+		*out = ft_strjoin(*out, SGR_ULINEON);
 	else if (type == 'f')
-		ft_printf("%s", FGR);
+		*out = ft_strjoin(*out, SGR_FGR);
 	else if (type == 'k')
-		ft_printf("%s", BGR);
+		*out = ft_strjoin(*out, SGR_BGR);
 	else if (type == 'b')
-		ft_printf("%s", BOLDR);
+		*out = ft_strjoin(*out, SGR_BOLDOFF);
 	else if (type == 'u')
-		ft_printf("%s", ULINER);
+		*out = ft_strjoin(*out, SGR_ULINEOFF);
 	if (type == 'F' || type == 'K')
 		code++;
 	return ((char *)code);

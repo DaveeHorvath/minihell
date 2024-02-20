@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:43:15 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 15:26:48 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/30 12:58:07 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/01/31 14:29:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef CONFIG_H
+# define CONFIG_H
+# include "env.h"
 # include "libft.h"
+# include <fcntl.h>
 
-typedef struct s_value
-{
-	char			*var;
-	char			*val;
-	struct s_value	*next;
-	size_t			total;
-}	t_value;
+# define MSHRC ".mshrc"
+# define DEFAULTPROMPT "%B%U%F3%n%K1%F0@%F1%K0%K7%m %u%F1%K4putchar >%R "
 
-// env.c
-char	*msh_getenv(char *var);
-int		msh_unsetenv(char *var);
-int		msh_setenv(char *var, char *val);
+// config.c
+int		parseconfig(void);
 
-// envutils.c
-t_value	**msh_getenvhead(void);
-char	**msh_getenvarr(void);
-void	msh_cpyenv(char **env);
-int		popenv(t_value *value);
+// config_utils.c
+size_t	cfg_varcount(char *line);
+void	cfg_err(size_t lnbr, char *msg);
+int		cfg_matchkw(char *line);
 
 #endif

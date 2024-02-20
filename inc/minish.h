@@ -6,15 +6,19 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 14:11:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 10:56:02 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/19 23:06:42 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISH_H
 # define MINISH_H
 # include "env.h"
+# include "config.h"
 # include "libft.h"
 # include "prompt.h"
+# include "parser.h"
+# include "builtins.h"
+# include "ft_readline.h"
 # define E_MALLOC 1
 # define E_READLINE 2
 # define E_PIPE 3

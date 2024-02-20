@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/17 15:56:27 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:09:18 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../libft/libft.h"
-
-char	*msh_getenv(char *s)
-{
-	printf("# env variable %s serached for\n", s);
-	return ("ENV_VAR");
-}
-
+#include "libft.h"
+#include "env.h"
 
 int	update_quote(char c, enum e_quotes *quote)
 {
@@ -50,7 +44,6 @@ char	*expand_token(char *token, char *content, enum e_quotes quote)
 	int		i;
 	int		old_i;
 
-	//printf("token: %s\n", token);
 	i = 0;
 	old_i = 0;
 	while (token[i])
@@ -77,6 +70,5 @@ char	*expand_token(char *token, char *content, enum e_quotes quote)
 		else
 			i++;
 	}
-	content = ft_push(ft_strjoin(content, ft_substr(token, old_i, ft_strlen(token))));
-	return (content);
+	return (ft_push(ft_strjoin(content, ft_substr(token, old_i, ft_strlen(token)))));
 }

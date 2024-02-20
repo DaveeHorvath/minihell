@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:46:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 13:51:51 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:39:25 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,6 @@ static int	msh_editenv(char *var, char *val)
 	return (1);
 }
 
-char	**msh_getenvarr(void)
-{
-	char	**out;
-	t_value	*env;
-	size_t	i;
-
-	env = *msh_getenvhead();
-	if (!env)
-		return (NULL);
-	out = ft_push(ft_alloc((env->total + 1) * sizeof(char *)));
-	if (!out)
-		return (NULL);
-	i = 0;
-	while (env)
-	{
-		out[i] = ft_push(ft_strsjoin(env->var, env->val, '='));
-		if (!out[i++])
-			return (NULL);
-		env = env->next;
-	}
-	out[i++] = NULL;
-	ft_popn(i);
-	return (out);
-}
-
 char	*msh_getenv(char *var)
 {
 	t_value	*env;
@@ -73,22 +48,32 @@ char	*msh_getenv(char *var)
 	return (NULL);
 }
 
-void	msh_cpyenv(char **env)
+int	msh_unsetenv(char *var)
 {
-	char	*var;
-	char	*val;
+	t_value	**env;
+	t_value	*prev;
+	t_value	*current;
 
+	env = msh_getenvhead();
 	if (!env)
-		return ;
-	while (*env)
+		return (0);
+	prev = NULL;
+	current = *env;
+	while (current)
 	{
-		var = ft_substr(*env, 0, ft_strclen(*env, '='));
-		val = ft_strchr(*env, '=');
-		if (val)
-			val++;
-		msh_setenv(var, val);
-		env++;
+		if (!ft_strncmp(current->var, var, ft_strlen(current->var))
+			&& ft_strlen(current->var) == ft_strlen(var))
+			break ;
+		prev = current;
+		current = current->next;
 	}
+	if (!popenv(current))
+		return (0);
+	if (prev)
+		prev->next = current->next;
+	else
+		*env = current->next;
+	return (0);
 }
 
 int	msh_setenv(char *var, char *val)
@@ -98,11 +83,12 @@ int	msh_setenv(char *var, char *val)
 
 	if (msh_editenv(var, val))
 		return (1);
-	new = ft_push(ft_alloc(sizeof(t_value)));
+	new = ft_push(ft_calloc(1, sizeof(t_value)));
 	if (!new)
 		return (0);
 	new->var = ft_push(ft_strdup(var));
-	new->val = ft_push(ft_strdup(val));
+	if (val)
+		new->val = ft_push(ft_strdup(val));
 	env = msh_getenvhead();
 	if (!(*env))
 	{

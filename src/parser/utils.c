@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envutils.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 11:13:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 11:28:13 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/20 13:56:37 by dhorvath          #+#    #+#             */
+/*   Updated: 2024/02/20 16:08:45 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "libft.h"
 
-t_value	**msh_getenvhead(void)
+static char	*get_filename(char *s, int start)
 {
-	static t_value	*env;
+	int	i;
 
-	return (&env);
+	i = start;
+	while (s[i] == ' ')
+		i++;
+	return (ft_push(ft_strdup(&s[i])));
 }
-
