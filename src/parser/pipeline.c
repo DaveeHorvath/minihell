@@ -6,13 +6,18 @@
 /*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/19 22:57:06 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:20:05 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 #include "env.h"
+
+static void	add_cmd(t_cmd **head, t_cmd *new);
+static int	wait_for_done(t_cmd *head);
+static char	*get_path(char *name);
+static void	do_cmd(t_cmd *cmd);
 
 int	exec_pipeline(char *s)
 {
@@ -82,7 +87,7 @@ static int	wait_for_done(t_cmd *head)
 
 static char	*get_path(char *name)
 {
-	const char	**path = (const char **)ft_pusharr(ft_split(msh_getenv("PATH"), ':'));
+	const char	**path = ft_pusharr(ft_split(msh_getenv("PATH"), ':'));
 	char		*c_path;
 	int			i;
 
