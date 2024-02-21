@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:34:48 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/19 22:56:16 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:08:40 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	handle_redirect(char *s, int i, t_tokens **tokens, int start)
 		j++;
 	}
 	append(tokens, ft_push(ft_substr(s, i, j - i)));
+	while (s[j] == ' ')
+		j++;
 	return (j - i);
 }
 
