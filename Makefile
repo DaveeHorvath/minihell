@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/01/16 23:53:17 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/02/20 15:09:57 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,17 +22,49 @@ cflags.asan		=	$(cflags.debug) -fsanitize=address -static-libsan
 cflags.normal	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
 
-SRCDIR	=	parser
+SRCDIR	=	src
 OBJDIR	=	obj
+INCDIR	=	inc
 LIBDIR	=	libft
 LIBFT	=	$(LIBDIR)/libft.a
 
+BUILTINDIR	=	builtins
+CONFIGDIR	=	config
+ENVDIR		=	env
+PARSERDIR	=	parser
+PROMPTDIR	=	prompt
+
+BUILTINFILES	=	$(BUILTINDIR)/cd.c \
+					$(BUILTINDIR)/echo.c \
+					$(BUILTINDIR)/env.c \
+					$(BUILTINDIR)/exit.c \
+					$(BUILTINDIR)/export.c \
+					$(BUILTINDIR)/pwd.c \
+					$(BUILTINDIR)/unset.c
+
+CONFIGFILES		=	$(CONFIGDIR)/config.c \
+					$(CONFIGDIR)/config_utils.c
+
+ENVFILES		=	$(ENVDIR)/env.c \
+					$(ENVDIR)/env_utils.c
+
+PARSERFILES		=	$(PARSERDIR)/errors.c \
+					$(PARSERDIR)/expand_token.c \
+					$(PARSERDIR)/handle_tokens.c \
+					$(PARSERDIR)/pipeline.c \
+					$(PARSERDIR)/run.c \
+					$(PARSERDIR)/single_command_parser.c \
+					$(PARSERDIR)/tree.c
+
+PROMPTFILES		=	$(PROMPTDIR)/color.c \
+					$(PROMPTDIR)/prompt.c
 
 FILES	=	main.c \
-			echo.c \
-			exit.c \
-			color.c \
-			prompt.c
+			$(BUILTINFILES) \
+			$(CONFIGFILES) \
+			$(ENVFILES) \
+			$(PARSERFILES) \
+			$(PROMPTFILES)
 
 SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))
 OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
@@ -41,17 +73,42 @@ all: $(OBJDIR) $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	@echo Compiling $(NAME)...
-	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
+	@$(CC) $(CFLAGS) -I$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
 
 $(OBJDIR):
-	@mkdir -p $(OBJDIR)
+	@echo Creating objdir...
+	@mkdir -p $(OBJDIR)/$(BUILTINDIR)
+	@mkdir -p $(OBJDIR)/$(CONFIGDIR)
+	@mkdir -p $(OBJDIR)/$(ENVDIR)
+	@mkdir -p $(OBJDIR)/$(PARSERDIR)
+	@mkdir -p $(OBJDIR)/$(PROMPTDIR)
 
 $(LIBFT):
 	@make -C $(LIBDIR) BUILD=$(BUILD)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
+$(OBJDIR)/$(BUILTINDIR)/%.o: $(SRCDIR)/$(BUILTINDIR)/%.c
+	@echo Compiling $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
+$(OBJDIR)/$(CONFIGDIR)/%.o: $(SRCDIR)/$(CONFIGDIR)/%.c
+	@echo Compiling $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
+$(OBJDIR)/$(ENVDIR)/%.o: $(SRCDIR)/$(ENVDIR)/%.c
+	@echo Compiling $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
+$(OBJDIR)/$(PARSERDIR)/%.o: $(SRCDIR)/$(PARSERDIR)/%.c
+	@echo Compiling $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
+$(OBJDIR)/$(PROMPTDIR)/%.o: $(SRCDIR)/$(PROMPTDIR)/%.c
+	@echo Compiling $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 clean:
 	@make -C $(LIBDIR) clean

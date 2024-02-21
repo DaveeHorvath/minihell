@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:34:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 14:38:49 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:10:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	isvalid(char *variable);
 
 void	msh_export(char *variable)
 {
-	size_t	i;
 	char	*var;
 	char	*val;
 

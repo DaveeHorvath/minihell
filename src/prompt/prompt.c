@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 23:10:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:22:54 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*gethname(const char trunc);
 static char	*getdir(const char type, size_t depth);
 static char	*truncdir(const char *path, size_t depth);
 
-char	*prompt(const char *p)
+char	*msh_prompt(const char *p)
 {
 	char	*out;
 
