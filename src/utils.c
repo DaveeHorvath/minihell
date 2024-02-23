@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_data.h                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 19:44:48 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/23 18:29:13 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/23 18:32:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RL_DATA_H
-# define RL_DATA_H
-# include "libft.h"
+#include "minish.h"
 
-typedef struct s_rl_input
+void	msh_quit(int estatus)
 {
-	size_t		i;
-	size_t		promptlen;
-	size_t		inputlen;
-	const char	*prompt;
-	char		*input;
-}	t_rl_input;
+	ft_rl_history_save();
+	ft_exit(estatus);
+}
 
-typedef struct s_rl_termstate
+int	msh_return(int rval)
 {
-	int	t_rows;
-	int	t_cols;
-	int	t_row;
-	int	t_col;
-	int	i_row;
-	int	i_col;
-}	t_rl_termstate;
-
-#endif
+	ft_rl_history_save();
+	ft_popall();
+	ft_clean();
+	return (rval);
+}
