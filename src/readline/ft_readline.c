@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 19:08:50 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:38:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static size_t	getpromptlen(const char *prompt)
 			prompt++;
 		}
 		if (*prompt == '\e')
-			continue;
+			continue ;
 		if (!*prompt)
 			break ;
 		prompt++;
@@ -76,7 +76,7 @@ static size_t	getpromptlen(const char *prompt)
 	return (i);
 }
 
-static char		*getline(const char *prompt)
+static char	*getline(const char *prompt)
 {
 	t_rl_input	input;
 	int			rv;
