@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 19:38:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:53:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_readline(const char *prompt)
 	}
 	history = *ft_rl_history_gethead();
 	if (!history || *history->size <= RL_HISTORY_SIZE)
-		ft_lstadd_front(ft_rl_history_gethead(), ft_lstnew(NULL));
+		ft_lstadd_front(ft_rl_history_gethead(), ft_lstnew(ft_strdup("")));
 	else
 		ft_rl_history_recycle();
 	line = getline(prompt);

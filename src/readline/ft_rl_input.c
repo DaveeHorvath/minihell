@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 19:09:31 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:45:00 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ void	ft_rl_rmchar(t_rl_input *input)
 {
 	char	*newinput;
 
-	newinput = NULL;
-	if (ft_getblksize(input->input) > 1)
-		newinput = ft_calloc(ft_getblksize(input->input) - 1, sizeof(char));
+	newinput = ft_calloc(ft_getblksize(input->input) - 1, sizeof(char));
 	ft_popblk(input->input);
 	if (newinput)
 	{
