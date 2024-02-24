@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 13:19:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:04:13 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 #include "ft_readline.h"
 
-static char	*getline(const char *p);
+static size_t	getpromptlen(const char *prompt);
+static char		*getline(const char *prompt);
 
 /** @brief man 3 readline
  *
@@ -25,46 +26,69 @@ static char	*getline(const char *p);
  * @retval char* Pointer to the line that was read,
  * or NULL if read EOF with no prior input
  */
-char	*ft_readline(const char *p)
+char	*ft_readline(const char *prompt)
 {
-	struct termios	oldsettings;
-	struct termios	newsettings;
-	static char		init = 0;
-	t_list			*history;
-	char			*line;
+	t_rl_termsettings	term;
+	static char			init = 0;
+	t_list				*history;
+	char				*line;
 
-	tcgetattr(0, &oldsettings);
-	newsettings = oldsettings;
-	newsettings.c_lflag &= (~ICANON & ~ECHO);
-	tcsetattr(0, TCSANOW, &newsettings);
+	tcgetattr(0, &term.oldsettings);
+	term.newsettings = term.oldsettings;
+	term.newsettings.c_lflag &= (~ICANON & ~ECHO);
+	tcsetattr(0, TCSANOW, &term.newsettings);
 	if (!init)
 	{
 		ft_rl_history_load();
 		init = 1;
 	}
 	history = *ft_rl_history_gethead();
-	ft_rl_term_cur_updatepos(ft_strlen(p));
 	if (!history || *history->size <= RL_HISTORY_SIZE)
 		ft_lstadd_front(ft_rl_history_gethead(), ft_lstnew(NULL));
 	else
 		ft_rl_history_recycle();
-	line = getline(p);
+	line = getline(prompt);
 	ft_rl_history_commit(line);
-	tcsetattr(0, TCSANOW, &oldsettings);
+	tcsetattr(0, TCSANOW, &term.oldsettings);
 	return (line);
 }
 
-static char	*getline(const char *p)
+static size_t	getpromptlen(const char *prompt)
+{
+	size_t	i;
+
+	i = 0;
+	while (*prompt)
+	{
+		if (*prompt == '\e')
+		{
+			while (*prompt && *prompt != 'm')
+				prompt++;
+			prompt++;
+		}
+		if (*prompt == '\e')
+			continue;
+		if (!*prompt)
+			break ;
+		prompt++;
+		i++;
+	}
+	return (i);
+}
+
+static char		*getline(const char *prompt)
 {
 	t_rl_input	input;
 	int			rv;
 
 	input.i = 0;
 	input.input = NULL;
-	input.prompt = p;
+	input.prompt = prompt;
 	input.inputlen = 0;
-	input.promptlen = ft_strlen(p);
-	ft_putstr_fd(p, 1);
+	input.promptlen = getpromptlen(prompt);
+	ft_dprintf(2, "getline: promptlen: %u\n", input.promptlen);
+	ft_rl_term_cur_updatepos(input.promptlen);
+	ft_putstr_fd(prompt, 1);
 	rv = ft_rl_getinput(&input);
 	while (rv > 0)
 		rv = ft_rl_getinput(&input);
