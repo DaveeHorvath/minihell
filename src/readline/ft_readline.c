@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 19:04:13 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:08:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,10 @@ static char		*getline(const char *prompt)
 	int			rv;
 
 	input.i = 0;
-	input.input = NULL;
+	input.input = ft_push(ft_strdup(""));
 	input.prompt = prompt;
 	input.inputlen = 0;
 	input.promptlen = getpromptlen(prompt);
-	ft_dprintf(2, "getline: promptlen: %u\n", input.promptlen);
 	ft_rl_term_cur_updatepos(input.promptlen);
 	ft_putstr_fd(prompt, 1);
 	rv = ft_rl_getinput(&input);
