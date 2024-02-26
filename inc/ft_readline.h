@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 21:56:48 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:48:39 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		ft_rl_ctrlcmd(t_rl_input *input, char c, char redisplay);
 
 // ft_rl_completionutils.c
 size_t	ft_rl_complete_getlongest(t_list *completions);
+void	printcompletions(t_list *completions, char *current);
 
 // ft_rl_historyutils.c
 t_list	**ft_rl_history_gethead(void);

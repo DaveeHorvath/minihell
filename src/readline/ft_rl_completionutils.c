@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:33 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 21:25:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:16:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	printcompletions(t_list *completions, char *current)
 	state = ft_rl_term_getstate();
 	ft_rl_term_cur_getpos(&row, &col, 0);
 	calculateoutput(completions, &maxwidth, &cpl);
-	ft_printf("\n%s", completionstring(completions, current, maxwidth, cpl));
+	ft_printf("\n%s",
+		ft_strtrim(completionstring(completions, current, maxwidth, cpl), " "));
 	while (row + (*completions->size / cpl) >= (size_t)state->t_rows)
 	{
 		state->i_row--;
@@ -79,7 +80,7 @@ static char	*completionstring(t_list *completions, char *current, size_t maxwidt
 	char	*newstring;
 
 	out = NULL;
-	i = 1;
+	i = 0;
 	while (completions)
 	{
 		ft_push(out);
