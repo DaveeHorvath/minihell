@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/26 14:21:50 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:50:40 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 #include "libft.h"
 #include "env.h"
 
-static t_tokens	*get_tokens(char *s);
-static int	get_fds(t_tokens *tokens, int fds[2]);
-static char	**get_args(t_tokens *tokens);
-static void	get_def_filedesc(int i, int need_pipe,
-	int *prev_out, t_cmd *current);
+static void		get_def_filedesc(int i, int need_pipe,
+					int *prev_out, t_cmd *current);
 
 t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 {
@@ -41,7 +38,7 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 	return (out);
 }
 
-static t_tokens	*get_tokens(char *s)
+t_tokens	*get_tokens(char *s)
 {
 	int			i;
 	int			old_i;
@@ -69,7 +66,7 @@ static t_tokens	*get_tokens(char *s)
 	return (tokens);
 }
 
-static int	get_fds(t_tokens *tokens, int fds[2])
+int	get_fds(t_tokens *tokens, int fds[2])
 {
 	while (tokens)
 	{
@@ -88,7 +85,7 @@ static int	get_fds(t_tokens *tokens, int fds[2])
 	return (1);
 }
 
-static char	**get_args(t_tokens *tokens)
+char	**get_args(t_tokens *tokens)
 {
 	int			arg_count;
 	char		**args;

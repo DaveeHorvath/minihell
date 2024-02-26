@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/21 17:38:42 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:58:32 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	exec_pipeline(char *s)
 	while (commands[i])
 	{
 		if (i == 0 && !commands[1] && is_builtin(commands[0]))
-			return (exec_builtin(commands[0]));
+			return (exec_builtin(commands[0], 1));
 		current = get_command(commands[i], commands, &prev_out, i);
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
@@ -117,6 +117,8 @@ static void	do_cmd(t_cmd *cmd)
 		child_error();
 	else if (id == 0)
 	{
+		if (is_builtin(cmd->argv[0]))
+			exit(exec_builtin(cmd->argv[0], cmd->fd[1]));
 		path = get_path(cmd->argv[0]);
 		if (!path && cmd->argv[0])
 			cmd_not_found(cmd);
