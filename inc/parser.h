@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/26 14:24:18 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:51:02 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,32 @@ typedef struct s_cmd
 	int				exitcode;
 }	t_cmd;
 
-t_node	*make_tree(char *s);
-int		execute_string(char *s);
-t_cmd	*get_command(char *s, char **commands, int *prev_out, int i);
-int		update_quote(char c, enum e_quotes *quote);
-int		exec_pipeline(char *s);
+t_node		*make_tree(char *s);
+int			execute_string(char *s);
+t_cmd		*get_command(char *s, char **commands, int *prev_out, int i);
+int			update_quote(char c, enum e_quotes *quote);
+int			exec_pipeline(char *s);
+int			get_fds(t_tokens *tokens, int fds[2]);
+int			is_builtin(char *s);
+int			exec_builtin(char *s, int outfd);
+char		**get_args(t_tokens *tokens);
+t_tokens	*get_tokens(char *s);
 
 /* errors */
-void	cmd_not_found(t_cmd *cmd);
-void	child_error(void);
-int	handle_file_error(int start, char *s);
+void		cmd_not_found(t_cmd *cmd);
+void		child_error(void);
+int			handle_file_error(int start, char *s);
 
 /* files */
-int	handle_outfile(t_tokens *tokens, int fds[2]);
-int	handle_infile(t_tokens *tokens, int fds[2]);
-int	open_file(char *s, int fds[2], int type);
+int			handle_outfile(t_tokens *tokens, int fds[2]);
+int			handle_infile(t_tokens *tokens, int fds[2]);
+int			open_file(char *s, int fds[2], int type);
 
 /* handling tokens */
-char	*expand_token(char *token, char *content, enum e_quotes quote);
-int		handle_quotes(char *s, int i);
-int		handle_redirect(char *s, int i, t_tokens **tokens, int start);
-int		handle_space(char *s, int i, int *old_i, t_tokens **tokens);
-char	*get_filename(char *s, int start);
+char		*expand_token(char *token, char *content, enum e_quotes quote);
+int			handle_quotes(char *s, int i);
+int			handle_redirect(char *s, int i, t_tokens **tokens, int start);
+int			handle_space(char *s, int i, int *old_i, t_tokens **tokens);
+char		*get_filename(char *s, int start);
 
 #endif
