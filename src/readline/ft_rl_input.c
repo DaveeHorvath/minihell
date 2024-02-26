@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 19:45:00 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:56:31 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_rl_redisplay(t_rl_input *input)
 	ft_rl_term_cur_setpos(row, col);
 }
 
-void	ft_rl_updateinput(t_rl_input *input, char *newinput)
+void	ft_rl_updateinput(t_rl_input *input, char *newinput, size_t *uline)
 {
 	int	row;
 	int	col;
@@ -38,7 +38,14 @@ void	ft_rl_updateinput(t_rl_input *input, char *newinput)
 	ft_rl_term_cur_getpos(&row, &col, 0);
 	ft_putstr_fd(TERM_CLEAR_END, 1);
 	if (input->input)
-		ft_putstr_fd(input->input, 1);
+	{
+		if (!uline)
+			ft_putstr_fd(input->input, 1);
+		else
+			ft_printf("%.*s%s%.*s%s%s", uline[0], input->input, SGR_ULINEON,
+				uline[1] - uline[0], &input->input[uline[0]], SGR_ULINEOFF,
+				&input->input[uline[1]]);
+	}
 	ft_rl_term_cur_setpos(row, col + input->inputlen);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:38:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 21:09:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:44:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_rl_complete_replace(t_rl_input *input, char *word)
 	if (!newinput)
 		return (-1);
 	ft_rl_movecursor(input, ft_strlen(word), KEY_RIGHT);
-	ft_rl_updateinput(input, newinput);
+	ft_rl_updateinput(input, newinput, NULL);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 21:58:03 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:43:08 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	ft_rl_ctrlcmd(t_rl_input *input, char c, char redisplay)
 	else if (c == KEY_C_L)
 		ft_rl_resetscreen(input);
 	else if (c == KEY_C_P)
-		ft_rl_updateinput(input, ft_rl_history_next());
+		ft_rl_updateinput(input, ft_rl_history_next(), NULL);
 	else if (c == KEY_C_N)
-		ft_rl_updateinput(input, ft_rl_history_prev());
+		ft_rl_updateinput(input, ft_rl_history_prev(), NULL);
 	else if (c == KEY_C_R)
 		return (ft_rl_history_search(input, KEY_UP));
 	if (redisplay)
