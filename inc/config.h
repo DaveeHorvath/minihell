@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:58:07 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/20 15:29:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:57:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include <fcntl.h>
 
 # define MSHRC ".mshrc"
-//# define DEFAULTPROMPT "%B%U%F3%n%K1%F0@%F1%K0%K7%m %u%F1%K4putchar >%R "
-# define DEFAULTPROMPT "%B%F6%n%F1@%F4%m%f%b %F5%1D%f %B%F1$%R "
+# define DEFAULTPROMPT "%B%U%F3%n%K1%F0@%F1%K0%K7%m %u%F1%K4putchar >%R "
 
 // config.c
 int		parseconfig(void);
