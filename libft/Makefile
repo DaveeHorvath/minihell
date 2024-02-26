@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/16 18:54:20 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/02/23 18:28:12 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,24 +119,6 @@ SRCS	=	ft_atoi.c \
 			ft_pop.c \
 			ft_obj.c \
 			ft_vm.c \
-			ft_readline.c \
-			ft_rl_input.c \
-			ft_rl_match.c \
-			ft_rl_search.c \
-			ft_rl_cursor.c \
-			ft_rl_altcmd.c \
-			ft_rl_ctrlcmd.c \
-			ft_rl_history.c \
-			ft_rl_replace.c \
-			ft_rl_command.c \
-			ft_rl_increment.c \
-			ft_rl_completion.c \
-			ft_rl_historyfile.c \
-			ft_rl_historyutils.c \
-			ft_rl_completionutils.c \
-			ft_rl_searchutils.c \
-			ft_rl_inpututils.c \
-			ft_rl_termutils.c
 
 OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 

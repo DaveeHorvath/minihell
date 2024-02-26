@@ -6,14 +6,12 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:38:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/12 14:37:09 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:44:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-static void	printcompletions(t_list *completions, char *current);
-static void	calculateoutput(t_list *completions, size_t *maxwidth, size_t *cpl);
 static int	addinput(t_rl_input *input, char c);
 
 int	ft_rl_complete_replace(t_rl_input *input, char *word)
@@ -38,7 +36,7 @@ int	ft_rl_complete_replace(t_rl_input *input, char *word)
 	if (!newinput)
 		return (-1);
 	ft_rl_movecursor(input, ft_strlen(word), KEY_RIGHT);
-	ft_rl_updateinput(input, newinput);
+	ft_rl_updateinput(input, newinput, NULL);
 	return (1);
 }
 
@@ -65,55 +63,6 @@ int	ft_rl_complete_multiple(t_rl_input *input, t_list *completions)
 			ft_rl_prevword(input);
 	}
 	return (addinput(input, c));
-}
-
-static void	printcompletions(t_list *completions, char *current)
-{
-	size_t	maxwidth;
-	size_t	cpl;
-	size_t	i;
-	int		cur[2];
-	int		row;
-
-	ft_rl_term_cur_getpos(&cur[0], &cur[1], 0);
-	calculateoutput(completions, &maxwidth, &cpl);
-	i = 0;
-	row = cur[0];
-	ft_rl_term_cur_setpos(++row, 1);
-	while (completions)
-	{
-		if (completions->blk == current)
-			ft_printf("%s%-*s%s", SGR_FG4, maxwidth, current, SGR_FGR);
-		else
-			ft_printf("%-*s", maxwidth, completions->blk);
-		if (++i == cpl)
-		{
-			i = 0;
-			ft_rl_term_cur_setpos(++row, 1);
-		}
-		completions = completions->next;
-	}
-	ft_rl_term_cur_setpos(cur[0], cur[1]);
-}
-
-static void	calculateoutput(t_list *completions, size_t *maxwidth, size_t *cpl)
-{
-	t_rl_termstate	*state;
-	size_t			curwidth;
-
-	*maxwidth = 0;
-	while (completions)
-	{
-		curwidth = ft_strlen(completions->blk);
-		if (curwidth > *maxwidth)
-			*maxwidth = curwidth;
-		completions = completions->next;
-	}
-	(*maxwidth)++;
-	state = ft_rl_term_getstate();
-	*cpl = state->t_cols / *maxwidth;
-	if (!*cpl)
-		(*cpl)++;
 }
 
 static int	addinput(t_rl_input *input, char c)

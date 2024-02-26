@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 06:25:02 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 20:42:52 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:42:51 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_rl_altcmd(t_rl_input *input, char redisplay)
 	else if (*key == KEY_C_R)
 		ft_rl_history_search(input, KEY_DOWN);
 	if (*key == '>' || *key == '<')
-		ft_rl_updateinput(input, (*ft_rl_history_getcurrent(0))->blk);
+		ft_rl_updateinput(input, (*ft_rl_history_getcurrent(0))->blk, NULL);
 	if (redisplay)
 		ft_rl_redisplay(input);
 }
@@ -44,9 +44,9 @@ static void	arrowcmd(t_rl_input *input, char c)
 	if (c == KEY_LEFT || c == KEY_RIGHT)
 		ft_rl_movecursor(input, 1, c);
 	else if (c == KEY_UP)
-		ft_rl_updateinput(input, ft_rl_history_next());
+		ft_rl_updateinput(input, ft_rl_history_next(), NULL);
 	else if (c == KEY_DOWN)
-		ft_rl_updateinput(input, ft_rl_history_prev());
+		ft_rl_updateinput(input, ft_rl_history_prev(), NULL);
 }
 
 static int	getkey(char *key)

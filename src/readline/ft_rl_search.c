@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:27:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 22:12:47 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:54:44 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_rl_history_search(t_rl_input *input, char direction)
 		current = execsearch(inputs, current, "bck-i-search: ", direction);
 	else
 		current = execsearch(inputs, current, "fwd-i-search: ", direction);
-	ft_rl_updateinput(input, current->blk);
+	ft_rl_updateinput(input, current->blk, NULL);
 	ft_rl_term_cur_setpos(pos[0], input->promptlen + input->inputlen + 1);
 	ft_rl_history_setcurrent(current);
 	ft_rl_redisplay(input);
@@ -77,7 +77,8 @@ static void	displaymatch(t_rl_input **io, t_list *cur, int *ipos, char dir)
 {
 	if (cur)
 	{
-		ft_rl_updateinput(io[0], cur->blk);
+		ft_rl_updateinput(io[0], cur->blk,
+			ft_rl_history_getmatchrange(cur->blk, io[1]->input));
 		if (io[1]->promptlen != 14)
 		{
 			if (dir == KEY_UP)

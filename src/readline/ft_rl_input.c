@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 20:41:54 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:56:31 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_rl_redisplay(t_rl_input *input)
 	ft_rl_term_cur_setpos(row, col);
 }
 
-void	ft_rl_updateinput(t_rl_input *input, char *newinput)
+void	ft_rl_updateinput(t_rl_input *input, char *newinput, size_t *uline)
 {
 	int	row;
 	int	col;
@@ -38,7 +38,14 @@ void	ft_rl_updateinput(t_rl_input *input, char *newinput)
 	ft_rl_term_cur_getpos(&row, &col, 0);
 	ft_putstr_fd(TERM_CLEAR_END, 1);
 	if (input->input)
-		ft_putstr_fd(input->input, 1);
+	{
+		if (!uline)
+			ft_putstr_fd(input->input, 1);
+		else
+			ft_printf("%.*s%s%.*s%s%s", uline[0], input->input, SGR_ULINEON,
+				uline[1] - uline[0], &input->input[uline[0]], SGR_ULINEOFF,
+				&input->input[uline[1]]);
+	}
 	ft_rl_term_cur_setpos(row, col + input->inputlen);
 }
 
@@ -46,15 +53,6 @@ void	ft_rl_addchar(t_rl_input *input, char c)
 {
 	char	*newinput;
 
-	if (!input->input)
-	{
-		input->input = ft_push(ft_calloc(2, sizeof(char)));
-		if (input->input)
-			*input->input = c;
-		input->i++;
-		input->inputlen = ft_strlen(input->input);
-		return ;
-	}
 	newinput = ft_calloc(ft_getblksize(input->input) + 1, sizeof(char));
 	ft_popblk(input->input);
 	if (newinput)
@@ -73,11 +71,7 @@ void	ft_rl_rmchar(t_rl_input *input)
 {
 	char	*newinput;
 
-	if (!input->input)
-		return ;
-	newinput = NULL;
-	if (ft_getblksize(input->input) > 1)
-		newinput = ft_calloc(ft_getblksize(input->input) - 1, sizeof(char));
+	newinput = ft_calloc(ft_getblksize(input->input) - 1, sizeof(char));
 	ft_popblk(input->input);
 	if (newinput)
 	{

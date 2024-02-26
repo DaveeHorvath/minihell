@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rl_completionutils.c                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 20:09:33 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 20:11:15 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/23 18:29:13 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/23 18:32:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "minish.h"
 
-size_t	ft_rl_complete_getlongest(t_list *completions)
+void	msh_quit(int estatus)
 {
-	size_t	maxlen;
-	size_t	len;
+	ft_rl_history_save();
+	ft_exit(estatus);
+}
 
-	maxlen = 0;
-	while (completions)
-	{
-		len = ft_strlen(completions->blk);
-		if (len > maxlen)
-			maxlen = len;
-		completions = completions->next;
-	}
-	return (maxlen);
+int	msh_return(int rval)
+{
+	ft_rl_history_save();
+	ft_popall();
+	ft_clean();
+	return (rval);
 }

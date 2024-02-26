@@ -6,10 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:01:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 20:13:30 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:14:39 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include "ft_readline.h"
 
 static void	matchfiles(char *word, char *path, int cmd, t_list **completions);
@@ -46,7 +47,7 @@ t_list	*ft_rl_complete_cmd(char *word)
 	t_list	*completions;
 	char	**path;
 
-	path = ft_pusharr(ft_split(getenv("PATH"), ':'));
+	path = ft_pusharr(ft_split(msh_getenv("PATH"), ':'));
 	if (!path)
 		return (NULL);
 	completions = NULL;
