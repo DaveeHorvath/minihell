@@ -6,13 +6,19 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/21 17:39:25 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:21:50 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 #include "env.h"
+
+static t_tokens	*get_tokens(char *s);
+static int	get_fds(t_tokens *tokens, int fds[2]);
+static char	**get_args(t_tokens *tokens);
+static void	get_def_filedesc(int i, int need_pipe,
+	int *prev_out, t_cmd *current);
 
 t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 {
@@ -74,7 +80,7 @@ static int	get_fds(t_tokens *tokens, int fds[2])
 		}
 		else if (tokens->content[0] && tokens->content[0] == '>')
 		{
-			if (!handle_outf(tokens, fds))
+			if (!handle_outfile(tokens, fds))
 				return (0);
 		}
 		tokens = tokens->next;

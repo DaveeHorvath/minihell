@@ -6,12 +6,14 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:34:48 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/20 16:08:40 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:16:36 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+
+static void	append(t_tokens **list, char *s);
 
 int	handle_quotes(char *s, int i)
 {
@@ -65,7 +67,7 @@ static void	append(t_tokens **list, char *s)
 	t_tokens	*new;
 
 	current = *list;
-	new = ft_push(ft_alloc(sizeof(t_list)));
+	new = ft_push(ft_alloc(sizeof(t_tokens)));
 	new->content = s;
 	new->next = NULL;
 	if (!current)
