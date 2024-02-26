@@ -6,12 +6,15 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:13:14 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/20 16:08:38 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:24:03 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+
+static int	open_outfile(int fds[2], int type, char *s);
+static int	handle_heredoc(int fds[2], char *s);
 
 static int	handle_heredoc(int fds[2], char *s)
 {
@@ -68,7 +71,7 @@ static int	open_outfile(int fds[2], int type, char *s)
 	return (0);
 }
 
-static int	handle_infile(t_tokens *tokens, int fds[2])
+int	handle_infile(t_tokens *tokens, int fds[2])
 {
 	if (ft_strncmp(tokens->content, "<<", 2) == 0)
 	{
@@ -83,7 +86,7 @@ static int	handle_infile(t_tokens *tokens, int fds[2])
 	return (1);
 }
 
-static int	handle_outfile(t_tokens *tokens, int fds[2])
+int	handle_outfile(t_tokens *tokens, int fds[2])
 {
 	if (ft_strncmp(tokens->content, ">>", 2) == 0)
 	{
