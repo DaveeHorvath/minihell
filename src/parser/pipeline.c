@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/26 17:58:32 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:33:59 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ static void	do_cmd(t_cmd *cmd);
 
 int	exec_pipeline(char *s)
 {
+	char	**commands;
 	t_cmd	*head;
 	t_cmd	*current;
-	char	**commands;
 	int		i;
 	int		prev_out;
 
 	i = 0;
 	head = NULL;
 	prev_out = -1;
-	commands = ft_pusharr(ft_split(s, '|'));
+	commands = ft_quoted_split(s, '|');
 	while (commands[i])
 	{
 		if (i == 0 && !commands[1] && is_builtin(commands[0]))
