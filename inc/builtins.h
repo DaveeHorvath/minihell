@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 23:00:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 14:58:24 by ivalimak         ###   ########.fr       */
-/*   Updated: 2024/01/23 16:56:01 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:51:25 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -17,24 +17,24 @@
 # include "libft.h"
 
 // echo
-void	msh_echo(char *s, char nl);
+int	msh_echo(char *s, char nl);
 
 // cd
 int		msh_cd(char *path);
 
 // pwd
-void	msh_pwd(void);
+int		msh_pwd(void);
 
 // export
-void	msh_export(char *variable);
+int		msh_export(char *variable);
 
 // unset
-void	msh_unset(char *var);
+int		msh_unset(char *var);
 
 // env
-void	msh_env(void);
+int		msh_env(void);
 
 // exit
-void	msh_exit(int estatus);
+int		msh_exit(int estatus);
 
 #endif

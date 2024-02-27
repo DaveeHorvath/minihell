@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 23:03:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 14:15:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:48:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	msh_echo(char *s, char nl)
+int	msh_echo(char *s, char nl)
 {
 	if (nl)
 		ft_putendl_fd(s, 1);
 	else
 		ft_putstr_fd(s, 1);
-	exit(0);
+	return (0);
 }
