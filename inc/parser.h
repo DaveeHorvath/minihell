@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/26 17:51:02 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:34:08 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,16 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-#include <fcntl.h>
+# include <fcntl.h>
+
+# define UNMATCHED_S_QUOTE 1
+# define UNMATCHED_D_QUOTE 2
+# define UNMATCHED_PARENTHESIES 3
+# define WRONG_PARENTHESIES 4
+# define SYNTAX_ERROR 5
+# define MALLOC_FAIL 6
+# define PARENTHESIES_IN_NODE 7
+# define PIPELINE_ISSUE 8
 
 enum e_quotes
 {
@@ -70,7 +79,7 @@ int			is_builtin(char *s);
 int			exec_builtin(char *s, int outfd);
 char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
-
+char		**ft_quoted_split(char *s, char c);
 /* errors */
 void		cmd_not_found(t_cmd *cmd);
 void		child_error(void);
