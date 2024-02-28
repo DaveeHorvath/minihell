@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:48:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/23 17:11:27 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:31:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ int	parseconfig(void)
 
 	fd = cfg_open();
 	if (fd < 0)
+	{
+		msh_setenv("PROMPT", DEFAULTPROMPT);
 		return (0);
+	}
 	lnbr = 0;
 	line = ft_strtrim(get_next_line(fd), "\t\n\v\f\r ");
 	while (line)
