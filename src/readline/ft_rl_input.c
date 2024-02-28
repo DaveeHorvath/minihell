@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/26 13:56:31 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/28 10:09:52 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ void	ft_rl_addchar(t_rl_input *input, char c)
 		ft_strlcpy(newinput, input->input, input->i + 1);
 		newinput[input->i] = c;
 		ft_strlcpy(&newinput[input->i + 1],
-			&input->input[input->i], input->inputlen - input->i);
+			&input->input[input->i], input->inputlen - input->i + 1);
+		input->i++;
 	}
-	input->i++;
+	else
+		input->i = 0;
 	input->input = ft_push(newinput);
 	input->inputlen = ft_strlen(newinput);
 }
