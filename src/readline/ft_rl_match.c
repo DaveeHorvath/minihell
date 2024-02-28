@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:01:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 20:14:39 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:53:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,18 @@ t_list	*ft_rl_complete_cmd(char *word)
 t_list	*ft_rl_complete_file(char *word)
 {
 	t_list	*completions;
+	char	*path;
 
 	completions = NULL;
-	matchfiles(word, ".", 0, &completions);
+	path = ft_strrchr(word, '/');
+	if (path)
+	{
+		path = ft_push(ft_substr(word, 0, path - word));
+		word = ft_strrchr(word, '/') + 1;
+	}
+	matchfiles(word, path, 0, &completions);
+	ft_rl_complete_checkdirs(path, completions);
+	ft_popblk(path);
 	return (completions);
 }
 
@@ -76,14 +85,19 @@ static void	matchfiles(char *word, char *path, int cmd, t_list **completions)
 	struct dirent	*data;
 	size_t			wordlen;
 
-	dir = opendir(path);
+	if (path)
+		dir = opendir(path);
+	else
+		dir = opendir(".");
 	if (!dir)
 		return ;
 	data = readdir(dir);
 	wordlen = ft_strlen(word);
 	while (data)
 	{
-		if (!ft_strncmp(data->d_name, word, wordlen))
+		if (!ft_strequals(data->d_name, ".")
+			&& !ft_strequals(data->d_name, "..")
+			&& !ft_strncmp(data->d_name, word, ft_strlen(word)))
 		{
 			if (!cmd || iscmd(path, data->d_name))
 				ft_lstadd_back(completions, ft_lstnew(ft_strdup(data->d_name)));

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:33 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/26 13:16:01 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/28 09:42:23 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,26 @@ static char	*completionstring(t_list *completions, char *current, size_t maxwidt
 static char	*padstring(char *s, char *current, size_t width)
 {
 	size_t	i;
+	char	dir;
+	char	*tmp;
 	char	*out;
 
+	tmp = ft_strrchr(s, '/');
+	if (tmp)
+	{
+		tmp = s;
+		dir = ft_rl_isdir(s);
+		while (ft_strchr(s, '/') != ft_strrchr(s, '/'))
+			s = ft_strchr(s, '/') + 1;
+		if (!dir)
+			s = ft_strchr(s, '/') + 1;
+	}
 	out = ft_calloc(width + 1, sizeof(char));
 	i = ft_strlen(s);
 	ft_strlcpy(out, s, i + 1);
 	while (i < width)
 		out[i++] = ' ';
-	if (s == current)
+	if (tmp == current)
 	{
 		out = ft_strjoin(SGR_FG4, out);
 		out = ft_strjoin(out, SGR_FGR);
