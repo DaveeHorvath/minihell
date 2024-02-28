@@ -6,14 +6,14 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:33 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/28 09:42:23 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/28 10:53:18 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
 static void	calculateoutput(t_list *completions, size_t *maxwidth, size_t *cpl);
-static char	*completionstring(t_list *completions, char *current, size_t maxwidth, size_t cpl);
+static char	*completionstring(t_list *cmp, char *curr, size_t maxw, size_t cpl);
 static char	*padstring(char *s, char *current, size_t width);
 
 size_t	ft_rl_complete_getlongest(t_list *completions)
@@ -73,7 +73,7 @@ static void	calculateoutput(t_list *completions, size_t *maxwidth, size_t *cpl)
 		(*cpl)++;
 }
 
-static char	*completionstring(t_list *completions, char *current, size_t maxwidth, size_t cpl)
+static char	*completionstring(t_list *cmp, char *curr, size_t maxw, size_t cpl)
 {
 	size_t	i;
 	char	*out;
@@ -81,10 +81,10 @@ static char	*completionstring(t_list *completions, char *current, size_t maxwidt
 
 	out = NULL;
 	i = 0;
-	while (completions)
+	while (cmp)
 	{
 		ft_push(out);
-		newstring = padstring(completions->blk, current, maxwidth);
+		newstring = padstring(cmp->blk, curr, maxw);
 		if (out)
 			ft_popblk(out);
 		if (i != cpl)
@@ -97,7 +97,7 @@ static char	*completionstring(t_list *completions, char *current, size_t maxwidt
 			out = ft_strsjoin(out, newstring, '\n');
 			i = 1;
 		}
-		completions = completions->next;
+		cmp = cmp->next;
 	}
 	return (out);
 }
@@ -109,8 +109,7 @@ static char	*padstring(char *s, char *current, size_t width)
 	char	*tmp;
 	char	*out;
 
-	tmp = ft_strrchr(s, '/');
-	if (tmp)
+	if (ft_strrchr(s, '/'))
 	{
 		tmp = s;
 		dir = ft_rl_isdir(s);
