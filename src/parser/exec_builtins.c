@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/26 18:03:57 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:44:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_builtin(char *s)
 		return (0);
 }
 
-int	exec_builtin(char *s, int fd[2])
+int	exec_builtin(char *s, int fd[2], int actual_exit)
 {
 	char		**args;
 	t_tokens	*tokens;
@@ -40,17 +40,17 @@ int	exec_builtin(char *s, int fd[2])
 	if (ft_strequals(args[0], "cd"))
 		exitcode = msh_cd(args[1]);
 	if (ft_strequals(args[0], "echo"))
-		exitcode = msh_echo(args[1], fd[1]);
+		exitcode = msh_echo(&args[1], fd[1]);
 	if (ft_strequals(args[0], "unset"))
-		exitcode = msh_unset(args[1]);
+		exitcode = msh_unset(&args[1]);
 	if (ft_strequals(args[0], "export"))
-		exitcode = msh_export(args[1]);
+		exitcode = msh_export(&args[1]);
 	if (ft_strequals(args[0], "exit"))
-		exitcode = msh_exit(69420);
+		exitcode = msh_exit(&args[1], actual_exit);
 	if (ft_strequals(args[0], "pwd"))
-		exitcode = msh_pwd();
+		exitcode = msh_pwd(fds[1]);
 	else
-		exitcode = msh_env(/*out_fd*/);
+		exitcode = msh_env(fds[1]);
 	if (fd[0] != 0)
 		close(fd[0]);
 	if (fd[1] != 1)

@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/27 15:34:08 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:44:04 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			update_quote(char c, enum e_quotes *quote);
 int			exec_pipeline(char *s);
 int			get_fds(t_tokens *tokens, int fds[2]);
 int			is_builtin(char *s);
-int			exec_builtin(char *s, int outfd);
+int			exec_builtin(char *s, int outfd, int actual_exit);
 char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
