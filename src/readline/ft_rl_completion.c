@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:35:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/27 14:45:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:32:12 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ static int		hascmd(t_rl_input *input);
 
 int	ft_rl_complete(t_rl_input *input)
 {
-	size_t	i;
 	t_list	*completions;
 	char	*word;
 	int		rv;
 
 	if (!input->i)
 		return (1);
-	i = input->i;
 	word = getword(input);
 	if (!word)
 		return (-1);

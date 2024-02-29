@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:01:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/27 14:53:58 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:33:06 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	matchfiles(char *word, char *path, int cmd, t_list **completions)
 	{
 		if (!ft_strequals(data->d_name, ".")
 			&& !ft_strequals(data->d_name, "..")
-			&& !ft_strncmp(data->d_name, word, ft_strlen(word)))
+			&& !ft_strncmp(data->d_name, word, wordlen))
 		{
 			if (!cmd || iscmd(path, data->d_name))
 				ft_lstadd_back(completions, ft_lstnew(ft_strdup(data->d_name)));
