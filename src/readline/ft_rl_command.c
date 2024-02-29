@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 17:32:41 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 21:59:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:08:21 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_rl_exec(t_rl_input *input, char c, char redisplay)
 			ft_rl_movecursor(input, input->inputlen - input->i, KEY_RIGHT);
 			ft_putchar_fd('\n', 1);
 		}
-		if (input->input && ((c == KEY_RET && !*input->input) || c == KEY_C_D))
+		if (c == KEY_C_D)
 		{
 			ft_popblk(input->input);
 			input->input = NULL;

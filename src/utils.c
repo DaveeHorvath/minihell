@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/28 22:46:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/23 18:28:40 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/23 18:29:13 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/23 18:32:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * @file ft_exit.c
- */
+#include "minish.h"
 
-#include "libft.h"
-
-/** @brief Frees all allocated memory and exits the program
- *
- * @param estat Exit status to be passed to exit() after garbage collection
- */
-void	ft_exit(int estat)
+void	msh_quit(int estatus)
 {
+	ft_rl_history_save();
+	ft_exit(estatus);
+}
+
+int	msh_return(int rval)
+{
+	ft_rl_history_save();
 	ft_popall();
 	ft_clean();
-	exit(estat);
+	return (rval);
 }

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 22:11:12 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 19:55:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:33:09 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ void	ft_rl_history_commit(char *line)
 	t_list	**head;
 	t_list	*current;
 
+	if (!line)
+		return ;
 	head = ft_rl_history_gethead();
 	current = *ft_rl_history_getcurrent(0);
-	if (line && current->prev)
+	if (line && *line)
 		(*head)->blk = ft_push(ft_strdup(line));
-	else if (!current->blk)
+	else if (!current->blk || !*line)
 		ft_lstrmnode(head, *head);
 	ft_rl_history_getcurrent(1);
 }

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:35:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 22:00:07 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:45:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ int	ft_rl_complete(t_rl_input *input)
 	char	*word;
 	int		rv;
 
-	if (!input->i
-		|| (ft_isspace(input->input[input->i - 1]) && !input->input[input->i]))
+	if (!input->i)
 		return (1);
 	i = input->i;
 	word = getword(input);
 	if (!word)
 		return (-1);
-	if (!*word)
-		return (0);
 	completions = getcompletions(ft_push(word), hascmd(input));
 	ft_popblk(word);
 	if (!completions)
@@ -62,6 +59,9 @@ static char	*getword(t_rl_input *input)
 {
 	char	*out;
 
+	if (!input->input[input->inputlen]
+		&& ft_isspace(input->input[input->inputlen]))
+		return (ft_push(ft_strdup("")));
 	ft_rl_wordstart(input);
 	out = ft_push(ft_substr(input->input, input->i,
 				input->inputlen - input->i));

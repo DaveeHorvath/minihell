@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 07:43:06 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 19:55:23 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:28:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
  */
 
 #include "libft.h"
-#include "ft_readline.h"
 
 /** @brief Frees all memory before returning
  *
@@ -24,7 +23,6 @@
  */
 int	ft_return(int rval)
 {
-	ft_rl_history_save();
 	ft_popall();
 	ft_clean();
 	return (rval);

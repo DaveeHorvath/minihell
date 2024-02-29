@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
 /*   Updated: 2024/02/29 14:43:45 by dhorvath         ###   ########.fr       */

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:48:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/11 13:20:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:27:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # define TERM_CLEAR_START "\e[1J"
 # define TERM_CLEAR_SCREEN "\e[2J"
 # define TERM_CLEAR_BUFFER "\e[3J"
+
+// scroll
+# define TERM_SCROLL_UP "\e[1S"
+# define TERM_SCROLL_DOWN "\e[1T"
 
 // sgr
 

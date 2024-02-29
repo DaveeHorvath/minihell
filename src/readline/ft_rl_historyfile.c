@@ -6,10 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:44:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/16 17:13:28 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:56:24 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env.h"
 #include "ft_readline.h"
 
 void	ft_rl_history_load(void)
@@ -18,14 +19,14 @@ void	ft_rl_history_load(void)
 	char	*line;
 	char	*fname;
 
-	fname = ft_strsjoin(getenv("HOME"), RL_HFNAME, '/');
+	fname = ft_strsjoin(msh_getenv("HOME"), RL_HFNAME, '/');
 	if (!fname)
 		return ;
 	fd = open(fname, O_RDONLY);
 	line = ft_strtrim(get_next_line(fd), "\n");
 	while (line)
 	{
-		ft_lstadd_back(ft_rl_history_gethead(), ft_lstnew(line));
+		ft_lstadd_front(ft_rl_history_gethead(), ft_lstnew(line));
 		line = ft_strtrim(get_next_line(fd), "\n");
 	}
 	close(fd);
@@ -37,19 +38,18 @@ void	ft_rl_history_save(void)
 	char	*fname;
 	t_list	*history;
 
-	fname = ft_strsjoin(getenv("HOME"), RL_HFNAME, '/');
+	fname = ft_strsjoin(msh_getenv("HOME"), RL_HFNAME, '/');
 	if (!fname)
 		return ;
 	fd = open(fname, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd < 0)
 		return ;
-	history = *ft_rl_history_gethead();
-	if (history && !history->blk)
-		history = history->next;
+	history = ft_lstlast(*ft_rl_history_gethead());
 	while (history)
 	{
-		ft_putendl_fd(history->blk, fd);
-		history = history->next;
+		if (*(char *)history->blk)
+			ft_putendl_fd(history->blk, fd);
+		history = history->prev;
 	}
 	close(fd);
 }

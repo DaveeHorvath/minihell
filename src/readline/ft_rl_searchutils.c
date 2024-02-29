@@ -6,11 +6,22 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:26:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 21:41:07 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:55:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+
+size_t	*ft_rl_history_getmatchrange(char *input, char *pattern)
+{
+	static size_t	matchrange[2];
+	char			*start;
+
+	start = ft_strnstr(input, pattern, ft_strlen(input));
+	matchrange[0] = start - input;
+	matchrange[1] = matchrange[0] + ft_strlen(pattern);
+	return (matchrange);
+}
 
 t_list	*ft_rl_history_match(t_list *start, char *pattern, char direction)
 {
