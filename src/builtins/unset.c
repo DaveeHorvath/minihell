@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:57:12 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 14:59:38 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:50:34 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	msh_unset(char *var)
+int	msh_unset(char *var)
 {
-	exit(msh_unsetenv(var));
+	return (msh_unsetenv(var));
 }

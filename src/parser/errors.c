@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/20 16:08:35 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:38:44 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,29 @@ int	handle_file_error(int start, char *s)
 	printf("file %s doenst exist\n",
 		expand_token(get_filename(s, start), NULL, none));
 	return (1);
+}
+
+int	parse_error(int error)
+{
+	if (error == UNMATCHED_S_QUOTE)
+		ft_printf("Unmatched single quote\n");
+	else if (error == UNMATCHED_D_QUOTE)
+		ft_printf("Unmatched double quote\n");
+	else if (error == UNMATCHED_PARENTHESIES)
+		ft_printf("Unmatched parenthesies\n");
+	else if (error == SYNTAX_ERROR)
+		ft_printf("Syntax error\n");
+	else
+		ft_printf("Unrecognised error\n");
+	return (-1);
+}
+
+// toadd popping tree nodes and contents
+int	tree_parse_error(int error, t_node *tree)
+{
+	if (error == MALLOC_FAIL)
+		ft_printf("Malloc failed while creating tree\n");
+	else if (error == PARENTHESIES_IN_NODE)
+		ft_printf("Parenthesies inside pipeline\n");
+	return (-1);
 }

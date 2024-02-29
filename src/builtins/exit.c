@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 23:49:40 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/16 23:50:48 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:49:37 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	msh_exit(int estat)
+int	msh_exit(int estat, int needs_exit)
 {
-	ft_exit(estat);
+	if (needs_exit)
+		ft_exit(estat);
+	else
+		return (0);
 }

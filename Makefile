@@ -6,7 +6,7 @@
 #    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/26 14:22:42 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/02/26 17:47:42 by dhorvath         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ PARSERFILES		=	$(PARSERDIR)/errors.c \
 					$(PARSERDIR)/single_command_parser.c \
 					$(PARSERDIR)/tree.c \
 					$(PARSERDIR)/utils.c \
-					$(PARSERDIR)/files.c
+					$(PARSERDIR)/files.c \
+					$(PARSERDIR)/exec_builtins.c
 
 PROMPTFILES		=	$(PROMPTDIR)/color.c \
 					$(PROMPTDIR)/prompt.c
@@ -73,7 +74,7 @@ OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
 all: $(OBJDIR) $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(OBJDIR) $(LIBFT) $(OBJS)
 	@echo Compiling $(NAME)...
 	@$(CC) $(CFLAGS) -I$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
 

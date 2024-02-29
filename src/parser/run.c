@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/26 14:18:57 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:40:50 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,17 @@ static int	run_tree(t_node *tree);
 int	execute_string(char *s)
 {
 	t_node	*tree;
+	int		validity;
 
+	validity = is_valid(s);
+	if (validity != 0)
+		return (parse_error(validity));
 	tree = make_tree(s);
+	validity = validate_tree(tree);
+	if (validity != 0)
+		return (tree_parse_error(validity, tree));
 	run_tree(tree);
+	//clean tree
 	return (0);
 }
 
