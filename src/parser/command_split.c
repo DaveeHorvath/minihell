@@ -6,11 +6,13 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:25 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:42 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:54:15 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	skip_quotes(int *i, char *s)
+#include "libft.h"
+
+void	skip_quotes(char *s, int *i)
 {
 	char	quote;
 
@@ -22,7 +24,6 @@ void	skip_quotes(int *i, char *s)
 int	count_splits(char *s, char c)
 {
 	int		i;
-	char	quote;
 	int		count;
 
 	i = 0;
