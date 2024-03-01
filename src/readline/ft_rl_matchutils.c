@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   ft_rl_matchutils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:43:15 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 15:26:48 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/27 10:55:10 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/27 14:13:56 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
-# include "libft.h"
+#include "ft_readline.h"
 
-typedef struct s_value
+void	ft_rl_complete_checkdirs(char *path, t_list *completions)
 {
-	char			*var;
-	char			*val;
-	struct s_value	*next;
-	size_t			total;
-}	t_value;
+	t_list		*tmp;
 
-// env.c
-char	*msh_getenv(char *var);
-int		msh_unsetenv(char *var);
-int		msh_setenv(char *var, char *val);
-
-// envutils.c
-t_value	**msh_getenvhead(void);
-char	**msh_getenvarr(void);
-void	msh_cpyenv(char **env);
-int		popenv(t_value *value);
-
-#endif
+	tmp = completions;
+	while (tmp)
+	{
+		if (path)
+		{
+			ft_popblk(tmp->blk);
+			tmp->blk = ft_push(ft_strsjoin(path, tmp->blk, '/'));
+		}
+		if (ft_rl_isdir(tmp->blk))
+		{
+			ft_popblk(tmp->blk);
+			tmp->blk = ft_push(ft_strjoin(tmp->blk, "/"));
+		}
+		tmp = tmp->next;
+	}
+}

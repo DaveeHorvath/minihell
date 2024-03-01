@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/28 22:46:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/23 18:28:40 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/20 13:56:37 by dhorvath          #+#    #+#             */
+/*   Updated: 2024/02/26 14:13:52 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * @file ft_exit.c
- */
-
 #include "libft.h"
 
-/** @brief Frees all allocated memory and exits the program
- *
- * @param estat Exit status to be passed to exit() after garbage collection
- */
-void	ft_exit(int estat)
+char	*get_filename(char *s, int start)
 {
-	ft_popall();
-	ft_clean();
-	exit(estat);
+	int	i;
+
+	i = start;
+	while (s[i] == ' ')
+		i++;
+	return (ft_push(ft_strdup(&s[i])));
 }

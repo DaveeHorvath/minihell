@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_return.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/31 07:43:06 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/23 18:28:32 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/16 23:49:40 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/27 15:49:37 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * @file ft_return.c
- */
+#include "builtins.h"
 
-#include "libft.h"
-
-/** @brief Frees all memory before returning
- *
- * @param rval Return value
- * @retval int rval
- */
-int	ft_return(int rval)
+int	msh_exit(int estat, int needs_exit)
 {
-	ft_popall();
-	ft_clean();
-	return (rval);
+	if (needs_exit)
+		ft_exit(estat);
+	else
+		return (0);
 }

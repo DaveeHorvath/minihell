@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 22:53:22 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:22:54 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*gethname(const char trunc);
 static char	*getdir(const char type, size_t depth);
 static char	*truncdir(const char *path, size_t depth);
 
-char	*prompt(const char *p)
+char	*msh_prompt(const char *p)
 {
 	char	*out;
 
@@ -82,7 +82,7 @@ static char	*gethname(const char trunc)
 	close(pfd[1]);
 	out = ft_strtrim(get_next_line(pfd[0]), "\n");
 	close(pfd[0]);
-	if (out && trunc)
+	if (out && trunc && ft_strrchr(out, '.'))
 		*ft_strchr(out, '.') = '\0';
 	return (out);
 }
@@ -100,7 +100,7 @@ static char	*getdir(const char type, size_t depth)
 		home = getenv("HOME");
 		if (!ft_strncmp(dir, home, ft_strlen(home)))
 		{
-			out += ft_strlen(home) - 1;
+			out = ft_strdup(out) + ft_strlen(home) - 1;
 			*out = '~';
 		}
 	}

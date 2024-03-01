@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_return.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/31 07:43:06 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/23 18:28:32 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/01/23 14:57:12 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/27 15:50:34 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * @file ft_return.c
- */
+#include "builtins.h"
 
-#include "libft.h"
-
-/** @brief Frees all memory before returning
- *
- * @param rval Return value
- * @retval int rval
- */
-int	ft_return(int rval)
+int	msh_unset(char *var)
 {
-	ft_popall();
-	ft_clean();
-	return (rval);
+	return (msh_unsetenv(var));
 }

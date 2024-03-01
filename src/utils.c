@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:43:15 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 15:26:48 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/23 18:29:13 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/23 18:32:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
-# include "libft.h"
+#include "minish.h"
 
-typedef struct s_value
+void	msh_quit(int estatus)
 {
-	char			*var;
-	char			*val;
-	struct s_value	*next;
-	size_t			total;
-}	t_value;
+	ft_rl_history_save();
+	ft_exit(estatus);
+}
 
-// env.c
-char	*msh_getenv(char *var);
-int		msh_unsetenv(char *var);
-int		msh_setenv(char *var, char *val);
-
-// envutils.c
-t_value	**msh_getenvhead(void);
-char	**msh_getenvarr(void);
-void	msh_cpyenv(char **env);
-int		popenv(t_value *value);
-
-#endif
+int	msh_return(int rval)
+{
+	ft_rl_history_save();
+	ft_popall();
+	ft_clean();
+	return (rval);
+}

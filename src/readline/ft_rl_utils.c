@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   ft_rl_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:43:15 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/23 15:26:48 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/27 12:32:10 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/27 14:15:23 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
-# include "libft.h"
+#include "ft_readline.h"
 
-typedef struct s_value
+int	ft_rl_isdir(const char *path)
 {
-	char			*var;
-	char			*val;
-	struct s_value	*next;
-	size_t			total;
-}	t_value;
+	struct stat	file;
 
-// env.c
-char	*msh_getenv(char *var);
-int		msh_unsetenv(char *var);
-int		msh_setenv(char *var, char *val);
-
-// envutils.c
-t_value	**msh_getenvhead(void);
-char	**msh_getenvarr(void);
-void	msh_cpyenv(char **env);
-int		popenv(t_value *value);
-
-#endif
+	stat(path, &file);
+	if (file.st_mode & S_IFDIR)
+		return (1);
+	return (0);
+}

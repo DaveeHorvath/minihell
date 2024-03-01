@@ -3,20 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/19 21:58:38 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:43:45 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../libft/libft.h"
+#include "libft.h"
+#include "env.h"
 
-static char *msh_getenv(char *s)
+static void	add_cmd(t_cmd **head, t_cmd *new);
+static int	wait_for_done(t_cmd *head);
+static char	*get_path(char *name);
+static void	do_cmd(t_cmd *cmd);
+
+int	exec_pipeline(char *s)
 {
-	(void)s;
-	return ("/Users/dhorvath/lbin/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin");
+	char	**commands;
+	t_cmd	*head;
+	t_cmd	*current;
+	int		i;
+	int		prev_out;
+
+	i = 0;
+	head = NULL;
+	prev_out = -1;
+	commands = ft_quoted_split(s, '|');
+	while (commands[i])
+	{
+		if (i == 0 && !commands[1] && is_builtin(commands[0]))
+			return (exec_builtin(commands[0], 1, 1));
+		current = get_command(commands[i], commands, &prev_out, i);
+		add_cmd(&head, current);
+		if (current->exitcode != -1)
+		{
+			do_cmd(current);
+			if (current->fd[0] != 0)
+				close(current->fd[0]);
+			if (current->fd[1] != 1)
+				close(current->fd[1]);
+		}
+		i++;
+	}
+	return (wait_for_done(head));
 }
 
 static void	add_cmd(t_cmd **head, t_cmd *new)
@@ -38,7 +69,7 @@ static void	add_cmd(t_cmd **head, t_cmd *new)
 static int	wait_for_done(t_cmd *head)
 {
 	int	status;
-	int exitstatus;
+	int	exitstatus;
 
 	exitstatus = 0;
 	while (head)
@@ -56,9 +87,9 @@ static int	wait_for_done(t_cmd *head)
 	return (exitstatus);
 }
 
-char	*get_path(char *name)
+static char	*get_path(char *name)
 {
-	const char	**path = (const char **)ft_push(ft_split(msh_getenv("PATH"), ':'));
+	const char	**path = ft_pusharr(ft_split(msh_getenv("PATH"), ':'));
 	char		*c_path;
 	int			i;
 
@@ -76,8 +107,7 @@ char	*get_path(char *name)
 	return (NULL);
 }
 
-/* should be static */
-void	do_cmd(t_cmd *cmd)
+static void	do_cmd(t_cmd *cmd)
 {
 	pid_t	id;
 	char	*path;
@@ -87,6 +117,8 @@ void	do_cmd(t_cmd *cmd)
 		child_error();
 	else if (id == 0)
 	{
+		if (is_builtin(cmd->argv[0]))
+			exit(exec_builtin(cmd->argv[0], cmd->fd[1], 0));
 		path = get_path(cmd->argv[0]);
 		if (!path && cmd->argv[0])
 			cmd_not_found(cmd);
@@ -102,33 +134,4 @@ void	do_cmd(t_cmd *cmd)
 	}
 	else
 		cmd->pid = id;
-}
-
-int	exec_pipeline(char *s)
-{
-	t_cmd	*head;
-	t_cmd	*current;
-	char	**commands;
-	int		i;
-	int		prev_out;
-
-	i = 0;
-	head = NULL;
-	prev_out = -1;
-	commands = ft_pusharr(ft_split(s, '|'));
-	while (commands[i])
-	{
-		current = get_command(commands[i], commands, &prev_out, i);
-		add_cmd(&head, current);
-		if (current->exitcode != -1)
-		{
-			do_cmd(current);
-			if (current->fd[0] != 0)
-				close(current->fd[0]);
-			if (current->fd[1] != 1)
-				close(current->fd[1]);
-		}
-		i++;
-	}
-	return (wait_for_done(head));
 }

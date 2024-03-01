@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:48:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 14:42:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:31:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,35 +29,28 @@ static void	cfg_alias(size_t lnbr, char *line)
 		alias = line;
 		cmd = ft_strchr(line, '=');
 		*cmd++ = '\0';
-		ft_dprintf(2, "[D] aliased %s as %s\n", cmd, alias);
+		ft_dprintf(2, "cfg_alias: %s='%s'\n", cmd, alias);
 	}
 }
 
 static void	cfg_export(size_t lnbr, char *line)
 {
+	size_t	start;
 	size_t	vars;
 	char	*var;
 	char	*val;
 
-	line = line + 6;
-	while (ft_isspace(*line))
-		line++;
-	vars = cfg_varcount(line);
+	start = 6;
+	while (ft_isspace(line[start]))
+		start++;
+	vars = cfg_varcount(&line[start]);
 	if (!vars || vars > 2)
 		cfg_err(lnbr, "export: syntax error");
 	else
 	{
-		var = line;
-		val = ft_strchr(line, '=');
-		if (val)
-		{
-			*val++ = '\0';
-			if (*val == '\'' || *val == '"')
-			{
-				val++;
-				val[ft_strlen(val) - 2] = '\0';
-			}
-		}
+		var = ft_push(ft_substr(line, start, ft_strclen(&line[start], '=')));
+		val = ft_substr(line, ft_strclen(line, '=') + 1, ft_strlen(line));
+		val = ft_push(ft_strtrim(val, "'\""));
 		msh_setenv(var, val);
 	}
 }
@@ -70,7 +63,7 @@ static void	cfg_parseline(size_t lnbr, char *line)
 	type = cfg_matchkw(line);
 	if (type >= 0)
 		f[type](lnbr, line);
-	else if (type == -1)
+	else
 		cfg_err(lnbr, "unknown keyword");
 }
 
@@ -92,7 +85,10 @@ int	parseconfig(void)
 
 	fd = cfg_open();
 	if (fd < 0)
+	{
+		msh_setenv("PROMPT", DEFAULTPROMPT);
 		return (0);
+	}
 	lnbr = 0;
 	line = ft_strtrim(get_next_line(fd), "\t\n\v\f\r ");
 	while (line)
