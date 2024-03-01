@@ -3,45 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:34:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/27 15:50:40 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:52:16 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static int	isvalid(char *variable);
+static void	export(char *arg);
+static int	isvalid(char *arg);
 
-int	msh_export(char *variable)
+int	msh_export(char **args)
+{
+	char	rv;
+
+	if (!args)
+		return (1);
+	rv = 0;
+	if (!*args)
+		msh_env(1);
+	else
+	{
+		while (*args)
+		{
+			if (isvalid(*args))
+				export(*args);
+			else
+				rv = 1;
+			args++;
+		}
+	}
+	return (rv);
+}
+
+static void	export(char *arg)
 {
 	char	*var;
 	char	*val;
 
-	if (!variable || !isvalid(variable))
-		return (1);
-	if (!*variable)
-		msh_env();
-	var = variable;
-	val = ft_strchr(variable, '=');
+	var = arg;
+	val = ft_strchr(arg, '=');
 	if (val)
-	{
-		*val = '\0';
-		val++;
-	}
-	if (msh_setenv(var, val))
-		return (0);
-	return (1);
+		*val++ = '\0';
+	msh_setenv(var, val);
 }
 
-static int	isvalid(char *variable)
+static int	isvalid(char *arg)
 {
-	while (*variable)
+	size_t	i;
+
+	i = 0;
+	while (arg[i] && arg[i] != '=')
 	{
-		if (!ft_isalnum(*variable) || *variable == '_')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+		{
+			ft_dprintf(2, "export: invalid identifier: %.*s\n",
+				ft_strclen(arg, '='), arg);
 			return (0);
-		variable++;
+		}
+		i++;
 	}
 	return (1);
 }
