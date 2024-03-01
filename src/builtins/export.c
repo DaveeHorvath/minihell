@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:34:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/29 18:34:29 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:52:16 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	msh_export(char **args)
 
 	if (!args)
 		return (1);
+	rv = 0;
 	if (!*args)
 		msh_env(1);
 	else
 	{
-		rv = 0;
 		while (*args)
 		{
 			if (isvalid(*args))
