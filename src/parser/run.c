@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/02 12:28:10 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/02 13:04:47 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ int	execute_string(char *s)
 	run_tree(tree);
 	//clean tree
 	return (0);
+}
+
+static int	set_exitcode(int exitcode)
+{
+	msh_setenv("?", ft_itoa(exitcode));
+	return (exitcode);
 }
 
 static int	run_tree(t_node *tree)
@@ -57,5 +63,5 @@ static int	run_tree(t_node *tree)
 			return (-1);
 	}
 	else
-		return (exec_pipeline(tree->content));
+		return (set_exitcode(exec_pipeline(tree->content)));
 }

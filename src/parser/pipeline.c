@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/02 12:22:06 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/02 13:05:46 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	exec_pipeline(char *s)
 		}
 		i++;
 	}
+	save_pipeline(head);
 	return (wait_for_done(head));
 }
 

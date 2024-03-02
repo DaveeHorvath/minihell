@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/02 12:21:31 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/02 13:04:13 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ int			tree_parse_error(int error, t_node *tree);
 /* validity */
 int			is_valid(char *s);
 int			validate_tree(t_node *tree);
+
+/* signals */
+t_cmd		*save_pipeline(t_cmd *_pipline);
+void		keyboardinterupt(int sig);
 
 /* files */
 int			handle_outfile(t_tokens *tokens, int fds[2]);
