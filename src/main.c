@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/20 15:42:39 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:33:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	updateprompt(char *format, char **prompt)
 		*prompt = ft_push(msh_prompt(format));
 		return ;
 	}
-	if (!ft_strequals(format, oldformat))
+	if (ft_strequals(format, oldformat))
 		return ;
 	ft_popblk(*prompt);
 	ft_popblk(oldformat);

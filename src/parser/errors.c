@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/27 14:38:44 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:54:38 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	parse_error(int error)
 // toadd popping tree nodes and contents
 int	tree_parse_error(int error, t_node *tree)
 {
+	(void) tree;
 	if (error == MALLOC_FAIL)
 		ft_printf("Malloc failed while creating tree\n");
 	else if (error == PARENTHESIES_IN_NODE)

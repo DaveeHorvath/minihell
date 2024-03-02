@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:26:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/27 15:48:26 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:05:51 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	msh_env(void)
+int	msh_env(int fd)
 {
 	size_t	i;
 	char	**env;
@@ -22,6 +22,6 @@ int	msh_env(void)
 		return (1);
 	i = 0;
 	while (env[i])
-		ft_putendl_fd(env[i++], 1);
+		ft_putendl_fd(env[i++], fd);
 	return (0);
 }

@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   signalhandler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 14:57:12 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/29 18:58:19 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
+/*   Updated: 2024/02/29 15:37:33 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include <signal.h>
+#include <stdio.h>
 
-int	msh_unset(char **args)
+void	new_interrupt(int sig)
 {
-	if (!args)
-		return (1);
-	while (*args)
-		msh_unsetenv(*args++);
-	return (0);
+	printf("\n got signal %i \n", sig);
+}
+
+int	main(void)
+{
+	signal(2, new_interrupt);
+	while (1)
+		;
 }

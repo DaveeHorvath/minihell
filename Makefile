@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
+#    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/26 17:47:42 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/02/29 19:07:26 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,46 +28,71 @@ INCDIR	=	inc
 LIBDIR	=	libft
 LIBFT	=	$(LIBDIR)/libft.a
 
+READLINEDIR	=	readline
 BUILTINDIR	=	builtins
 CONFIGDIR	=	config
 ENVDIR		=	env
 PARSERDIR	=	parser
 PROMPTDIR	=	prompt
 
-BUILTINFILES	=	$(BUILTINDIR)/cd.c \
-					$(BUILTINDIR)/echo.c \
-					$(BUILTINDIR)/env.c \
-					$(BUILTINDIR)/exit.c \
-					$(BUILTINDIR)/export.c \
-					$(BUILTINDIR)/pwd.c \
-					$(BUILTINDIR)/unset.c
+READLINEFILES	=	ft_readline.c \
+					ft_rl_altcmd.c \
+					ft_rl_command.c \
+					ft_rl_completion.c \
+					ft_rl_completionutils.c \
+					ft_rl_ctrlcmd.c \
+					ft_rl_cursor.c \
+					ft_rl_history.c \
+					ft_rl_historyfile.c \
+					ft_rl_historyutils.c \
+					ft_rl_increment.c \
+					ft_rl_input.c \
+					ft_rl_inpututils.c \
+					ft_rl_match.c \
+					ft_rl_matchutils.c \
+					ft_rl_replace.c \
+					ft_rl_search.c \
+					ft_rl_searchutils.c \
+					ft_rl_termutils.c \
+					ft_rl_utils.c
 
-CONFIGFILES		=	$(CONFIGDIR)/config.c \
-					$(CONFIGDIR)/config_utils.c
+BUILTINFILES	=	cd.c \
+					echo.c \
+					env.c \
+					exit.c \
+					export.c \
+					pwd.c \
+					unset.c
 
-ENVFILES		=	$(ENVDIR)/env.c \
-					$(ENVDIR)/env_utils.c
+CONFIGFILES		=	config.c \
+					config_utils.c
 
-PARSERFILES		=	$(PARSERDIR)/errors.c \
-					$(PARSERDIR)/expand_token.c \
-					$(PARSERDIR)/handle_tokens.c \
-					$(PARSERDIR)/pipeline.c \
-					$(PARSERDIR)/run.c \
-					$(PARSERDIR)/single_command_parser.c \
-					$(PARSERDIR)/tree.c \
-					$(PARSERDIR)/utils.c \
-					$(PARSERDIR)/files.c \
-					$(PARSERDIR)/exec_builtins.c
+ENVFILES		=	env.c \
+					env_utils.c
 
-PROMPTFILES		=	$(PROMPTDIR)/color.c \
-					$(PROMPTDIR)/prompt.c
+PARSERFILES		=	command_split.c \
+					errors.c \
+					exec_builtins.c \
+					expand_token.c \
+					files.c \
+					handle_tokens.c \
+					pipeline.c \
+					run.c \
+					single_command_parser.c \
+					tree.c \
+					utils.c \
+					validation.c
+
+PROMPTFILES		=	color.c \
+					prompt.c
 
 FILES	=	main.c \
-			$(BUILTINFILES) \
-			$(CONFIGFILES) \
-			$(ENVFILES) \
-			$(PARSERFILES) \
-			$(PROMPTFILES)
+			$(addprefix $(READLINEDIR)/, $(READLINEFILES)) \
+			$(addprefix $(BUILTINDIR)/, $(BUILTINFILES)) \
+			$(addprefix $(CONFIGDIR)/, $(CONFIGFILES)) \
+			$(addprefix $(ENVDIR)/, $(ENVFILES)) \
+			$(addprefix $(PARSERDIR)/, $(PARSERFILES)) \
+			$(addprefix $(PROMPTDIR)/, $(PROMPTFILES))
 
 SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))
 OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
@@ -80,6 +105,7 @@ $(NAME): $(OBJDIR) $(LIBFT) $(OBJS)
 
 $(OBJDIR):
 	@echo Creating objdir...
+	@mkdir -p $(OBJDIR)/$(READLINEDIR)
 	@mkdir -p $(OBJDIR)/$(BUILTINDIR)
 	@mkdir -p $(OBJDIR)/$(CONFIGDIR)
 	@mkdir -p $(OBJDIR)/$(ENVDIR)
@@ -87,9 +113,13 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)/$(PROMPTDIR)
 
 $(LIBFT):
-	@make -C $(LIBDIR) BUILD=$(BUILD)
+	@make --no-print-directory -C $(LIBDIR) BUILD=$(BUILD)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@echo Compiling $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
+$(OBJDIR)/$(READLINEDIR)/%.o: $(SRCDIR)/$(READLINEDIR)/%.c
 	@echo Compiling $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
@@ -114,11 +144,11 @@ $(OBJDIR)/$(PROMPTDIR)/%.o: $(SRCDIR)/$(PROMPTDIR)/%.c
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 clean:
-	@make -C $(LIBDIR) clean
+	@make --no-print-directory -C $(LIBDIR) clean
 	@rm -f $(OBJS)
 
 fclean: clean
-	@make -C $(LIBDIR) fclean
+	@make --no-print-directory -C $(LIBDIR) fclean
 	@rm -rf $(OBJDIR)
 	@rm -f $(NAME)
 
