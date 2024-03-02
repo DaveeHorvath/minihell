@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:55:10 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/27 14:13:56 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/02 12:10:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,50 @@ void	ft_rl_complete_checkdirs(char *path, t_list *completions)
 		}
 		tmp = tmp->next;
 	}
+}
+
+void	ft_rl_wildcard_rmdot(t_rl_wc *wc)
+{
+	t_list	*matches;
+
+	matches = wc->matches;
+	while (matches)
+	{
+		ft_popblk(matches->blk);
+		matches->blk = ft_push(
+				ft_substr(matches->blk, 2, ft_strlen(matches->blk) - 2));
+		matches = matches->next;
+	}
+}
+
+void	ft_rl_wildcard_pop(t_rl_wc *wc)
+{
+	if (!wc)
+		return ;
+	ft_popblk(wc);
+	ft_popblk(wc->pattern);
+	while (wc->matches)
+	{
+		if (!wc->matches->prev)
+			break ;
+		wc->matches = wc->matches->prev;
+	}
+	ft_lstpopall(wc->matches);
+}
+
+int	ft_rl_wildcard_checkalloc(t_rl_wc *wc1, t_rl_wc *wc2, char **arr)
+{
+	if (!wc1 || !arr)
+	{
+		ft_rl_wildcard_pop(wc1);
+		ft_rl_wildcard_pop(wc2);
+		if (arr)
+		{
+			ft_popblk(arr);
+			while (*arr)
+				ft_popblk(*arr++);
+		}
+		return (1);
+	}
+	return (0);
 }

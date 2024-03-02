@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/27 14:15:13 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/02 11:55:24 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ t_list	*ft_rl_complete_env(char *word);
 t_list	*ft_rl_complete_cmd(char *word);
 t_list	*ft_rl_complete_file(char *word);
 
+// ft_rl_wildcard.c
+t_rl_wc	*ft_rl_wildcard_expand(char *pattern);
+
 // ft_rl_increment.c
 void	ft_rl_complete_increment(t_list *completions, char *word);
 
@@ -89,6 +92,9 @@ void	printcompletions(t_list *completions, char *current);
 
 // ft_rl_matchutils.c
 void	ft_rl_complete_checkdirs(char *path, t_list *completions);
+void	ft_rl_wildcard_rmdot(t_rl_wc *matches);
+void	ft_rl_wildcard_pop(t_rl_wc *wc);
+int		ft_rl_wildcard_checkalloc(t_rl_wc *wc1, t_rl_wc *wc2, char **arr);
 
 // ft_rl_historyutils.c
 t_list	**ft_rl_history_gethead(void);
