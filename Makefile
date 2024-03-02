@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/29 17:31:42 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/02/29 19:07:26 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,16 +70,18 @@ CONFIGFILES		=	config.c \
 ENVFILES		=	env.c \
 					env_utils.c
 
-PARSERFILES		=	errors.c \
+PARSERFILES		=	command_split.c \
+					errors.c \
+					exec_builtins.c \
 					expand_token.c \
+					files.c \
 					handle_tokens.c \
 					pipeline.c \
 					run.c \
 					single_command_parser.c \
 					tree.c \
 					utils.c \
-					files.c \
-					exec_builtins.c
+					validation.c
 
 PROMPTFILES		=	color.c \
 					prompt.c
