@@ -6,27 +6,27 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:01:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/27 14:53:58 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/02 12:13:21 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "ft_readline.h"
 
-static void	matchfiles(char *word, char *path, int cmd, t_list **completions);
+static void	matchfiles(char *pattern, char *path, int cmd, t_list **completions);
 static int	iscmd(char *path, char *cmd);
 
-t_list	*ft_rl_complete_env(char *word)
+t_list	*ft_rl_complete_env(char *pattern)
 {
-	size_t		wordlen;
+	size_t		patternlen;
 	t_list		*completions;
 	extern char	**environ;
 	char		*var;
 
 	completions = NULL;
-	while (*word == '$')
-		word++;
-	wordlen = ft_strlen(word);
+	while (*pattern == '$')
+		pattern++;
+	patternlen = ft_strlen(pattern);
 	while (*environ)
 	{
 		var = ft_substr(*environ, 0, ft_strclen(*environ, '='));
@@ -35,14 +35,14 @@ t_list	*ft_rl_complete_env(char *word)
 			ft_lstpopall(completions);
 			return (NULL);
 		}
-		if (!ft_strncmp(var, word, wordlen))
+		if (!ft_strncmp(var, pattern, patternlen))
 			ft_lstadd_back(&completions, ft_lstnew(ft_strjoin("$", var)));
 		environ++;
 	}
 	return (completions);
 }
 
-t_list	*ft_rl_complete_cmd(char *word)
+t_list	*ft_rl_complete_cmd(char *pattern)
 {
 	t_list	*completions;
 	char	**path;
@@ -53,37 +53,37 @@ t_list	*ft_rl_complete_cmd(char *word)
 	completions = NULL;
 	while (*path)
 	{
-		matchfiles(word, *path, 1, &completions);
+		matchfiles(pattern, *path, 1, &completions);
 		ft_popblk(*path++);
 	}
 	ft_popblk(path);
-	matchfiles(word, ".", 1, &completions);
+	matchfiles(pattern, ".", 1, &completions);
 	return (completions);
 }
 
-t_list	*ft_rl_complete_file(char *word)
+t_list	*ft_rl_complete_file(char *pattern)
 {
 	t_list	*completions;
 	char	*path;
 
 	completions = NULL;
-	path = ft_strrchr(word, '/');
+	path = ft_strrchr(pattern, '/');
 	if (path)
 	{
-		path = ft_push(ft_substr(word, 0, path - word));
-		word = ft_strrchr(word, '/') + 1;
+		path = ft_push(ft_substr(pattern, 0, path - pattern));
+		pattern = ft_strrchr(pattern, '/') + 1;
 	}
-	matchfiles(word, path, 0, &completions);
+	matchfiles(pattern, path, 0, &completions);
 	ft_rl_complete_checkdirs(path, completions);
 	ft_popblk(path);
 	return (completions);
 }
 
-static void	matchfiles(char *word, char *path, int cmd, t_list **completions)
+static void	matchfiles(char *pattern, char *path, int cmd, t_list **completions)
 {
 	DIR				*dir;
 	struct dirent	*data;
-	size_t			wordlen;
+	size_t			patternlen;
 
 	if (path)
 		dir = opendir(path);
@@ -92,12 +92,12 @@ static void	matchfiles(char *word, char *path, int cmd, t_list **completions)
 	if (!dir)
 		return ;
 	data = readdir(dir);
-	wordlen = ft_strlen(word);
+	patternlen = ft_strlen(pattern);
 	while (data)
 	{
 		if (!ft_strequals(data->d_name, ".")
 			&& !ft_strequals(data->d_name, "..")
-			&& !ft_strncmp(data->d_name, word, ft_strlen(word)))
+			&& !ft_strncmp(data->d_name, pattern, patternlen))
 		{
 			if (!cmd || iscmd(path, data->d_name))
 				ft_lstadd_back(completions, ft_lstnew(ft_strdup(data->d_name)));

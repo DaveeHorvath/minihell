@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/23 18:28:12 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/02 09:37:23 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,7 @@ CC				=	cc
 cflags.common	=	-Wall -Wextra -Werror
 cflags.debug	=	-g
 cflags.debugm 	=	$(cflags.debug) -D DEBUG_MSG=1
-ifeq ($(shell uname),Linux)
-	cflags.asan		=	$(cflags.debug) -fsanitize=address
-else
-	cflags.asan		=	$(cflags.debug) -fsanitize=address -static-libsan
-endif
+cflags.asan		=	$(cflags.debug) -fsanitize=address
 cflags.normal	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
 
@@ -41,6 +37,7 @@ SRCS	=	ft_atoi.c \
 			ft_isprint.c \
 			ft_isspace.c \
 			ft_isinteger.c \
+			ft_basename.c \
 			ft_contains.c \
 			ft_itoa.c \
 			ft_uitoa.c \

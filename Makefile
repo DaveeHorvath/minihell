@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
+#    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/03/02 13:06:17 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/03/03 20:37:40 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	=	minishell
 BUILD	=	normal
 
 CC				=	cc
-#cflags.common	=	-Wall -Wextra -Werror
+cflags.common	=	-Wall -Wextra -Werror
 cflags.debug	=	-g
 cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
 cflags.asan		=	$(cflags.debug) -fsanitize=address -static-libsan
@@ -54,7 +54,8 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_search.c \
 					ft_rl_searchutils.c \
 					ft_rl_termutils.c \
-					ft_rl_utils.c
+					ft_rl_utils.c \
+					ft_rl_wildcard.c
 
 BUILTINFILES	=	cd.c \
 					echo.c \
