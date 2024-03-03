@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/03/02 12:39:36 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/03 20:37:40 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,8 @@ PARSERFILES		=	command_split.c \
 					single_command_parser.c \
 					tree.c \
 					utils.c \
-					validation.c
+					validation.c \
+					signalhandler.c
 
 PROMPTFILES		=	color.c \
 					prompt.c

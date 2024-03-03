@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/01 20:15:32 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/03 16:08:42 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	exec_pipeline(char *s)
 	while (commands[i])
 	{
 		if (i == 0 && !commands[1] && is_builtin(commands[0]))
-			return (exec_builtin(commands[0], &prev_out, 1));
+			return (exec_builtin(commands[0], prev_out, 1));
 		current = get_command(commands[i], commands, &prev_out, i);
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
@@ -47,6 +47,7 @@ int	exec_pipeline(char *s)
 		}
 		i++;
 	}
+	save_pipeline(head);
 	return (wait_for_done(head));
 }
 
@@ -77,13 +78,15 @@ static int	wait_for_done(t_cmd *head)
 		if (head->exitcode != -1)
 		{
 			waitpid(head->pid, &status, 0);
-			if (WIFEXITED(status))
-				exitstatus = WEXITSTATUS(status);
 		}
 		else
 			exitstatus = 1;
 		head = head->next;
 	}
+	if (WIFEXITED(status))
+		exitstatus = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		exitstatus = WTERMSIG(status);
 	return (exitstatus);
 }
 
@@ -118,7 +121,7 @@ static void	do_cmd(t_cmd *cmd)
 	else if (id == 0)
 	{
 		if (is_builtin(cmd->argv[0]))
-			exit(exec_builtin(cmd->argv[0], cmd->fd, 0));
+			exit(exec_builtin(cmd->argv[0], cmd->fd[1], 0));
 		path = get_path(cmd->argv[0]);
 		if (!path && cmd->argv[0])
 			cmd_not_found(cmd);

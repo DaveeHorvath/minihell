@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/01 20:18:26 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:16:29 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			update_quote(char c, enum e_quotes *quote);
 int			exec_pipeline(char *s);
 int			get_fds(t_tokens *tokens, int fds[2]);
 int			is_builtin(char *s);
-int			exec_builtin(char *s, int fd[2], int actual_exit);
+int			exec_builtin(char *s, int outfd, int actual_exit);
 char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
@@ -90,6 +90,10 @@ int			tree_parse_error(int error, t_node *tree);
 /* validity */
 int			is_valid(char *s);
 int			validate_tree(t_node *tree);
+
+/* signals */
+t_cmd		*save_pipeline(t_cmd *_pipline);
+void		keyboardinterupt(int sig);
 
 /* files */
 int			handle_outfile(t_tokens *tokens, int fds[2]);
