@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/02 13:08:22 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/03 16:08:42 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,15 @@ static int	wait_for_done(t_cmd *head)
 		if (head->exitcode != -1)
 		{
 			waitpid(head->pid, &status, 0);
-			if (WIFEXITED(status))
-				exitstatus = WEXITSTATUS(status);
 		}
 		else
 			exitstatus = 1;
 		head = head->next;
 	}
+	if (WIFEXITED(status))
+		exitstatus = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		exitstatus = WTERMSIG(status);
 	return (exitstatus);
 }
 

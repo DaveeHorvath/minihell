@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/20 16:09:18 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:47:57 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,27 @@ int	update_quote(char c, enum e_quotes *quote)
 		return (1);
 	}
 	return (0);
+}
+
+int	needs_filename_expansion(char *s)
+{
+	int				i;
+	enum e_quotes	quote;
+
+	i = 0;
+	while (s[i])
+	{
+		update_quote(s[i], &quote);
+		if (quote == none && s[i] == '*')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	expand_alias(char *s, t_tokens **tokens)
+{
+	
 }
 
 char	*expand_token(char *token, char *content, enum e_quotes quote)
