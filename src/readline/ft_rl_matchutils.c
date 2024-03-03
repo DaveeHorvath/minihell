@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:55:10 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/02 14:36:18 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/03 15:23:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_rl_wildcard_rmdot(t_rl_wc *wc)
 	matches = wc->matches;
 	while (matches)
 	{
-		ft_memmove(matches->blk, matches->blk + 2, ft_strlen(matches->blk) + 2);
+		ft_memmove(matches->blk, matches->blk + 2, ft_strlen(matches->blk) - 1);
 		matches = matches->next;
 	}
 }
