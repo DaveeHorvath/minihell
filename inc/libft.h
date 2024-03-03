@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 22:26:38 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/02 09:29:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strremove(const char *s, const char c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strchr(const char *s, int c);
+char	*ft_basename(const char *path);
 char	*ft_strdup(const char *s);
 char	*ft_strupper(char *s);
 char	*ft_strlower(char *s);
