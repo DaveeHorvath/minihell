@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:25 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 16:52:16 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 21:36:10 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char **ft_quoted_split(char *s, char c)
 			if (s[i] == c)
 			{
 				res[current++] = ft_push(ft_substr(s, old_i, i - old_i - 1));
-				ft_dprintf(2, "%s\n", res[current - 1]);
 				old_i = i + 1;
 			}
 			i++;

@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:24:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/27 14:57:16 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 22:54:24 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	is_valid(char *s)
 		}
 		else if (s[i] == ')')
 		{
+			ft_dprintf(2, "%i\n", parenthesies);
 			if (parenthesies == 0)
 				return (WRONG_PARENTHESIES);
 			parenthesies--;
@@ -42,17 +43,21 @@ int	is_valid(char *s)
 		}
 		else if (s[i] == '\'')
 		{
+			i++;
 			while (s[i] && s[i] != '\'')
 				i++;
 			if (s[i] == '\0')
 				return (UNMATCHED_S_QUOTE);
+			i++;
 		}
 		else if (s[i] == '\"')
 		{
+			i++;
 			while (s[i] && s[i] != '\"')
 				i++;
 			if (s[i] == '\0')
 				return (UNMATCHED_D_QUOTE);
+			i++;
 		}
 		else
 			i++;
@@ -71,7 +76,7 @@ int	validate_pipeline(char *s)
 
 	if (!s)
 		return (1);
-	commands = ft_pusharr(ft_split(s, '|'));
+	commands = ft_quoted_split(s, '|');
 	i = 0;
 	while (commands[i])
 	{
@@ -80,6 +85,7 @@ int	validate_pipeline(char *s)
 			j++;
 		if (!commands[i][j])
 			return (PIPELINE_ISSUE);
+		i++;
 	}
 	return (0);
 }
