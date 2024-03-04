@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:20:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 19:55:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/02 21:58:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	ft_debugxnbr(unsigned long n, char f)
 		if (f == 'x')
 			ft_putchar_fd(hexarr[n % 16], DEBUGFD);
 		else
-			ft_putchar_fd(ft_toupper(hexarr[n % 16 + '0']), DEBUGFD);
+			ft_putchar_fd(ft_toupper(hexarr[n % 16]), DEBUGFD);
 		return ;
 	}
 	if (f == 'x')
 		ft_putchar_fd(hexarr[n % 16], DEBUGFD);
 	else
-		ft_putchar_fd(ft_toupper(hexarr[n % 16 + '0']), DEBUGFD);
+		ft_putchar_fd(ft_toupper(hexarr[n % 16]), DEBUGFD);
 }

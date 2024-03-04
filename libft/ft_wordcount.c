@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 13:33:24 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 19:55:28 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/25 17:05:28 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/25 17:14:26 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_wordcount(const char *s)
 {
 	size_t	words;
 
+	if (!s)
+		return (0);
 	words = 0;
 	while (*s)
 	{
@@ -23,7 +25,7 @@ size_t	ft_wordcount(const char *s)
 			s++;
 		while (*s && !ft_isspace(*s))
 			s++;
-		if (*(s - 1))
+		if (!ft_isspace(s[-1]))
 			words++;
 	}
 	return (words);
