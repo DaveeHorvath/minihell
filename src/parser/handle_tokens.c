@@ -6,14 +6,12 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:34:48 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/03 17:16:24 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:54:37 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
-
-static void	append(t_tokens **list, char *s);
 
 int	handle_quotes(char *s, int i)
 {
@@ -61,7 +59,7 @@ int	handle_space(char *s, int i, int *old_i, t_tokens **tokens)
 	return (counter);
 }
 
-static void	append(t_tokens **list, char *s)
+void	append(t_tokens **list, char *s)
 {
 	t_tokens	*current;
 	t_tokens	*new;

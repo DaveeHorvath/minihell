@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 13:25:51 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:58:42 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "env.h"
 #include "rl_data.h"
+#include "ft_readline.h"
 
 int	update_quote(char c, enum e_quotes *quote)
 {
@@ -78,9 +79,49 @@ int	ambigous_redirect(char *s)
 		i = 1;
 		while (s[i] && s[i] == ' ')
 			i++;
-		wildcards = 
+		if (ft_strchr(&s[i], '*'))
+		{
+			wildcards = ft_rl_wildcard_expand(ft_strdup(&s[i]));
+			if (wildcards->matches->next)
+			{
+				ft_putstr_fd("minishell ", 2);
+				ft_putstr_fd(&s[i], 2);
+				ft_putstr_fd(" ambigous redirect\n", 2);
+				return (1);
+			}
+		}
+		return (0);
 	}
 	return (0);
+}
+
+t_tokens	*expand_filenames(char *s)
+{
+	t_tokens	*new;
+	t_rl_wc		*wildcards;
+	t_list		*matches;
+	int			i;
+
+	new = NULL;
+	if (s[0] == '<' || s[0] == '>')
+	{
+		i = 0;
+		while (s[i] == ' ')
+			i++;
+		append(&new, ft_push(ft_strjoin(ft_substr(s, 0, 1),
+					ft_rl_wildcard_expand(ft_strdup(&s[i]))->matches->blk)));
+	}
+	else
+	{
+		wildcards = ft_rl_wildcard_expand(s);
+		matches = wildcards->matches;
+		while (matches)
+		{
+			append(&new, matches->blk);
+			matches = matches->next;
+		}
+	}
+	return (new);
 }
 
 int	expand_wildcards(t_tokens **tokens)
@@ -96,7 +137,7 @@ int	expand_wildcards(t_tokens **tokens)
 			if (ambigous_redirect(list->content))
 				return (0);
 			prev->next = list->next;
-			addfront(expand_filenames(list->content), &list);
+			addfront(expand_filenames(list->content), &list->next);
 		}
 		prev = list;
 		list = list->next;
@@ -125,7 +166,7 @@ void	expand_alias(t_tokens **tokens, char *s)
 	if (msh_getalias(list->content) != NULL && !ft_strequals(cont, s))
 	{
 		prev->next = list->next;
-		addfront(get_tokens(msh_getalias(list->content)), &list);
+		addfront(get_tokens(msh_getalias(list->content)), &list->next);
 		expand_alias(tokens, cont);
 	}
 	else
