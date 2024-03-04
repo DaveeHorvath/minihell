@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_basename.c                                      :+:      :+:    :+:   */
+/*   ft_lstfirst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 09:29:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/02 09:51:17 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/26 12:45:11 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/26 12:47:09 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file ft_lstfirst.c
+ */
+
 #include "libft.h"
 
-char	*ft_basename(const char *path)
+/** @brief Returns the address of the first node of the list
+ *
+ * @param *list Address of a node in the list
+ * @retval t_list* Address of the first node in the list,
+ * or NULL if list is NULL
+ */
+t_list	*ft_lstfirst(t_list *list)
 {
-	char	*out;
-	char	*tmp;
-
-	ft_push((void *)path);
-	out = ft_strtrim(path, "/");
-	ft_popblk((void *)path);
-	if (!out)
+	if (!list)
 		return (NULL);
-	tmp = ft_strrchr(out, '/');
-	if (tmp)
-		out = ft_substr(out, tmp - out + 1, ft_strlen(tmp));
-	if (!out)
-		return (NULL);
-	return (out);
+	while (list->prev)
+		list = list->prev;
+	return (list);
 }
