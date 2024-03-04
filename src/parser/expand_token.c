@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 13:58:42 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:37:05 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #include "env.h"
 #include "rl_data.h"
 #include "ft_readline.h"
+
+char *msh_getalias(char *s)
+{
+	(void)s;
+	return (NULL);
+}
 
 int	update_quote(char c, enum e_quotes *quote)
 {
@@ -70,7 +76,6 @@ void	addfront(t_tokens *tokens, t_tokens **tokenlist)
 
 int	ambigous_redirect(char *s)
 {
-	char	*pattern;
 	int		i;
 	t_rl_wc	*wildcards;
 

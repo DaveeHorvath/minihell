@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/02 12:22:34 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:48:07 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	is_builtin(char *s)
 {
 	char	**args;
 
-	args = get_args(get_tokens(ft_strtrim(s, " ")));
+	ft_dprintf(2, "%p %s\n", s);
+	args = get_args(get_tokens(ft_push(ft_strtrim(s, " "))));
 	if (ft_strequals(args[0], "cd") || ft_strequals(args[0], "echo")
 		|| ft_strequals(args[0], "unset") || ft_strequals(args[0], "export")
 		|| ft_strequals(args[0], "exit"))

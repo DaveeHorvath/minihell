@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 13:54:18 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:38:08 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,8 @@ int			handle_quotes(char *s, int i);
 int			handle_redirect(char *s, int i, t_tokens **tokens, int start);
 int			handle_space(char *s, int i, int *old_i, t_tokens **tokens);
 char		*get_filename(char *s, int start);
+
+void		expand_alias(t_tokens **tokens, char *s);
+int			expand_wildcards(t_tokens **tokens);
 
 #endif
