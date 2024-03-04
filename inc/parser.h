@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/03 17:16:29 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:38:08 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ enum e_quotes
 	singlequote,
 };
 
-
 typedef struct s_node
 {
 	struct s_node	*left;
@@ -80,6 +79,7 @@ int			exec_builtin(char *s, int outfd, int actual_exit);
 char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
+void		append(t_tokens **list, char *s);
 /* errors */
 void		cmd_not_found(t_cmd *cmd);
 void		child_error(void);
@@ -106,5 +106,8 @@ int			handle_quotes(char *s, int i);
 int			handle_redirect(char *s, int i, t_tokens **tokens, int start);
 int			handle_space(char *s, int i, int *old_i, t_tokens **tokens);
 char		*get_filename(char *s, int start);
+
+void		expand_alias(t_tokens **tokens, char *s);
+int			expand_wildcards(t_tokens **tokens);
 
 #endif

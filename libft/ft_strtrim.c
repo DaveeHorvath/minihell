@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:00:57 by ivalimak          #+#    #+#             */
 /*   Updated: 2023/12/30 14:07:43 by ivalimak         ###   ########.fr       */

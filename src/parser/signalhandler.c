@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/03 17:16:11 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:40:33 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ void	clean_pipeline(t_cmd *cmd)
 void	keyboardinterupt(int sig)
 {
 	g_has_recieved = 0;
+	(void) sig;
+	exit(0);
 	clean_pipeline(save_pipeline(NULL));
 }

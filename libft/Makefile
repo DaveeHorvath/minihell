@@ -36,7 +36,7 @@ SRCS	=	ft_atoi.c \
 			ft_isdigit.c \
 			ft_isprint.c \
 			ft_isspace.c \
-			ft_isinteger.c \
+			ft_basename.c \
 			ft_contains.c \
 			ft_itoa.c \
 			ft_uitoa.c \
