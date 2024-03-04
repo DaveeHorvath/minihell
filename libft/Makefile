@@ -6,7 +6,11 @@
 #    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
+<<<<<<< Updated upstream
 #    Updated: 2024/03/04 15:35:04 by dhorvath         ###   ########.fr        #
+=======
+#    Updated: 2024/03/04 15:34:08 by dhorvath         ###   ########.fr        #
+>>>>>>> Stashed changes
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +40,10 @@ SRCS	=	ft_atoi.c \
 			ft_isdigit.c \
 			ft_isprint.c \
 			ft_isspace.c \
+<<<<<<< Updated upstream
 			ft_basename.c \
+=======
+>>>>>>> Stashed changes
 			ft_contains.c \
 			ft_itoa.c \
 			ft_uitoa.c \
