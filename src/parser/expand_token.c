@@ -6,13 +6,14 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/03 17:47:57 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:25:51 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 #include "env.h"
+#include "rl_data.h"
 
 int	update_quote(char c, enum e_quotes *quote)
 {
@@ -55,9 +56,80 @@ int	needs_filename_expansion(char *s)
 	return (0);
 }
 
-int	expand_alias(char *s, t_tokens **tokens)
+void	addfront(t_tokens *tokens, t_tokens **tokenlist)
 {
-	
+	t_tokens	*start;
+
+	start = tokens;
+	while (tokens->next)
+		tokens = tokens->next;
+	tokens->next = *tokenlist;
+	*tokenlist = start;
+}
+
+int	ambigous_redirect(char *s)
+{
+	char	*pattern;
+	int		i;
+	t_rl_wc	*wildcards;
+
+	if (s[0] == '<' || s[0] == '>')
+	{
+		i = 1;
+		while (s[i] && s[i] == ' ')
+			i++;
+		wildcards = 
+	}
+	return (0);
+}
+
+int	expand_wildcards(t_tokens **tokens)
+{
+	t_tokens	*list;
+	t_tokens	*prev;
+
+	list = *tokens;
+	while (list)
+	{
+		if (needs_filename_expansion((*tokens)->content))
+		{
+			if (ambigous_redirect(list->content))
+				return (0);
+			prev->next = list->next;
+			addfront(expand_filenames(list->content), &list);
+		}
+		prev = list;
+		list = list->next;
+	}
+	return (1);
+}
+
+void	expand_alias(t_tokens **tokens, char *s)
+{
+	t_tokens	*list;
+	t_tokens	*prev;
+	char		*cont;
+
+	list = *tokens;
+	prev = list;
+	while (list)
+	{
+		if (list->content[0] != '<' && list->content[0] != '>')
+			break ;
+		prev = list;
+		list = list->next;
+	}
+	if (!list)
+		return ;
+	cont = list->content;
+	if (msh_getalias(list->content) != NULL && !ft_strequals(cont, s))
+	{
+		prev->next = list->next;
+		addfront(get_tokens(msh_getalias(list->content)), &list);
+		expand_alias(tokens, cont);
+	}
+	else
+		return ;
 }
 
 char	*expand_token(char *token, char *content, enum e_quotes quote)

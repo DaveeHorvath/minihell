@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/03 17:08:00 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:52:18 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@
 static void		get_def_filedesc(int i, int need_pipe,
 					int *prev_out, t_cmd *current);
 
-void expand_alias_and_wildcard(t_tokens *tokens)
-{
-	while (tokens)
-	{
-		
-	}
-}
-
 t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 {
 	t_cmd		*out;
@@ -32,7 +24,7 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	tokens = get_tokens(ft_strtrim(s, " "));
-	expand_alias_and_wildcard(tokens);
+	expand_alias(&tokens);
 	out->env = msh_getenvarr();
 	if (commands[i + 1])
 		get_def_filedesc(i, 1, prev_out, out);

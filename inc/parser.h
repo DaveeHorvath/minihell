@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/03 17:16:29 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:09:40 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ enum e_quotes
 	doublequote,
 	singlequote,
 };
-
 
 typedef struct s_node
 {
