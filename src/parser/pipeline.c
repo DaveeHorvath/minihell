@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 16:49:17 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:54:16 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	exec_pipeline(char *s)
 	commands = ft_quoted_split(s, '|');
 	while (commands[i])
 	{
-		//if (i == 0 && !commands[1] && is_builtin(commands[0]))
-		//	return (exec_builtin(commands[0], prev_out, 1));
+		if (i == 0 && !commands[1] && is_builtin(commands[0]))
+			return (exec_builtin(commands[0], 1, 1));
 		current = get_command(commands[i], commands, &prev_out, i);
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
@@ -100,7 +100,6 @@ static char	*get_path(char *name)
 	while (path[i])
 	{
 		c_path = ft_push(ft_strsjoin(path[i], name, '/'));
-		//ft_dprintf(2, "%s\n", name);
 		if (access(c_path, F_OK) == 0)
 			return (c_path);
 		ft_pop();

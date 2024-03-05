@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:24:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 22:54:24 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:51:41 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	is_valid(char *s)
 		}
 		else if (s[i] == ')')
 		{
-			ft_dprintf(2, "%i\n", parenthesies);
 			if (parenthesies == 0)
 				return (WRONG_PARENTHESIES);
 			parenthesies--;
@@ -40,6 +39,7 @@ int	is_valid(char *s)
 					return (SYNTAX_ERROR);
 				i++;
 			}
+			i++;
 		}
 		else if (s[i] == '\'')
 		{
@@ -81,7 +81,7 @@ int	validate_pipeline(char *s)
 	while (commands[i])
 	{
 		j = 0;
-		while (commands[i][j] && commands[i][j] == ' ')
+		while (commands[i][j] == ' ')
 			j++;
 		if (!commands[i][j])
 			return (PIPELINE_ISSUE);
@@ -117,8 +117,10 @@ int	validate_tree(t_node *tree)
 			if (tree->content[i] == '\"' || tree->content[i] == '\'')
 			{
 				c = tree->content[i];
-				while (tree->content[i] && tree->content[i] != c)
+				i++;
+				while (tree->content[i] != c)
 					i++;
+				i++;
 			}
 			else if (tree->content[i] == '(' || tree->content[i] == ')')
 				return (PARENTHESIES_IN_NODE);
