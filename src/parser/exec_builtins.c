@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 14:45:19 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:51:21 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 	fds[1] = outfd;
 	tokens = get_tokens(ft_strtrim(s, " "));
 	args = get_args(tokens);
+	expand_wildcards(&tokens);
 	get_fds(tokens, fds);
 	if (ft_strequals(args[0], "cd"))
 		exitcode = msh_cd(args[1]);

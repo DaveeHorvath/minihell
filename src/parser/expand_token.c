@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 14:43:35 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:26:11 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	needs_filename_expansion(char *s)
 	enum e_quotes	quote;
 
 	i = 0;
+	quote = none;
 	while (s[i])
 	{
 		update_quote(s[i], &quote);
@@ -67,6 +68,8 @@ void	addfront(t_tokens *tokens, t_tokens **tokenlist)
 {
 	t_tokens	*start;
 
+	if (!tokens)
+		return ;
 	start = tokens;
 	while (tokens->next)
 		tokens = tokens->next;
@@ -122,6 +125,7 @@ t_tokens	*expand_filenames(char *s)
 		matches = wildcards->matches;
 		while (matches)
 		{
+			ft_dprintf(2, "%s\n", matches->blk);
 			append(&new, matches->blk);
 			matches = matches->next;
 		}
@@ -135,9 +139,11 @@ int	expand_wildcards(t_tokens **tokens)
 	t_tokens	*prev;
 
 	list = *tokens;
+	prev = list;
 	while (list)
 	{
-		if (needs_filename_expansion((*tokens)->content))
+		ft_dprintf(2, "%i\n", needs_filename_expansion(list->content));
+		if (needs_filename_expansion(list->content))
 		{
 			if (ambigous_redirect(list->content))
 				return (0);
