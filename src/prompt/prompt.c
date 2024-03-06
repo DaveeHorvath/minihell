@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/06 13:43:30 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:03:25 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,19 @@ static char	*getdir(const char type, size_t depth)
 	char	*out;
 
 	out = msh_getenv("PWD");
+	if (ft_strequals(out, "/"))
+		return (out);
 	if (type == '~')
 	{
 		home = msh_getenv("HOME");
 		homelen = ft_strlen(home);
 		if (!ft_strncmp(out, home, homelen))
-			out = ft_strjoin("~/", ft_substr(out, homelen, ft_strlen(out)));
+		{
+			if (ft_strlen(out) > homelen)
+				out = ft_strjoin("~", ft_substr(out, homelen, ft_strlen(out)));
+			else
+				out = ft_strdup("~");
+		}
 	}
 	if (depth > 0)
 		return (truncdir(out, depth));
