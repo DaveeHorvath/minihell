@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 15:38:08 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:57:27 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			is_valid(char *s);
 int			validate_tree(t_node *tree);
 
 /* signals */
-t_cmd		*save_pipeline(t_cmd *_pipline);
+t_cmd		*save_pipeline(t_cmd *_pipline, int set);
 void		keyboardinterupt(int sig);
 
 /* files */
