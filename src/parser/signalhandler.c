@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 15:40:33 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:44:43 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,5 @@ void	keyboardinterupt(int sig)
 {
 	g_has_recieved = 0;
 	(void) sig;
-	exit(0);
 	clean_pipeline(save_pipeline(NULL));
 }

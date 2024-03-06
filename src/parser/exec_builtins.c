@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/05 15:51:17 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:33:03 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,19 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 	get_fds(tokens, fds);
 	if (ft_strequals(args[0], "cd"))
 		exitcode = msh_cd(args[1]);
-	if (ft_strequals(args[0], "echo"))
+	else if (ft_strequals(args[0], "echo"))
 		exitcode = msh_echo(&args[1], fds[1]);
-	if (ft_strequals(args[0], "unset"))
+	else if (ft_strequals(args[0], "unset"))
 		exitcode = msh_unset(&args[1]);
-	if (ft_strequals(args[0], "export"))
+	else if (ft_strequals(args[0], "export"))
 		exitcode = msh_export(&args[1]);
-	if (ft_strequals(args[0], "exit"))
+	else if (ft_strequals(args[0], "exit"))
 		exitcode = msh_exit(&args[1], actual_exit);
-	if (ft_strequals(args[0], "pwd"))
+	else if (ft_strequals(args[0], "pwd"))
 		exitcode = msh_pwd(fds[1]);
 	else
 		exitcode = msh_env(fds[1]);
+	ft_dprintf(2, "%i %i\n", fds[0], fds[1]);
 	if (fds[0] != 0)
 		close(fds[0]);
 	if (fds[1] != 1)

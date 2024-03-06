@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/05 15:54:16 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:42:06 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ static void	do_cmd(t_cmd *cmd)
 		child_error();
 	else if (id == 0)
 	{
-		//if (is_builtin(cmd->argv[0]))
-		//	exit(exec_builtin(cmd->argv[0], cmd->fd[1], 0));
+		if (is_builtin(cmd->argv[0]))
+			exit(exec_builtin(cmd->argv[0], cmd->fd[1], 0));
 		path = get_path(cmd->argv[0]);
 		if (!path && cmd->argv[0])
 			cmd_not_found(cmd);

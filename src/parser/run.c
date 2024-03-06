@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/05 15:51:42 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:39:16 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ static int	run_tree(t_node *tree);
 
 int	execute_string(char *s)
 {
-	t_node	*tree;
-	int		validity;
+	t_node		*tree;
+	int			validity;
+	const int	backup_fds_dont_fucking_touch[2] = {dup(0), dup(1)};
 
 	validity = is_valid(s);
 	if (validity != 0)
@@ -29,6 +30,8 @@ int	execute_string(char *s)
 	if (validity != 0)
 		return (tree_parse_error(validity, tree));
 	run_tree(tree);
+	dup2(backup_fds_dont_fucking_touch[0], 0);
+	dup2(backup_fds_dont_fucking_touch[1], 1);
 	return (0);
 }
 
