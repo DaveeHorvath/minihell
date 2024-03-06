@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/01 10:45:48 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:35:28 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static char	*getdir(const char type, size_t depth)
 	{
 		home = msh_getenv("HOME");
 		homelen = ft_strlen(home);
-		ft_popblk(out);
 		if (!ft_strncmp(out, home, homelen))
 			out = ft_strjoin("~/", ft_substr(out, homelen, ft_strlen(out)));
 	}

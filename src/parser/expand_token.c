@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/05 15:51:52 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:43:35 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ char	*expand_token(char *token, char *content, enum e_quotes quote)
 		}
 		else if (token[i] == '$' && (quote == none || quote == doublequote))
 		{
-			content = ft_strjoin(content, ft_substr(token, 0, i));
+			content = ft_push(ft_strjoin(content, ft_substr(token, 0, i)));
 			i++;
 			old_i = i;
 			while (token[i] && ft_strchr(" \'\"$", token[i]) == NULL)

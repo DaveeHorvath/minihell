@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 11:33:03 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:45:19 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 		exitcode = msh_pwd(fds[1]);
 	else
 		exitcode = msh_env(fds[1]);
-	ft_dprintf(2, "%i %i\n", fds[0], fds[1]);
 	if (fds[0] != 0)
 		close(fds[0]);
 	if (fds[1] != 1)
