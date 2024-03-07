@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/29 19:07:26 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/03 20:37:40 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_search.c \
 					ft_rl_searchutils.c \
 					ft_rl_termutils.c \
-					ft_rl_utils.c
+					ft_rl_utils.c \
+					ft_rl_wildcard.c
 
 BUILTINFILES	=	cd.c \
 					echo.c \
@@ -81,7 +82,8 @@ PARSERFILES		=	command_split.c \
 					single_command_parser.c \
 					tree.c \
 					utils.c \
-					validation.c
+					validation.c \
+					signalhandler.c
 
 PROMPTFILES		=	color.c \
 					prompt.c

@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/29 14:44:04 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:57:27 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ enum e_quotes
 	singlequote,
 };
 
-
 typedef struct s_node
 {
 	struct s_node	*left;
@@ -80,10 +79,21 @@ int			exec_builtin(char *s, int outfd, int actual_exit);
 char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
+void		append(t_tokens **list, char *s);
 /* errors */
 void		cmd_not_found(t_cmd *cmd);
 void		child_error(void);
 int			handle_file_error(int start, char *s);
+int			parse_error(int error);
+int			tree_parse_error(int error, t_node *tree);
+
+/* validity */
+int			is_valid(char *s);
+int			validate_tree(t_node *tree);
+
+/* signals */
+t_cmd		*save_pipeline(t_cmd *_pipline, int set);
+void		keyboardinterupt(int sig);
 
 /* files */
 int			handle_outfile(t_tokens *tokens, int fds[2]);
@@ -96,5 +106,8 @@ int			handle_quotes(char *s, int i);
 int			handle_redirect(char *s, int i, t_tokens **tokens, int start);
 int			handle_space(char *s, int i, int *old_i, t_tokens **tokens);
 char		*get_filename(char *s, int start);
+
+void		expand_alias(t_tokens **tokens, char *s);
+int			expand_wildcards(t_tokens **tokens);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 19:39:17 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/06 13:38:39 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:38:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_popall(void)
 }
 
 /** @brief Pops the block blk from the stack, if present
+ *
+ * @param *blk Address of block to be popped
  */
 void	ft_popblk(void *blk)
 {
@@ -71,6 +73,24 @@ void	ft_popblk(void *blk)
 		i++;
 	}
 	vm->stacksize--;
+}
+
+/** @brief Pops all the blocks given from the stack
+ *
+ * @param blks Amount of blocks to pop
+ * @param ... Blocks to pop
+ */
+void	ft_popblks(size_t blks, ...)
+{
+	va_list	args;
+
+	va_start(args, blks);
+	while (blks)
+	{
+		ft_popblk(va_arg(args, void *));
+		blks--;
+	}
+	va_end(args);
 }
 
 /** @brief Pops blks amount of blocks from the vm stack

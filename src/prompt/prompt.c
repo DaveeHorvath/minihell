@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/20 15:22:54 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:35:28 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*expandformat(const char *cmd, char **out)
 		*out = ft_strjoin(*out, gethname(0));
 	else if (*cmd == 'm')
 		*out = ft_strjoin(*out, gethname(1));
-	else if (*cmd == 'd' || *cmd == 'D' || ft_isdigit(*cmd))
+	else if (*cmd == 'd' || *cmd == '/' || *cmd == '~' || ft_isdigit(*cmd))
 	{
 		depth = ft_atoi(cmd);
 		while (ft_isdigit(*cmd))
@@ -89,20 +89,17 @@ static char	*gethname(const char trunc)
 
 static char	*getdir(const char type, size_t depth)
 {
+	size_t	homelen;
 	char	*home;
 	char	*out;
-	char	*dir;
 
-	dir = getenv("PWD");
-	out = dir;
+	out = ft_push(msh_getenv("PWD"));
 	if (type == '~')
 	{
-		home = getenv("HOME");
-		if (!ft_strncmp(dir, home, ft_strlen(home)))
-		{
-			out = ft_strdup(out) + ft_strlen(home) - 1;
-			*out = '~';
-		}
+		home = msh_getenv("HOME");
+		homelen = ft_strlen(home);
+		if (!ft_strncmp(out, home, homelen))
+			out = ft_strjoin("~/", ft_substr(out, homelen, ft_strlen(out)));
 	}
 	if (depth > 0)
 		return (truncdir(out, depth));

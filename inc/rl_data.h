@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 18:56:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/02 11:09:18 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ typedef struct s_rl_input
 	const char	*prompt;
 	char		*input;
 }	t_rl_input;
+
+typedef struct s_rl_wc
+{
+	char					*pattern;
+	t_list					*matches;
+}	t_rl_wc;
 
 typedef struct s_rl_termstate
 {
