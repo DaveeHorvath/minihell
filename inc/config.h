@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:58:07 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/21 17:57:22 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:12:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define DEFAULTPROMPT "%B%U%F3%n%K1%F0@%F1%K0%K7%m %u%F1%K4putchar >%R "
 
 // config.c
-int		parseconfig(void);
+int		parseconfig(const char *cfg_fname);
 
 // config_utils.c
 size_t	cfg_varcount(char *line);
