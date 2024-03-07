@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 22:35:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/03 20:38:19 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:27:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ static t_list	*handlewc(t_rl_wc *wc)
 	if (!wc || !wc->matches)
 		return (NULL);
 	completions = NULL;
-	ft_lstpop(wc->matches);
 	str = ft_strdup(wc->matches->blk);
+	ft_lstpop(wc->matches);
 	wc->matches = wc->matches->next;
 	while (wc->matches)
 	{
-		ft_lstpop(wc->matches);
 		str = ft_strsjoin(str, wc->matches->blk, ' ');
+		ft_lstpop(wc->matches);
 		wc->matches = wc->matches->next;
 	}
 	ft_lstadd_front(&completions, ft_lstnew(str));

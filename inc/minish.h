@@ -13,8 +13,9 @@
 #ifndef MINISH_H
 # define MINISH_H
 # include "env.h"
-# include "config.h"
+# include "alias.h"
 # include "libft.h"
+# include "config.h"
 # include "prompt.h"
 # include "parser.h"
 # include "builtins.h"

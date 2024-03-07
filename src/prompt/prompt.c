@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/01 10:45:48 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:43:02 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ char	*msh_prompt(const char *p)
 		{
 			out = ft_strjoin(out, ft_substr(p, 0, ft_strclen(p, '%')));
 			p += ft_strclen(p, '%');
+		}
+		else if (out)
+		{
+			ft_push(out);
+			p = expandformat(p + 1, &out);
+			ft_pop();
 		}
 		else
 			p = expandformat(p + 1, &out);
@@ -93,14 +99,20 @@ static char	*getdir(const char type, size_t depth)
 	char	*home;
 	char	*out;
 
-	out = ft_push(msh_getenv("PWD"));
+	out = msh_getenv("PWD");
+	if (ft_strequals(out, "/"))
+		return (out);
 	if (type == '~')
 	{
 		home = msh_getenv("HOME");
 		homelen = ft_strlen(home);
-		ft_popblk(out);
 		if (!ft_strncmp(out, home, homelen))
-			out = ft_strjoin("~/", ft_substr(out, homelen, ft_strlen(out)));
+		{
+			if (ft_strlen(out) > homelen)
+				out = ft_strjoin("~", ft_substr(out, homelen, ft_strlen(out)));
+			else
+				out = ft_strdup("~");
+		}
 	}
 	if (depth > 0)
 		return (truncdir(out, depth));

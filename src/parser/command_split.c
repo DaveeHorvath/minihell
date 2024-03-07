@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:25 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 21:36:10 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:49:50 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	skip_quotes(char *s, int *i)
 	quote = s[*i];
 	while (s[*i] && s[*i] != quote)
 		(*i)++;
+	(*i)++;
 }
 
 int	count_splits(char *s, char c)
@@ -43,7 +44,7 @@ int	count_splits(char *s, char c)
 	return (count);
 }
 
-char **ft_quoted_split(char *s, char c)
+char	**ft_quoted_split(char *s, char c)
 {
 	int		i;
 	int		old_i;

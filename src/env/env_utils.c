@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:13:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 13:41:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:25:02 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ char	**msh_getenvarr(void)
 			return (NULL);
 		env = env->next;
 	}
-	out[i++] = NULL;
-	ft_popn(i);
+	out[i] = NULL;
 	return (out);
 }
 
@@ -63,14 +62,4 @@ void	msh_cpyenv(char **env)
 		msh_setenv(var, val);
 		env++;
 	}
-}
-
-int	popenv(t_value *value)
-{
-	if (!value)
-		return (0);
-	ft_popblk(value);
-	ft_popblk(value->var);
-	ft_popblk(value->val);
-	return (1);
 }

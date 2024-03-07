@@ -6,24 +6,23 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 15:40:33 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:03:41 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
+#include "libft.h"
 #include "parser.h"
 
 int	g_has_recieved = 0;
 
-t_cmd	*save_pipeline(t_cmd *_pipline)
+t_cmd	*save_pipeline(t_cmd *_pipline, int set)
 {
-	static t_cmd	*pipeline;
+	static t_cmd	*pipeline = NULL;
 
-	if (_pipline)
+	if (set)
 		pipeline = _pipline;
-	else
-		return (pipeline);
-	return (NULL);
+	return (pipeline);
 }
 
 void	clean_pipeline(t_cmd *cmd)
@@ -41,8 +40,17 @@ void	clean_pipeline(t_cmd *cmd)
 
 void	keyboardinterupt(int sig)
 {
-	g_has_recieved = 0;
+	t_cmd	*running;
+
 	(void) sig;
-	exit(0);
-	clean_pipeline(save_pipeline(NULL));
+	running = save_pipeline(NULL, 0);
+	if (running)
+	{
+		clean_pipeline(running);
+		save_pipeline(NULL, 1);
+	}
+	else
+	{
+		ft_dprintf(2, "\nkeyboardinterupt without running");
+	}
 }
