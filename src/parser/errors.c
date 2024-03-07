@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/27 14:38:44 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/04 22:51:45 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int	handle_file_error(int start, char *s)
 
 int	parse_error(int error)
 {
-	if (error == UNMATCHED_S_QUOTE)
+	if (error == WRONG_PARENTHESIES)
+		ft_printf("Wrong parenthesies\n");	
+	else if (error == UNMATCHED_S_QUOTE)
 		ft_printf("Unmatched single quote\n");
 	else if (error == UNMATCHED_D_QUOTE)
 		ft_printf("Unmatched double quote\n");
@@ -52,6 +54,7 @@ int	parse_error(int error)
 // toadd popping tree nodes and contents
 int	tree_parse_error(int error, t_node *tree)
 {
+	(void) tree;
 	if (error == MALLOC_FAIL)
 		ft_printf("Malloc failed while creating tree\n");
 	else if (error == PARENTHESIES_IN_NODE)

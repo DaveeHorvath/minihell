@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:23:51 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/19 23:11:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:44:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*chcolor(const char *code, const char type, char **out)
 {
-	const static char	fg[8][6] = {SGR_FG0, SGR_FG1, SGR_FG2, SGR_FG3,
+	static const char	fg[8][6] = {SGR_FG0, SGR_FG1, SGR_FG2, SGR_FG3,
 		SGR_FG4, SGR_FG5, SGR_FG6, SGR_FG7};
-	const static char	bg[8][6] = {SGR_BG0, SGR_BG1, SGR_BG2, SGR_BG3,
+	static const char	bg[8][6] = {SGR_BG0, SGR_BG1, SGR_BG2, SGR_BG3,
 		SGR_BG4, SGR_BG5, SGR_BG6, SGR_BG7};
 
 	if (type == 'F')
