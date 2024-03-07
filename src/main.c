@@ -6,25 +6,27 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 14:25:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:22:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-static t_msh_opts	parseopts(size_t argc, char **argv);
 static void			updateprompt(char *format, char **prompt);
 
 int	main(int argc, char **argv)
 {
+	t_msh_opts	opts;
 	extern char	**environ;
-	t_msh_opts	options;
 	char		*prompt;
 	char		*input;
 
 	msh_cpyenv(environ);
-	options = parseopts(argc, argv);
-	parseconfig(options.cfg_fname);
+	opts = msh_parseopts(argc, argv);
+	if (!opts.norc)
+		msh_parseconfig(opts.cfg_fname);
+	if (!msh_getenv("PROMPT"))
+		msh_setenv("PROMPT", DEFAULTPROMPT);
 	prompt = NULL;
 	signal(2, keyboardinterupt);
 	msh_setenv("?", "0");
@@ -38,31 +40,6 @@ int	main(int argc, char **argv)
 		input = ft_push(ft_readline(prompt));
 	}
 	return (ft_return(0));
-}
-
-static t_msh_opts	parseopts(size_t argc, char **argv)
-{
-	t_msh_opts	options;
-	size_t		i;
-
-	ft_bzero(&options, sizeof(t_msh_opts));
-	i = 1;
-	while (i < argc)
-	{
-		if (ft_strequals(argv[i], "--rcfile")
-			|| ft_strequals(argv[i], "--init-file"))
-		{
-			if (++i == argc)
-			{
-				ft_dprintf(2, "msh: %s: option requires an argument\n",
-					ft_strtrim(argv[i - 1], "-"));
-				ft_exit(E_ARGS);
-			}
-			options.cfg_fname = ft_push(ft_strdup(argv[i]));
-		}
-		i++;
-	}
-	return (options);
 }
 
 static void	updateprompt(char *format, char **prompt)
