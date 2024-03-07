@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:46:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 13:39:25 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:32:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static int	msh_editenv(char *var, char *val)
 		return (0);
 	while (env)
 	{
-		if (!ft_strncmp(env->var, var, ft_strlen(env->var))
-			&& ft_strlen(env->var) == ft_strlen(var))
+		if (ft_strequals(env->var, var))
 			break ;
 		env = env->next;
 	}
@@ -40,8 +39,7 @@ char	*msh_getenv(char *var)
 	env = *msh_getenvhead();
 	while (env)
 	{
-		if (!ft_strncmp(env->var, var, ft_strlen(env->var))
-			&& ft_strlen(env->var) == ft_strlen(var))
+		if (ft_strequals(env->var, var))
 			return (env->val);
 		env = env->next;
 	}
@@ -61,19 +59,19 @@ int	msh_unsetenv(char *var)
 	current = *env;
 	while (current)
 	{
-		if (!ft_strncmp(current->var, var, ft_strlen(current->var))
-			&& ft_strlen(current->var) == ft_strlen(var))
+		if (ft_strequals(current->var, var))
 			break ;
 		prev = current;
 		current = current->next;
 	}
-	if (!popenv(current))
+	if (!current)
 		return (0);
+	ft_popblks(3, current, current->var, current->val);
 	if (prev)
 		prev->next = current->next;
 	else
 		*env = current->next;
-	return (0);
+	return (1);
 }
 
 int	msh_setenv(char *var, char *val)
