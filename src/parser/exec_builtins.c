@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 15:48:07 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:45:19 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	is_builtin(char *s)
 {
 	char	**args;
 
-	ft_dprintf(2, "%p %s\n", s);
 	args = get_args(get_tokens(ft_push(ft_strtrim(s, " "))));
 	if (ft_strequals(args[0], "cd") || ft_strequals(args[0], "echo")
 		|| ft_strequals(args[0], "unset") || ft_strequals(args[0], "export")
@@ -42,15 +41,15 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 	get_fds(tokens, fds);
 	if (ft_strequals(args[0], "cd"))
 		exitcode = msh_cd(args[1]);
-	if (ft_strequals(args[0], "echo"))
+	else if (ft_strequals(args[0], "echo"))
 		exitcode = msh_echo(&args[1], fds[1]);
-	if (ft_strequals(args[0], "unset"))
+	else if (ft_strequals(args[0], "unset"))
 		exitcode = msh_unset(&args[1]);
-	if (ft_strequals(args[0], "export"))
+	else if (ft_strequals(args[0], "export"))
 		exitcode = msh_export(&args[1]);
-	if (ft_strequals(args[0], "exit"))
+	else if (ft_strequals(args[0], "exit"))
 		exitcode = msh_exit(&args[1], actual_exit);
-	if (ft_strequals(args[0], "pwd"))
+	else if (ft_strequals(args[0], "pwd"))
 		exitcode = msh_pwd(fds[1]);
 	else
 		exitcode = msh_env(fds[1]);

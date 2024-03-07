@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstpop.c                                        :+:      :+:    :+:   */
+/*   alias.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 21:10:05 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 14:37:56 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/03/04 09:58:18 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/03/04 13:55:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * @file ft_lstpop
- */
+#ifndef ALIAS_H
+# define ALIAS_H
+# include "libft.h"
 
-#include "libft.h"
-
-/** @brief Pops the node and its content
- *
- * @param *node Address of the node
- * @retval t_list* Address of the node
- */
-t_list	*ft_lstpop(t_list *node)
+typedef struct s_alias
 {
-	if (!node)
-		return (NULL);
-	ft_popblk(node);
-	ft_popblk(node->blk);
-	return (node);
-}
+	char			*alias;
+	char			*command;
+	struct s_alias	*next;
+}	t_alias;
+
+// alias.c
+char	*msh_getalias(char *alias);
+int		msh_unsetalias(char *alias);
+int		msh_setalias(char *alias, char *command);
+
+#endif

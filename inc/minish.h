@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 14:11:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/02 13:03:47 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:45:12 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISH_H
 # define MINISH_H
 # include "env.h"
-# include "config.h"
+# include "alias.h"
 # include "libft.h"
+# include "config.h"
 # include "prompt.h"
 # include "parser.h"
 # include "builtins.h"
