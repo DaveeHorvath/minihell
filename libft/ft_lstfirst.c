@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uintlen.c                                       :+:      :+:    :+:   */
+/*   ft_lstfirst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/11 18:38:09 by ivalimak          #+#    #+#             */
-/*   Updated: 2023/12/30 14:21:27 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/02/26 12:45:11 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/02/26 12:47:09 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * @file ft_uintlen.c
+ * @file ft_lstfirst.c
  */
 
 #include "libft.h"
 
-/** @brief Calculates the amount of digits in n
+/** @brief Returns the address of the first node of the list
  *
- * @param n Unsigned integer to count the digits of
- * @retval size_t Amount of digits in n
+ * @param *list Address of a node in the list
+ * @retval t_list* Address of the first node in the list,
+ * or NULL if list is NULL
  */
-size_t	ft_uintlen(unsigned int n)
+t_list	*ft_lstfirst(t_list *list)
 {
-	size_t	digits;
-
-	digits = 1;
-	while (n > 9)
-	{
-		n /= 10;
-		digits++;
-	}
-	return (digits);
+	if (!list)
+		return (NULL);
+	while (list->prev)
+		list = list->prev;
+	return (list);
 }

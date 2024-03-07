@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 16:59:42 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:10:47 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <stdarg.h>
+# include <stdint.h>
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
@@ -89,7 +90,6 @@ int		ft_isalnum(int c);
 int		ft_isprint(int c);
 int		ft_isascii(int c);
 int		ft_isspace(int c);
-int		ft_isinteger(char *n);
 
 // put
 void	ft_debugmsg(char *pfx, char *f, ...);
@@ -106,10 +106,21 @@ int		ft_putxnbr_fd(unsigned long n, int fd, int upper);
 // to
 char	*ft_itoa(int n);
 char	*ft_uitoa(unsigned int n);
-long	ft_atol(const char *str);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
-int		ft_atoi(const char *str);
+
+/// signed atoi
+int64_t	ft_atoi64(const char *s);
+int32_t	ft_atoi32(const char *s);
+int16_t	ft_atoi16(const char *s);
+int8_t	ft_atoi8(const char *s);
+int		ft_atoi(const char *s);
+
+/// unsigned atoi
+uint64_t	ft_atou64(const char *s);
+uint32_t	ft_atou32(const char *s);
+uint16_t	ft_atou16(const char *s);
+uint8_t		ft_atou8(const char *s);
 
 // nbr
 size_t	ft_intlen(int n);
@@ -159,6 +170,7 @@ t_list	*ft_lstdup(t_list *node);
 t_list	*ft_lstpop(t_list *node);
 t_list	*ft_lstpush(t_list *node);
 t_list	*ft_lstlast(t_list *list);
+t_list	*ft_lstfirst(t_list *list);
 void	ft_lstadd_front(t_list **list, t_list *node);
 void	ft_lstadd_back(t_list **list, t_list *node);
 void	ft_lstrmnode(t_list **list, t_list *node);
@@ -201,6 +213,7 @@ void	ft_markall(t_vm *vm);
 void	*ft_pop(void);
 void	ft_popall(void);
 void	ft_popblk(void *blk);
+void	ft_popblks(size_t blks, ...);
 void	ft_popn(size_t blks);
 
 /// push

@@ -6,23 +6,25 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:25 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:42 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:49:50 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	skip_quotes(int *i, char *s)
+#include "libft.h"
+
+void	skip_quotes(char *s, int *i)
 {
 	char	quote;
 
 	quote = s[*i];
 	while (s[*i] && s[*i] != quote)
 		(*i)++;
+	(*i)++;
 }
 
 int	count_splits(char *s, char c)
 {
 	int		i;
-	char	quote;
 	int		count;
 
 	i = 0;
@@ -42,14 +44,14 @@ int	count_splits(char *s, char c)
 	return (count);
 }
 
-char **ft_quoted_split(char *s, char c)
+char	**ft_quoted_split(char *s, char c)
 {
 	int		i;
 	int		old_i;
 	int		current;
 	char	**res;
 
-	res = ft_push(ft_calloc(count_splits(s, c), sizeof(char *)));
+	res = ft_push(ft_calloc(count_splits(s, c) + 2, sizeof(char *)));
 	i = 0;
 	old_i = 0;
 	current = 0;
@@ -67,5 +69,6 @@ char **ft_quoted_split(char *s, char c)
 			i++;
 		}
 	}
+	res[current] = ft_push(ft_substr(s, old_i, i));
 	return (res);
 }

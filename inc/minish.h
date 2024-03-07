@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 14:11:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/23 18:33:07 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/02 13:03:47 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@
 // utils.c
 void	msh_quit(int estatus);
 int		msh_return(int rval);
+
+/* signal handling */
+#include <signal.h>
 
 #endif

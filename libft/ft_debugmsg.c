@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:43:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/10 19:55:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:17:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	ft_debugmsg(char *pfx, char *f, ...)
 	if (!DEBUG_MSG)
 		return ;
 	va_start(args, f);
-	if (pfx)
-		ft_putstr_fd(pfx, DEBUGFD);
+	ft_putstr_fd(pfx, DEBUGFD);
 	while (*f)
 	{
 		if (*f != '%')

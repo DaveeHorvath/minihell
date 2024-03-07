@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/29 17:33:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/02 13:03:18 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	main(void)
 	msh_cpyenv(environ);
 	parseconfig();
 	prompt = NULL;
+	signal(2, keyboardinterupt);
+	msh_setenv("?", "0");
 	updateprompt(msh_getenv("PROMPT"), &prompt);
 	input = ft_push(ft_readline(prompt));
 	while (input)
