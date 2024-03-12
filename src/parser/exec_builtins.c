@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 16:51:21 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:46:53 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 #include "libft.h"
 #include "builtins.h"
 
-int	is_builtin(char *s)
+int	is_builtin(char *s, int isexpanded)
 {
 	char	**args;
 
-	args = get_args(get_tokens(ft_push(ft_strtrim(s, " "))));
+	if (isexpanded)
+		args = &s;
+	else
+		args = get_args(get_tokens(ft_push(ft_strtrim(s, " "))));
 	if (ft_strequals(args[0], "cd") || ft_strequals(args[0], "echo")
 		|| ft_strequals(args[0], "unset") || ft_strequals(args[0], "export")
-		|| ft_strequals(args[0], "exit"))
+		|| ft_strequals(args[0], "exit") || ft_strequals(args[0], "pwd"))
 		return (1);
 	else
 		return (0);
@@ -36,7 +39,7 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 
 	fds[0] = 0;
 	fds[1] = outfd;
-	tokens = get_tokens(ft_strtrim(s, " "));
+	tokens = get_tokens(ft_push(ft_strtrim(s, " ")));
 	args = get_args(tokens);
 	expand_wildcards(&tokens);
 	get_fds(tokens, fds);

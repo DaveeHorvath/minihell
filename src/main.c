@@ -6,11 +6,12 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/02 13:03:18 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:35:46 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include <unistd.h>
 
 static void	updateprompt(char *format, char **prompt);
 
@@ -26,6 +27,7 @@ int	main(void)
 	signal(2, keyboardinterupt);
 	msh_setenv("?", "0");
 	updateprompt(msh_getenv("PROMPT"), &prompt);
+	ft_dprintf(2, "%i\n", getpid());
 	input = ft_push(ft_readline(prompt));
 	while (input)
 	{

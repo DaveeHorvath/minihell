@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 17:26:11 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:26:13 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,13 @@ int	needs_filename_expansion(char *s)
 	return (0);
 }
 
-void	addfront(t_tokens *tokens, t_tokens **tokenlist)
+t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist, t_tokens *next)
 {
-	t_tokens	*start;
-
-	if (!tokens)
-		return ;
-	start = tokens;
-	while (tokens->next)
-		tokens = tokens->next;
-	tokens->next = *tokenlist;
-	*tokenlist = start;
+	(*tokenlist)->next = new_tokens;
+	while (new_tokens && new_tokens->next)
+		new_tokens = new_tokens->next;
+	new_tokens->next = next;
+	return (new_tokens->next);
 }
 
 int	ambigous_redirect(char *s)
@@ -125,7 +121,6 @@ t_tokens	*expand_filenames(char *s)
 		matches = wildcards->matches;
 		while (matches)
 		{
-			ft_dprintf(2, "%s\n", matches->blk);
 			append(&new, matches->blk);
 			matches = matches->next;
 		}
@@ -142,16 +137,18 @@ int	expand_wildcards(t_tokens **tokens)
 	prev = list;
 	while (list)
 	{
-		ft_dprintf(2, "%i\n", needs_filename_expansion(list->content));
 		if (needs_filename_expansion(list->content))
 		{
 			if (ambigous_redirect(list->content))
 				return (0);
-			prev->next = list->next;
-			addfront(expand_filenames(list->content), &list->next);
+			prev = list;
+			list = addfront(expand_filenames(list->content), &list, list->next);
 		}
-		prev = list;
-		list = list->next;
+		else
+		{
+			prev = list;
+			list = list->next;
+		}
 	}
 	return (1);
 }
@@ -159,16 +156,13 @@ int	expand_wildcards(t_tokens **tokens)
 void	expand_alias(t_tokens **tokens, char *s)
 {
 	t_tokens	*list;
-	t_tokens	*prev;
 	char		*cont;
 
 	list = *tokens;
-	prev = list;
 	while (list)
 	{
 		if (list->content[0] != '<' && list->content[0] != '>')
 			break ;
-		prev = list;
 		list = list->next;
 	}
 	if (!list)
@@ -176,8 +170,7 @@ void	expand_alias(t_tokens **tokens, char *s)
 	cont = list->content;
 	if (msh_getalias(list->content) != NULL && !ft_strequals(cont, s))
 	{
-		prev->next = list->next;
-		addfront(get_tokens(msh_getalias(list->content)), &list->next);
+		list = addfront(get_tokens(msh_getalias(list->content)), &list, list->next);
 		expand_alias(tokens, cont);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:25 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 15:37:50 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:43:46 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	skip_quotes(char *s, int *i)
 	char	quote;
 
 	quote = s[*i];
+	(*i)++;
 	while (s[*i] && s[*i] != quote)
 		(*i)++;
 	(*i)++;

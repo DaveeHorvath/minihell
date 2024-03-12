@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 14:58:46 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:37:22 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	execute_string(char *s)
 	validity = is_valid(s);
 	if (validity != 0)
 		return (parse_error(validity));
+	// s = parse_heredocs(s);
 	tree = make_tree(s);
 	validity = validate_tree(tree);
 	if (validity != 0)
@@ -32,6 +33,8 @@ int	execute_string(char *s)
 	run_tree(tree);
 	dup2(backup_fds_dont_fucking_touch[0], 0);
 	dup2(backup_fds_dont_fucking_touch[1], 1);
+	close(backup_fds_dont_fucking_touch[0]);
+	close(backup_fds_dont_fucking_touch[1]);
 	save_pipeline(NULL, 1);
 	return (0);
 }
