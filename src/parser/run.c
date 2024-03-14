@@ -16,6 +16,9 @@
 
 static int	run_tree(t_node *tree);
 
+/*
+	executes the whole string
+*/
 int	execute_string(char *s)
 {
 	t_node		*tree;
@@ -39,12 +42,18 @@ int	execute_string(char *s)
 	return (0);
 }
 
+/*
+	saves exit code after each pipeline
+*/
 static int	set_exitcode(int exitcode)
 {
-	msh_setenv("?", ft_itoa(exitcode));
+	msh_setenv("?", ft_push(ft_itoa(exitcode)));
 	return (exitcode);
 }
 
+/*
+	recursivly executes pipelines, stops on Ctrl+C
+*/
 static int	run_tree(t_node *tree)
 {
 	int	exitcode;

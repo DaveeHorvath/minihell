@@ -14,8 +14,9 @@
 #include "libft.h"
 #include "parser.h"
 
-int	g_has_recieved = 0;
-
+/*
+	saves current running pipeline in static variable
+*/
 t_cmd	*save_pipeline(t_cmd *_pipline, int set)
 {
 	static t_cmd	*pipeline = NULL;
@@ -25,6 +26,9 @@ t_cmd	*save_pipeline(t_cmd *_pipline, int set)
 	return (pipeline);
 }
 
+/*
+	closes all open fds of current pipeline
+*/
 void	clean_pipeline(t_cmd *cmd)
 {
 	while (cmd)
@@ -38,6 +42,10 @@ void	clean_pipeline(t_cmd *cmd)
 	}
 }
 
+/*
+	new signal handler for Ctrl+C
+	needs heredoc stopping
+*/
 void	keyboardinterupt(int sig)
 {
 	t_cmd	*running;

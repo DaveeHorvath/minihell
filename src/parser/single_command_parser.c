@@ -17,6 +17,10 @@
 static void		get_def_filedesc(int i, int need_pipe,
 					int *prev_out, t_cmd *current);
 
+/*
+	constructs t_cmd by parsing the current command
+	into arguments and redirections
+*/
 t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 {
 	t_cmd		*out;
@@ -43,6 +47,9 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 	return (out);
 }
 
+/*
+	tokenises the string with respect to quotes
+*/
 t_tokens	*get_tokens(char *s)
 {
 	int			i;
@@ -72,6 +79,9 @@ t_tokens	*get_tokens(char *s)
 	return (tokens);
 }
 
+/*
+	from the tokens takes most recent fds
+*/
 int	get_fds(t_tokens *tokens, int fds[2])
 {
 	while (tokens)
@@ -93,6 +103,9 @@ int	get_fds(t_tokens *tokens, int fds[2])
 	return (1);
 }
 
+/*
+	filters and expands the tokens
+*/
 char	**get_args(t_tokens *tokens)
 {
 	int			arg_count;
@@ -121,6 +134,9 @@ char	**get_args(t_tokens *tokens)
 	return (args);
 }
 
+/*
+	opens and assigns pipes as needed
+*/
 static void	get_def_filedesc(int i, int need_pipe,
 	int *prev_out, t_cmd *current)
 {

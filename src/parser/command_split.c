@@ -12,6 +12,9 @@
 
 #include "libft.h"
 
+/*
+	moves pointer until it sees the closing quote
+*/
 void	skip_quotes(char *s, int *i)
 {
 	char	quote;
@@ -23,6 +26,9 @@ void	skip_quotes(char *s, int *i)
 	(*i)++;
 }
 
+/*
+	counts how many command there are in a pipeline
+*/
 int	count_splits(char *s, char c)
 {
 	int		i;
@@ -45,6 +51,10 @@ int	count_splits(char *s, char c)
 	return (count);
 }
 
+/*
+	splits the pipeline into its own commands
+	by respecting quotes
+*/
 char	**ft_quoted_split(char *s, char c)
 {
 	int		i;

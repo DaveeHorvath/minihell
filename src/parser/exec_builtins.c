@@ -14,7 +14,11 @@
 #include "libft.h"
 #include "builtins.h"
 
-int	is_builtin(char *s, int isexpanded)
+/*
+	compares string s to the builtins
+*/
+int	is_builtin(char *s)
+>>>>>>> Stashed changes
 {
 	char	**args;
 
@@ -30,6 +34,10 @@ int	is_builtin(char *s, int isexpanded)
 		return (0);
 }
 
+/*
+	executes builtin, if actual exit is 1 its not run in a fork
+	closes the filedescriptors after, should only be run if isbuiltin is true
+*/
 int	exec_builtin(char *s, int outfd, int actual_exit)
 {
 	char		**args;

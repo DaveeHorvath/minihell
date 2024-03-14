@@ -19,6 +19,11 @@ static int	wait_for_done(t_cmd *head);
 static char	*get_path(char *name);
 static void	do_cmd(t_cmd *cmd);
 
+/*
+	executes just one pipeline
+	everything runs in a fork, only if there is just 1 builtin command
+	the main process is used
+*/
 int	exec_pipeline(char *s)
 {
 	char	**commands;
@@ -51,6 +56,9 @@ int	exec_pipeline(char *s)
 	return (wait_for_done(head));
 }
 
+/*
+	appends command the linked list
+*/
 static void	add_cmd(t_cmd **head, t_cmd *new)
 {
 	t_cmd	*cur;
@@ -67,6 +75,9 @@ static void	add_cmd(t_cmd **head, t_cmd *new)
 	new->next = NULL;
 }
 
+/*
+	waits for all the pids and returns the last run processes exit code
+*/
 static int	wait_for_done(t_cmd *head)
 {
 	int	status;
@@ -88,6 +99,9 @@ static int	wait_for_done(t_cmd *head)
 	return (exitstatus);
 }
 
+/*
+	looks for name in the $PATH
+*/
 static char	*get_path(char *name)
 {
 	const char	**path = ft_pusharr(ft_split(msh_getenv("PATH"), ':'));
@@ -110,6 +124,9 @@ static char	*get_path(char *name)
 	return (NULL);
 }
 
+/*
+	executes command
+*/
 static void	do_cmd(t_cmd *cmd)
 {
 	pid_t	id;

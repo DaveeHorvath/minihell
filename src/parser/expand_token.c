@@ -16,12 +16,10 @@
 #include "rl_data.h"
 #include "ft_readline.h"
 
-char *msh_getalias(char *s)
-{
-	(void)s;
-	return (NULL);
-}
-
+/*
+	changes quote if applicable
+	returns 1 if change happened otherwise 0
+*/
 int	update_quote(char c, enum e_quotes *quote)
 {
 	if (c == '\'' && *quote == none)
@@ -47,6 +45,9 @@ int	update_quote(char c, enum e_quotes *quote)
 	return (0);
 }
 
+/*
+	checks if a filename needs to be expanded
+*/
 int	needs_filename_expansion(char *s)
 {
 	int				i;
@@ -73,6 +74,9 @@ t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist, t_tokens *next)
 	return (new_tokens->next);
 }
 
+/*
+	checks for redirection and multiple redirects
+*/
 int	ambigous_redirect(char *s)
 {
 	int		i;
@@ -99,6 +103,10 @@ int	ambigous_redirect(char *s)
 	return (0);
 }
 
+/*
+	uses wildcard expansion if applicable
+	needs to remove original arg and if no matches are found put it back
+*/
 t_tokens	*expand_filenames(char *s)
 {
 	t_tokens	*new;
@@ -128,6 +136,9 @@ t_tokens	*expand_filenames(char *s)
 	return (new);
 }
 
+/*
+	wildcard expansion for all the tokens
+*/
 int	expand_wildcards(t_tokens **tokens)
 {
 	t_tokens	*list;
@@ -153,7 +164,7 @@ int	expand_wildcards(t_tokens **tokens)
 	return (1);
 }
 
-void	expand_alias(t_tokens **tokens, char *s)
+/*void	expand_alias(t_tokens **tokens, char *s)
 {
 	t_tokens	*list;
 	char		*cont;
@@ -175,8 +186,11 @@ void	expand_alias(t_tokens **tokens, char *s)
 	}
 	else
 		return ;
-}
+}*/
 
+/*
+	removes quotes and expands env variables recursivly
+*/
 char	*expand_token(char *token, char *content, enum e_quotes quote)
 {
 	int		i;

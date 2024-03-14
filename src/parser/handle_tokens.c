@@ -13,6 +13,10 @@
 #include "parser.h"
 #include "libft.h"
 
+/*
+	tokeniser functions for the argument splitting
+*/
+
 int	handle_quotes(char *s, int i)
 {
 	char	c;
