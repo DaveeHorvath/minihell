@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 23:01:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 14:30:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:18:59 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ t_list	*ft_rl_complete_file(char *pattern)
 	path = ft_strrchr(pattern, '/');
 	if (path)
 	{
-		if (ft_strchr(path, '/') != path)
-			path = ft_push(ft_substr(pattern, 0, path - pattern));
+		path = ft_substr(pattern, 0, path - pattern);
+		if (ft_strequals(path, ""))
+			path = ft_strdup("/");
 		pattern = ft_strrchr(pattern, '/') + 1;
 	}
-	matchfiles(pattern, path, 0, &completions);
+	matchfiles(pattern, ft_push(path), 0, &completions);
 	ft_rl_complete_checkdirs(path, completions);
 	ft_popblk(path);
 	return (completions);
