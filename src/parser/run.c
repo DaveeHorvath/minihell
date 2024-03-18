@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/12 15:37:22 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:26:14 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	execute_string(char *s)
 	if (validity != 0)
 		return (tree_parse_error(validity, tree));
 	run_tree(tree);
+	ft_dprintf(2, "%i %i\n", backup_fds_dont_fucking_touch[0], backup_fds_dont_fucking_touch[1]);
 	dup2(backup_fds_dont_fucking_touch[0], 0);
 	dup2(backup_fds_dont_fucking_touch[1], 1);
 	close(backup_fds_dont_fucking_touch[0]);

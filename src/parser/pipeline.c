@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/12 15:41:10 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:54:30 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ static void	do_cmd(t_cmd *cmd)
 			close(cmd->fd[0]);
 		if (cmd->fd[1] != 1)
 			close(cmd->fd[1]);
+		if (cmd->pipe_end != -1)
+			close(cmd->pipe_end);
 		execve(path, cmd->argv, cmd->env);
 	}
 	else

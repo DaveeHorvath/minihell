@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/12 15:40:22 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:05:24 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,11 @@ static void	get_def_filedesc(int i, int need_pipe,
 		pipe(pipefds);
 		current->fd[1] = pipefds[1];
 		*prev_out = pipefds[0];
+		current->pipe_end = *prev_out;
 	}
 	else
+	{
 		current->fd[1] = 1;
+		current->pipe_end = -1;
+	}
 }

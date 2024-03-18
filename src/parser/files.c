@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:13:14 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/11 21:46:13 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:01:32 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	open_file(char *s, int fds[2], int type)
 
 	if (type == 0)
 	{
-		if (handle_heredoc(fds, get_filename(s, 2)) == 1)
+		if (handle_heredoc(fds, get_filename(s, 2)) != 1)
 			return (1);
 	}
 	if (type == 1)

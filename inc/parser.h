@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/08 14:48:36 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:55:15 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_tokens
 typedef struct s_cmd
 {
 	int				fd[2];
+	int				pipe_end;
 	char			*original;
 	char			**argv;
 	char			**env;
@@ -81,6 +82,7 @@ char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
 void		append(t_tokens **list, char *s);
+
 /* errors */
 void		cmd_not_found(t_cmd *cmd);
 void		child_error(void);
