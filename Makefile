@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/02/29 17:31:42 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/18 22:11:46 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ PROMPTFILES		=	color.c \
 					prompt.c
 
 FILES	=	main.c \
+			utils.c \
 			$(addprefix $(READLINEDIR)/, $(READLINEFILES)) \
 			$(addprefix $(BUILTINDIR)/, $(BUILTINFILES)) \
 			$(addprefix $(CONFIGDIR)/, $(CONFIGFILES)) \

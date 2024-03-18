@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 23:49:40 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/29 18:46:25 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/18 22:08:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "minish.h"
 
 int	msh_exit(char **args, int parent)
 {
@@ -19,6 +19,6 @@ int	msh_exit(char **args, int parent)
 	if (args[1])
 		ft_dprintf(2, "exit: too many arguments\n");
 	if (parent)
-		ft_exit(ft_atoi(args[0]));
+		msh_quit(ft_atoi(args[0]));
 	exit(ft_atoi(args[0]));
 }
