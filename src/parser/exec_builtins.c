@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/12 16:46:53 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:04:54 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 /*
 	compares string s to the builtins
 */
-int	is_builtin(char *s)
->>>>>>> Stashed changes
+int	is_builtin(char *s, int isexpanded)
 {
 	char	**args;
 
