@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/18 15:05:24 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:42:11 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 {
 	t_cmd		*out;
 	t_tokens	*tokens;
-	t_tokens	*start;
 
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	out->original = s;
 	tokens = get_tokens(ft_strtrim(ft_push(s), " "));
-	start = tokens;
 	// expand_alias(&tokens, NULL);
 	out->env = msh_getenvarr();
 	// expand_wildcards(&tokens);
@@ -88,13 +86,11 @@ int	get_fds(t_tokens *tokens, int fds[2])
 	{
 		if (tokens->content[0] && (tokens->content[0] == '<'))
 		{
-			ft_dprintf(2, "file\n");
-			if (!handle_infile(tokens, fds))
+			if (handle_infile(tokens, fds) == 0)
 				return (0);
 		}
 		else if (tokens->content[0] && tokens->content[0] == '>')
 		{
-			ft_dprintf(2, "file\n");
 			if (!handle_outfile(tokens, fds))
 				return (0);
 		}
