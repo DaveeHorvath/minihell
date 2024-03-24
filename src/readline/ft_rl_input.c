@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/18 19:35:29 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/24 16:46:26 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ void	ft_rl_redisplay(t_rl_input *input)
 
 void	ft_rl_updateinput(t_rl_input *input, char *newinput, size_t *uline)
 {
-	int	row;
-	int	col;
+	t_rl_termstate	*state;
+	size_t			rows;
 
 	ft_popblk(input->input);
+	input->i = ft_strlen(newinput);
 	input->input = ft_push(newinput);
 	input->inputlen = ft_strlen(input->input);
-	input->i = input->inputlen;
 	ft_rl_term_cur_inputstart();
-	ft_rl_term_cur_getpos(&row, &col, 0);
 	ft_putstr_fd(TERM_CLEAR_END, 1);
 	if (input->input)
 	{
@@ -46,7 +45,11 @@ void	ft_rl_updateinput(t_rl_input *input, char *newinput, size_t *uline)
 				uline[1] - uline[0], &input->input[uline[0]], SGR_ULINEOFF,
 				&input->input[uline[1]]);
 	}
-	ft_rl_term_cur_setpos(row, col + input->inputlen);
+	state = ft_rl_term_getstate();
+	rows = (input->promptlen + input->inputlen) / state->t_cols;
+	if (state->i_row + rows > (size_t)state->t_rows)
+		state->i_row -= rows - (state->t_rows - state->i_row);
+	ft_rl_term_cur_setpos(state->i_row, state->i_col + input->inputlen);
 }
 
 void	ft_rl_addchar(t_rl_input *input, char c)
