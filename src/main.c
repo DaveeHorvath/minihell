@@ -3,25 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/02 13:03:18 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:22:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-static void	updateprompt(char *format, char **prompt);
+static void			updateprompt(char *format, char **prompt);
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	t_msh_opts	opts;
 	extern char	**environ;
 	char		*prompt;
 	char		*input;
 
 	msh_cpyenv(environ);
-	parseconfig();
+	opts = msh_parseopts(argc, argv);
+	if (!opts.norc)
+		msh_parseconfig(opts.cfg_fname);
+	if (!msh_getenv("PROMPT"))
+		msh_setenv("PROMPT", DEFAULTPROMPT);
 	prompt = NULL;
 	signal(2, keyboardinterupt);
 	msh_setenv("?", "0");
@@ -39,18 +44,6 @@ int	main(void)
 
 static void	updateprompt(char *format, char **prompt)
 {
-	static char	*oldformat = NULL;
-
-	if (!oldformat)
-	{
-		oldformat = ft_push(ft_strdup(format));
-		*prompt = ft_push(msh_prompt(format));
-		return ;
-	}
-	if (ft_strequals(format, oldformat))
-		return ;
 	ft_popblk(*prompt);
-	ft_popblk(oldformat);
-	oldformat = ft_push(ft_strdup(format));
 	*prompt = ft_push(msh_prompt(format));
 }

@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/03/24 16:50:54 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/24 17:05:54 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ BUILTINFILES	=	cd.c \
 					pwd.c \
 					unset.c
 
-CONFIGFILES		=	config.c \
+CONFIGFILES		=	opts.c \
+					config.c \
 					config_utils.c
 
 ENVFILES		=	env.c \

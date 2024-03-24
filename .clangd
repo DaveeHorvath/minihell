@@ -1,2 +1,4 @@
 CompileFlags:
-  Add: -I/Users/ivalimak/42Cursus/Projects/minishell/inc
+  Add: 
+    - "-I/Users/ivalimak/42Cursus/Projects/minishell/inc"
+    - "-I/home/ilmu/Projects/minishell/inc"
