@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:38:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 14:28:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:01:54 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ int	ft_rl_complete_replace(t_rl_input *input, char *word)
 	after = ft_push(ft_substr(input->input, j, ft_strlen(input->input + j)));
 	if (!before || !after)
 		return (-1);
-	newinput = ft_strjoin(before, word);
-	newinput = ft_push(ft_strjoin(newinput, after));
-	ft_popblk(before);
-	ft_popblk(after);
+	newinput = ft_push(ft_strjoin(ft_strjoin(before, word), after));
+	ft_popblks(2, before, after);
 	if (!newinput)
 		return (-1);
 	ft_rl_movecursor(input, ft_strlen(word), KEY_RIGHT);
