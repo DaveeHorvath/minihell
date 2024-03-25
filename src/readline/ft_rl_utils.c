@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:32:10 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/27 14:15:23 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:31:00 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_rl_isdir(const char *path)
 {
-	struct stat	file;
+	static struct stat	file;
 
 	stat(path, &file);
 	if (file.st_mode & S_IFDIR)
