@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:58:07 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 15:27:28 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:58:09 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "env.h"
 # include "alias.h"
 # include "libft.h"
+# include "parser.h"
 # include <fcntl.h>
 
 # define MSHRC ".mshrc"
