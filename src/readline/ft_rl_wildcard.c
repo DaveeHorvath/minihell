@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_keys.h                                          :+:      :+:    :+:   */
+/*   ft_rl_wildcard.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 18:41:05 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/25 22:45:25 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/03/26 15:03:14 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/03/26 15:03:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RL_KEYS_H
-# define RL_KEYS_H
-# include "rl_keys_ascii.h"
-# include "rl_keys_special.h"
+#include "ft_readline.h"
 
-#endif
+t_rl_wc	*ft_rl_wildcard_expand(const char *pattern)
+{
+	(void)pattern;
+	return (NULL);
+}

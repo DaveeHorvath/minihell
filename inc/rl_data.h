@@ -6,28 +6,88 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/02 11:09:18 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:35:03 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RL_DATA_H
 # define RL_DATA_H
 # include "libft.h"
-# include <termios.h>
+
+typedef enum e_rl_wtype
+{
+	SPACE,
+	NORMAL
+}	t_rl_wtype;
+
+typedef enum e_rl_rdmode
+{
+	ALL,
+	LINE,
+	CURRENT
+}	t_rl_rdmode;
+
+typedef enum e_rl_mapmode
+{
+	WARN,
+	QUIET,
+	REMAP,
+	QREMAP
+}	t_rl_mapmode;
+
+typedef struct s_rl_word
+{
+	size_t				i;
+	size_t				len;
+	char				*word;
+	t_rl_wtype			wtype;
+	struct s_rl_word	*next;
+	struct s_rl_word	*prev;
+}	t_rl_word;
+
+typedef struct s_rl_cursor
+{
+	int16_t	t_rows;
+	int16_t	t_cols;
+	int16_t	i_row;
+	int16_t	i_col;
+	int16_t	row;
+	int16_t	col;
+}	t_rl_cursor;
 
 typedef struct s_rl_input
 {
-	size_t		i;
-	size_t		promptlen;
-	size_t		inputlen;
+	size_t		plen;
 	const char	*prompt;
-	char		*input;
+	t_rl_cursor	*cursor;
+	t_rl_word	*current;
+	t_rl_word	*head;
 }	t_rl_input;
+
+typedef uint8_t	(*t_rl_fn)(t_rl_input *);
+
+typedef struct s_rl_key
+{
+	const char		*name;
+	const uint64_t	value;
+}	t_rl_key;
+
+typedef struct s_rl_func
+{
+	const char	*name;
+	t_rl_fn		f;
+}	t_rl_func;
+
+typedef struct s_rl_map
+{
+	const uint64_t	key;
+	t_rl_fn			f;
+}	t_rl_map;
 
 typedef struct s_rl_wc
 {
-	char					*pattern;
-	t_list					*matches;
+	char	*pattern;
+	t_list	*matches;
 }	t_rl_wc;
 
 typedef struct s_rl_termstate
@@ -39,11 +99,5 @@ typedef struct s_rl_termstate
 	int	i_row;
 	int	i_col;
 }	t_rl_termstate;
-
-typedef struct s_rl_termsettings
-{
-	struct termios	oldsettings;
-	struct termios	newsettings;
-}	t_rl_termsettings;
 
 #endif

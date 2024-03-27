@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_keys.h                                          :+:      :+:    :+:   */
+/*   ft_rl_keymap_lists.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 18:41:05 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/25 22:45:25 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/03/25 23:25:16 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/03/25 23:27:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RL_KEYS_H
-# define RL_KEYS_H
-# include "rl_keys_ascii.h"
-# include "rl_keys_special.h"
+#include "rl_map_internal.h"
 
-#endif
+t_list	**ft_rl_getkeys(void)
+{
+	static t_list	*keys = NULL;
+
+	return (&keys);
+}
+
+t_list	**ft_rl_getfuncs(void)
+{
+	static t_list	*funcs = NULL;
+
+	return (&funcs);
+}
+
+t_list	**ft_rl_getkeymaps(void)
+{
+	static t_list	*keymaps = NULL;
+
+	return (&keymaps);
+}

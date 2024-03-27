@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/03/07 15:16:14 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/27 15:14:48 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CC				=	cc
 cflags.common	=	-Wall -Wextra -Werror
 cflags.debug	=	-g
 cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
+cflags.rldebug	=	$(cflags.debug) -D RL_DEBUG_MSG=1
 cflags.asan		=	$(cflags.debug) -fsanitize=address -static-libsan
 cflags.normal	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
@@ -36,26 +37,20 @@ PARSERDIR	=	parser
 PROMPTDIR	=	prompt
 
 READLINEFILES	=	ft_readline.c \
-					ft_rl_altcmd.c \
-					ft_rl_command.c \
-					ft_rl_completion.c \
-					ft_rl_completionutils.c \
-					ft_rl_ctrlcmd.c \
 					ft_rl_cursor.c \
-					ft_rl_history.c \
-					ft_rl_historyfile.c \
-					ft_rl_historyutils.c \
-					ft_rl_increment.c \
+					ft_rl_exec.c \
+					ft_rl_init.c \
+					ft_rl_initfuncs.c \
+					ft_rl_initkeys.c \
 					ft_rl_input.c \
-					ft_rl_inpututils.c \
-					ft_rl_match.c \
-					ft_rl_matchutils.c \
-					ft_rl_replace.c \
-					ft_rl_search.c \
-					ft_rl_searchutils.c \
-					ft_rl_termutils.c \
+					ft_rl_move.c \
+					ft_rl_keymap.c \
+					ft_rl_keymap_lists.c \
+					ft_rl_keymap_utils.c \
+					ft_rl_term_utils.c \
 					ft_rl_utils.c \
-					ft_rl_wildcard.c
+					ft_rl_wildcard.c \
+					ft_rl_word.c
 
 BUILTINFILES	=	cd.c \
 					echo.c \
@@ -104,7 +99,7 @@ all: $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJDIR) $(LIBFT) $(OBJS)
 	@echo Compiling $(NAME)...
-	@$(CC) $(CFLAGS) -I$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
 
 $(OBJDIR):
 	@echo Creating objdir...
@@ -120,31 +115,31 @@ $(LIBFT):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(READLINEDIR)/%.o: $(SRCDIR)/$(READLINEDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(BUILTINDIR)/%.o: $(SRCDIR)/$(BUILTINDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(CONFIGDIR)/%.o: $(SRCDIR)/$(CONFIGDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(ENVDIR)/%.o: $(SRCDIR)/$(ENVDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(PARSERDIR)/%.o: $(SRCDIR)/$(PARSERDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(PROMPTDIR)/%.o: $(SRCDIR)/$(PROMPTDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 clean:
 	@make --no-print-directory -C $(LIBDIR) clean

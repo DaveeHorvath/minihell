@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:48:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 20:27:01 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:33:47 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@
 
 // misc
 # define TERM_STATUS "\e[6n"
+# define TERM_CUR_SOL "\e[1G"
+# define TERM_CUR_RESET "\e[1;1H"
 
 // clear
 # define TERM_CLEAR_END "\e[0J"
 # define TERM_CLEAR_START "\e[1J"
 # define TERM_CLEAR_SCREEN "\e[2J"
 # define TERM_CLEAR_BUFFER "\e[3J"
+# define TERM_CLEAR_LINE_END "\e[0K"
+# define TERM_CLEAR_LINE_START "\e[1K"
+# define TERM_CLEAR_LINE_WHOLE "\e[2K"
 
 // scroll
 # define TERM_SCROLL_UP "\e[1S"
@@ -60,17 +65,5 @@
 # define SGR_BG6 "\e[46m" // CYAN
 # define SGR_BG7 "\e[47m" // WHITE
 # define SGR_BGR "\e[49m" // RESET
-
-// ft_rl_cursor.c
-void			ft_rl_shiftcursor(t_rl_input *input, size_t n, char direction);
-void			ft_rl_movecursor(t_rl_input *input, size_t n, char direction);
-void			ft_rl_resetscreen(t_rl_input *input);
-
-// ft_rl_termutils.c
-t_rl_termstate	*ft_rl_term_getstate(void);
-void			ft_rl_term_cur_updatepos(size_t promptlen);
-void			ft_rl_term_cur_inputstart(void);
-void			ft_rl_term_cur_getpos(int *row, int *col, char update);
-void			ft_rl_term_cur_setpos(int row, int col);
 
 #endif
