@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:12:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 14:48:21 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:02:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ uint8_t	ft_rl_eol(t_rl_input *input)
 	while (word)
 	{
 		ft_rl_shiftcursor(word->len - word->i, KEY_RIGHT);
-		word->i = 0;
-		if (!word->prev)
+		word->i = word->len;
+		if (!word->next)
 			break ;
-		word = word->prev;
+		word = word->next;
 	}
 	input->current = word;
 	return (1);
@@ -64,9 +64,6 @@ uint8_t	ft_rl_fwd(t_rl_input *input)
 
 uint8_t	ft_rl_bck(t_rl_input *input)
 {
-	ft_dprintf(2, "bck: input->current: %p\n", input->current);
-	if (input->current)
-		ft_dprintf(2, "bck: current->i: %u\n", input->current->i);
 	if (input->current->i > 1)
 	{
 		input->current->i--;
@@ -75,6 +72,11 @@ uint8_t	ft_rl_bck(t_rl_input *input)
 	else if (input->current->prev)
 	{
 		input->current = input->current->prev;
+		input->current->i--;
+		ft_rl_shiftcursor(1, KEY_LEFT);
+	}
+	else if (input->current->i == 1)
+	{
 		input->current->i--;
 		ft_rl_shiftcursor(1, KEY_LEFT);
 	}

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:35 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 13:08:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:55:23 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_rl_addword(t_rl_input *input, uint8_t c)
 {
 	t_rl_word	*newword;
 
-	newword = ft_push(ft_alloc(sizeof(*newword)));
+	newword = ft_push(ft_calloc(1, sizeof(*newword)));
 	if (!newword)
 		return ;
 	newword->word = ft_calloc(2, sizeof(c));
@@ -101,15 +101,9 @@ void	ft_rl_rmword(t_rl_input *input, uint64_t key)
 		input->current->next->prev = input->current->prev;
 	ft_popblks(2, input->current, input->current->word);
 	if (key == KEY_BACKSPACE)
-	{
-		if (input->current->prev)
-			input->current = input->current->prev;
-	}
+		input->current = input->current->prev;
 	else
-	{
-		if (input->current->next)
-			input->current = input->current->next;
-	}
+		input->current = input->current->next;
 	if (input->current && input->current->prev
 		&& input->current->wtype == input->current->prev->wtype)
 		input->current = ft_rl_joinword(input->current->prev, input->current);

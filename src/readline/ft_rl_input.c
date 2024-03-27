@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:31:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 15:13:38 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:11:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_rl_rmchar(t_rl_input *input, uint64_t key)
 		ft_rl_rmword(input, key);
 		return ;
 	}
-	newword = (ft_calloc(ft_getblksize(curword->word) - 1, sizeof(*newword)));
+	newword = (ft_calloc(ft_getblksize(curword->word), sizeof(*newword)));
 	if (!newword)
 		return ;
 	ft_popblk(curword->word);
@@ -78,7 +78,6 @@ uint8_t	ft_rl_getinput(t_rl_input *input)
 	if (key == KEY_BACKSPACE || key == KEY_DEL)
 	{
 		ft_rl_rmchar(input, key);
-		ft_rl_shiftcursor(1, KEY_LEFT);
 	}
 	else if (key >= KEY_SPACE && key <= KEY_TILDE)
 	{
@@ -86,6 +85,7 @@ uint8_t	ft_rl_getinput(t_rl_input *input)
 		ft_rl_shiftcursor(1, KEY_RIGHT);
 	}
 	ft_rl_redisplay(input, LINE);
+	ft_rl_updatecursor(input->cursor);
 	return (1);
 }
 
