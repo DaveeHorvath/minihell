@@ -6,14 +6,13 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:31:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 16:11:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/27 21:55:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
 static inline void	joinchar(t_rl_word *curword, uint8_t c);
-static inline void	ft_rl_dbg_info(t_rl_input *input, uint64_t key);
 
 void	ft_rl_addchar(t_rl_input *input, uint8_t c)
 {
@@ -46,10 +45,14 @@ void	ft_rl_rmchar(t_rl_input *input, uint64_t key)
 	if (!input->head)
 		return ;
 	curword = input->current;
+	if (curword->i == 0)
+		curword = curword->prev;
+	if (!curword)
+		return ;
 	if ((key == KEY_BACKSPACE && curword->len == 1)
 		|| (key == KEY_DEL && curword->i == curword->len))
 	{
-		ft_rl_rmword(input, key);
+		ft_rl_rmword(input, curword, key);
 		return ;
 	}
 	newword = (ft_calloc(ft_getblksize(curword->word), sizeof(*newword)));
@@ -71,21 +74,17 @@ uint8_t	ft_rl_getinput(t_rl_input *input)
 	key = 0;
 	if (read(0, &key, sizeof(key)) < 0)
 		return (-1);
-	if (RL_DEBUG_MSG)
-		ft_rl_dbg_info(input, key);
 	if (ft_rl_ismapped(key))
+	{
+		ft_rl_dbg_info(input, key);
 		return (ft_rl_execmap(input, key));
+	}
 	if (key == KEY_BACKSPACE || key == KEY_DEL)
-	{
 		ft_rl_rmchar(input, key);
-	}
 	else if (key >= KEY_SPACE && key <= KEY_TILDE)
-	{
 		ft_rl_addchar(input, key);
-		ft_rl_shiftcursor(1, KEY_RIGHT);
-	}
 	ft_rl_redisplay(input, LINE);
-	ft_rl_updatecursor(input->cursor);
+	ft_rl_dbg_info(input, key);
 	return (1);
 }
 
@@ -103,17 +102,4 @@ static inline void	joinchar(t_rl_word *curword, uint8_t c)
 		curword->len++ - curword->i + 1);
 	curword->word = ft_push(newword);
 	curword->i++;
-}
-
-static inline void	ft_rl_dbg_info(t_rl_input *input, uint64_t key)
-{
-	ft_dprintf(2, "curpos: %d;%d\n", input->cursor->row, input->cursor->col);
-	ft_dprintf(2, "curnode: %p\n", input->current);
-	if (input->current)
-		ft_dprintf(2, "curnode->word: [%s][%u]\n", input->current->word,
-				input->current->i);
-	if (ft_rl_ismapped(key))
-		ft_dprintf(2, "key %X mapped to %p\n", key, ft_rl_getmap(key));
-	else
-		ft_dprintf(2, "key %X not mapped\n", key);
 }

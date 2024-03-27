@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 15:14:03 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/27 23:14:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,18 @@ t_rl_word	*ft_rl_splitword(t_rl_word *w1);
 t_rl_word	*ft_rl_joinword(t_rl_word *w1, t_rl_word *w2);
 void		ft_rl_insertword(t_rl_input *input, t_rl_word *newword);
 void		ft_rl_addword(t_rl_input *input, uint8_t c);
-void		ft_rl_rmword(t_rl_input *input, uint64_t key);
+void		ft_rl_rmword(t_rl_input *input, t_rl_word *dword, uint64_t key);
 
 // ft_rl_move.c
 uint8_t		ft_rl_sol(t_rl_input *input);
 uint8_t		ft_rl_eol(t_rl_input *input);
 uint8_t		ft_rl_fwd(t_rl_input *input);
 uint8_t		ft_rl_bck(t_rl_input *input);
+uint8_t		ft_rl_clr(t_rl_input *input);
+
+// ft_rl_move2.c
+uint8_t		ft_rl_fwd_w(t_rl_input *input);
+uint8_t		ft_rl_bck_w(t_rl_input *input);
 
 // ft_rl_cursor.c
 void		ft_rl_shiftcursor(size_t n, uint64_t direction);
@@ -70,8 +75,13 @@ t_rl_wc		*ft_rl_wildcard_expand(const char *pattern);
 // ft_rl_utils.c
 void		ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode);
 
+// ft_rl_debug_utils.c
+uint8_t	ft_rl_dbg_printinput(t_rl_input *input);
+void	ft_rl_dbg_info(t_rl_input *input, uint64_t key);
+
 // ft_rl_termutils.c
 t_rl_cursor	*ft_rl_getcursor(t_rl_input *input);
+void		ft_rl_resetcursor(t_rl_input *input);
 void		ft_rl_updatecursor(t_rl_cursor *cursor);
 
 #endif

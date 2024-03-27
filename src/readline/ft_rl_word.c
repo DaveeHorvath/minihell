@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:35 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 15:55:23 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/27 21:48:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_rl_word	*ft_rl_joinword(t_rl_word *w1, t_rl_word *w2)
 	if (word)
 	{
 		ft_popblks(3, w1->word, w2->word, w2);
-		w1->word = word;
+		w1->word = ft_push(word);
 		w1->len += w2->len;
 		w1->next = w2->next;
 		if (w1->next)
@@ -91,23 +91,23 @@ void	ft_rl_addword(t_rl_input *input, uint8_t c)
 	ft_rl_insertword(input, newword);
 }
 
-void	ft_rl_rmword(t_rl_input *input, uint64_t key)
+void	ft_rl_rmword(t_rl_input *input, t_rl_word *dword, uint64_t key)
 {
-	if (input->current->prev)
-		input->current->prev->next = input->current->next;
+	if (dword->prev)
+		dword->prev->next = dword->next;
 	else
-		input->head = input->current->next;
-	if (input->current->next)
-		input->current->next->prev = input->current->prev;
-	ft_popblks(2, input->current, input->current->word);
+		input->head = dword->next;
+	if (dword->next)
+		dword->next->prev = dword->prev;
+	ft_popblks(2, dword, dword->word);
 	if (key == KEY_BACKSPACE)
-		input->current = input->current->prev;
+		input->current = dword->prev;
 	else
-		input->current = input->current->next;
+		input->current = dword->next;
 	if (input->current && input->current->prev
 		&& input->current->wtype == input->current->prev->wtype)
 		input->current = ft_rl_joinword(input->current->prev, input->current);
 	if (input->current && input->current->next
-		&& input->current->wtype == input->current->prev->wtype)
+		&& input->current->wtype == input->current->next->wtype)
 		input->current = ft_rl_joinword(input->current, input->current->next);
 }

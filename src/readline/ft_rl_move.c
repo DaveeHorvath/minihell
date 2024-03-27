@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:12:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 16:02:01 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/27 23:14:44 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,35 @@
 
 uint8_t	ft_rl_sol(t_rl_input *input)
 {
-	t_rl_word	*word;
+	t_rl_word	*w;
 
-	word = input->current;
-	while (word)
+	w = input->current;
+	while (w)
 	{
-		ft_rl_shiftcursor(word->i, KEY_LEFT);
-		word->i = 0;
-		if (!word->prev)
+		w->i = 0;
+		if (!w->prev)
 			break ;
-		word = word->prev;
+		w = w->prev;
 	}
-	input->current = word;
+	input->current = w;
+	ft_rl_resetcursor(input);
 	return (1);
 }
 
 uint8_t	ft_rl_eol(t_rl_input *input)
 {
-	t_rl_word	*word;
+	t_rl_word	*w;
 
-	word = input->current;
-	while (word)
+	w = input->current;
+	while (w)
 	{
-		ft_rl_shiftcursor(word->len - word->i, KEY_RIGHT);
-		word->i = word->len;
-		if (!word->next)
+		w->i = w->len;
+		if (!w->next)
 			break ;
-		word = word->next;
+		w = w->next;
 	}
-	input->current = word;
+	ft_rl_resetcursor(input);
+	input->current = w;
 	return (1);
 }
 
@@ -64,7 +64,7 @@ uint8_t	ft_rl_fwd(t_rl_input *input)
 
 uint8_t	ft_rl_bck(t_rl_input *input)
 {
-	if (input->current->i > 1)
+	if (input->current->i >= 1)
 	{
 		input->current->i--;
 		ft_rl_shiftcursor(1, KEY_LEFT);
@@ -75,10 +75,13 @@ uint8_t	ft_rl_bck(t_rl_input *input)
 		input->current->i--;
 		ft_rl_shiftcursor(1, KEY_LEFT);
 	}
-	else if (input->current->i == 1)
-	{
-		input->current->i--;
-		ft_rl_shiftcursor(1, KEY_LEFT);
-	}
+	return (1);
+}
+
+uint8_t	ft_rl_clr(t_rl_input *input)
+{
+	input->cursor->i_row = 1;
+	input->cursor->i_col = input->plen + 1;
+	ft_rl_redisplay(input, ALL);
 	return (1);
 }
