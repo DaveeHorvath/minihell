@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:24:54 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:38:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:07:34 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ t_rl_input	*ft_rl_dupinput(t_rl_input *input)
 	if (!input)
 		return (NULL);
 	out = ft_push(ft_calloc(1, sizeof(*out)));
-	*out = (t_rl_input){.plen = input->plen, .prompt = input->prompt,
-		.cursor = input->cursor};
+	*out = (t_rl_input){.plen = input->plen,
+		.prompt = ft_push(ft_strdup(input->prompt)), .cursor = input->cursor};
 	out->head = ft_rl_dupwords(input->head);
+	out->current = out->head;
+	while (out->current && out->current->next)
+		out->current = out->current->next;
 	return (out);
 }
 
@@ -40,16 +43,18 @@ t_rl_word	*ft_rl_dupwords(t_rl_word *words)
 			word->next = ft_push(ft_calloc(1, sizeof(*word)));
 			if (word->next)
 				word->next->prev = word;
+			word->next->prev = word;
 			word = word->next;
 		}
 		if (!word)
 			return (NULL);
-		*word = (t_rl_word){.i = words->len, .len = words->len,
+		*word = (t_rl_word){.i = words->len, .len = words->len, .prev = word->prev,
 			.wtype = words->wtype, .word = ft_push(ft_strdup(words->word))};
 		if (!word->word)
 			return (NULL);
 		if (!head)
 			head = word;
+		words = words->next;
 	}
 	return (head);
 }
@@ -59,13 +64,17 @@ char	*ft_rl_inputstr(t_rl_input *input)
 	char		*out;
 	t_rl_word	*w;
 
-	if (!input)
-		return (NULL);
+	if (!input || !input->head)
+	{
+		if (input->exittype == EOF)
+			return (NULL);
+		return (ft_strdup(""));
+	}
 	w = input->head;
 	out = NULL;
 	while (w)
 	{
-		ft_strjoin(out, w->word);
+		out = ft_strjoin(out, w->word);
 		ft_popblks(2, w, w->word);
 		w = w->next;
 	}
@@ -98,4 +107,13 @@ void	ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode)
 		w = w->next;
 	}
 	ft_rl_resetcursor(input);
+}
+
+void	ft_rl_popwords(t_rl_word *words)
+{
+	while (words)
+	{
+		ft_popblks(2, words, words->word);
+		words = words->next;
+	}
 }

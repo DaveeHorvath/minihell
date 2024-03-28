@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:59:29 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:47:08 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 20:58:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_rl_initfuncs(t_list **funcs)
 	addfunc(funcs, ft_rl_newfunc("clear-screen", ft_rl_clr));
 	addfunc(funcs, ft_rl_newfunc("accept-line", ft_rl_acl));
 	addfunc(funcs, ft_rl_newfunc("end-of-file", ft_rl_eof));
+	addfunc(funcs, ft_rl_newfunc("previous-history", ft_rl_pvh));
+	addfunc(funcs, ft_rl_newfunc("next-history", ft_rl_nxh));
 	addfunc(funcs, ft_rl_newfunc("rl-dbg-print-input", ft_rl_dbg_printinput));
 }
 

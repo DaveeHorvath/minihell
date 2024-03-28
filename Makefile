@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/03/28 17:41:04 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/28 22:51:03 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	=	minishell
 BUILD	=	normal
 
 CC				=	cc
-cflags.common	=	-Wall -Wextra -Werror
+cflags.common	=	-Wall -Wextra -Werror -D RL_HFNAME=\".msh_history\"
 cflags.debug	=	-g
 cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
 cflags.rldebug	=	$(cflags.debug) -D RL_DEBUG_MSG=1
@@ -42,7 +42,9 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_exec.c \
 					ft_rl_fn.c \
 					ft_rl_fn2.c \
+					ft_rl_fn3.c \
 					ft_rl_history.c \
+					ft_rl_history_file.c \
 					ft_rl_history_utils.c \
 					ft_rl_init.c \
 					ft_rl_initfuncs.c \
@@ -53,6 +55,7 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_keymap_utils.c \
 					ft_rl_term_utils.c \
 					ft_rl_utils.c \
+					ft_rl_utils2.c \
 					ft_rl_wildcard.c \
 					ft_rl_word.c
 
@@ -89,6 +92,7 @@ PROMPTFILES		=	color.c \
 					prompt.c
 
 FILES	=	main.c \
+			utils.c \
 			$(addprefix $(READLINEDIR)/, $(READLINEFILES)) \
 			$(addprefix $(BUILTINDIR)/, $(BUILTINFILES)) \
 			$(addprefix $(CONFIGDIR)/, $(CONFIGFILES)) \

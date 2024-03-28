@@ -6,13 +6,19 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:59:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 20:49:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_RL_DATA_H
 # define FT_RL_DATA_H
 # include "libft.h"
+
+typedef enum e_rl_etype
+{
+	ACL,
+	EOF
+}	t_rl_etype;
 
 typedef enum e_rl_wtype
 {
@@ -66,6 +72,7 @@ typedef struct s_rl_input
 {
 	size_t		plen;
 	const char	*prompt;
+	t_rl_etype	exittype;
 	t_rl_cursor	*cursor;
 	t_rl_word	*current;
 	t_rl_word	*head;
