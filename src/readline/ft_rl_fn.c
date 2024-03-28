@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:12:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 02:37:14 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 02:41:55 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ uint8_t	ft_rl_eol(t_rl_input *input)
 
 uint8_t	ft_rl_fwd(t_rl_input *input)
 {
+	if (!input->current)
+		return (1);
 	if (input->current->i < input->current->len)
 	{
 		input->current->i++;
@@ -64,6 +66,8 @@ uint8_t	ft_rl_fwd(t_rl_input *input)
 
 uint8_t	ft_rl_bck(t_rl_input *input)
 {
+	if (!input->current)
+		return (1);
 	if (input->current->i >= 1)
 	{
 		input->current->i--;

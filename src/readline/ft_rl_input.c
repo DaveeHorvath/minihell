@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:31:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 02:30:22 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 02:47:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	ft_rl_rmchar(t_rl_input *input, uint64_t key)
 	t_rl_word	*curword;
 	char		*newword;
 
-	if (!input->head)
+	if (!input->head || (key == KEY_DEL && !input->current->next
+			&& input->current->i == input->current->len))
 		return ;
 	curword = input->current;
 	if (key == KEY_BACKSPACE && curword->i == 0)
@@ -80,10 +81,15 @@ uint8_t	ft_rl_getinput(t_rl_input *input)
 		return (ft_rl_execmap(input, key));
 	}
 	if (key == KEY_BACKSPACE || key == KEY_DEL)
+	{
 		ft_rl_rmchar(input, key);
+		ft_rl_redisplay(input, LINE);
+	}
 	else if (key >= KEY_SPACE && key <= KEY_TILDE)
+	{
 		ft_rl_addchar(input, key);
-	ft_rl_redisplay(input, LINE);
+		ft_rl_redisplay(input, LINE);
+	}
 	ft_rl_dbg_info(input, key);
 	return (1);
 }
