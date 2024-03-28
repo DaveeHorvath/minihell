@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:51:31 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:59:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef enum e_rl_mapmode
 	REMAP,
 	QREMAP
 }	t_rl_mapmode;
+
+typedef enum e_rl_histmode
+{
+	ON,
+	OFF,
+	NOUPDATE
+}	t_rl_histmode;
 
 typedef struct s_rl_word
 {

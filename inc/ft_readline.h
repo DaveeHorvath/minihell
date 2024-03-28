@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:53:17 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:00:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@
 #  define RL_HISTORY_SIZE 100
 # endif
 
-# define RL_ALTKEY_SIZE 8
-
 // ft_readline.c
-char		*ft_readline(const char *prompt);
+char		*ft_readline(const char *prompt, t_rl_histmode mode);
 
 // ft_rl_init.c
 void		ft_rl_init(void);

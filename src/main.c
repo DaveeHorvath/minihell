@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 15:22:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:36:34 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	main(int argc, char **argv)
 	signal(2, keyboardinterupt);
 	msh_setenv("?", "0");
 	updateprompt(msh_getenv("PROMPT"), &prompt);
-	input = ft_push(ft_readline(prompt));
+	input = ft_push(ft_readline(prompt, ON));
 	while (input)
 	{
 		execute_string(input);
 		ft_popblk(input);
 		updateprompt(msh_getenv("PROMPT"), &prompt);
-		input = ft_push(ft_readline(prompt));
+		input = ft_push(ft_readline(prompt, ON));
 	}
 	return (ft_return(0));
 }

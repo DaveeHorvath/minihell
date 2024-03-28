@@ -6,16 +6,16 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:17:01 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:36:12 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:38:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
 
-static inline size_t	getplen(const char *prompt);
-static inline char	*getline(const char *prompt);
+static inline size_t	getplen(const char *p);
+static inline char	*getline(const char *p, t_rl_histmode mode, t_list *hist);
 
-char	*ft_readline(const char *prompt)
+char	*ft_readline(const char *p, t_rl_histmode mode)
 {
 	struct termios	old;
 	struct termios	new;
@@ -26,53 +26,57 @@ char	*ft_readline(const char *prompt)
 	new = old;
 	new.c_lflag &= (~ICANON & ~ECHO);
 	tcsetattr(0, TCSANOW, &new);
-	out = getline(prompt);
+	if (mode != OFF)
+		out = getline(p, mode, ft_rl_hist_duphist(*ft_rl_hist_gethead()));
+	else
+		out = getline(p, mode, NULL);
 	tcsetattr(0, TCSANOW, &old);
 	return (out);
 }
 
-static inline size_t	getplen(const char *prompt)
+static inline size_t	getplen(const char *p)
 {
 	size_t	len;
 
 	len = 0;
-	while (*prompt)
+	while (*p)
 	{
-		if (*prompt == '\e')
+		if (*p == '\e')
 		{
-			while (*prompt && *prompt != 'm')
-				prompt++;
-			prompt++;
+			while (*p && *p != 'm')
+				p++;
+			p++;
 		}
-		if (*prompt == '\e')
+		if (*p == '\e')
 			continue ;
-		if (!*prompt)
+		if (!*p)
 			break ;
-		prompt++;
+		p++;
 		len++;
 	}
 	return (len);
 }
 
-static inline char	*getline(const char *prompt)
+static inline char	*getline(const char *p, t_rl_histmode mode, t_list *hist)
 {
-	t_rl_input	input;
-	char		*out;
+	t_rl_input	*input;
 
-	input = (t_rl_input){.prompt = prompt, .plen = getplen(prompt)};
-	input.cursor = ft_rl_getcursor(&input);
-	input.cursor->col += input.plen;
-	ft_putstr_fd(prompt, 1);
-	while (ft_rl_getinput(&input))
-		;
-	if (!input.head)
-		return (NULL);
-	out = NULL;
-	input.current = input.head;
-	while (input.current)
+	input = ft_push(ft_calloc(1, sizeof(*input)));
+	*input = (t_rl_input){.prompt = p, .plen = getplen(p)};
+	input->cursor = ft_rl_getcursor(input);
+	input->cursor->col += input->plen;
+	if (mode != OFF)
 	{
-		out = ft_strjoin(out, input.current->word);
-		input.current = input.current->next;
+		ft_lstadd_front(&hist, ft_lstnew(input));
+		ft_rl_hist_setcurrent(hist);
 	}
-	return (out);
+	else
+		ft_rl_hist_setcurrent(NULL);
+	ft_putstr_fd(p, 1);
+	while (ft_rl_getinput(input))
+		;
+	if (mode == ON)
+		ft_rl_hist_commit(input);
+	ft_rl_hist_pop(hist);
+	return (ft_rl_inputstr(input));
 }
