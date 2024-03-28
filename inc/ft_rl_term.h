@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_term.h                                          :+:      :+:    :+:   */
+/*   ft_rl_term.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:48:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/26 18:33:47 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:51:49 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RL_TERM_H
-# define RL_TERM_H
+#ifndef FT_RL_TERM_H
+# define FT_RL_TERM_H
 # include "libft.h"
-# include "rl_data.h"
+# include "ft_rl_data.h"
 
 // misc
 # define TERM_STATUS "\e[6n"

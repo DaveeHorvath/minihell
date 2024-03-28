@@ -6,16 +6,16 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:44:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:53:17 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_READLINE_H
 # define FT_READLINE_H
 # include "libft.h"
-# include "rl_keys.h"
-# include "rl_term.h"
-# include "rl_data.h"
+# include "ft_rl_keys.h"
+# include "ft_rl_term.h"
+# include "ft_rl_data.h"
 # include <fcntl.h>
 # include <dirent.h>
 # include <termios.h>
@@ -46,11 +46,11 @@ void		ft_rl_init(void);
 t_rl_wc		*ft_rl_wildcard_expand(const char *pattern);
 
 // ft_rl_keymap.c
-void	ft_rl_map(const char *key, const char *func, t_rl_mapmode mode);
-void	ft_rl_unmap(const char *key);
+void		ft_rl_map(const char *key, const char *func, t_rl_mapmode mode);
+void		ft_rl_unmap(const char *key);
 
 // ft_rl_keymap_utils.c
-uint8_t	ft_rl_ismapped(uint64_t key);
-t_rl_fn	ft_rl_getmap(uint64_t key);
+uint8_t		ft_rl_ismapped(uint64_t key);
+t_rl_fn		ft_rl_getmap(uint64_t key);
 
 #endif

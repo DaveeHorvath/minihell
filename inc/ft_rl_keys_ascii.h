@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_keys_ascii.h                                    :+:      :+:    :+:   */
+/*   ft_rl_keys_ascii.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 21:13:17 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/26 14:12:02 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:52:18 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RL_KEYS_ASCII_H
-# define RL_KEYS_ASCII_H
+#ifndef FT_RL_KEYS_ASCII_H
+# define FT_RL_KEYS_ASCII_H
 
 # define KEY_SPACE 0x20ULL
 # define KEY_BANG 0x21ULL

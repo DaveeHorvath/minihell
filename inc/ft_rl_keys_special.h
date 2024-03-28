@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_keys_special.h                                  :+:      :+:    :+:   */
+/*   ft_rl_keys_special.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 21:57:17 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 15:09:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:52:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RL_KEYS_SPECIAL_H
-# define RL_KEYS_SPECIAL_H
+#ifndef FT_RL_KEYS_SPECIAL_H
+# define FT_RL_KEYS_SPECIAL_H
 
 // ctrl
 # define KEY_CTRL_A 0x1ULL

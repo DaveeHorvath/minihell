@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:44:02 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:53:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ uint8_t		ft_rl_acl(t_rl_input *input);
 uint8_t		ft_rl_eof(t_rl_input *input);
 
 // ft_rl_exec.c
-uint8_t	ft_rl_execmap(t_rl_input *input, uint64_t key);
+uint8_t		ft_rl_execmap(t_rl_input *input, uint64_t key);
 
 // ft_rl_initkeys.c
 t_rl_key	*ft_rl_newkey(const char *name, const uint64_t value);
@@ -68,8 +68,8 @@ t_list		**ft_rl_getkeymaps(void);
 void		ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode);
 
 // ft_rl_debug_utils.c
-uint8_t	ft_rl_dbg_printinput(t_rl_input *input);
-void	ft_rl_dbg_info(t_rl_input *input, uint64_t key);
+uint8_t		ft_rl_dbg_printinput(t_rl_input *input);
+void		ft_rl_dbg_info(t_rl_input *input, uint64_t key);
 
 // ft_rl_termutils.c
 t_rl_cursor	*ft_rl_getcursor(t_rl_input *input);

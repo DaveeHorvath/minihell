@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_data.h                                          :+:      :+:    :+:   */
+/*   ft_rl_data.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 13:35:03 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:51:31 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RL_DATA_H
-# define RL_DATA_H
+#ifndef FT_RL_DATA_H
+# define FT_RL_DATA_H
 # include "libft.h"
 
 typedef enum e_rl_wtype
