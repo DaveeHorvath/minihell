@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:31:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 21:55:33 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 02:30:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	ft_rl_rmchar(t_rl_input *input, uint64_t key)
 	if (!input->head)
 		return ;
 	curword = input->current;
-	if (curword->i == 0)
+	if (key == KEY_BACKSPACE && curword->i == 0)
 		curword = curword->prev;
 	if (!curword)
 		return ;
 	if ((key == KEY_BACKSPACE && curword->len == 1)
-		|| (key == KEY_DEL && curword->i == curword->len))
+		|| (key == KEY_DEL && curword->len == 1))
 	{
 		ft_rl_rmword(input, curword, key);
 		return ;

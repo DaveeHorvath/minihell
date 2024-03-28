@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rl_move2.c                                      :+:      :+:    :+:   */
+/*   ft_rl_fn2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 22:41:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 23:15:07 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 02:37:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,19 @@ uint8_t		ft_rl_bck_w(t_rl_input *input)
 	input->current = w;
 	ft_rl_resetcursor(input);
 	return (1);
+}
+
+uint8_t	ft_rl_acl(t_rl_input *input)
+{
+	ft_rl_eol(input);
+	ft_putchar_fd('\n', 1);
+	return (0);
+}
+
+uint8_t	ft_rl_eof(t_rl_input *input)
+{
+	if (input->head)
+		return (1);
+	ft_putchar_fd('\n', 1);
+	return (0);
 }

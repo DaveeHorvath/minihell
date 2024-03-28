@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:35 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 21:48:29 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 02:35:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ void	ft_rl_rmword(t_rl_input *input, t_rl_word *dword, uint64_t key)
 	if (dword->next)
 		dword->next->prev = dword->prev;
 	ft_popblks(2, dword, dword->word);
-	if (key == KEY_BACKSPACE)
-		input->current = dword->prev;
-	else
+	if (key == KEY_DEL && dword->next)
 		input->current = dword->next;
+	else
+		input->current = dword->prev;
 	if (input->current && input->current->prev
 		&& input->current->wtype == input->current->prev->wtype)
 		input->current = ft_rl_joinword(input->current->prev, input->current);
