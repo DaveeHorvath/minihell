@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:08:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 22:46:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:36:56 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static inline void	commit_replace(t_list **hist, t_rl_input *input);
 
-t_rl_input	*ft_rl_hist_getnext(t_rl_input *input)
+t_rl_input	*ft_rl_hist_getnext(t_rl_input *input, uint8_t cpy)
 {
 	t_list	*current;
 
@@ -23,15 +23,18 @@ t_rl_input	*ft_rl_hist_getnext(t_rl_input *input)
 		return (NULL);
 	if (!current->prev)
 		return (input);
-	ft_rl_popwords(((t_rl_input *)current->blk)->head);
-	((t_rl_input *)current->blk)->head = ft_rl_dupwords(input->head);
-	((t_rl_input *)current->blk)->current = ((t_rl_input *)current->blk)->head;
+	if (cpy)
+	{
+		ft_rl_popwords(((t_rl_input *)current->blk)->head);
+		((t_rl_input *)current->blk)->head = ft_rl_dupwords(input->head);
+		((t_rl_input *)current->blk)->current = ((t_rl_input *)current->blk)->head;
+	}
 	current = current->prev;
 	ft_rl_hist_setcurrent(current);
 	return (current->blk);
 }
 
-t_rl_input	*ft_rl_hist_getprev(t_rl_input *input)
+t_rl_input	*ft_rl_hist_getprev(t_rl_input *input, uint8_t cpy)
 {
 	t_list	*current;
 
@@ -40,9 +43,12 @@ t_rl_input	*ft_rl_hist_getprev(t_rl_input *input)
 		return (NULL);
 	if (!current->next)
 		return (input);
-	ft_rl_popwords(((t_rl_input *)current->blk)->head);
-	((t_rl_input *)current->blk)->head = ft_rl_dupwords(input->head);
-	((t_rl_input *)current->blk)->current = ((t_rl_input *)current->blk)->head;
+	if (cpy)
+	{
+		ft_rl_popwords(((t_rl_input *)current->blk)->head);
+		((t_rl_input *)current->blk)->head = ft_rl_dupwords(input->head);
+		((t_rl_input *)current->blk)->current = ((t_rl_input *)current->blk)->head;
+	}
 	current = current->next;
 	ft_rl_hist_setcurrent(current);
 	return (current->blk);

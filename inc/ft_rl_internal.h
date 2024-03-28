@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 22:40:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:35:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void		ft_rl_rmword(t_rl_input *input, t_rl_word *dword, uint64_t key);
 void		ft_rl_shiftcursor(size_t n, uint64_t direction);
 
 // ft_rl_history.c
-t_rl_input	*ft_rl_hist_getnext(t_rl_input *input);
-t_rl_input	*ft_rl_hist_getprev(t_rl_input *input);
+t_rl_input	*ft_rl_hist_getnext(t_rl_input *input, uint8_t cpy);
+t_rl_input	*ft_rl_hist_getprev(t_rl_input *input, uint8_t cpy);
 void		ft_rl_hist_commit(t_rl_input *input);
 void		ft_rl_hist_add(t_list **hist, t_rl_input *input);
 

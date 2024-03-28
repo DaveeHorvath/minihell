@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 22:41:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 21:43:33 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:36:13 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ uint8_t	ft_rl_pvh(t_rl_input *input)
 {
 	t_rl_input	*newinput;
 
-	newinput = ft_rl_hist_getprev(input);
+	newinput = ft_rl_hist_getprev(input, 1);
 	if (!newinput || input == newinput)
 		return (1);
 	ft_rl_popwords(input->head);

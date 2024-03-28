@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:50:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 22:40:00 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:21:53 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ static inline void	ft_rl_defaultbinds(void)
 	ft_rl_map("<C-n>", "next-history", QREMAP);
 	ft_rl_map("<up>", "previous-history", QREMAP);
 	ft_rl_map("<down>", "next-history", QREMAP);
+	ft_rl_map("<M-<>", "beginning-of-history", QREMAP);
+	ft_rl_map("<M->>", "end-of-history", QREMAP);
 	ft_rl_map("<HME>", "rl-dbg-print-input", QREMAP);
 }
