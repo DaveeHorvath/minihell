@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:24:54 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 23:14:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:36:31 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
 void	ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode)
 {

@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:03:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/26 15:03:50 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:36:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
 t_rl_wc	*ft_rl_wildcard_expand(const char *pattern)
 {

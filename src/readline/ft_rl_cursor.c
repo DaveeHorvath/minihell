@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:20:40 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 14:26:23 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:37:21 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
 void	ft_rl_shiftcursor(size_t n, uint64_t direction)
 {

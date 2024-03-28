@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 12:28:40 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/26 12:48:42 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:46:46 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rl_map_internal.h"
+#include "ft_rl_internal.h"
 
 uint8_t	ft_rl_execmap(t_rl_input *input, uint64_t key)
 {

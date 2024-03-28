@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:44:17 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 12:48:39 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:47:17 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rl_map_internal.h"
+#include "ft_rl_internal.h"
 
 static inline void	ft_rl_initkeys2(t_list **keys);
 static inline void	ft_rl_initkeys3(t_list **keys);

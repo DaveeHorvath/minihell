@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:31:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 02:47:27 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:36:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
 static inline void	joinchar(t_rl_word *curword, uint8_t c);
 

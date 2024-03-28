@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:17:01 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 14:32:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:36:12 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
 static inline size_t	getplen(const char *prompt);
 static inline char	*getline(const char *prompt);

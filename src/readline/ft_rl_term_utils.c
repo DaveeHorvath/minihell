@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:17:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 23:14:34 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:36:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
 static inline void	initcursor(t_rl_cursor *cursor, size_t plen);
 static inline void	getcurpos(int16_t *row, int16_t *col);

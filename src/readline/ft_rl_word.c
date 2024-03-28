@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:35 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 02:35:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:36:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
 t_rl_word	*ft_rl_splitword(t_rl_word *w1)
 {

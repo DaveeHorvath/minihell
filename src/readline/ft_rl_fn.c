@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:12:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 02:41:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:37:15 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
 uint8_t	ft_rl_sol(t_rl_input *input)
 {

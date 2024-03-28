@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:59:29 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 23:37:10 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:47:08 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rl_map_internal.h"
+#include "ft_rl_internal.h"
 
 static inline void	addfunc(t_list **funcs, t_rl_func *func);
 

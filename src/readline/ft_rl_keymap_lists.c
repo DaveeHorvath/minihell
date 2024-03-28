@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:25:16 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/25 23:27:28 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:47:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rl_map_internal.h"
+#include "ft_rl_internal.h"
 
 t_list	**ft_rl_getkeys(void)
 {

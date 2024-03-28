@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:58:06 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 12:34:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:47:51 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rl_map_internal.h"
+#include "ft_rl_internal.h"
 
 static inline uint8_t	checkremap(const char *key, t_rl_mapmode mode);
 static inline void	createmap(uint64_t key, t_rl_fn f);

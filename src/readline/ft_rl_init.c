@@ -6,11 +6,11 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:50:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/27 23:35:15 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:46:59 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rl_map_internal.h"
+#include "ft_rl_internal.h"
 
 static inline void	ft_rl_defaultbinds(void);
 
@@ -39,5 +39,5 @@ static inline void	ft_rl_defaultbinds(void)
 	ft_rl_map("<C-l>", "clear-screen", QREMAP);
 	ft_rl_map("<RET>", "accept-line", QREMAP);
 	ft_rl_map("<C-d>", "end-of-file", QREMAP);
-	ft_rl_map("<C-2>", "rl-dbg-print-input", QREMAP);
+	ft_rl_map("<HME>", "rl-dbg-print-input", QREMAP);
 }
