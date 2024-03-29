@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:31:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 01:27:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:26:17 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ uint8_t	ft_rl_getinput(t_rl_input *input)
 		ft_rl_rmchar(input, key);
 	else if (key >= KEY_SPACE && key <= KEY_TILDE)
 		ft_rl_addchar(input, key);
+	else
+		return (1);
 	ft_rl_redisplay(input, LINE);
 	ft_rl_dbg_info(input, key);
 	return (1);

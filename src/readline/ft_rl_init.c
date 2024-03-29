@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:50:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 14:28:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:36:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static inline void	ft_rl_defaultbinds(void)
 {
 	ft_rl_map("<C-a>", "beginning-of-line", QREMAP);
 	ft_rl_map("<C-e>", "end-of-line", QREMAP);
+	ft_rl_map("<HME>", "beginning-of-line", QREMAP);
+	ft_rl_map("<END>", "end-of-line", QREMAP);
 	ft_rl_map("<left>", "backward-char", QREMAP);
 	ft_rl_map("<right>", "forward-char", QREMAP);
 	ft_rl_map("<C-b>", "backward-char", QREMAP);
@@ -48,5 +50,9 @@ static inline void	ft_rl_defaultbinds(void)
 	ft_rl_map("<M->>", "end-of-history", QREMAP);
 	ft_rl_map("<C-r>", "reverse-search-history", QREMAP);
 	ft_rl_map("<C-h>", "forward-search-history", QREMAP);
-	ft_rl_map("<HME>", "rl-dbg-print-input", QREMAP);
+	ft_rl_map("<M-u>", "upcase-word", QREMAP);
+	ft_rl_map("<M-l>", "downcase-word", QREMAP);
+	ft_rl_map("<M-c>", "capitalize-word", QREMAP);
+	ft_rl_map("<ESC>", "prefix-meta", QREMAP);
+	ft_rl_map("<F-1>", "rl-dbg-print-input", QREMAP);
 }
