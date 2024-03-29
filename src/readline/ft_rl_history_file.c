@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:10:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 23:54:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:41:39 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_rl_hist_save(const char *fname)
 	node = *ft_rl_hist_gethead();
 	while (node)
 	{
-		ft_putendl_fd(ft_rl_inputstr(ft_rl_dupinput(node->blk)), fd);
+		ft_putendl_fd(ft_rl_inputstr(node->blk, 0), fd);
 		node = node->next;
 	}
 	close(fd);

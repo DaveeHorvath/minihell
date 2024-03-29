@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:24:54 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 00:07:34 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:34:55 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_rl_word	*ft_rl_dupwords(t_rl_word *words)
 	return (head);
 }
 
-char	*ft_rl_inputstr(t_rl_input *input)
+char	*ft_rl_inputstr(t_rl_input *input, uint8_t pop)
 {
 	char		*out;
 	t_rl_word	*w;
@@ -75,10 +75,12 @@ char	*ft_rl_inputstr(t_rl_input *input)
 	while (w)
 	{
 		out = ft_strjoin(out, w->word);
-		ft_popblks(2, w, w->word);
+		if (pop)
+			ft_popblks(2, w, w->word);
 		w = w->next;
 	}
-	ft_popblk(input);
+	if (pop)
+		ft_popblk(input);
 	return (out);
 }
 
@@ -89,11 +91,14 @@ void	ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode)
 	if (mode == ALL)
 		ft_printf("%s%s", TERM_CUR_RESET, TERM_CLEAR_END);
 	else if (mode == LINE)
-		ft_printf("%s%s", TERM_CUR_SOL, TERM_CLEAR_END);
+	{
+		ft_rl_inputcursor(input);
+		ft_printf("%s", TERM_CLEAR_END);
+	}
 	else
 		ft_printf("%s", TERM_CLEAR_END);
-	w = input->current;
-	if (mode != CURRENT)
+	w = input->head;
+	if (mode == ALL)
 	{
 		ft_putstr_fd(input->prompt, 1);
 		w = input->head;

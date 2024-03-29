@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:24:22 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 23:25:15 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:48:31 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ t_rl_word	*ft_rl_strword(const char *s)
 	if (*s == ' ')
 		out->wtype = SPACE;
 	return (out);
+}
+
+void	ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput)
+{
+	ft_rl_popwords(input->head);
+	input->head = ft_rl_dupwords(newinput->head);
+	input->current = input->head;
 }
 
 static inline void	insertword(t_rl_input *input, t_rl_word *word)

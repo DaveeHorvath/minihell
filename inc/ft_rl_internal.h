@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 00:35:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:33:34 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ t_rl_input	*ft_rl_hist_getnext(t_rl_input *input, uint8_t cpy);
 t_rl_input	*ft_rl_hist_getprev(t_rl_input *input, uint8_t cpy);
 void		ft_rl_hist_commit(t_rl_input *input);
 void		ft_rl_hist_add(t_list **hist, t_rl_input *input);
+
+// ft_rl_history_search.c
+uint8_t		ft_rl_hist_search(t_rl_input *input, uint64_t direction);
 
 // ft_rl_fn.c
 uint8_t		ft_rl_sol(t_rl_input *input);
@@ -75,13 +78,14 @@ t_list		**ft_rl_getkeymaps(void);
 // ft_rl_utils.c
 t_rl_input	*ft_rl_dupinput(t_rl_input *input);
 t_rl_word	*ft_rl_dupwords(t_rl_word *words);
-char		*ft_rl_inputstr(t_rl_input *input);
+char		*ft_rl_inputstr(t_rl_input *input, uint8_t pop);
 void		ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode);
 void		ft_rl_popwords(t_rl_word *words);
 
 // ft_rl_utils2.c
 t_rl_input	*ft_rl_strinput(const char *s);
 t_rl_word	*ft_rl_strword(const char *s);
+void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);
 
 // ft_rl_history_utils.c
 t_list		**ft_rl_hist_gethead(void);
@@ -92,6 +96,7 @@ void		ft_rl_hist_pop(t_list *hist);
 
 // ft_rl_term_utils.c
 t_rl_cursor	*ft_rl_getcursor(t_rl_input *input);
+void		ft_rl_inputcursor(t_rl_input *input);
 void		ft_rl_resetcursor(t_rl_input *input);
 void		ft_rl_updatecursor(t_rl_cursor *cursor);
 

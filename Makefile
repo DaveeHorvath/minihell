@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/03/28 22:51:03 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/29 12:28:44 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_fn3.c \
 					ft_rl_history.c \
 					ft_rl_history_file.c \
+					ft_rl_history_search.c \
 					ft_rl_history_utils.c \
 					ft_rl_init.c \
 					ft_rl_initfuncs.c \

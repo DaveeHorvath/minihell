@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:17:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:36:29 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:32:49 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ t_rl_cursor	*ft_rl_getcursor(t_rl_input *input)
 	if (input)
 		initcursor(&cursor, input->plen);
 	return (&cursor);
+}
+
+void	ft_rl_inputcursor(t_rl_input *input)
+{
+	input->cursor->row = input->cursor->i_row;
+	input->cursor->col = input->cursor->i_col;
+	ft_rl_updatecursor(input->cursor);
 }
 
 void	ft_rl_resetcursor(t_rl_input *input)
