@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:24:22 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 00:48:31 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:52:06 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput)
 	ft_rl_popwords(input->head);
 	input->head = ft_rl_dupwords(newinput->head);
 	input->current = input->head;
+	ft_rl_redisplay(input, LINE);
 }
 
 static inline void	insertword(t_rl_input *input, t_rl_word *word)

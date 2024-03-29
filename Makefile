@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/03/29 12:28:44 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/03/29 14:37:08 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ cflags.debug	=	-g
 cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
 cflags.rldebug	=	$(cflags.debug) -D RL_DEBUG_MSG=1
 cflags.asan		=	$(cflags.debug) -fsanitize=address -D RL_DEBUG_MSG=1
-cflags.normal	=	
+cflags.normal	=	-Ofast
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
 
 SRCDIR	=	src
