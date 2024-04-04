@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:13:14 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/18 19:01:32 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:02:47 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@ static int	handle_heredoc(int fds[2], char *s)
 {
 	int		hd_fd;
 	char	*line;
+	int		shouldStop;
 
+	shouldStop = 0;
+	heredoc_stopper(&shouldStop, 1);
 	hd_fd = open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	ft_printf("> ");
 	line = ft_push(get_next_line(0));
-	while (line)
+	while (line && !shouldStop)
 	{
-		if (ft_strequals(s, ft_strtrim(line, "\n")))
+		if (ft_strequals(s, ft_strtrim(line, "\n")) || shouldStop)
 		{
 			ft_pop();
 			break ;
@@ -36,13 +39,14 @@ static int	handle_heredoc(int fds[2], char *s)
 		ft_printf("> ");
 		line = ft_push(get_next_line(0));
 	}
+	heredoc_stopper(NULL, 1);
 	close(hd_fd);
 	if (fds[0] != 0)
 		close(fds[0]);
-	if (fds[0] < 0)
 	fds[0] = open(".heredoc", O_RDONLY);
 	unlink(".heredoc");
-		return (handle_file_error(1, "heredoc"));
+	if (fds[0] < 0)
+		return (handle_file_error(0, "heredoc"));
 	return (0);
 }
 
@@ -109,7 +113,7 @@ int	open_file(char *s, int fds[2], int type)
 
 	if (type == 0)
 	{
-		if (handle_heredoc(fds, get_filename(s, 2)) != 1)
+		if (handle_heredoc(fds, get_filename(s, 2)) == 1)
 			return (1);
 	}
 	if (type == 1)

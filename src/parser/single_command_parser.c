@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/19 15:42:11 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 11:19:07 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	out->original = s;
 	tokens = get_tokens(ft_strtrim(ft_push(s), " "));
-	// expand_alias(&tokens, NULL);
 	out->env = msh_getenvarr();
-	// expand_wildcards(&tokens);
+	//expand_wildcards(&tokens);
 	if (commands[i + 1])
 		get_def_filedesc(i, 1, prev_out, out);
 	else

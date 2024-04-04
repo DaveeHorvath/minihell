@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/18 18:55:15 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:17:14 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int			validate_tree(t_node *tree);
 
 /* signals */
 t_cmd		*save_pipeline(t_cmd *_pipline, int set);
+int			*heredoc_stopper(int *_heredocstopper, int set);
 void		keyboardinterupt(int sig);
 
 /* files */

@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:25 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/08 13:43:46 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 11:40:48 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ char	**ft_quoted_split(char *s, char c)
 			skip_quotes(s, &i);
 		else
 		{
-			if (s[i] == c)
+			if (s[i] == c && i != old_i)
 			{
-				res[current++] = ft_push(ft_substr(s, old_i, i - old_i - 1));
+				res[current++] = ft_push(ft_substr(s, old_i, i - old_i));
 				old_i = i + 1;
 			}
 			i++;
