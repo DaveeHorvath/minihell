@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 10:17:14 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:31:38 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
 void		append(t_tokens **list, char *s);
+
+void 		smart_closer(int *fds);
 
 /* errors */
 void		cmd_not_found(t_cmd *cmd);

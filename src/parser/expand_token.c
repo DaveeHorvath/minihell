@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/08 13:26:13 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:49:01 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	needs_filename_expansion(char *s)
 	return (0);
 }
 
-t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist, t_tokens *next)
+t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist,
+				t_tokens *next)
 {
 	(*tokenlist)->next = new_tokens;
 	while (new_tokens && new_tokens->next)
@@ -181,7 +182,8 @@ int	expand_wildcards(t_tokens **tokens)
 	cont = list->content;
 	if (msh_getalias(list->content) != NULL && !ft_strequals(cont, s))
 	{
-		list = addfront(get_tokens(msh_getalias(list->content)), &list, list->next);
+		list = addfront(get_tokens(msh_getalias
+		(list->content)), &list, list->next);
 		expand_alias(tokens, cont);
 	}
 	else
@@ -191,36 +193,31 @@ int	expand_wildcards(t_tokens **tokens)
 /*
 	removes quotes and expands env variables recursivly
 */
-char	*expand_token(char *token, char *content, enum e_quotes quote)
+char	*expand_token(char *tkn, char *cont, enum e_quotes quote)
 {
 	int		i;
 	int		old_i;
 
-	i = 0;
+	i = -1;
 	old_i = 0;
-	while (token[i])
+	while (tkn[++i])
 	{
-		if (token[i] == '\'' || token[i] == '\"')
+		if (tkn[i] == '\'' || tkn[i] == '\"')
 		{
-			if (update_quote(token[i], &quote))
-			{
-				content = ft_push(ft_strjoin(content, ft_substr(token, 0, i)));
-				return (expand_token(&token[i + 1], content, quote));
-			}
-			i++;
+			if (update_quote(tkn[i], &quote))
+				return (expand_token(&tkn[i + 1], ft_push(ft_strjoin(cont,
+								ft_substr(tkn, 0, i))), quote));
 		}
-		else if (token[i] == '$' && (quote == none || quote == doublequote))
+		else if (tkn[i] == '$' && (quote == none || quote == doublequote))
 		{
-			content = ft_push(ft_strjoin(content, ft_substr(token, 0, i)));
-			i++;
+			cont = ft_push(ft_strjoin(cont, ft_substr(tkn, 0, i++)));
 			old_i = i;
-			while (token[i] && ft_strchr(" \'\"$", token[i]) == NULL)
+			while (tkn[i] && ft_strchr(" \'\"$", tkn[i]) == NULL)
 				i++;
-			content = ft_push(ft_strjoin(content, msh_getenv(ft_substr(token, old_i, i - old_i))));
-			return (expand_token(&token[i], content, quote));
+			cont = ft_push(ft_strjoin(cont,
+						msh_getenv(ft_substr(tkn, old_i, i - old_i))));
+			return (expand_token(&tkn[i], cont, quote));
 		}
-		else
-			i++;
 	}
-	return (ft_push(ft_strjoin(content, ft_substr(token, old_i, ft_strlen(token)))));
+	return (ft_push(ft_strjoin(cont, ft_substr(tkn, old_i, ft_strlen(tkn)))));
 }

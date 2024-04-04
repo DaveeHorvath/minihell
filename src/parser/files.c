@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:13:14 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 14:02:47 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:50:34 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	handle_heredoc(int fds[2], char *s)
 		ft_printf("> ");
 		line = ft_push(get_next_line(0));
 	}
-	heredoc_stopper(NULL, 1);
 	close(hd_fd);
 	if (fds[0] != 0)
 		close(fds[0]);
