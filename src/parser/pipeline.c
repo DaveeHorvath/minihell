@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 14:15:42 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:09:44 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,15 @@ static void	do_cmd(t_cmd *cmd);
 */
 int	exec_pipeline(char *s)
 {
-	char	**commands;
-	t_cmd	*head;
-	t_cmd	*current;
-	int		i;
-	int		prev_out;
+	const char	**commands = ft_quoted_split(s, '|');
+	t_cmd		*head;
+	t_cmd		*current;
+	int			i;
+	int			prev_out;
 
 	i = 0;
 	head = NULL;
 	prev_out = -1;
-	commands = ft_quoted_split(s, '|');
 	while (commands[i])
 	{
 		if (i == 0 && !commands[1] && is_builtin(commands[0], 0))
@@ -45,10 +44,7 @@ int	exec_pipeline(char *s)
 		if (current->exitcode != -1)
 		{
 			do_cmd(current);
-			if (current->fd[0] != 0)
-				close(current->fd[0]);
-			if (current->fd[1] != 1)
-				close(current->fd[1]);
+			smart_closer(current->fd);
 		}
 		i++;
 	}
@@ -146,10 +142,7 @@ static void	do_cmd(t_cmd *cmd)
 			exit(0);
 		dup2(cmd->fd[0], 0);
 		dup2(cmd->fd[1], 1);
-		if (cmd->fd[0] != 0)
-			close(cmd->fd[0]);
-		if (cmd->fd[1] != 1)
-			close(cmd->fd[1]);
+		smart_closer(cmd->fd);
 		if (cmd->pipe_end != -1)
 			close(cmd->pipe_end);
 		execve(path, cmd->argv, cmd->env);
