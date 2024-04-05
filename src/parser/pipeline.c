@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/05 14:26:30 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:29:21 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	exec_pipeline(char *s)
 	{
 		if (i == 0 && !commands[1] && is_builtin((char *)commands[0], 0))
 			return (exec_builtin((char *)commands[0], 1, 1));
-		current = get_command(commands[i], (char **)commands, &prev_out, i);
+		current = get_command((char *)commands[i], (char **)commands,
+				&prev_out, i);
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
 		{

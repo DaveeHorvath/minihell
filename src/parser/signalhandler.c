@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 14:11:48 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:29:39 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_cmd	*save_pipeline(t_cmd *_pipline, int set)
 
 int	*heredoc_stopper(int *_heredocstopper, int set)
 {
-	static int *heredoc = NULL;
+	static int	*heredoc = NULL;
 
 	if (set)
 		heredoc = _heredocstopper;

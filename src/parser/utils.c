@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:56:37 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 20:07:39 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:29:53 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_filename(char *s, int start)
 	return (ft_push(ft_strdup(&s[i])));
 }
 
-void smart_closer(int *fds)
+void	smart_closer(int *fds)
 {
 	if (fds[0] != 0)
 		close(fds[0]);
