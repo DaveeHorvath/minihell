@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:15:51 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 15:46:09 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/05 11:42:21 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ uint8_t		ft_rl_dnw(t_rl_input *input)
 	w = input->current;
 	if (!w || (w->wtype == SPACE && !w->next))
 		return (1);
+	if (w->i == w->len)
+		w = w->next;
 	if (w->wtype == SPACE)
 		ft_rl_fwd_w(input);
 	w = input->current;
@@ -56,7 +58,7 @@ uint8_t		ft_rl_caw(t_rl_input *input)
 	if (w->wtype == SPACE)
 		ft_rl_fwd_w(input);
 	w = input->current;
-	w->word[w->i] = ft_tolower(w->word[w->i]);
+	w->word[w->i] = ft_toupper(w->word[w->i]);
 	if (w->i < w->len)
 		ft_strlower(&w->word[w->i + 1]);
 	w->i = w->len;
