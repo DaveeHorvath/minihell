@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 15:03:41 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:29:39 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #include "libft.h"
 #include "parser.h"
 
-int	g_has_recieved = 0;
-
+/*
+	saves current running pipeline in static variable
+*/
 t_cmd	*save_pipeline(t_cmd *_pipline, int set)
 {
 	static t_cmd	*pipeline = NULL;
@@ -25,6 +26,18 @@ t_cmd	*save_pipeline(t_cmd *_pipline, int set)
 	return (pipeline);
 }
 
+int	*heredoc_stopper(int *_heredocstopper, int set)
+{
+	static int	*heredoc = NULL;
+
+	if (set)
+		heredoc = _heredocstopper;
+	return (heredoc);
+}
+
+/*
+	closes all open fds of current pipeline
+*/
 void	clean_pipeline(t_cmd *cmd)
 {
 	while (cmd)
@@ -33,24 +46,34 @@ void	clean_pipeline(t_cmd *cmd)
 			close(cmd->fd[0]);
 		if (cmd->fd[1] != 1)
 			close(cmd->fd[1]);
+		if (cmd->pipe_end != -1)
+			close(cmd->pipe_end);
 		kill(cmd->pid, SIGKILL);
 		cmd = cmd->next;
 	}
 }
 
+/*
+	new signal handler for Ctrl+C
+	needs heredoc stopping
+*/
 void	keyboardinterupt(int sig)
 {
 	t_cmd	*running;
+	int		*heredoc_stop;
 
 	(void) sig;
 	running = save_pipeline(NULL, 0);
+	heredoc_stop = heredoc_stopper(NULL, 0);
 	if (running)
 	{
 		clean_pipeline(running);
 		save_pipeline(NULL, 1);
 	}
-	else
+	else if (heredoc_stop)
 	{
-		ft_dprintf(2, "\nkeyboardinterupt without running");
+		close(0);
+		*heredoc_stop = 1;
+		heredoc_stopper(NULL, 1);
 	}
 }
