@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 16:36:59 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:23:45 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 
 	args = get_args((t_tokens *)tokens);
 	expand_wildcards((t_tokens **)&tokens);
-	if (get_fds((t_tokens *)tokens, (int*)fds) == 0)
+	if (get_fds((t_tokens *)tokens, (int *)fds) == 0)
 		return (1);
 	if (ft_strequals(args[0], "cd"))
 		exitcode = msh_cd(args[1]);
@@ -62,6 +62,6 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 		exitcode = msh_pwd(fds[1]);
 	else
 		exitcode = msh_env(fds[1]);
-	smart_closer((int*)fds);
+	smart_closer((int *)fds);
 	return (exitcode);
 }

@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 20:09:44 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:26:30 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	do_cmd(t_cmd *cmd);
 */
 int	exec_pipeline(char *s)
 {
-	const char	**commands = ft_quoted_split(s, '|');
+	const char	**commands = (const char **)ft_quoted_split(s, '|');
 	t_cmd		*head;
 	t_cmd		*current;
 	int			i;
@@ -37,9 +37,9 @@ int	exec_pipeline(char *s)
 	prev_out = -1;
 	while (commands[i])
 	{
-		if (i == 0 && !commands[1] && is_builtin(commands[0], 0))
-			return (exec_builtin(commands[0], 1, 1));
-		current = get_command(commands[i], commands, &prev_out, i);
+		if (i == 0 && !commands[1] && is_builtin((char *)commands[0], 0))
+			return (exec_builtin((char *)commands[0], 1, 1));
+		current = get_command(commands[i], (char **)commands, &prev_out, i);
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
 		{

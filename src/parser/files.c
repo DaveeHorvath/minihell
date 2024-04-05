@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:13:14 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 20:07:39 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:25:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ static int	handle_heredoc(int fds[2], char *s)
 {
 	int		hd_fd;
 	char	*line;
-	int		shouldStop;
+	int		shoudl_stop;
 
-	shouldStop = 0;
-	heredoc_stopper(&shouldStop, 1);
+	shoudl_stop = 0;
+	heredoc_stopper(&shoudl_stop, 1);
 	hd_fd = open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	ft_printf("> ");
 	line = ft_push(get_next_line(0));
-	while (line && !shouldStop)
+	while (line && !shoudl_stop)
 	{
-		if (ft_strequals(s, ft_strtrim(line, "\n")) || shouldStop)
+		if (ft_strequals(s, ft_strtrim(line, "\n")) || shoudl_stop)
 		{
 			ft_pop();
 			break ;

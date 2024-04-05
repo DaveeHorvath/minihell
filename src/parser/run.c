@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 14:15:57 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:27:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "minish.h"
 
 static int	run_tree(t_node *tree);
-static void fix_fds(int backup_fds_dont_fucking_touch[2]);
+static void	fix_fds(int backup_fds_dont_fucking_touch[2]);
 
 /*
 	executes the whole string
@@ -48,7 +48,7 @@ int	execute_string(char *s)
 	puts the default fds back to a usable state
 	and reset the running pipeline
 */
-static void fix_fds(int backup_fds_dont_fucking_touch[2])
+static void	fix_fds(int backup_fds_dont_fucking_touch[2])
 {
 	dup2(backup_fds_dont_fucking_touch[0], 0);
 	dup2(backup_fds_dont_fucking_touch[1], 1);
