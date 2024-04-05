@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:44:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 20:44:59 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:30:24 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_rl_term_cur_setpos(int row, int col)
 		row++;
 		col -= state->t_cols;
 	}
-	while (col < 0)
+	while (col < 1)
 	{
 		row--;
 		col += state->t_cols;

@@ -6,11 +6,13 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:55:10 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/03 15:23:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:31:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+
+static char	*escapespaces(char *path);
 
 void	ft_rl_complete_checkdirs(char *path, t_list *completions)
 {
@@ -22,13 +24,17 @@ void	ft_rl_complete_checkdirs(char *path, t_list *completions)
 		if (path)
 		{
 			ft_popblk(tmp->blk);
-			tmp->blk = ft_push(ft_strsjoin(path, tmp->blk, '/'));
+			if (ft_strequals(path, "/"))
+				tmp->blk = ft_push(ft_strjoin(path, tmp->blk));
+			else
+				tmp->blk = ft_push(ft_strsjoin(path, tmp->blk, '/'));
 		}
 		if (ft_rl_isdir(tmp->blk))
 		{
 			ft_popblk(tmp->blk);
 			tmp->blk = ft_push(ft_strjoin(tmp->blk, "/"));
 		}
+		tmp->blk = ft_push(escapespaces(tmp->blk));
 		tmp = tmp->next;
 	}
 }
@@ -75,4 +81,31 @@ int	ft_rl_wildcard_checkalloc(t_rl_wc *wc1, t_rl_wc *wc2, char **arr)
 		return (1);
 	}
 	return (0);
+}
+
+static char	*escapespaces(char *path)
+{
+	char	**arr;
+	size_t	i;
+
+	arr = ft_pusharr(ft_split(path, ' '));
+	ft_popblk(path);
+	if (!arr)
+		return (path);
+	if (ft_strequals(arr[0], path))
+	{
+		ft_popblks(2, arr, *arr);
+		return (path);
+	}
+	i = 0;
+	path = NULL;
+	while (arr[i])
+	{
+		path = ft_strjoin(path, arr[i]);
+		ft_popblk(arr[i++]);
+		if (arr[i])
+			path = ft_strjoin(path, "\\ ");
+	}
+	ft_popblk(arr);
+	return (path);
 }
