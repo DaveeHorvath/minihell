@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:24:22 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 14:52:06 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:29:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput)
 }
 
 static inline void	insertword(t_rl_input *input, t_rl_word *word)
-{ 
+{
 	if (!word)
 		return ;
 	if (!input->current)

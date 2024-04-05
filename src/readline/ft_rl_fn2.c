@@ -6,13 +6,13 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 22:41:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 00:36:13 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:25:04 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
 
-uint8_t		ft_rl_fwd_w(t_rl_input *input)
+uint8_t	ft_rl_fwd_w(t_rl_input *input)
 {
 	t_rl_word	*w;
 
@@ -35,7 +35,7 @@ uint8_t		ft_rl_fwd_w(t_rl_input *input)
 	return (1);
 }
 
-uint8_t		ft_rl_bck_w(t_rl_input *input)
+uint8_t	ft_rl_bck_w(t_rl_input *input)
 {
 	t_rl_word	*w;
 
