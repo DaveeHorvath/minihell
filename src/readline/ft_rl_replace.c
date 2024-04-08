@@ -6,26 +6,32 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:38:37 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/26 13:44:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:28:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-static int	addinput(t_rl_input *input, char c);
+static size_t	gotostart(t_rl_input *input);
+static int		addinput(t_rl_input *input, char c);
 
 int	ft_rl_complete_replace(t_rl_input *input, char *word)
 {
 	size_t	j;
+	size_t	espaces;
 	char	*newinput;
 	char	*before;
 	char	*after;
 
-	ft_rl_wordstart(input);
+	espaces = gotostart(input);
 	j = input->i;
 	before = ft_push(ft_substr(input->input, 0, j));
-	while (input->input[j] && !ft_isspace(input->input[j]))
+	while (input->input[j] && espaces)
+	{
 		j++;
+		if (ft_isspace(input->input[j]))
+			espaces--;
+	}
 	after = ft_push(ft_substr(input->input, j, ft_strlen(input->input + j)));
 	if (!before || !after)
 		return (-1);
@@ -63,6 +69,25 @@ int	ft_rl_complete_multiple(t_rl_input *input, t_list *completions)
 			ft_rl_prevword(input);
 	}
 	return (addinput(input, c));
+}
+
+static size_t	gotostart(t_rl_input *input)
+{
+	size_t	i;
+
+	i = 1;
+	ft_rl_wordstart(input);
+	while (input->i > 1)
+	{
+		if (input->input[input->i - 2] == '\\')
+		{
+			i++;
+			ft_rl_prevword(input);
+		}
+		else
+			break ;
+	}
+	return (i);
 }
 
 static int	addinput(t_rl_input *input, char c)

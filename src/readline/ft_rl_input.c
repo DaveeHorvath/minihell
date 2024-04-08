@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 16:33:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/28 10:09:52 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:35:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_rl_rmchar(t_rl_input *input)
 	{
 		ft_strlcpy(newinput, input->input, input->i);
 		ft_strlcpy(&newinput[input->i - 1],
-			&input->input[input->i], input->inputlen - input->i);
+			&input->input[input->i], input->inputlen - input->i + 1);
 	}
 	input->i--;
 	input->input = ft_push(newinput);
@@ -103,7 +103,8 @@ int	ft_rl_getinput(t_rl_input *input)
 	ft_rl_term_cur_getpos(&row, &col, 1);
 	if (c != KEY_DEL)
 		col++;
-	else if (col > (int)input->promptlen + 1)
+	else if (col > (int)input->promptlen + 1
+		|| row > ft_rl_term_getstate()->i_row)
 		col--;
 	ft_rl_history_update(input->input);
 	ft_rl_term_cur_inputstart();

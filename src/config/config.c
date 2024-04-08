@@ -6,11 +6,38 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:48:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/28 14:31:29 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:22:47 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
+
+static void	cfg_alias(size_t lnbr, char *line);
+static void	cfg_export(size_t lnbr, char *line);
+static void	cfg_parseline(size_t lnbr, char *line);
+static int	cfg_open(const char *cfg_fname);
+
+int	msh_parseconfig(const char *cfg_fname)
+{
+	int		fd;
+	char	*line;
+	size_t	lnbr;
+
+	fd = cfg_open(cfg_fname);
+	if (fd < 0)
+		return (0);
+	lnbr = 0;
+	line = ft_strtrim(get_next_line(fd), "\t\n\v\f\r ");
+	while (line)
+	{
+		lnbr++;
+		if (*line && *line != '#')
+			cfg_parseline(lnbr, line);
+		line = ft_strtrim(get_next_line(fd), "\t\n\v\f\r ");
+	}
+	close(fd);
+	return (1);
+}
 
 static void	cfg_alias(size_t lnbr, char *line)
 {
@@ -67,39 +94,15 @@ static void	cfg_parseline(size_t lnbr, char *line)
 		cfg_err(lnbr, "unknown keyword");
 }
 
-static int	cfg_open(void)
+static int	cfg_open(const char *cfg_fname)
 {
-	char	*path;
+	const char	*path;
 
-	path = ft_strsjoin(msh_getenv("HOME"), MSHRC, '/');
+	if (!cfg_fname)
+		path = ft_strsjoin(msh_getenv("HOME"), MSHRC, '/');
+	else
+		path = cfg_fname;
 	if (!path)
 		return (-1);
 	return (open(path, O_RDONLY));
-}
-
-int	parseconfig(void)
-{
-	int		fd;
-	char	*line;
-	size_t	lnbr;
-
-	fd = cfg_open();
-	if (fd < 0)
-	{
-		msh_setenv("PROMPT", DEFAULTPROMPT);
-		return (0);
-	}
-	lnbr = 0;
-	line = ft_strtrim(get_next_line(fd), "\t\n\v\f\r ");
-	while (line)
-	{
-		lnbr++;
-		if (*line && *line != '#')
-			cfg_parseline(lnbr, line);
-		line = ft_strtrim(get_next_line(fd), "\t\n\v\f\r ");
-	}
-	if (!msh_getenv("PROMPT"))
-		msh_setenv("PROMPT", DEFAULTPROMPT);
-	close(fd);
-	return (1);
 }
