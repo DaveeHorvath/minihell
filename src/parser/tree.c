@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/05 14:27:59 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:29:43 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_node	*make_tree(char *s)
 	{
 		out->left = NULL;
 		out->right = NULL;
-		out->content = s;
+		out->content = trim_parenthesies(s);
 		return (out);
 	}
 	else

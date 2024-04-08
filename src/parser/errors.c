@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 11:32:03 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:58:17 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	handle_file_error(int start, char *s)
 
 int	parse_error(int error)
 {
-	if (error == WRONG_PARENTHESIES)
+	if (error == WRONG_PARENTH)
 		ft_dprintf(2, "Wrong parenthesies\n");
-	else if (error == UNMATCHED_S_QUOTE)
+	else if (error == U_S_QUOTE)
 		ft_dprintf(2, "Unmatched single quote\n");
-	else if (error == UNMATCHED_D_QUOTE)
+	else if (error == U_D_QUOTE)
 		ft_dprintf(2, "Unmatched double quote\n");
 	else if (error == UNMATCHED_PARENTHESIES)
 		ft_dprintf(2, "Unmatched parenthesies\n");

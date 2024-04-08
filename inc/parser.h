@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 16:31:38 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:58:29 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define UNMATCHED_S_QUOTE 1
-# define UNMATCHED_D_QUOTE 2
+# define U_S_QUOTE 1
+# define U_D_QUOTE 2
 # define UNMATCHED_PARENTHESIES 3
-# define WRONG_PARENTHESIES 4
+# define WRONG_PARENTH 4
 # define SYNTAX_ERROR 5
 # define MALLOC_FAIL 6
 # define PARENTHESIES_IN_NODE 7
