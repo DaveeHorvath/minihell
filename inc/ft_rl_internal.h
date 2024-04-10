@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 13:16:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:49:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ uint8_t		ft_rl_complete(t_rl_input *input);
 // ft_rl_complete2.c
 t_list		*ft_rl_complete_env(const char *pattern);
 t_list		*ft_rl_complete_file(const char *pattern);
+
+// ft_rl_complete3.c
 void		ft_rl_complete_inc(t_list *completions, const char *pattern);
 
 // ft_rl_fn.c
@@ -74,6 +76,7 @@ uint8_t		ft_rl_fsh(t_rl_input *input);
 uint8_t		ft_rl_upw(t_rl_input *input);
 uint8_t		ft_rl_dnw(t_rl_input *input);
 uint8_t		ft_rl_caw(t_rl_input *input);
+uint8_t		ft_rl_cmp(t_rl_input *input);
 uint8_t		ft_rl_mta(t_rl_input *input);
 
 // ft_rl_exec.c
@@ -111,6 +114,9 @@ t_list		**ft_rl_hist_getcurrent(void);
 t_list		*ft_rl_hist_duphist(t_list *hist);
 void		ft_rl_hist_setcurrent(t_list *node);
 void		ft_rl_hist_pop(t_list *hist);
+
+// ft_rl_complete_utils.c
+size_t		ft_rl_complete_getlongest(t_list *completions);
 
 // ft_rl_term_utils.c
 t_rl_cursor	*ft_rl_getcursor(t_rl_input *input);

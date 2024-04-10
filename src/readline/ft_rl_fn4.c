@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:15:51 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/05 16:31:44 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:50:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ uint8_t	ft_rl_caw(t_rl_input *input)
 	w->i = w->len;
 	ft_rl_redisplay(input, LINE);
 	return (1);
+}
+
+uint8_t	ft_rl_cmp(t_rl_input *input)
+{
+	return (ft_rl_complete(input));
 }
 
 uint8_t	ft_rl_mta(t_rl_input *input)

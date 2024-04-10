@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:50:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/05 13:18:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:54:47 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static inline void	ft_rl_defaultbinds(void)
 
 static inline void	ft_rl_defaultbinds2(void)
 {
+	ft_rl_map("<TAB>", "complete", QREMAP);
 	ft_rl_map("<ESC>", "prefix-meta", QREMAP);
 	ft_rl_map("<F-1>", "rl-dbg-print-input", QREMAP);
 }

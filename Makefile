@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/10 12:23:54 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/10 13:41:12 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,10 @@ PARSERDIR	=	parser
 PROMPTDIR	=	prompt
 
 READLINEFILES	=	ft_readline.c \
+					ft_rl_complete.c \
+					ft_rl_complete2.c \
+					ft_rl_complete3.c \
+					ft_rl_complete_utils.c \
 					ft_rl_cursor.c \
 					ft_rl_debug_utils.c \
 					ft_rl_exec.c \
