@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 15:32:26 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:16:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void		ft_rl_insertword(t_rl_input *input, t_rl_word *newword);
 void		ft_rl_addword(t_rl_input *input, uint8_t c);
 void		ft_rl_rmword(t_rl_input *input, t_rl_word *dword, uint64_t key);
 
+// ft_rl_word2.c
+void		ft_rl_replaceword(t_rl_input *input, t_rl_word *w);
+
 // ft_rl_cursor.c
 void		ft_rl_shiftcursor(size_t n, uint64_t direction);
 
@@ -37,6 +40,14 @@ void		ft_rl_hist_add(t_list **hist, t_rl_input *input);
 
 // ft_rl_history_search.c
 uint8_t		ft_rl_hist_search(t_rl_input *input, uint64_t direction);
+
+// ft_rl_complete.c
+uint8_t		ft_rl_complete(t_rl_input *input);
+
+// ft_rl_complete2.c
+t_list		*ft_rl_complete_env(const char *pattern);
+t_list		*ft_rl_complete_file(const char *pattern);
+void		ft_rl_complete_inc(t_list *completions, const char *pattern);
 
 // ft_rl_fn.c
 uint8_t		ft_rl_sol(t_rl_input *input);
@@ -91,6 +102,7 @@ void		ft_rl_popwords(t_rl_word *words);
 // ft_rl_utils2.c
 t_rl_input	*ft_rl_strinput(const char *s);
 t_rl_word	*ft_rl_strword(const char *s);
+uint8_t		ft_rl_isdir(const char *path);
 void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);
 
 // ft_rl_history_utils.c

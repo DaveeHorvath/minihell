@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:24:22 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/05 16:29:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:17:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ t_rl_word	*ft_rl_strword(const char *s)
 	if (*s == ' ')
 		out->wtype = SPACE;
 	return (out);
+}
+
+uint8_t		ft_rl_isdir(const char *path)
+{
+	struct stat	file;
+
+	stat(path, &file);
+	return (file.st_mode & S_IFDIR);
 }
 
 void	ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput)
