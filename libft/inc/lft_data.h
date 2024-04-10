@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 22:49:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/24 19:30:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:28:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define LFT_DATA_H
 # include <stdlib.h>
 # include <stdint.h>
+
+typedef enum e_base
+{
+	BINARY,
+	OCTAL,
+	DECIMAL,
+	HEX
+}	t_base;
 
 typedef struct s_list
 {
@@ -25,16 +33,16 @@ typedef struct s_list
 
 typedef struct s_obj
 {
-	uint8_t			marked;
+	size_t			marks;
 	size_t			blksize;
 	size_t			asize;
-	void			*blk;
+	const void		*blk;
 	struct s_obj	*next;
 }	t_obj;
 
 typedef struct s_stack
 {
-	void			*blk;
+	const void		*blk;
 	struct s_stack	*next;
 	struct s_stack	*prev;
 }	t_stack;
@@ -46,13 +54,5 @@ typedef struct s_vm
 	size_t	objs;
 	t_obj	*head;
 }	t_vm;
-
-typedef enum e_base
-{
-	BINARY,
-	OCTAL,
-	DECIMAL,
-	HEX
-}	t_base;
 
 #endif

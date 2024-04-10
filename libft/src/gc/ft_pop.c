@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 19:39:17 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/24 19:56:03 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:32:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
  */
 void	*ft_pop(void)
 {
+	const void	*blk;
 	static t_vm	*vm = NULL;
 	t_stack		*stack;
-	void		*blk;
 
 	if (!vm)
 		vm = ft_getvm();
@@ -34,8 +34,9 @@ void	*ft_pop(void)
 		return (NULL);
 	blk = stack->blk;
 	ft_stackrm(stack);
+	ft_unmark(blk);
 	ft_debugmsg(GCPOP, "Popping block %p", blk);
-	return (blk);
+	return ((void *)blk);
 }
 
 /** @brief Pops all blocks from the vm stack
@@ -50,7 +51,7 @@ void	ft_popall(void)
  *
  * @param *blk Address of block to be popped
  */
-void	ft_popblk(void *blk)
+void	ft_popblk(const void *blk)
 {
 	static t_vm	*vm = NULL;
 	t_stack		*stack;
@@ -65,6 +66,7 @@ void	ft_popblk(void *blk)
 	if (!stack)
 		return ;
 	ft_stackrm(stack);
+	ft_unmark(blk);
 	ft_debugmsg(GCPOP, "Popping block %p", blk);
 }
 

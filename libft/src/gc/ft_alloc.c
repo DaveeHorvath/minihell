@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 11:47:38 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/24 22:25:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:37:14 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*ft_alloc(size_t n)
 	if (!obj)
 		return (NULL);
 	obj->asize = n;
-	return (obj->blk + sizeof(t_obj *));
+	return ((void *)obj->blk + sizeof(t_obj *));
 }
 
 /** @brief Finds the smallest unused block that is at least n bytes
@@ -56,10 +56,9 @@ static t_obj	*ft_findblk(size_t n)
 	vm = ft_getvm();
 	obj = vm->head;
 	out = NULL;
-	ft_markall(vm);
 	while (obj)
 	{
-		if (obj->blksize >= n && !obj->marked)
+		if (obj->blksize >= n && !obj->marks)
 		{
 			if (!out || out->blksize > obj->blksize)
 				out = obj;
@@ -68,7 +67,6 @@ static t_obj	*ft_findblk(size_t n)
 		}
 		obj = obj->next;
 	}
-	ft_unmarkall(vm);
 	if (out)
 		ft_debugmsg(GCALLOC, "Found unused obj at %p (%u bytes at %p)", out,
 			out->blksize, out->blk);

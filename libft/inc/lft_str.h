@@ -6,12 +6,13 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:56:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/14 05:00:30 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/06 12:45:16 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LFT_STR_H
 # define LFT_STR_H
+# include <stdarg.h>
 # include <stdlib.h>
 # include <stdint.h>
 # include "lft_limits.h"
@@ -23,6 +24,8 @@ char	*ft_substr(const char *s, uint64_t start, size_t len);
 char	*ft_strtrim(const char *s, const char *set);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strsjoin(const char *s1, const char *s2, const uint8_t c);
+char	*ft_strnjoin(size_t n, ...);
+char	*ft_strsnjoin(const uint8_t sep, size_t n, ...);
 char	*ft_strremove(const char *s, const uint8_t c);
 char	*ft_strdup(const char *s);
 /*   alloc   */

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 11:14:57 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/24 22:31:01 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:37:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	ft_sweep(t_vm *vm)
 	obj = &vm->head;
 	while (*obj)
 	{
-		if (!(*obj)->marked)
+		if (!(*obj)->marks)
 		{
 			tmp = *obj;
 			*obj = tmp->next;
 			vm->objs--;
 			ft_debugmsg(GCSWEEP, "Freeing unused block at %p", tmp->blk);
 			ft_debugmsg(GCSWEEP, "Freeing unused obj at %p", tmp);
-			free(tmp->blk);
+			free((void *)tmp->blk);
 			free(tmp);
 		}
 		else

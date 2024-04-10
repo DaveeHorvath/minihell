@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getblksize.c                                    :+:      :+:    :+:   */
+/*   ft_strnjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 18:38:15 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 22:29:42 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/06 12:28:36 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/06 12:38:15 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * @file ft_getblksize.c
+ * @file ft_strnjoin.c
  */
 
-#include "lft_gc.h"
+#include "lft_str.h"
 
-/** @brief Finds and returns the size of blk
+/** Joins n strings together
  *
- * @param *blk Pointer to the block
- * @retval size_t Size of blk or 0 if blk is NULL or not registered with
- * the garbage collector
+ * @param n Amount of strings to join
+ * @@retval char* Joined string or NULL if allocation failed or n is 0
  */
-size_t	ft_getblksize(const void *blk)
+char	*ft_strnjoin(size_t n, ...)
 {
-	t_obj	*obj;
+	char	*out;
+	va_list	args;
 
-	obj = ft_getobj(blk);
-	if (!obj)
-		return (0);
-	return (obj->asize);
+	out = NULL;
+	va_start(args, n);
+	while (n--)
+	{
+		out = ft_strjoin(out, va_arg(args, char *));
+		if (!out)
+			break ;
+	}
+	va_end(args);
+	return (out);
 }

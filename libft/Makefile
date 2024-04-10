@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/03/24 19:44:20 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/10 21:24:11 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,12 @@ BUILD	=	normal
 
 CC				=	cc
 cflags.common	=	-Wall -Wextra -Werror
-cflags.normal	=	-Ofast
 cflags.debug	=	-g
 cflags.debugm 	=	$(cflags.debug) -D DEBUG_MSG=1
 cflags.asan		=	$(cflags.debug) -fsanitize=address
-CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
+cflags.normal	=	-Ofast
+cflags.extra	=	
+CFLAGS			=	$(cflags.common) $(cflags.$(BUILD)) $(cflags.extra)
 
 SRCDIR	=	src
 OBJDIR	=	obj
