@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 12:03:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:16:38 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ t_rl_word	*ft_rl_strword(const char *s);
 uint16_t	ft_rl_isdir(const char *path);
 void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);
 
+// ft_rl_utils3.c
+size_t		ft_rl_getinputlen(t_rl_input *input);
+char		*ft_rl_gethlcolor(void);
+
 // ft_rl_history_utils.c
 t_list		**ft_rl_hist_gethead(void);
 t_list		**ft_rl_hist_getcurrent(void);
@@ -120,6 +124,7 @@ void		ft_rl_hist_pop(t_list *hist);
 
 // ft_rl_complete_utils.c
 size_t		ft_rl_complete_getlongest(t_list *completions);
+char		*ft_rl_complete_basename(const char *s);
 
 // ft_rl_term_utils.c
 t_rl_cursor	*ft_rl_getcursor(t_rl_input *input);

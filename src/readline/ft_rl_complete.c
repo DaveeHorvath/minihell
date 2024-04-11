@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 13:41:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:32:54 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static inline uint8_t	complete_mult(t_rl_input *input, t_list *completions);
 static inline t_list	*completew(t_rl_word *w);
-static inline void		display(t_rl_input *input, t_list *completions);
+static inline void		display(t_rl_input *input, t_list *st, t_list *c);
+static inline void		putcompletions(t_rl_cursor *cur, t_list *st, t_list *c);
 
 uint8_t	ft_rl_complete(t_rl_input *input)
 {
@@ -30,14 +31,40 @@ uint8_t	ft_rl_complete(t_rl_input *input)
 	else if (!completions->next)
 		ft_rl_replaceword(input, ft_rl_strword(completions->blk));
 	else
+	{
+		display(input, completions, NULL);
 		rv = complete_mult(input, completions);
+	}
 	ft_rl_redisplay(input, LINE);
 	return (rv);
 }
 
 static inline uint8_t	complete_mult(t_rl_input *input, t_list *completions)
 {
-	display(input, completions);
+	uint64_t		key;
+	const t_list	*start = completions;
+
+	ft_lstlast(completions)->next = completions;
+	while (completions)
+	{
+		key = 0;
+		if (read(0, &key, sizeof(key)) < 0)
+			return (-1);
+		if (ft_rl_getmap(key) == ft_rl_cmp)
+		{
+			ft_rl_replaceword(input, ft_rl_strword(completions->blk));
+			display(input, (t_list *)start, completions);
+			completions = completions->next;
+			continue ;
+		}
+		if (ft_rl_ismapped(key))
+			return (ft_rl_execmap(input, key));
+		if (key == KEY_BACKSPACE || key == KEY_DEL)
+			ft_rl_rmchar(input, key);
+		else if (key >= KEY_SPACE && key <= KEY_TILDE)
+			ft_rl_addchar(input, key);
+		return (1);
+	}
 	return (1);
 }
 
@@ -56,12 +83,56 @@ static inline t_list	*completew(t_rl_word *w)
 	return (completions);
 }
 
-static inline void	display(t_rl_input *input, t_list *completions)
+static inline void	display(t_rl_input *input, t_list *st, t_list *c)
 {
-	(void)input;
-	while (completions)
+	uint8_t		cpr;
+	uint16_t	rows;
+	t_rl_cursor	cursor;
+
+	cpr = input->cursor->t_cols / (ft_rl_complete_getlongest(st) + 2);
+	rows = *st->size / cpr + 1;
+	cursor = *input->cursor;
+	cursor.i_row++;
+	cursor.i_row += (cursor.i_col + ft_rl_getinputlen(input)) / cursor.t_cols;
+	cursor.i_col = 1;
+	cursor.row = cursor.i_row;
+	cursor.col = cursor.i_col;
+	while (cursor.i_row + rows - 1 > cursor.t_rows && input->cursor->i_row > 1)
 	{
-		ft_dprintf(2, "'%s'\n");
-		completions = completions->next;
+		cursor.i_row--;
+		input->cursor->i_row--;
+		ft_putstr_fd(TERM_SCROLL_UP, 1);
+	}
+	ft_rl_redisplay(input, LINE);
+	putcompletions(&cursor, st, c);
+	ft_rl_updatecursor(input->cursor);
+}
+
+static inline void	putcompletions(t_rl_cursor *cur, t_list *st, t_list *c)
+{
+	uint8_t		i;
+	uint8_t		cpr;
+	size_t		mlen;
+
+	i = 0;
+	mlen = (ft_rl_complete_getlongest(st) + 2);
+	cpr = cur->t_cols / mlen;
+	ft_rl_updatecursor(cur);
+	while (st)
+	{
+		if (st != c)
+			ft_printf("%-*s", mlen, ft_rl_complete_basename(st->blk));
+		else
+			ft_printf("%s%s%s%*s", ft_rl_gethlcolor(),
+				ft_rl_complete_basename(st->blk), SGR_RESET,
+				mlen - ft_strlen(ft_rl_complete_basename(st->blk)), "");
+		if (++i == cpr)
+		{
+			i = 0;
+			ft_putchar_fd('\n', 1);
+		}
+		st = st->next;
+		if (!st || !st->prev)
+			break ;
 	}
 }

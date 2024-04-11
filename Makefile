@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/11 08:54:43 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/11 15:11:05 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ cflags.common	=	-Wall -Wextra -Werror -D RL_HFNAME=\".msh_history\"
 cflags.debug	=	-g
 cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
 cflags.rldebug	=	$(cflags.debug) -D RL_DEBUG_MSG=1
-cflags.asan		=	$(cflags.debug) -fsanitize=address -D RL_DEBUG_MSG=1
+cflags.asan		=	$(cflags.rldebug) -fsanitize=address
 cflags.normal	=	-Ofast
 cflags.extra	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD)) $(cflags.extra)
@@ -63,6 +63,7 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_term_utils.c \
 					ft_rl_utils.c \
 					ft_rl_utils2.c \
+					ft_rl_utils3.c \
 					ft_rl_wildcard.c \
 					ft_rl_word.c \
 					ft_rl_word2.c

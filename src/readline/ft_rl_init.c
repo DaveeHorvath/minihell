@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:50:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 13:54:47 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:23:09 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_rl_init(void)
 	ft_rl_hist_load(RL_HFNAME);
 	ft_rl_initkeys(ft_rl_getkeys());
 	ft_rl_initfuncs(ft_rl_getfuncs());
+	ft_rl_sethlcolor(SGR_FG6);
 	ft_rl_defaultbinds();
 	init = 1;
 }

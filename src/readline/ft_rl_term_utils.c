@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:17:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 09:18:05 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:25:16 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ static inline void	initcursor(t_rl_cursor *cursor, size_t plen)
 
 static inline void	getcurpos(int16_t *row, int16_t *col)
 {
-	size_t		i;
-	static char	buf[17];
+	size_t	i;
+	char	buf[17];
 
 	i = 0;
 	ft_putstr_fd(TERM_STATUS, 1);
-	read(0, buf, 16);
+	buf[read(0, buf, 16)] = '\0';
 	while (buf[i] && !ft_isdigit(buf[i]))
 		i++;
 	*row = ft_atoi16(&buf[i]);
