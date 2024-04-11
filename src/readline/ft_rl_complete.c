@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 22:03:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:18:59 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ uint8_t	ft_rl_complete(t_rl_input *input)
 		rv = complete_mult(input, completions);
 	}
 	ft_rl_endreplace();
-	ft_rl_redisplay(input, LINE);
+	if (rv)
+		ft_rl_redisplay(input, LINE);
 	return (rv);
 }
 
@@ -101,15 +102,14 @@ static inline void	display(t_rl_input *input, t_list *st, t_list *c)
 	cursor.i_col = 1;
 	cursor.row = cursor.i_row;
 	cursor.col = cursor.i_col;
+	ft_rl_redisplay(input, LINE);
 	while (cursor.i_row + rows - 1 > cursor.t_rows && input->cursor->i_row > 1)
 	{
 		cursor.i_row--;
 		input->cursor->i_row--;
-		ft_putstr_fd(TERM_SCROLL_UP, 1);
 	}
-	ft_rl_redisplay(input, LINE);
 	putcompletions(&cursor, st, c);
-	ft_rl_updatecursor(input->cursor);
+	ft_rl_resetcursor(input);
 }
 
 static inline void	putcompletions(t_rl_cursor *cur, t_list *st, t_list *c)
