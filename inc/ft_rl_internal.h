@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 17:46:58 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:41:51 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void		ft_rl_insertword(t_rl_input *input, t_rl_word *newword);
 void		ft_rl_addword(t_rl_input *input, uint8_t c);
 void		ft_rl_rmword(t_rl_input *input, t_rl_word *dword, uint64_t key);
 
-// ft_rl_word2.c
+// ft_rl_word_replace.c
+void		ft_rl_initreplace(t_rl_word *start, t_rl_word *end);
 void		ft_rl_replaceword(t_rl_input *input, t_rl_word *w);
+void		ft_rl_endreplace(void);
 
 // ft_rl_cursor.c
 void		ft_rl_shiftcursor(size_t n, uint64_t direction);
@@ -109,15 +111,16 @@ void		ft_rl_popwords(t_rl_word *words);
 
 // ft_rl_utils2.c
 t_rl_input	*ft_rl_strinput(const char *s);
+t_rl_word	*ft_rl_strwords(const char *s);
 t_rl_word	*ft_rl_strword(const char *s);
 uint16_t	ft_rl_isdir(const char *path);
-void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);
 
 // ft_rl_utils3.c
 size_t		ft_rl_getinputlen(t_rl_input *input);
 char		*ft_rl_gethlcolor(void);
 
 // ft_rl_input_utils.c
+void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);
 void		ft_rl_setcurinput(const t_rl_input *input);
 
 // ft_rl_history_utils.c

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:30:47 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 16:33:14 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:30:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ static inline t_rl_input	**getinput(void);
 t_rl_input	*ft_rl_getcurinput(void)
 {
 	return (*getinput());
+}
+
+void	ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput)
+{
+	ft_rl_popwords(input->head);
+	input->head = ft_rl_dupwords(newinput->head);
+	input->current = input->head;
+	ft_rl_redisplay(input, LINE);
 }
 
 void	ft_rl_setcurinput(const t_rl_input *input)

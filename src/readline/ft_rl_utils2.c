@@ -6,38 +6,48 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 22:24:22 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 11:43:52 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:50:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
 
-static inline void	insertword(t_rl_input *input, t_rl_word *word);
+static inline void	insertword(t_rl_word **head, t_rl_word *word);
 
 t_rl_input	*ft_rl_strinput(const char *s)
 {
 	t_rl_input	*out;
-	size_t		start;
-	size_t		end;
 
 	out = ft_push(ft_alloc(sizeof(*out)));
 	if (!out)
 		return (NULL);
 	*out = (t_rl_input){.plen = 0, .prompt = NULL, .cursor = NULL,
-		.exittype = ACL, .head = NULL, .current = NULL};
+		.exittype = ACL, .head = ft_rl_strwords(s), .current = NULL};
+	out->current = out->head;
+	while (out->current && out->current->next)
+		out->current = out->current->next;
+	return (out);
+}
+
+t_rl_word	*ft_rl_strwords(const char *s)
+{
+	t_rl_word	*out;
+	size_t		start;
+	size_t		end;
+
 	start = 0;
+	out = NULL;
 	while (s[start])
 	{
 		end = start;
 		while (s[end] && !ft_isspace(s[end]))
 			end++;
-		insertword(out, ft_rl_strword(ft_substr(s, start, end - start)));
+		insertword(&out, ft_rl_strword(ft_substr(s, start, end - start)));
 		start = end;
 		while (s[end] && ft_isspace(s[end]))
 			end++;
-		insertword(out, ft_rl_strword(ft_substr(s, start, end - start)));
-		if (s[start])
-			start++;
+		insertword(&out, ft_rl_strword(ft_substr(s, start, end - start)));
+		start += (s[start] != '\0');
 	}
 	return (out);
 }
@@ -68,27 +78,20 @@ uint16_t	ft_rl_isdir(const char *path)
 	return (file.st_mode & S_IFDIR);
 }
 
-void	ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput)
+static inline void	insertword(t_rl_word **head, t_rl_word *word)
 {
-	ft_rl_popwords(input->head);
-	input->head = ft_rl_dupwords(newinput->head);
-	input->current = input->head;
-	ft_rl_redisplay(input, LINE);
-}
+	t_rl_word	*w;
 
-static inline void	insertword(t_rl_input *input, t_rl_word *word)
-{
 	if (!word)
 		return ;
-	if (!input->current)
-	{
-		input->head = word;
-		input->current = input->head;
-	}
+	if (!*head)
+		*head = word;
 	else
 	{
-		word->prev = input->current;
-		input->current->next = word;
-		input->current = word;
+		w = *head;
+		while (w->next)
+			w = w->next;
+		w->next = word;
+		word->prev = w;
 	}
 }

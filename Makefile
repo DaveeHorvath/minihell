@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/11 17:55:21 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/11 18:05:50 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_wildcard.c \
 					ft_rl_wildcard_utils.c \
 					ft_rl_word.c \
-					ft_rl_word2.c
+					ft_rl_word_replace.c
 
 BUILTINFILES	=	cd.c \
 					echo.c \

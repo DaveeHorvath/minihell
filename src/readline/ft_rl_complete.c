@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 17:58:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:13:04 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ uint8_t	ft_rl_complete(t_rl_input *input)
 		return (1);
 	rv = 1;
 	completions = completew(input->current);
+	ft_rl_initreplace(input->current->prev, input->current->next);
 	if (!completions)
 		input->current->i = input->current->len;
 	else if (!completions->next)
@@ -35,6 +36,7 @@ uint8_t	ft_rl_complete(t_rl_input *input)
 		display(input, completions, NULL);
 		rv = complete_mult(input, completions);
 	}
+	ft_rl_endreplace();
 	ft_rl_redisplay(input, LINE);
 	return (rv);
 }
