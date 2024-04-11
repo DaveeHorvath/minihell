@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 18:13:04 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:14:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,7 @@ static inline void	putcompletions(t_rl_cursor *cur, t_list *st, t_list *c)
 	ft_rl_updatecursor(cur);
 	while (st)
 	{
-		if (st != c)
-			ft_printf("%-*s", mlen, ft_rl_complete_basename(st->blk));
-		else
-			ft_printf("%s%s%s%*s", ft_rl_gethlcolor(),
-				ft_rl_complete_basename(st->blk), SGR_RESET,
-				mlen - ft_strlen(ft_rl_complete_basename(st->blk)), "");
+		ft_rl_putcompletion(st, c, ft_rl_complete_basename(st->blk), mlen);
 		if (++i == cpr)
 		{
 			i = 0;
