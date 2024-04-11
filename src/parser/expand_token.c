@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/04 16:49:01 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:59:04 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,6 @@
 #include "env.h"
 #include "rl_data.h"
 #include "ft_readline.h"
-
-/*
-	changes quote if applicable
-	returns 1 if change happened otherwise 0
-*/
-int	update_quote(char c, enum e_quotes *quote)
-{
-	if (c == '\'' && *quote == none)
-	{
-		*quote = singlequote;
-		return (1);
-	}
-	else if (c == '\"' && *quote == none)
-	{
-		*quote = doublequote;
-		return (1);
-	}
-	else if (c == '\'' && *quote == singlequote)
-	{
-		*quote = none;
-		return (1);
-	}
-	else if (c == '\"' && *quote == doublequote)
-	{
-		*quote = none;
-		return (1);
-	}
-	return (0);
-}
 
 /*
 	checks if a filename needs to be expanded
@@ -164,31 +135,6 @@ int	expand_wildcards(t_tokens **tokens)
 	}
 	return (1);
 }
-
-/*void	expand_alias(t_tokens **tokens, char *s)
-{
-	t_tokens	*list;
-	char		*cont;
-
-	list = *tokens;
-	while (list)
-	{
-		if (list->content[0] != '<' && list->content[0] != '>')
-			break ;
-		list = list->next;
-	}
-	if (!list)
-		return ;
-	cont = list->content;
-	if (msh_getalias(list->content) != NULL && !ft_strequals(cont, s))
-	{
-		list = addfront(get_tokens(msh_getalias
-		(list->content)), &list, list->next);
-		expand_alias(tokens, cont);
-	}
-	else
-		return ;
-}*/
 
 /*
 	removes quotes and expands env variables recursivly
