@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:17:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 12:32:49 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:18:05 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_rl_cursor	*ft_rl_getcursor(t_rl_input *input)
 
 void	ft_rl_inputcursor(t_rl_input *input)
 {
+	if (!input || !input->cursor)
+		return ;
 	input->cursor->row = input->cursor->i_row;
 	input->cursor->col = input->cursor->i_col;
 	ft_rl_updatecursor(input->cursor);
@@ -36,6 +38,8 @@ void	ft_rl_resetcursor(t_rl_input *input)
 	t_rl_word	*w;
 	int16_t		n;
 
+	if (!input || !input->cursor)
+		return ;
 	n = 0;
 	w = input->head;
 	while (w && w->i)
@@ -50,6 +54,8 @@ void	ft_rl_resetcursor(t_rl_input *input)
 
 void	ft_rl_updatecursor(t_rl_cursor *cursor)
 {
+	if (!cursor)
+		return ;
 	while (cursor->col > cursor->t_cols)
 	{
 		cursor->row++;
@@ -77,6 +83,8 @@ void	ft_rl_updatecursor(t_rl_cursor *cursor)
 
 static inline void	initcursor(t_rl_cursor *cursor, size_t plen)
 {
+	if (!cursor)
+		return ;
 	getcurpos(&cursor->row, &cursor->col);
 	cursor->i_row = cursor->row;
 	cursor->i_col = cursor->col + plen;

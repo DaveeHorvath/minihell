@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:08:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 00:49:46 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:12:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ t_rl_input	*ft_rl_hist_getnext(t_rl_input *input, uint8_t cpy)
 	if (!current->prev)
 		return (input);
 	if (cpy)
+	{
+		((t_rl_input *)current->blk)->cursor = input->cursor;
 		ft_rl_updateinput(current->blk, input);
+	}
 	current = current->prev;
 	ft_rl_hist_setcurrent(current);
 	return (current->blk);
@@ -40,7 +43,10 @@ t_rl_input	*ft_rl_hist_getprev(t_rl_input *input, uint8_t cpy)
 	if (!current->next)
 		return (input);
 	if (cpy)
+	{
+		((t_rl_input *)current->blk)->cursor = input->cursor;
 		ft_rl_updateinput(current->blk, input);
+	}
 	current = current->next;
 	ft_rl_hist_setcurrent(current);
 	return (current->blk);
