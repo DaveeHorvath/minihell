@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/10 21:24:11 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/11 19:13:41 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,6 +119,7 @@ STRFILES	=	ft_split.c \
 				ft_strdup.c \
 				ft_strequals.c \
 				ft_strjoin.c \
+				ft_strnjoin.c \
 				ft_strlcat.c \
 				ft_strlcpy.c \
 				ft_strlen.c \
@@ -129,6 +130,7 @@ STRFILES	=	ft_split.c \
 				ft_strremove.c \
 				ft_strrev.c \
 				ft_strsjoin.c \
+				ft_strsnjoin.c \
 				ft_strtrim.c \
 				ft_strupper.c \
 				ft_substr.c \
