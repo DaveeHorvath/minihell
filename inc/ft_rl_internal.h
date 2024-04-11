@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 13:49:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:03:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ uint8_t		ft_rl_caw(t_rl_input *input);
 uint8_t		ft_rl_cmp(t_rl_input *input);
 uint8_t		ft_rl_mta(t_rl_input *input);
 
+// ft_rl_fn5.c
+uint8_t		ft_rl_dcl(t_rl_input *input);
+
 // ft_rl_exec.c
 uint8_t		ft_rl_execmap(t_rl_input *input, uint64_t key);
 
@@ -105,7 +108,7 @@ void		ft_rl_popwords(t_rl_word *words);
 // ft_rl_utils2.c
 t_rl_input	*ft_rl_strinput(const char *s);
 t_rl_word	*ft_rl_strword(const char *s);
-uint8_t		ft_rl_isdir(const char *path);
+uint16_t	ft_rl_isdir(const char *path);
 void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);
 
 // ft_rl_history_utils.c
