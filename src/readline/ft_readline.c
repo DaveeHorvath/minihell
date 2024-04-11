@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:17:01 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 00:41:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:34:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ static inline char	*getline(const char *p, t_rl_histmode mode, t_list *hist)
 	}
 	else
 		ft_rl_hist_setcurrent(NULL);
+	ft_rl_setcurinput(input);
 	ft_putstr_fd(p, 1);
 	while (ft_rl_getinput(input))
 		;
 	if (mode == ON)
 		ft_rl_hist_commit(input);
 	ft_rl_hist_pop(hist);
+	ft_rl_setcurinput(NULL);
 	return (ft_rl_inputstr(input, 1));
 }

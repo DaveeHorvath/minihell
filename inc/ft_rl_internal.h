@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 15:16:38 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:29:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ uint8_t		ft_rl_cmp(t_rl_input *input);
 uint8_t		ft_rl_mta(t_rl_input *input);
 
 // ft_rl_fn5.c
+uint8_t		ft_rl_hlc(t_rl_input *input);
 uint8_t		ft_rl_dcl(t_rl_input *input);
 
 // ft_rl_exec.c
@@ -114,6 +115,9 @@ void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);
 // ft_rl_utils3.c
 size_t		ft_rl_getinputlen(t_rl_input *input);
 char		*ft_rl_gethlcolor(void);
+
+// ft_rl_input_utils.c
+void		ft_rl_setcurinput(const t_rl_input *input);
 
 // ft_rl_history_utils.c
 t_list		**ft_rl_hist_gethead(void);

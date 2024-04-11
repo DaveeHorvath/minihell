@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 15:13:42 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:30:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void		ft_rl_unmap(const char *key);
 
 // ft_rl_utils3.c
 void		ft_rl_sethlcolor(const char *s);
+
+// ft_rl_input_utils.c
+t_rl_input	*ft_rl_getcurinput(void);
 
 // ft_rl_keymap_utils.c
 uint8_t		ft_rl_ismapped(uint64_t key);

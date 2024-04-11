@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signalhandler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 15:03:41 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:35:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
+#include "ft_rl_internal.h"
 #include "libft.h"
 #include "parser.h"
 
@@ -50,7 +51,5 @@ void	keyboardinterupt(int sig)
 		save_pipeline(NULL, 1);
 	}
 	else
-	{
-		ft_dprintf(2, "\nkeyboardinterupt without running");
-	}
+		ft_rl_dcl(ft_rl_getcurinput());
 }

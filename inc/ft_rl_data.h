@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 20:49:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:19:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef enum e_rl_rdmode
 {
 	ALL,
 	LINE,
-	CURRENT
+	PROMPT
 }	t_rl_rdmode;
 
 typedef enum e_rl_mapmode

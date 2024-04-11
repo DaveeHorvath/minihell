@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:24:54 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 12:34:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:26:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,12 @@ void	ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode)
 	t_rl_word	*w;
 
 	if (mode == ALL)
-		ft_printf("%s%s", TERM_CUR_RESET, TERM_CLEAR_END);
-	else if (mode == LINE)
-	{
-		ft_rl_inputcursor(input);
-		ft_printf("%s", TERM_CLEAR_END);
-	}
+		ft_putstr_fd(TERM_CUR_RESET, 1);
 	else
-		ft_printf("%s", TERM_CLEAR_END);
+		ft_rl_inputcursor(input);
+	ft_putstr_fd(TERM_CLEAR_END, 1);
+	if (mode == PROMPT)
+		ft_printf("%s%s", TERM_CUR_SOL, input->prompt);
 	w = input->head;
 	if (mode == ALL)
 	{
@@ -105,10 +103,7 @@ void	ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode)
 	}
 	while (w)
 	{
-		if (mode != CURRENT)
-			ft_putstr_fd(w->word, 1);
-		else
-			ft_putstr_fd(&w->word[w->i], 1);
+		ft_putstr_fd(w->word, 1);
 		w = w->next;
 	}
 	ft_rl_resetcursor(input);

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:59:29 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 13:55:21 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:57:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	ft_rl_initfuncs(t_list **funcs)
 	addfunc(funcs, ft_rl_newfunc("capitalize-word", ft_rl_caw));
 	addfunc(funcs, ft_rl_newfunc("complete", ft_rl_cmp));
 	addfunc(funcs, ft_rl_newfunc("prefix-meta", ft_rl_mta));
+	addfunc(funcs, ft_rl_newfunc("discard-line", ft_rl_dcl));
+	addfunc(funcs, ft_rl_newfunc("set-highlight-color", ft_rl_hlc));
 	addfunc(funcs, ft_rl_newfunc("rl-dbg-print-input", ft_rl_dbg_printinput));
 }
 

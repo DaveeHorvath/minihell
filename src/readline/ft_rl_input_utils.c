@@ -1,47 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rl_utils3.c                                     :+:      :+:    :+:   */
+/*   ft_rl_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 13:37:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 16:31:33 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/11 16:30:47 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/11 16:33:14 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
 
-static inline char	**gethlp(void);
+static inline t_rl_input	**getinput(void);
 
-size_t	ft_rl_getinputlen(t_rl_input *input)
+t_rl_input	*ft_rl_getcurinput(void)
 {
-	size_t		len;
-	t_rl_word	*w;
-
-	len = 0;
-	w = input->head;
-	while (w)
-	{
-		len += w->len;
-		w = w->next;
-	}
-	return (len);
+	return (*getinput());
 }
 
-char	*ft_rl_gethlcolor(void)
+void	ft_rl_setcurinput(const t_rl_input *input)
 {
-	return (*gethlp());
+	*getinput() = (t_rl_input *)input;
 }
 
-void	ft_rl_sethlcolor(const char *s)
+static inline t_rl_input	**getinput(void)
 {
-	*gethlp() = (char *)s;
-}
+	static t_rl_input	*input = NULL;
 
-static inline char	**gethlp(void)
-{
-	static char	*hlcolor = NULL;
-
-	return (&hlcolor);
+	return (&input);
 }
