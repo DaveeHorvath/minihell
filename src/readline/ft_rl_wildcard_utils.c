@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:36:04 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 17:42:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:52:24 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_rl_wc_rmdot(t_list *matches)
 {
 	while (matches)
 	{
-		ft_memmove(matches->blk, matches->blk + 2, ft_strlen(matches->blk) - 2);
+		ft_strlcpy(matches->blk, matches->blk + 2, ft_strlen(matches->blk) - 1);
 		matches = matches->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:37:13 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 17:53:21 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:50:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_list	*ft_rl_complete_wc(const char *pattern)
 		wc->matches = wc->matches->next;
 	}
 	ft_lstpopall(ft_lstfirst(wc->matches));
+	ft_lstadd_front(&completions, ft_lstnew(str));
 	return (completions);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:03:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 17:43:27 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:47:49 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_rl_wc	*ft_rl_wildcard_expand(const char *pattern)
 	const char	*tmp;
 
 	depth = 0;
-	tmp = ft_strchr(tmp, '/');
+	tmp = ft_strchr(pattern, '/');
 	while (tmp)
 	{
 		tmp++;
@@ -34,7 +34,7 @@ t_rl_wc	*ft_rl_wildcard_expand(const char *pattern)
 	}
 	matches = expand_path(ft_pusharr(ft_split(pattern, '/')), depth);
 	ft_rl_wc_rmdot(matches->matches);
-	return (NULL);
+	return (matches);
 }
 
 static inline t_rl_wc	*expand_path(char **patterns, size_t dpth)
@@ -79,7 +79,7 @@ static inline uint8_t	checkpattern(char *pat, char *name)
 	name += (*pat == '*');
 	while (*sstrings)
 	{
-		name = ft_strnstr(name, *sstrings, ft_strlen(*sstrings));
+		name = ft_strnstr(name, *sstrings, ft_strlen(name));
 		if (!name)
 			return (0);
 		name += ft_strlen(*sstrings++);

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 19:14:45 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:03:11 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,7 @@ static inline t_list	*completew(t_rl_word *w)
 	t_list	*completions;
 
 	if (ft_strchr(w->word, '*'))
-	{
 		completions = ft_rl_complete_wc(w->word);
-		if (completions)
-			ft_dprintf(2, "completw: wc: completion: '%s'\n", completions->blk);
-	}
 	else if (*w->word == '$')
 		completions = ft_rl_complete_env(w->word + 1);
 	else if (w->wtype == NORMAL)
