@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/10 13:41:12 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/11 08:54:43 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
 cflags.rldebug	=	$(cflags.debug) -D RL_DEBUG_MSG=1
 cflags.asan		=	$(cflags.debug) -fsanitize=address -D RL_DEBUG_MSG=1
 cflags.normal	=	-Ofast
-CFLAGS			=	$(cflags.common) $(cflags.$(BUILD))
+cflags.extra	=	
+CFLAGS			=	$(cflags.common) $(cflags.$(BUILD)) $(cflags.extra)
 
 SRCDIR	=	src
 OBJDIR	=	obj
@@ -126,7 +127,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)/$(PROMPTDIR)
 
 $(LIBFT):
-	@make --no-print-directory -C $(LIBDIR) BUILD=$(BUILD)
+	@make --no-print-directory -C $(LIBDIR) BUILD=$(BUILD) cflags.extra=$(cflags.extra)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo Compiling $@

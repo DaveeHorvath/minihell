@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:52:28 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/24 19:43:58 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:38:51 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,39 +36,40 @@ t_obj	*ft_newobj(size_t n);
 
 void	*ft_alloc(size_t n);
 void	*ft_calloc(size_t n, size_t size);
+void	*ft_arrdup(const void *arr, const size_t size);
 /*   alloc   */
 
 /*   no alloc   */
 /**   blk   **/
-size_t	ft_getblksize(void *blk);
+size_t	ft_getblksize(const void *blk);
 /**   blk   **/
 
 /**   obj   **/
-t_obj	*ft_getobj(void *blk);
+t_obj	*ft_getobj(const void *blk);
 
-void	ft_markall(t_vm *vm);
-void	ft_unmarkall(t_vm *vm);
+void	ft_unmark(const void *blk);
+void	ft_mark(const void *blk);
 /**   obj   **/
 
 /**   pop   **/
 void	*ft_pop(void);
 
-void	ft_popblk(void *blk);
+void	ft_popblk(const void *blk);
 void	ft_popblks(size_t blks, ...);
 void	ft_popn(size_t blks);
 void	ft_popall(void);
 /**   pop   **/
 
 /**   push   **/
-void	*ft_push(void *blk);
-void	*ft_pusharr(void *addr);
+void	*ft_push(const void *blk);
+void	*ft_pusharr(const void *blk);
 
 void	ft_pushn(size_t blks, ...);
 /**   push   **/
 
 /**   stack   **/
 void	ft_stackrm(t_stack *node);
-void	ft_stackadd(void *blk);
+void	ft_stackadd(const void *blk);
 /**   stack   **/
 
 /**   utils   **/

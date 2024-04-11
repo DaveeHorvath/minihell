@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:33:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/25 12:17:59 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:36:44 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_stackrm(t_stack *node)
  *
  * @param *blk Pointer to the block to add to the stack
  */
-void	ft_stackadd(void *blk)
+void	ft_stackadd(const void *blk)
 {
 	static t_vm	*vm = NULL;
 	t_stack		*node;

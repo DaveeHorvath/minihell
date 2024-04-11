@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strsnjoin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 17:56:01 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 08:55:02 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/06 12:34:09 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/06 12:45:03 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * @file ft_strdup.c
+ * @file ft_strsnjoin.c
  */
 
-#include "lft_gc.h"
 #include "lft_str.h"
 
-/** @brief Allocates and returns a copy of s
+/** Joins n strings, separated by sep
  *
- * @param *s String to create a copy of
- * @retval char * Pointer to the copy or NULL if the allocation failed
+ * @param n Amount of strings to join
+ * @param sep Separator to use between the strings
+ * @retval char* Joined string ir NULL if allocation failed or n is 0
  */
-char	*ft_strdup(const char *s)
+char	*ft_strsnjoin(const uint8_t sep, size_t n, ...)
 {
 	char	*out;
-	size_t	asize;
+	va_list	args;
 
-	asize = ft_strlen(s) + 1;
-	ft_push(s);
-	out = ft_calloc(asize, sizeof(*out));
-	ft_popblk(s);
-	if (!out)
-		return (NULL);
-	ft_strlcpy(out, s, asize);
+	out = NULL;
+	va_start(args, n);
+	while (n--)
+	{
+		out = ft_strsjoin(out, va_arg(args, char *), sep);
+		if (!out)
+			break ;
+	}
+	va_end(args);
 	return (out);
 }
