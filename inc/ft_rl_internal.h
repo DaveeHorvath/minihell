@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 16:29:28 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:46:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ uint8_t		ft_rl_hist_search(t_rl_input *input, uint64_t direction);
 uint8_t		ft_rl_complete(t_rl_input *input);
 
 // ft_rl_complete2.c
+t_list		*ft_rl_complete_wc(const char *pattern);
 t_list		*ft_rl_complete_env(const char *pattern);
 t_list		*ft_rl_complete_file(const char *pattern);
 
@@ -135,6 +136,10 @@ t_rl_cursor	*ft_rl_getcursor(t_rl_input *input);
 void		ft_rl_inputcursor(t_rl_input *input);
 void		ft_rl_resetcursor(t_rl_input *input);
 void		ft_rl_updatecursor(t_rl_cursor *cursor);
+
+// ft_rl_wildcard_utils.c
+uint8_t		ft_rl_wc_checkalloc(t_rl_wc *cur, t_rl_wc *prv, char **patterns);
+void		ft_rl_wc_rmdot(t_list *matches);
 
 // ft_rl_debug_utils.c
 uint8_t		ft_rl_dbg_printinput(t_rl_input *input);
