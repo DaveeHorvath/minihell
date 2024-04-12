@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:17:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 12:25:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:23:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,9 @@ static inline void	getcurpos(int16_t *row, int16_t *col)
 	char	buf[17];
 
 	i = 0;
+	ft_bzero(buf, 17);
 	ft_putstr_fd(TERM_STATUS, 1);
-	buf[read(0, buf, 16)] = '\0';
+	read(0, buf, 16);
 	while (buf[i] && !ft_isdigit(buf[i]))
 		i++;
 	*row = ft_atoi16(&buf[i]);
