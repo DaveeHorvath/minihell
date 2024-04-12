@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 22:59:00 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 11:32:03 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	child_error(void)
 
 int	handle_file_error(int start, char *s)
 {
-	printf("file %s doenst exist\n",
+	ft_dprintf(2, "file %s doenst exist\n",
 		expand_token(get_filename(s, start), NULL, none));
 	return (1);
 }
@@ -37,17 +37,17 @@ int	handle_file_error(int start, char *s)
 int	parse_error(int error)
 {
 	if (error == WRONG_PARENTHESIES)
-		ft_printf("Wrong parenthesies\n");
+		ft_dprintf(2, "Wrong parenthesies\n");
 	else if (error == UNMATCHED_S_QUOTE)
-		ft_printf("Unmatched single quote\n");
+		ft_dprintf(2, "Unmatched single quote\n");
 	else if (error == UNMATCHED_D_QUOTE)
-		ft_printf("Unmatched double quote\n");
+		ft_dprintf(2, "Unmatched double quote\n");
 	else if (error == UNMATCHED_PARENTHESIES)
-		ft_printf("Unmatched parenthesies\n");
+		ft_dprintf(2, "Unmatched parenthesies\n");
 	else if (error == SYNTAX_ERROR)
-		ft_printf("Syntax error\n");
+		ft_dprintf(2, "Syntax error\n");
 	else
-		ft_printf("Unrecognised error\n");
+		ft_dprintf(2, "Unrecognised error\n");
 	return (-1);
 }
 
@@ -56,8 +56,10 @@ int	tree_parse_error(int error, t_node *tree)
 {
 	(void) tree;
 	if (error == MALLOC_FAIL)
-		ft_printf("Malloc failed while creating tree\n");
+		ft_dprintf(2, "Malloc failed while creating tree\n");
 	else if (error == PARENTHESIES_IN_NODE)
-		ft_printf("Parenthesies inside pipeline\n");
+		ft_dprintf(2, "Parenthesies inside pipeline\n");
+	else if (error == PIPELINE_ISSUE)
+		ft_dprintf(2, "Issue in pipeline\n");
 	return (-1);
 }

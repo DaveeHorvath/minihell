@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/05 15:26:00 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:27:59 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,4 @@ t_node	*make_tree(char *s)
 						ft_strlen(s))));
 		return (out);
 	}
-
 }

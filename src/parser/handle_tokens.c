@@ -6,12 +6,16 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:34:48 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/04 13:54:37 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:26:20 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+
+/*
+	tokeniser functions for the argument splitting
+*/
 
 int	handle_quotes(char *s, int i)
 {

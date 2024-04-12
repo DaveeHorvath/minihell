@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 14:57:27 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:31:38 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct s_tokens
 typedef struct s_cmd
 {
 	int				fd[2];
+	int				pipe_end;
+	char			*original;
 	char			**argv;
 	char			**env;
 	pid_t			pid;
@@ -74,12 +76,15 @@ t_cmd		*get_command(char *s, char **commands, int *prev_out, int i);
 int			update_quote(char c, enum e_quotes *quote);
 int			exec_pipeline(char *s);
 int			get_fds(t_tokens *tokens, int fds[2]);
-int			is_builtin(char *s);
+int			is_builtin(char *s, int isexpanded);
 int			exec_builtin(char *s, int outfd, int actual_exit);
 char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
 void		append(t_tokens **list, char *s);
+
+void 		smart_closer(int *fds);
+
 /* errors */
 void		cmd_not_found(t_cmd *cmd);
 void		child_error(void);
@@ -93,6 +98,7 @@ int			validate_tree(t_node *tree);
 
 /* signals */
 t_cmd		*save_pipeline(t_cmd *_pipline, int set);
+int			*heredoc_stopper(int *_heredocstopper, int set);
 void		keyboardinterupt(int sig);
 
 /* files */
