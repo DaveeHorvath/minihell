@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:24:35 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:36:10 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 10:42:54 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,23 @@ void	ft_rl_insertword(t_rl_input *input, t_rl_word *newword)
 {
 	if (!input->head)
 		input->head = newword;
-	else
+	else if (input->current->i)
 	{
 		newword->prev = input->current;
 		newword->next = input->current->next;
 		input->current->next = newword;
 		if (newword->next)
 			newword->next->prev = newword;
+	}
+	else
+	{
+		newword->prev = input->current->prev;
+		newword->next = input->current;
+		input->current->prev = newword;
+		if (newword->prev)
+			newword->prev->next = newword;
+		if (input->current == input->head)
+			input->head = newword;
 	}
 	input->current = newword;
 }
@@ -86,7 +96,8 @@ void	ft_rl_addword(t_rl_input *input, uint8_t c)
 	*newword->word = c;
 	newword->len = 1;
 	newword->i = 1;
-	if (input->current && input->current->i != input->current->len)
+	if (input->current && input->current->i
+		&& input->current->i != input->current->len)
 		input->current = ft_rl_splitword(input->current);
 	ft_rl_insertword(input, newword);
 }
