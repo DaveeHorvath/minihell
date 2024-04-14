@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/11 18:05:50 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/14 13:00:19 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_keymap.c \
 					ft_rl_keymap_lists.c \
 					ft_rl_keymap_utils.c \
+					ft_rl_signal.c \
 					ft_rl_term_utils.c \
 					ft_rl_utils.c \
 					ft_rl_utils2.c \

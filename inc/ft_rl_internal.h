@@ -6,13 +6,25 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 19:04:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:53:02 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_RL_INTERNAL_H
 # define FT_RL_INTERNAL_H
 # include "ft_readline.h"
+
+# define RL_SIG_ENABLE 0x0U
+# define RL_SIG_DISABLE 0x1U
+
+# define RL_SIG_ALL 0x3U
+
+# define RL_SIG_INT 0x1U
+# define RL_SIG_WINCH 0x2U
+
+// ft_rl_signal.c
+void		ft_rl_signal(uint8_t action, uint8_t sigs);
+void		ft_rl_sigaction(int32_t signal);
 
 // ft_rl_input.c
 uint8_t		ft_rl_getinput(t_rl_input *input);
@@ -33,6 +45,10 @@ void		ft_rl_endreplace(void);
 
 // ft_rl_cursor.c
 void		ft_rl_shiftcursor(size_t n, uint64_t direction);
+void		ft_rl_updatecursor(t_rl_cursor *cursor);
+void		ft_rl_promptcursor(t_rl_input *input);
+void		ft_rl_inputcursor(t_rl_input *input);
+void		ft_rl_resetcursor(t_rl_input *input);
 
 // ft_rl_history.c
 t_rl_input	*ft_rl_hist_getnext(t_rl_input *input, uint8_t cpy);
@@ -117,6 +133,7 @@ uint16_t	ft_rl_isdir(const char *path);
 
 // ft_rl_utils3.c
 size_t		ft_rl_getinputlen(t_rl_input *input);
+void		ft_rl_resize_hook(t_rl_input *input);
 char		*ft_rl_gethlcolor(void);
 
 // ft_rl_input_utils.c
@@ -137,9 +154,7 @@ void		ft_rl_putcompletion(t_list *st, t_list *c, const char *s, size_t m);
 
 // ft_rl_term_utils.c
 t_rl_cursor	*ft_rl_getcursor(t_rl_input *input);
-void		ft_rl_inputcursor(t_rl_input *input);
-void		ft_rl_resetcursor(t_rl_input *input);
-void		ft_rl_updatecursor(t_rl_cursor *cursor);
+void		ft_rl_getcurpos(int16_t *row, int16_t *col);
 
 // ft_rl_wildcard_utils.c
 uint8_t		ft_rl_wc_checkalloc(t_rl_wc *cur, t_rl_wc *prv, char **patterns);

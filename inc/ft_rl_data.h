@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 16:19:27 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 12:50:38 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_rl_cursor
 {
 	int16_t	t_rows;
 	int16_t	t_cols;
+	int16_t	p_row;
+	int16_t	p_col;
 	int16_t	i_row;
 	int16_t	i_col;
 	int16_t	row;

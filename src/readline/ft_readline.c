@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:17:01 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 16:34:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:57:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ft_readline(const char *p, t_rl_histmode mode)
 	char			*out;
 
 	ft_rl_init();
+	ft_rl_signal(RL_SIG_ENABLE, RL_SIG_ALL);
 	tcgetattr(0, &old);
 	new = old;
 	new.c_lflag &= (~ICANON & ~ECHO);
@@ -31,6 +32,7 @@ char	*ft_readline(const char *p, t_rl_histmode mode)
 	else
 		out = getline(p, mode, NULL);
 	tcsetattr(0, TCSANOW, &old);
+	ft_rl_signal(RL_SIG_DISABLE, RL_SIG_ALL);
 	return (out);
 }
 
