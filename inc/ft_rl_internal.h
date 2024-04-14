@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 13:53:02 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:34:19 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void		ft_rl_putcompletion(t_list *st, t_list *c, const char *s, size_t m);
 // ft_rl_term_utils.c
 t_rl_cursor	*ft_rl_getcursor(t_rl_input *input);
 void		ft_rl_getcurpos(int16_t *row, int16_t *col);
+void		ft_rl_term_scroll(uint64_t dir, t_rl_cursor *cursor);
 
 // ft_rl_wildcard_utils.c
 uint8_t		ft_rl_wc_checkalloc(t_rl_wc *cur, t_rl_wc *prv, char **patterns);

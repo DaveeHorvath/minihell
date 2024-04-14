@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:20:40 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 13:09:28 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:36:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,9 @@ void	ft_rl_updatecursor(t_rl_cursor *cursor)
 		cursor->col += cursor->t_cols;
 	}
 	while (cursor->row > cursor->t_rows && cursor->p_row > 1)
-	{
-		ft_putstr_fd(TERM_SCROLL_UP, 1);
-		cursor->p_row--;
-		cursor->i_row--;
-		cursor->row--;
-	}
+		ft_rl_term_scroll(KEY_UP, cursor);
 	if ((cursor->row == cursor->p_row && cursor->col < cursor->p_col)
-			|| cursor->row < cursor->p_row)
+		|| cursor->row < cursor->p_row)
 	{
 		cursor->row = cursor->i_row;
 		cursor->col = cursor->i_col;

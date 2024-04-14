@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:03:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 21:47:49 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:30:38 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static inline t_rl_wc	*expand_path(char **patterns, size_t dpth);
 static inline uint8_t	checkpattern(char *pat, char *name);
-static inline void		matchpatterns(t_rl_wc *cur, t_rl_wc *prv, size_t dpth);
-static inline void		match(char *pat, char *path, t_list **mtc, uint8_t any);
+static inline void	matchpatterns(t_rl_wc *cur, t_rl_wc *prv, size_t dpth);
+static inline void	match(char *pat, char *path, t_list **mtc, uint8_t any);
 
 t_rl_wc	*ft_rl_wildcard_expand(const char *pattern)
 {
@@ -69,7 +69,7 @@ static inline uint8_t	checkpattern(char *pat, char *name)
 {
 	char	**sstrings;
 
-	if ((*name == '.' && * pat!= '.')
+	if ((*name == '.' && *pat != '.')
 		|| (*pat != '*'
 			&& ft_strncmp(name, pat, ft_strclen(pat, '*'))))
 		return (0);

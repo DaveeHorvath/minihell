@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:37:13 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 21:50:07 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:32:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_list	*ft_rl_complete_env(const char *pattern)
 	t_value	*env;
 	t_list	*completions;
 	size_t	plen;
-	
+
 	env = *msh_getenvhead();
 	if (!env)
 		return (NULL);

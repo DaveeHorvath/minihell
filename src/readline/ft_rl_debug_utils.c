@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 20:45:44 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:37:19 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:29:09 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ uint8_t	ft_rl_dbg_printinput(t_rl_input *input)
 	return (1);
 }
 
-
 void	ft_rl_dbg_info(t_rl_input *input, uint64_t key)
 {
 	if (!RL_DEBUG_MSG)
@@ -41,7 +40,7 @@ void	ft_rl_dbg_info(t_rl_input *input, uint64_t key)
 	ft_dprintf(2, "curnode: %p\n", input->current);
 	if (input->current)
 		ft_dprintf(2, "curnode->word: [%s][%u]\n", input->current->word,
-				input->current->i);
+			input->current->i);
 	if (ft_rl_ismapped(key))
 		ft_dprintf(2, "key %X mapped to %p\n", key, ft_rl_getmap(key));
 	else

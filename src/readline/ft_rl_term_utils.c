@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:17:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 13:15:15 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:36:35 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,24 @@ void	ft_rl_getcurpos(int16_t *row, int16_t *col)
 		i++;
 	if (col)
 		*col = ft_atoi16(&buf[i]);
+}
+
+void	ft_rl_term_scroll(uint64_t dir, t_rl_cursor *cursor)
+{
+	if (dir == KEY_UP)
+	{
+		ft_putstr_fd(TERM_SCROLL_UP, 1);
+		cursor->p_row--;
+		cursor->i_row--;
+		cursor->row--;
+	}
+	else
+	{
+		ft_putstr_fd(TERM_SCROLL_DOWN, 1);
+		cursor->p_row++;
+		cursor->i_row++;
+		cursor->row++;
+	}
 }
 
 static inline void	initcursor(t_rl_cursor *cursor, size_t plen)

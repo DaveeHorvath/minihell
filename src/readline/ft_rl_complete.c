@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 22:18:59 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:31:47 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static inline uint8_t	complete_mult(t_rl_input *input, t_list *completions);
 static inline t_list	*completew(t_rl_word *w);
-static inline void		display(t_rl_input *input, t_list *st, t_list *c);
-static inline void		putcompletions(t_rl_cursor *cur, t_list *st, t_list *c);
+static inline void	display(t_rl_input *input, t_list *st, t_list *c);
+static inline void	putcompletions(t_rl_cursor *cur, t_list *st, t_list *c);
 
 uint8_t	ft_rl_complete(t_rl_input *input)
 {
