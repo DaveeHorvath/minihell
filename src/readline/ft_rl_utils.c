@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:24:54 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 12:54:51 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:03:43 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ void	ft_rl_redisplay(t_rl_input *input, t_rl_rdmode mode)
 		ft_putstr_fd(TERM_CUR_RESET, 1);
 	else if (mode == PROMPT)
 		ft_rl_promptcursor(input);
+	else
+		ft_rl_inputcursor(input);
 	ft_putstr_fd(TERM_CLEAR_END, 1);
 	if (mode == PROMPT)
 		ft_printf("%s", input->prompt);
-	if (mode != ALL)
-		ft_rl_inputcursor(input);
 	w = input->head;
 	if (mode == ALL)
 	{
