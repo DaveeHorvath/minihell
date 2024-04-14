@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:12:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 12:49:10 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:37:02 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ uint8_t	ft_rl_bck(t_rl_input *input)
 
 uint8_t	ft_rl_clr(t_rl_input *input)
 {
-	input->cursor->i_row = 1;
-	input->cursor->i_col = input->plen + 1;
+	input->cursor->p_row = 1;
+	input->cursor->p_col = 1;
+	input->cursor->i_row = input->cursor->p_row;
+	input->cursor->i_col = input->cursor->p_col + input->plen;
 	ft_rl_redisplay(input, ALL);
 	return (1);
 }

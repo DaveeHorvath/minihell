@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 15:29:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:38:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,11 @@ static inline void	display(t_rl_input *input, t_list *st, t_list *c)
 	cursor.row = cursor.i_row;
 	cursor.col = cursor.i_col;
 	ft_rl_redisplay(input, LINE);
-	while (cursor.i_row + rows - 1 > cursor.t_rows && input->cursor->i_row > 1)
+	while (cursor.i_row + rows - 1 > cursor.t_rows && input->cursor->p_row > 1)
 	{
-		cursor.i_row--;
+		input->cursor->p_row--;
 		input->cursor->i_row--;
+		cursor.i_row--;
 	}
 	putcompletions(&cursor, st, c);
 	ft_rl_resetcursor(input);
