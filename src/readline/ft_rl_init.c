@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:50:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 16:16:50 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:43:49 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ void	ft_rl_init(void)
 
 static inline void	ft_rl_defaultbinds(void)
 {
+	static char		key[2] = "!";
+	static uint8_t	val = KEY_BANG;
+
+	ft_rl_map("<SPC>", "self-insert", QREMAP);
+	while (val <= KEY_TILDE)
+	{
+		ft_rl_map(key, "self-insert", QREMAP);
+		*key = ++val;
+	}
+	ft_rl_map("<DEL>", "delete-char", QREMAP);
+	ft_rl_map("<BCK>", "backward-delete-char", QREMAP);
 	ft_rl_map("<C-a>", "beginning-of-line", QREMAP);
 	ft_rl_map("<C-e>", "end-of-line", QREMAP);
 	ft_rl_map("<HME>", "beginning-of-line", QREMAP);
@@ -44,6 +55,11 @@ static inline void	ft_rl_defaultbinds(void)
 	ft_rl_map("<C-l>", "clear-screen", QREMAP);
 	ft_rl_map("<RET>", "accept-line", QREMAP);
 	ft_rl_map("<C-d>", "end-of-file", QREMAP);
+	ft_rl_defaultbinds2();
+}
+
+static inline void	ft_rl_defaultbinds2(void)
+{
 	ft_rl_map("<C-p>", "previous-history", QREMAP);
 	ft_rl_map("<C-n>", "next-history", QREMAP);
 	ft_rl_map("<up>", "previous-history", QREMAP);
@@ -55,11 +71,6 @@ static inline void	ft_rl_defaultbinds(void)
 	ft_rl_map("<M-u>", "upcase-word", QREMAP);
 	ft_rl_map("<M-l>", "downcase-word", QREMAP);
 	ft_rl_map("<M-c>", "capitalize-word", QREMAP);
-	ft_rl_defaultbinds2();
-}
-
-static inline void	ft_rl_defaultbinds2(void)
-{
 	ft_rl_map("<TAB>", "complete", QREMAP);
 	ft_rl_map("<ESC>", "prefix-meta", QREMAP);
 	ft_rl_map("<M-q>", "discard-line", QREMAP);

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 16:30:10 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:21:21 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 // ft_readline.c
 char		*ft_readline(const char *prompt, t_rl_histmode mode);
 
+// ft_rl_color.c
+void		ft_rl_sethlcolor(const char *s);
+
 // ft_rl_init.c
 void		ft_rl_init(void);
 
@@ -52,7 +55,7 @@ void		ft_rl_map(const char *key, const char *func, t_rl_mapmode mode);
 void		ft_rl_unmap(const char *key);
 
 // ft_rl_utils3.c
-void		ft_rl_sethlcolor(const char *s);
+void		ft_rl_setinputmaxlen(size_t maxlen);
 
 // ft_rl_input_utils.c
 t_rl_input	*ft_rl_getcurinput(void);

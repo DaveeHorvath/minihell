@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:58:06 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:47:51 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:58:02 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static inline void	createmap(uint64_t key, t_rl_fn f)
 {
 	t_rl_map	*map;
 
-	map = ft_alloc(sizeof(*map));
+	map = ft_calloc(1, sizeof(*map));
 	if (!map)
 		return ;
 	ft_memcpy(map, &(t_rl_map){.f = f, .key = key}, sizeof(*map));

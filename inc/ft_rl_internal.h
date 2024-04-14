@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 14:34:19 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:29:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ void		ft_rl_sigaction(int32_t signal);
 
 // ft_rl_input.c
 uint8_t		ft_rl_getinput(t_rl_input *input);
-void		ft_rl_addchar(t_rl_input *input, uint8_t c);
-void		ft_rl_rmchar(t_rl_input *input, uint64_t c);
+void		ft_rl_addchar(t_rl_input *input);
+
+// ft_rl_delete.c
+void		ft_rl_rmchar(t_rl_input *input);
+void		ft_rl_rmchar_bck(t_rl_input *input);
 
 // ft_rl_word.c
 t_rl_word	*ft_rl_splitword(t_rl_word *w1);
@@ -58,6 +61,9 @@ void		ft_rl_hist_add(t_list **hist, t_rl_input *input);
 
 // ft_rl_history_search.c
 uint8_t		ft_rl_hist_search(t_rl_input *input, uint64_t direction);
+
+// ft_rl_color.c
+char		*ft_rl_gethlcolor(void);
 
 // ft_rl_complete.c
 uint8_t		ft_rl_complete(t_rl_input *input);
@@ -101,6 +107,9 @@ uint8_t		ft_rl_mta(t_rl_input *input);
 // ft_rl_fn5.c
 uint8_t		ft_rl_hlc(t_rl_input *input);
 uint8_t		ft_rl_dcl(t_rl_input *input);
+uint8_t		ft_rl_ins(t_rl_input *input);
+uint8_t		ft_rl_dcr(t_rl_input *input);
+uint8_t		ft_rl_bdc(t_rl_input *input);
 
 // ft_rl_exec.c
 uint8_t		ft_rl_execmap(t_rl_input *input, uint64_t key);
@@ -132,9 +141,9 @@ t_rl_word	*ft_rl_strword(const char *s);
 uint16_t	ft_rl_isdir(const char *path);
 
 // ft_rl_utils3.c
+size_t		ft_rl_getinputmaxlen(void);
 size_t		ft_rl_getinputlen(t_rl_input *input);
 void		ft_rl_resize_hook(t_rl_input *input);
-char		*ft_rl_gethlcolor(void);
 
 // ft_rl_input_utils.c
 void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);
@@ -146,6 +155,9 @@ t_list		**ft_rl_hist_getcurrent(void);
 t_list		*ft_rl_hist_duphist(t_list *hist);
 void		ft_rl_hist_setcurrent(t_list *node);
 void		ft_rl_hist_pop(t_list *hist);
+
+// ft_rl_history_utils2.c
+void		ft_rl_hist_restore(void);
 
 // ft_rl_complete_utils.c
 size_t		ft_rl_complete_getlongest(t_list *completions);

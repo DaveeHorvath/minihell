@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 14:31:47 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:29:11 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ static inline uint8_t	complete_mult(t_rl_input *input, t_list *completions)
 		}
 		if (ft_rl_ismapped(key))
 			return (ft_rl_execmap(input, key));
-		if (key == KEY_BACKSPACE || key == KEY_DEL)
-			ft_rl_rmchar(input, key);
-		else if (key >= KEY_SPACE && key <= KEY_TILDE)
-			ft_rl_addchar(input, key);
 		return (1);
 	}
 	return (1);

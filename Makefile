@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/14 13:00:19 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/14 16:29:41 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ PARSERDIR	=	parser
 PROMPTDIR	=	prompt
 
 READLINEFILES	=	ft_readline.c \
+					ft_rl_color.c \
 					ft_rl_complete.c \
 					ft_rl_complete2.c \
 					ft_rl_complete3.c \
@@ -54,6 +55,7 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_history_file.c \
 					ft_rl_history_search.c \
 					ft_rl_history_utils.c \
+					ft_rl_history_utils2.c \
 					ft_rl_init.c \
 					ft_rl_initfuncs.c \
 					ft_rl_initkeys.c \
@@ -62,6 +64,7 @@ READLINEFILES	=	ft_readline.c \
 					ft_rl_keymap.c \
 					ft_rl_keymap_lists.c \
 					ft_rl_keymap_utils.c \
+					ft_rl_remove.c \
 					ft_rl_signal.c \
 					ft_rl_term_utils.c \
 					ft_rl_utils.c \

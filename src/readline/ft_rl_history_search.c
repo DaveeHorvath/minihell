@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 00:50:38 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/05 16:28:15 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:06:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static inline uint64_t	match(t_rl_input *i, t_rl_input *s, uint64_t d);
 static inline t_list		*getmatch(t_rl_input *i, t_rl_input *s, uint64_t d);
-static inline uint8_t		getinput(t_rl_input *s, uint64_t *key);
+static inline uint8_t		getinput(t_rl_input *s);
 static inline void		display(t_rl_input *i, t_rl_input *s);
 
 uint8_t	ft_rl_hist_search(t_rl_input *input, uint64_t direction)
@@ -71,9 +71,8 @@ static inline t_list	*getmatch(t_rl_input *i, t_rl_input *s, uint64_t d)
 static inline uint64_t	match(t_rl_input *i, t_rl_input *s, uint64_t d)
 {
 	t_list		*match;
-	uint64_t	key;
 
-	while (getinput(s, &key))
+	while (getinput(s))
 	{
 		match = getmatch(i, s, d);
 		if (!match && s->plen == 14)
@@ -92,20 +91,18 @@ static inline uint64_t	match(t_rl_input *i, t_rl_input *s, uint64_t d)
 			ft_rl_updateinput(i, (*ft_rl_hist_getcurrent())->blk);
 		display(i, s);
 	}
-	return (key);
+	return (s->key);
 }
 
-static inline uint8_t	getinput(t_rl_input *s, uint64_t *key)
+static inline uint8_t	getinput(t_rl_input *s)
 {
-	*key = 0;
-	read(0, key, sizeof(*key));
-	if (*key == KEY_BACKSPACE && s->head)
-		ft_rl_rmchar(s, *key);
-	else if (*key >= KEY_SPACE && *key <= KEY_TILDE)
-		ft_rl_addchar(s, *key);
-	else
-		return (0);
-	return (1);
+	t_rl_fn	f;
+
+	read(0, &s->key, sizeof(s->key));
+	f = ft_rl_getmap(s->key);
+	if (f == ft_rl_ins || f == ft_rl_dcr || f == ft_rl_bdc)
+		return (ft_rl_execmap(s, s->key));
+	return (0);
 }
 
 static inline void	display(t_rl_input *i, t_rl_input *s)

@@ -6,13 +6,18 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:37:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 13:19:06 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:26:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
 
-static inline char	**gethlp(void);
+static inline size_t	*getmlen(void);
+
+size_t	ft_rl_getinputmaxlen(void)
+{
+	return (*getmlen());
+}
 
 size_t	ft_rl_getinputlen(t_rl_input *input)
 {
@@ -27,6 +32,11 @@ size_t	ft_rl_getinputlen(t_rl_input *input)
 		w = w->next;
 	}
 	return (len);
+}
+
+void	ft_rl_setinputmaxlen(size_t maxlen)
+{
+	*getmlen() = maxlen;
 }
 
 void	ft_rl_resize_hook(t_rl_input *input)
@@ -46,19 +56,9 @@ void	ft_rl_resize_hook(t_rl_input *input)
 	ft_rl_redisplay(input, PROMPT);
 }
 
-char	*ft_rl_gethlcolor(void)
+static inline size_t	*getmlen(void)
 {
-	return (*gethlp());
-}
+	static size_t	maxlen = 0;
 
-void	ft_rl_sethlcolor(const char *s)
-{
-	*gethlp() = (char *)s;
-}
-
-static inline char	**gethlp(void)
-{
-	static char	*hlcolor = NULL;
-
-	return (&hlcolor);
+	return (&maxlen);
 }

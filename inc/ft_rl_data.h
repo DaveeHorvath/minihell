@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 12:50:38 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:16:11 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,13 @@ typedef struct s_rl_cursor
 typedef struct s_rl_input
 {
 	size_t		plen;
+	size_t		maxlen;
 	const char	*prompt;
 	t_rl_etype	exittype;
 	t_rl_cursor	*cursor;
 	t_rl_word	*current;
 	t_rl_word	*head;
+	uint64_t	key;
 }	t_rl_input;
 
 typedef uint8_t	(*t_rl_fn)(t_rl_input *);

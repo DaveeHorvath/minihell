@@ -6,19 +6,20 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:59:29 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 15:57:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:56:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
 
+static inline void	ft_rl_initfuncs2(t_list **funcs);
 static inline void	addfunc(t_list **funcs, t_rl_func *func);
 
 t_rl_func	*ft_rl_newfunc(const char *name, t_rl_fn f)
 {
 	t_rl_func	*func;
 
-	func = ft_alloc(sizeof(*func));
+	func = ft_calloc(1, sizeof(*func));
 	if (!func)
 		return (NULL);
 	ft_memcpy(func, &(t_rl_func){.name = name, .f = f}, sizeof(*func));
@@ -27,6 +28,9 @@ t_rl_func	*ft_rl_newfunc(const char *name, t_rl_fn f)
 
 void	ft_rl_initfuncs(t_list **funcs)
 {
+	addfunc(funcs, ft_rl_newfunc("self-insert", ft_rl_ins));
+	addfunc(funcs, ft_rl_newfunc("delete-char", ft_rl_dcr));
+	addfunc(funcs, ft_rl_newfunc("backward-delete-char", ft_rl_bdc));
 	addfunc(funcs, ft_rl_newfunc("beginning-of-line", ft_rl_sol));
 	addfunc(funcs, ft_rl_newfunc("end-of-line", ft_rl_eol));
 	addfunc(funcs, ft_rl_newfunc("forward-char", ft_rl_fwd));
@@ -48,6 +52,11 @@ void	ft_rl_initfuncs(t_list **funcs)
 	addfunc(funcs, ft_rl_newfunc("complete", ft_rl_cmp));
 	addfunc(funcs, ft_rl_newfunc("prefix-meta", ft_rl_mta));
 	addfunc(funcs, ft_rl_newfunc("discard-line", ft_rl_dcl));
+	ft_rl_initfuncs2(funcs);
+}
+
+static inline void	ft_rl_initfuncs2(t_list **funcs)
+{
 	addfunc(funcs, ft_rl_newfunc("set-highlight-color", ft_rl_hlc));
 	addfunc(funcs, ft_rl_newfunc("rl-dbg-print-input", ft_rl_dbg_printinput));
 }

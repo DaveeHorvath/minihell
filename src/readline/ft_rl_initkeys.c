@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:44:17 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/28 15:47:17 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:56:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_rl_key	*ft_rl_newkey(const char *name, const uint64_t value)
 {
 	t_rl_key	*key;
 
-	key = ft_alloc(sizeof(*key));
+	key = ft_calloc(1, sizeof(*key));
 	if (!key)
 		return (NULL);
 	ft_memcpy(key, &(t_rl_key){.name = name, .value = value}, sizeof(*key));
