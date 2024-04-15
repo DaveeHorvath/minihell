@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
+#    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/14 16:29:41 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/15 15:24:20 by dhorvath         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,6 +116,10 @@ FILES	=	main.c \
 			$(addprefix $(PARSERDIR)/, $(PARSERFILES)) \
 			$(addprefix $(PROMPTDIR)/, $(PROMPTFILES))
 
+TESTFILES		=	$(subst main.c, tester.c, $(FILES))
+TEST_SRC		=	$(addprefix $(SRCDIR)/, $(TESTFILES))
+TESTOBJS		=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(TEST_SRC))
+
 SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))
 OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
@@ -123,7 +127,14 @@ all: $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJDIR) $(LIBFT) $(OBJS)
 	@echo Compiling $(NAME)...
-	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
+	@$(CC) $(CFLAGS) -I$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
+
+tester: $(OBJDIR) $(LIBFT) $(TESTOBJS)
+	@echo $(TESTOBJS)
+	@echo Compiling tests...
+	@$(CC) $(CFLAGS) -I$(INCDIR) $(TESTOBJS) -L$(LIBDIR) -lft -o tester
+	@echo "running tester"
+	@./tester
 
 $(OBJDIR):
 	@echo Creating objdir...

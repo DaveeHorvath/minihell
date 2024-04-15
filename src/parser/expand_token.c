@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 11:34:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/15 15:24:40 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 #include "env.h"
-#include "rl_data.h"
 #include "ft_readline.h"
 
 /*
