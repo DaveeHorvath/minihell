@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:13:14 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/05 14:25:09 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:32:28 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,11 @@ static int	handle_heredoc(int fds[2], char *s)
 	shoudl_stop = 0;
 	heredoc_stopper(&shoudl_stop, 1);
 	hd_fd = open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	ft_printf("> ");
 	line = ft_push(get_next_line(0));
 	while (line && !shoudl_stop)
 	{
 		if (ft_strequals(s, ft_strtrim(line, "\n")) || shoudl_stop)
-		{
-			ft_pop();
 			break ;
-		}
 		ft_putstr_fd(expand_token(line, NULL, none), hd_fd);
 		ft_pop();
 		ft_printf("> ");
@@ -112,6 +108,7 @@ int	open_file(char *s, int fds[2], int type)
 
 	if (type == 0)
 	{
+		ft_printf("> ");
 		if (handle_heredoc(fds, get_filename(s, 2)) == 1)
 			return (1);
 	}

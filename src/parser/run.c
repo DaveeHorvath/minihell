@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/05 14:27:09 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/14 11:03:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	execute_string(char *s)
 	int			validity;
 	const int	backup_fds_dont_fucking_touch[2] = {dup(0), dup(1)};
 
+	ft_pushtrap(PTRAP_ENABLE);
 	validity = is_valid(s);
 	if (validity != 0)
 	{
@@ -50,11 +51,13 @@ int	execute_string(char *s)
 */
 static void	fix_fds(int backup_fds_dont_fucking_touch[2])
 {
-	dup2(backup_fds_dont_fucking_touch[0], 0);
-	dup2(backup_fds_dont_fucking_touch[1], 1);
+	if (dup2(backup_fds_dont_fucking_touch[0], 0) == -1
+		|| dup2(backup_fds_dont_fucking_touch[1], 1) == -1)
+		ft_dprintf(2, "minishell: Failed to dup2 filedescriptors\n");
 	close(backup_fds_dont_fucking_touch[0]);
 	close(backup_fds_dont_fucking_touch[1]);
 	save_pipeline(NULL, 1);
+	ft_pushtrap(PTRAP_DISABLE | PTRAP_POP);
 }
 
 /*
