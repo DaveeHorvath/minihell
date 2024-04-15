@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 15:36:11 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:09:39 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	exec_pipeline(char *s)
 				&prev_out, i);
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
-		{
 			do_cmd(current);
-			smart_closer(current->fd);
-		}
+		smart_closer(current->fd);
 		i++;
 	}
 	save_pipeline(head, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/14 10:55:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/15 17:05:55 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ int	tree_parse_error(int error, t_node *tree)
 	else if (error == PARENTHESIES_IN_NODE)
 		ft_dprintf(2, "minishell: Parenthesies inside pipeline\n");
 	else if (error == PIPELINE_ISSUE)
-		ft_dprintf(2, "minishell: Issue in pipeline\n");
+		ft_dprintf(2, "minishell: Invalid token in pipeline\n");
 	return (-1);
 }
