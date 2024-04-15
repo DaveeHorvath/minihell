@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rl_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:24:54 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 16:55:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:30:56 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_rl_inputstr(t_rl_input *input, uint8_t pop)
 
 	if (!input || !input->head)
 	{
-		if (input->exittype == EOF)
+		if (input->exittype == EOFF)
 			return (NULL);
 		return (ft_strdup(""));
 	}

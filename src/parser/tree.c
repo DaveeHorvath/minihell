@@ -6,12 +6,12 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/08 11:29:43 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:34:01 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 static char	*trim_parenthesies(char *s)
 {
