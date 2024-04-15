@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:26:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/29 18:05:51 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:02:39 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	msh_env(int fd)
 		return (1);
 	i = 0;
 	while (env[i])
-		ft_putendl_fd(env[i++], fd);
+	{
+		if (ft_strncmp(env[i], "?=", 2) != 0)
+			ft_putendl_fd(env[i++], fd);
+	}
 	return (0);
 }
