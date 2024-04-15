@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/03/06 14:43:35 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:34:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,16 @@
 #include "rl_data.h"
 #include "ft_readline.h"
 
-char *msh_getalias(char *s)
-{
-	(void)s;
-	return (NULL);
-}
-
-int	update_quote(char c, enum e_quotes *quote)
-{
-	if (c == '\'' && *quote == none)
-	{
-		*quote = singlequote;
-		return (1);
-	}
-	else if (c == '\"' && *quote == none)
-	{
-		*quote = doublequote;
-		return (1);
-	}
-	else if (c == '\'' && *quote == singlequote)
-	{
-		*quote = none;
-		return (1);
-	}
-	else if (c == '\"' && *quote == doublequote)
-	{
-		*quote = none;
-		return (1);
-	}
-	return (0);
-}
-
+/*
+	checks if a filename needs to be expanded
+*/
 int	needs_filename_expansion(char *s)
 {
 	int				i;
 	enum e_quotes	quote;
 
 	i = 0;
+	quote = none;
 	while (s[i])
 	{
 		update_quote(s[i], &quote);
@@ -63,17 +36,9 @@ int	needs_filename_expansion(char *s)
 	return (0);
 }
 
-void	addfront(t_tokens *tokens, t_tokens **tokenlist)
-{
-	t_tokens	*start;
-
-	start = tokens;
-	while (tokens->next)
-		tokens = tokens->next;
-	tokens->next = *tokenlist;
-	*tokenlist = start;
-}
-
+/*
+	checks for redirection and multiple redirects
+*/
 int	ambigous_redirect(char *s)
 {
 	int		i;
@@ -100,6 +65,10 @@ int	ambigous_redirect(char *s)
 	return (0);
 }
 
+/*
+	uses wildcard expansion if applicable
+	needs to remove original arg and if no matches are found put it back
+*/
 t_tokens	*expand_filenames(char *s)
 {
 	t_tokens	*new;
@@ -129,85 +98,61 @@ t_tokens	*expand_filenames(char *s)
 	return (new);
 }
 
+/*
+	wildcard expansion for all the tokens
+*/
 int	expand_wildcards(t_tokens **tokens)
 {
 	t_tokens	*list;
-	t_tokens	*prev;
+	t_tokens	*expanded;
 
 	list = *tokens;
 	while (list)
 	{
-		if (needs_filename_expansion((*tokens)->content))
+		if (needs_filename_expansion(list->content))
 		{
 			if (ambigous_redirect(list->content))
 				return (0);
-			prev->next = list->next;
-			addfront(expand_filenames(list->content), &list->next);
+			expanded = expand_filenames(list->content);
+			if (expanded)
+			{
+				list->content = "";
+				list = addfront(expanded, &list, list->next);
+			}
 		}
-		prev = list;
 		list = list->next;
 	}
 	return (1);
 }
 
-void	expand_alias(t_tokens **tokens, char *s)
-{
-	t_tokens	*list;
-	t_tokens	*prev;
-	char		*cont;
-
-	list = *tokens;
-	prev = list;
-	while (list)
-	{
-		if (list->content[0] != '<' && list->content[0] != '>')
-			break ;
-		prev = list;
-		list = list->next;
-	}
-	if (!list)
-		return ;
-	cont = list->content;
-	if (msh_getalias(list->content) != NULL && !ft_strequals(cont, s))
-	{
-		prev->next = list->next;
-		addfront(get_tokens(msh_getalias(list->content)), &list->next);
-		expand_alias(tokens, cont);
-	}
-	else
-		return ;
-}
-
-char	*expand_token(char *token, char *content, enum e_quotes quote)
+/*
+	removes quotes and expands env variables recursivly
+*/
+char	*expand_token(char *tkn, char *cont, enum e_quotes quote)
 {
 	int		i;
 	int		old_i;
 
-	i = 0;
+	i = -1;
 	old_i = 0;
-	while (token[i])
+	while (tkn[++i])
 	{
-		if (token[i] == '\'' || token[i] == '\"')
+		if (tkn[i] == '\'' || tkn[i] == '\"')
 		{
-			if (update_quote(token[i], &quote))
-			{
-				content = ft_push(ft_strjoin(content, ft_substr(token, 0, i)));
-				return (expand_token(&token[i + 1], content, quote));
-			}
-			i++;
+			if (update_quote(tkn[i], &quote))
+				return (expand_token(&tkn[i + 1], ft_push(ft_strjoin(cont,
+								ft_substr(tkn, 0, i))), quote));
 		}
-		else if (token[i] == '$' && (quote == none || quote == doublequote))
+		else if (tkn[i] == '$' && (quote == none || quote == doublequote))
 		{
-			content = ft_push(ft_strjoin(content, ft_substr(token, 0, i)));
-			i++;
+			cont = ft_push(ft_strjoin(cont, ft_substr(tkn, 0, i++)));
 			old_i = i;
-			while (token[i] && ft_strchr(" \'\"$", token[i]) == NULL)
+			while (tkn[i] && (ft_isalpha(tkn[i]) || ft_isdigit(tkn[i])))
 				i++;
-			content = ft_push(ft_strjoin(content, msh_getenv(ft_substr(token, old_i, i - old_i))));
-			return (expand_token(&token[i], content, quote));
+			cont = ft_push(ft_strjoin(cont,
+						msh_getenv(ft_substr(tkn, old_i, i - old_i))));
+			return (expand_token(&tkn[i], cont, quote));
 		}
-		else
-			i++;
 	}
-	return (ft_push(ft_strjoin(content, ft_substr(token, old_i, ft_strlen(token)))));
+	return (ft_push(ft_strjoin(cont, ft_substr(tkn, old_i, ft_strlen(tkn)))));
 }

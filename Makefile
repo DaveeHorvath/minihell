@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/10 22:46:41 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/14 16:29:41 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ NAME	=	minishell
 BUILD	=	normal
 
 CC				=	cc
-cflags.common	=	-Wall -Wextra -Werror
+cflags.common	=	-Wall -Wextra -Werror -D RL_HFNAME=\".msh_history\"
 cflags.debug	=	-g
 cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
 cflags.rldebug	=	$(cflags.debug) -D RL_DEBUG_MSG=1
-cflags.asan		=	$(cflags.debug) -fsanitize=address -D RL_DEBUG_MSG=1
+cflags.asan		=	$(cflags.rldebug) -fsanitize=address
 cflags.normal	=	-Ofast
 cflags.extra	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD)) $(cflags.extra)
@@ -38,26 +38,42 @@ PARSERDIR	=	parser
 PROMPTDIR	=	prompt
 
 READLINEFILES	=	ft_readline.c \
-					ft_rl_altcmd.c \
-					ft_rl_command.c \
-					ft_rl_completion.c \
-					ft_rl_completionutils.c \
-					ft_rl_ctrlcmd.c \
+					ft_rl_color.c \
+					ft_rl_complete.c \
+					ft_rl_complete2.c \
+					ft_rl_complete3.c \
+					ft_rl_complete_utils.c \
 					ft_rl_cursor.c \
+					ft_rl_debug_utils.c \
+					ft_rl_exec.c \
+					ft_rl_fn.c \
+					ft_rl_fn2.c \
+					ft_rl_fn3.c \
+					ft_rl_fn4.c \
+					ft_rl_fn5.c \
 					ft_rl_history.c \
-					ft_rl_historyfile.c \
-					ft_rl_historyutils.c \
-					ft_rl_increment.c \
+					ft_rl_history_file.c \
+					ft_rl_history_search.c \
+					ft_rl_history_utils.c \
+					ft_rl_history_utils2.c \
+					ft_rl_init.c \
+					ft_rl_initfuncs.c \
+					ft_rl_initkeys.c \
 					ft_rl_input.c \
-					ft_rl_inpututils.c \
-					ft_rl_match.c \
-					ft_rl_matchutils.c \
-					ft_rl_replace.c \
-					ft_rl_search.c \
-					ft_rl_searchutils.c \
-					ft_rl_termutils.c \
+					ft_rl_input_utils.c \
+					ft_rl_keymap.c \
+					ft_rl_keymap_lists.c \
+					ft_rl_keymap_utils.c \
+					ft_rl_remove.c \
+					ft_rl_signal.c \
+					ft_rl_term_utils.c \
 					ft_rl_utils.c \
-					ft_rl_wildcard.c
+					ft_rl_utils2.c \
+					ft_rl_utils3.c \
+					ft_rl_wildcard.c \
+					ft_rl_wildcard_utils.c \
+					ft_rl_word.c \
+					ft_rl_word_replace.c
 
 BUILTINFILES	=	cd.c \
 					echo.c \
@@ -92,6 +108,7 @@ PROMPTFILES		=	color.c \
 					prompt.c
 
 FILES	=	main.c \
+			utils.c \
 			$(addprefix $(READLINEDIR)/, $(READLINEFILES)) \
 			$(addprefix $(BUILTINDIR)/, $(BUILTINFILES)) \
 			$(addprefix $(CONFIGDIR)/, $(CONFIGFILES)) \
@@ -106,7 +123,7 @@ all: $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJDIR) $(LIBFT) $(OBJS)
 	@echo Compiling $(NAME)...
-	@$(CC) $(CFLAGS) -I$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
 
 $(OBJDIR):
 	@echo Creating objdir...
@@ -122,31 +139,31 @@ $(LIBFT):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(READLINEDIR)/%.o: $(SRCDIR)/$(READLINEDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(BUILTINDIR)/%.o: $(SRCDIR)/$(BUILTINDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(CONFIGDIR)/%.o: $(SRCDIR)/$(CONFIGDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(ENVDIR)/%.o: $(SRCDIR)/$(ENVDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(PARSERDIR)/%.o: $(SRCDIR)/$(PARSERDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(PROMPTDIR)/%.o: $(SRCDIR)/$(PROMPTDIR)/%.c
 	@echo Compiling $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 clean:
 	@make --no-print-directory -C $(LIBDIR) clean

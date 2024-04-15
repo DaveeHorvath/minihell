@@ -6,21 +6,25 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/02 11:55:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:21:21 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_READLINE_H
 # define FT_READLINE_H
 # include "libft.h"
-# include "rl_keys.h"
-# include "rl_term.h"
-# include "rl_data.h"
+# include "ft_rl_keys.h"
+# include "ft_rl_term.h"
+# include "ft_rl_data.h"
 # include <fcntl.h>
 # include <dirent.h>
 # include <termios.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+
+# ifndef RL_DEBUG_MSG
+#  define RL_DEBUG_MSG 0
+# endif
 
 # ifndef RL_HFNAME
 #  define RL_HFNAME ".rl_history"
@@ -30,87 +34,34 @@
 #  define RL_HISTORY_SIZE 100
 # endif
 
-# define RL_ALTKEY_SIZE 8
-
 // ft_readline.c
-char	*ft_readline(const char *p);
+char		*ft_readline(const char *prompt, t_rl_histmode mode);
 
-// ft_rl_input.c
-void	ft_rl_redisplay(t_rl_input *input);
-void	ft_rl_updateinput(t_rl_input *input, char *newinput, size_t *uline);
-void	ft_rl_addchar(t_rl_input *input, char c);
-void	ft_rl_rmchar(t_rl_input *input);
-int		ft_rl_getinput(t_rl_input *input);
+// ft_rl_color.c
+void		ft_rl_sethlcolor(const char *s);
 
-// ft_rl_completion.c
-int		ft_rl_complete(t_rl_input *input);
+// ft_rl_init.c
+void		ft_rl_init(void);
 
-// ft_rl_match.c
-t_list	*ft_rl_complete_env(char *word);
-t_list	*ft_rl_complete_cmd(char *word);
-t_list	*ft_rl_complete_file(char *word);
+// ft_rl_history_file.c
+void		ft_rl_hist_load(const char *fname);
+void		ft_rl_hist_save(const char *fname);
 
 // ft_rl_wildcard.c
-t_rl_wc	*ft_rl_wildcard_expand(char *pattern);
+t_rl_wc		*ft_rl_wildcard_expand(const char *pattern);
 
-// ft_rl_increment.c
-void	ft_rl_complete_increment(t_list *completions, char *word);
+// ft_rl_keymap.c
+void		ft_rl_map(const char *key, const char *func, t_rl_mapmode mode);
+void		ft_rl_unmap(const char *key);
 
-// ft_rl_replace.c
-int		ft_rl_complete_replace(t_rl_input *input, char *word);
-int		ft_rl_complete_multiple(t_rl_input *input, t_list *completions);
+// ft_rl_utils3.c
+void		ft_rl_setinputmaxlen(size_t maxlen);
 
-// ft_rl_history.c
-char	*ft_rl_history_next(void);
-char	*ft_rl_history_prev(void);
-void	ft_rl_history_update(char *line);
-void	ft_rl_history_commit(char *line);
+// ft_rl_input_utils.c
+t_rl_input	*ft_rl_getcurinput(void);
 
-// ft_rl_search.c
-int		ft_rl_history_search(t_rl_input *input, char direction);
-
-// ft_rl_historyfile.c
-void	ft_rl_history_load(void);
-void	ft_rl_history_save(void);
-
-// ft_rl_command.c
-int		ft_rl_exec(t_rl_input *input, char c, char redisplay);
-int		ft_rl_iscommand(char c);
-
-// ft_rl_altcmd.c
-void	ft_rl_altcmd(t_rl_input *input, char redisplay);
-
-// ft_rl_ctrlcmd.c
-int		ft_rl_ctrlcmd(t_rl_input *input, char c, char redisplay);
-
-// ft_rl_utils.c
-int		ft_rl_isdir(const char *path);
-
-// ft_rl_completionutils.c
-size_t	ft_rl_complete_getlongest(t_list *completions);
-void	printcompletions(t_list *completions, char *current);
-
-// ft_rl_matchutils.c
-void	ft_rl_complete_checkdirs(char *path, t_list *completions);
-void	ft_rl_wildcard_rmdot(t_rl_wc *matches);
-void	ft_rl_wildcard_pop(t_rl_wc *wc);
-int		ft_rl_wildcard_checkalloc(t_rl_wc *wc1, t_rl_wc *wc2, char **arr);
-
-// ft_rl_historyutils.c
-t_list	**ft_rl_history_gethead(void);
-t_list	**ft_rl_history_getcurrent(char reset);
-void	ft_rl_history_setcurrent(t_list *node);
-void	ft_rl_history_recycle(void);
-
-// ft_rl_searchutils.c
-size_t	*ft_rl_history_getmatchrange(char *input, char *pattern);
-t_list	*ft_rl_history_match(t_list *start, char *pattern, char direction);
-int		ft_rl_history_getpattern(t_rl_input *input, int irow, int icol);
-
-// ft_rl_inpututils.c
-void	ft_rl_nextword(t_rl_input *input);
-void	ft_rl_prevword(t_rl_input *input);
-void	ft_rl_wordstart(t_rl_input *input);
-void	ft_rl_wordend(t_rl_input *input);
+// ft_rl_keymap_utils.c
+uint8_t		ft_rl_ismapped(uint64_t key);
+t_rl_fn		ft_rl_getmap(uint64_t key);
 
 #endif

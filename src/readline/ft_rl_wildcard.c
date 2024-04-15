@@ -5,27 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 08:38:24 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/02 12:09:45 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/03/26 15:03:14 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/14 14:30:38 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
-static t_rl_wc	*expand_path(char **patterns, size_t depth);
-static void		matchpatterns(t_rl_wc *current, t_rl_wc *prev, size_t depth);
-static void		matchpattern(char *pattern, char *path, t_list **mtc, char any);
-static int		checkpattern(char *pattern, char *name);
+static inline t_rl_wc	*expand_path(char **patterns, size_t dpth);
+static inline uint8_t	checkpattern(char *pat, char *name);
+static inline void	matchpatterns(t_rl_wc *cur, t_rl_wc *prv, size_t dpth);
+static inline void	match(char *pat, char *path, t_list **mtc, uint8_t any);
 
-t_rl_wc	*ft_rl_wildcard_expand(char *pattern)
+t_rl_wc	*ft_rl_wildcard_expand(const char *pattern)
 {
-	t_rl_wc	*matches;
-	size_t	depth;
-	char	*tmp;
+	t_rl_wc		*matches;
+	size_t		depth;
+	const char	*tmp;
 
-	tmp = pattern;
 	depth = 0;
-	tmp = ft_strchr(tmp, '/');
+	tmp = ft_strchr(pattern, '/');
 	while (tmp)
 	{
 		tmp++;
@@ -34,50 +33,73 @@ t_rl_wc	*ft_rl_wildcard_expand(char *pattern)
 		tmp = ft_strchr(tmp, '/');
 	}
 	matches = expand_path(ft_pusharr(ft_split(pattern, '/')), depth);
-	ft_rl_wildcard_rmdot(matches);
+	ft_rl_wc_rmdot(matches->matches);
 	return (matches);
 }
 
-static t_rl_wc	*expand_path(char **patterns, size_t depth)
+static inline t_rl_wc	*expand_path(char **patterns, size_t dpth)
 {
 	size_t	i;
-	t_rl_wc	*prev;
-	t_rl_wc	*current;
+	t_rl_wc	*prv;
+	t_rl_wc	*cur;
 
-	prev = NULL;
-	current = ft_push(ft_calloc(1, sizeof(t_rl_wc)));
-	if (ft_rl_wildcard_checkalloc(current, prev, patterns))
+	prv = NULL;
+	cur = ft_push(ft_calloc(1, sizeof(*cur)));
+	if (!ft_rl_wc_checkalloc(cur, prv, patterns))
 		return (NULL);
 	i = 0;
-	current->pattern = patterns[i++];
-	matchpattern(current->pattern, ".", &current->matches, !depth);
-	while (--depth + 1)
+	cur->pattern = patterns[i++];
+	match(cur->pattern, ".", &cur->matches, !dpth);
+	while (--dpth + 1)
 	{
-		prev = current;
-		current = ft_push(ft_calloc(1, sizeof(t_rl_wc)));
-		if (ft_rl_wildcard_checkalloc(current, prev, patterns))
+		prv = cur;
+		cur = ft_push(ft_calloc(1, sizeof(*cur)));
+		if (!ft_rl_wc_checkalloc(cur, prv, patterns))
 			return (NULL);
-		current->pattern = patterns[i++];
-		matchpatterns(current, prev, depth);
-		ft_rl_wildcard_pop(prev);
+		cur->pattern = patterns[i++];
+		matchpatterns(cur, prv, dpth);
+		ft_popblks(2, prv, prv->pattern);
+		ft_lstpopall(ft_lstfirst(prv->matches));
 	}
 	ft_popblk(patterns);
-	return (current);
+	return (cur);
 }
 
-static void	matchpatterns(t_rl_wc *current, t_rl_wc *prev, size_t depth)
+static inline uint8_t	checkpattern(char *pat, char *name)
 {
-	while (prev->matches)
+	char	**sstrings;
+
+	if ((*name == '.' && *pat != '.')
+		|| (*pat != '*'
+			&& ft_strncmp(name, pat, ft_strclen(pat, '*'))))
+		return (0);
+	sstrings = ft_split(pat, '*');
+	if (!sstrings)
+		return (0);
+	name += (*pat == '*');
+	while (*sstrings)
 	{
-		matchpattern(current->pattern, prev->matches->blk,
-			&current->matches, !depth);
-		if (!prev->matches->next)
-			break ;
-		prev->matches = prev->matches->next;
+		name = ft_strnstr(name, *sstrings, ft_strlen(name));
+		if (!name)
+			return (0);
+		name += ft_strlen(*sstrings++);
+	}
+	if (*name && pat[ft_strlen(pat) - 1] != '*')
+		return (0);
+	return (1);
+}
+
+static inline void	matchpatterns(t_rl_wc *cur, t_rl_wc *prv, size_t dpth)
+{
+	while (prv->matches)
+	{
+		match(cur->pattern, prv->matches->blk,
+			&cur->matches, !dpth);
+		prv->matches = prv->matches->next;
 	}
 }
 
-static void	matchpattern(char *pattern, char *path, t_list **mtc, char any)
+static inline void	match(char *pat, char *path, t_list **mtc, uint8_t any)
 {
 	DIR				*dir;
 	struct dirent	*data;
@@ -90,9 +112,9 @@ static void	matchpattern(char *pattern, char *path, t_list **mtc, char any)
 	{
 		if ((!ft_strequals(data->d_name, ".")
 				&& !ft_strequals(data->d_name, ".."))
-			|| ft_strequals(data->d_name, pattern))
+			|| ft_strequals(data->d_name, pat))
 		{
-			if (checkpattern(pattern, data->d_name) && (any
+			if (checkpattern(pat, data->d_name) && (any
 					|| ft_rl_isdir(ft_strsjoin(path, data->d_name, '/'))))
 				ft_lstadd_back(mtc, ft_lstnew(ft_strsjoin(path,
 							data->d_name, '/')));
@@ -100,29 +122,4 @@ static void	matchpattern(char *pattern, char *path, t_list **mtc, char any)
 		data = readdir(dir);
 	}
 	closedir(dir);
-}
-
-static int	checkpattern(char *pattern, char *name)
-{
-	char	**substrings;
-
-	if ((*name == '.' && *pattern != '.')
-		|| (*pattern != '*'
-			&& ft_strncmp(name, pattern, ft_strclen(pattern, '*'))))
-		return (0);
-	substrings = ft_split(pattern, '*');
-	if (!substrings)
-		return (0);
-	if (*pattern == '*')
-		name++;
-	while (*substrings)
-	{
-		name = ft_strnstr(name, *substrings, ft_strlen(name));
-		if (!name)
-			return (0);
-		name += ft_strlen(*substrings++);
-	}
-	if (*name && pattern[ft_strlen(pattern) - 1] != '*')
-		return (0);
-	return (1);
 }

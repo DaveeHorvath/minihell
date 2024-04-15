@@ -6,11 +6,12 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 15:22:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:42:30 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include <unistd.h>
 
 static void			updateprompt(char *format, char **prompt);
 
@@ -31,15 +32,15 @@ int	main(int argc, char **argv)
 	signal(2, keyboardinterupt);
 	msh_setenv("?", "0");
 	updateprompt(msh_getenv("PROMPT"), &prompt);
-	input = ft_push(ft_readline(prompt));
+	input = ft_push(ft_readline(prompt, ON));
 	while (input)
 	{
 		execute_string(input);
 		ft_popblk(input);
 		updateprompt(msh_getenv("PROMPT"), &prompt);
-		input = ft_push(ft_readline(prompt));
+		input = ft_push(ft_readline(prompt, ON));
 	}
-	return (ft_return(0));
+	return (msh_return(0));
 }
 
 static void	updateprompt(char *format, char **prompt)
