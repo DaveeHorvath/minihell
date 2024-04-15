@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 11:35:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/15 15:36:11 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	exec_pipeline(char *s)
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
 		{
-			ft_dprintf(2, "\n%s closing %i %i\n",current->argv[0], current->fd[0], current->fd[1]);
 			do_cmd(current);
 			smart_closer(current->fd);
 		}

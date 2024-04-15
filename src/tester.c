@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:08:29 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 15:28:03 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:39:02 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	msh_cpyenv(environ);
 	msh_setenv("?", "0");
 	if (argc == 1)
-		fd = open("test.txt", O_RDONLY);
+		fd = open(0, O_RDONLY);
 	else
 		fd = open(argv[1], O_RDONLY);
 	if (fd == -1)

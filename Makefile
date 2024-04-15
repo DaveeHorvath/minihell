@@ -6,7 +6,7 @@
 #    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/15 15:24:20 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/04/15 15:39:12 by dhorvath         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,7 +134,8 @@ tester: $(OBJDIR) $(LIBFT) $(TESTOBJS)
 	@echo Compiling tests...
 	@$(CC) $(CFLAGS) -I$(INCDIR) $(TESTOBJS) -L$(LIBDIR) -lft -o tester
 	@echo "running tester"
-	@./tester
+	@./tester test.txt
+	@rm tester
 
 $(OBJDIR):
 	@echo Creating objdir...
