@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 11:47:38 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 22:37:14 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:32:26 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ void	*ft_alloc(size_t n)
  */
 static t_obj	*ft_findblk(size_t n)
 {
-	t_vm	*vm;
-	t_obj	*obj;
-	t_obj	*out;
+	static t_vm	*vm = NULL;
+	t_obj		*obj;
+	t_obj		*out;
 
-	vm = ft_getvm();
+	if (!vm)
+		vm = ft_getvm();
 	obj = vm->head;
 	out = NULL;
 	while (obj)
