@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:56:37 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/11 15:58:59 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:33:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ int	update_quote(char c, enum e_quotes *quote)
 		return (1);
 	}
 	return (0);
+}
+
+t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist,
+				t_tokens *next)
+{
+	(*tokenlist)->next = new_tokens;
+	while (new_tokens && new_tokens->next)
+		new_tokens = new_tokens->next;
+	new_tokens->next = next;
+	return (new_tokens->next);
 }

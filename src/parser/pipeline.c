@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/05 14:29:21 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:35:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	exec_pipeline(char *s)
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
 		{
+			ft_dprintf(2, "\n%s closing %i %i\n",current->argv[0], current->fd[0], current->fd[1]);
 			do_cmd(current);
 			smart_closer(current->fd);
 		}
@@ -131,7 +132,7 @@ static void	do_cmd(t_cmd *cmd)
 
 	id = fork();
 	if (id < 0)
-		child_error();
+		child_error(FORKFAIL);
 	else if (id == 0)
 	{
 		if (is_builtin(cmd->argv[0], 1))
@@ -141,12 +142,13 @@ static void	do_cmd(t_cmd *cmd)
 			cmd_not_found(cmd);
 		else if (!path)
 			exit(0);
-		dup2(cmd->fd[0], 0);
-		dup2(cmd->fd[1], 1);
-		smart_closer(cmd->fd);
 		if (cmd->pipe_end != -1)
 			close(cmd->pipe_end);
-		execve(path, cmd->argv, cmd->env);
+		if (dup2(cmd->fd[0], 0) == -1 || dup2(cmd->fd[1], 1) == -1)
+			child_error(DUP2_ERROR);
+		smart_closer(cmd->fd);
+		if (execve(path, cmd->argv, cmd->env) == -1)
+			child_error(EXECVE_FAIL);
 	}
 	else
 		cmd->pid = id;

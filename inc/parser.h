@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/08 10:58:29 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:33:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 # define MALLOC_FAIL 6
 # define PARENTHESIES_IN_NODE 7
 # define PIPELINE_ISSUE 8
+# define FORKFAIL 9
+# define DUP2_ERROR 10
+# define EXECVE_FAIL 11 
 
 enum e_quotes
 {
@@ -87,7 +90,7 @@ void 		smart_closer(int *fds);
 
 /* errors */
 void		cmd_not_found(t_cmd *cmd);
-void		child_error(void);
+void		child_error(int error);
 int			handle_file_error(int start, char *s);
 int			parse_error(int error);
 int			tree_parse_error(int error, t_node *tree);
@@ -113,7 +116,8 @@ int			handle_redirect(char *s, int i, t_tokens **tokens, int start);
 int			handle_space(char *s, int i, int *old_i, t_tokens **tokens);
 char		*get_filename(char *s, int start);
 
-void		expand_alias(t_tokens **tokens, char *s);
 int			expand_wildcards(t_tokens **tokens);
+t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist,
+				t_tokens *next);
 
 #endif
