@@ -6,7 +6,7 @@
 #    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/15 15:37:55 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/04/15 16:53:36 by dhorvath         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ STRDIR	=	str
 TODIR	=	to
 
 GCFILES		=	ft_alloc.c \
+				ft_arrdup.c \
 				ft_calloc.c \
 				ft_clean.c \
 				ft_exit.c \
@@ -47,6 +48,7 @@ GCFILES		=	ft_alloc.c \
 				ft_obj.c \
 				ft_pop.c \
 				ft_push.c \
+				ft_pushtrap.c \
 				ft_return.c \
 				ft_stack.c \
 				ft_sweep.c \
@@ -161,14 +163,15 @@ FILES	=	$(addprefix $(GCDIR)/, $(GCFILES)) \
 SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))
 OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
-all: $(OBJDIR) $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS)
-	@printf "\e[34mLIBFT >\e[m Creating libft...\n" $@
+$(NAME): $(OBJDIR) $(OBJS)
+	@printf "\e[34;1mLIBFT >\e[m Creating %s\n" $@
 	@ar -crs $(NAME) $(OBJS)
+	@printf "\e[34;1mLIBFT >\e[m \e[1mDone!\e[m\n"
 
 $(OBJDIR):
-	@printf "\e[34mLIBFT >\e[m Creating objdirs...\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Creating objdirs\n" $@
 	@mkdir -p $(OBJDIR)/$(GCDIR)
 	@mkdir -p $(OBJDIR)/$(GNLDIR)
 	@mkdir -p $(OBJDIR)/$(ISDIR)
@@ -181,43 +184,43 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)/$(TODIR)
 
 $(OBJDIR)/$(GCDIR)/%.o: $(SRCDIR)/$(GCDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(GNLDIR)/%.o: $(SRCDIR)/$(GNLDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(ISDIR)/%.o: $(SRCDIR)/$(ISDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(LSTDIR)/%.o: $(SRCDIR)/$(LSTDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(MEMDIR)/%.o: $(SRCDIR)/$(MEMDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(NBRDIR)/%.o: $(SRCDIR)/$(NBRDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(PFDIR)/%.o: $(SRCDIR)/$(PFDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(PUTDIR)/%.o: $(SRCDIR)/$(PUTDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(STRDIR)/%.o: $(SRCDIR)/$(STRDIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(TODIR)/%.o: $(SRCDIR)/$(TODIR)/%.c
-	@printf "\e[34mLIBFT >\e[m Compiling %s\n" $@
+	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 clean:

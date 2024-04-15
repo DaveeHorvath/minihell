@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 05:02:40 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/15 21:33:14 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:24:23 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static inline size_t	maxlen(size_t tsize, t_base base)
 		return (tsize * 3 - (tsize / 3) - (tsize == 2 || tsize == 8));
 	if (base == DECIMAL)
 		return (tsize * 3 - (tsize / 2) - (tsize == 8));
-	return (tsize * 8 - 1);
+	return (tsize * 2);
 }
 
 static inline int64_t	convert(const char *n, size_t tsize, t_base base)
