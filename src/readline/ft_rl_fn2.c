@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 22:41:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 22:06:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:23:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ uint8_t	ft_rl_bck_w(t_rl_input *input)
 	else if (w->prev)
 		w = w->prev;
 	if (w->wtype == SPACE && w->prev)
+	{
+		w->i = 0;
 		w = w->prev;
+	}
 	if (w->i > 0)
 		w->i = 0;
 	input->current = w;
