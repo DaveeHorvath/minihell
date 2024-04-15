@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 22:49:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 22:28:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:04:13 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_list
 typedef struct s_obj
 {
 	size_t			marks;
+	size_t			traps;
 	size_t			blksize;
 	size_t			asize;
 	const void		*blk;
@@ -49,6 +50,7 @@ typedef struct s_stack
 
 typedef struct s_vm
 {
+	uint8_t	ptrap;
 	t_stack	*stack;
 	size_t	maxobjs;
 	size_t	objs;

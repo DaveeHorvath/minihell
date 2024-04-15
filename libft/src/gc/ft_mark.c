@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 11:08:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 22:31:28 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:48:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void	ft_unmark(const void *blk)
 
 	obj = getobj(blk);
 	if (obj && obj->marks)
+	{
 		obj->marks--;
+		if (obj->traps)
+			obj->traps--;
+	}
 }
 
 /** @brief Adds a mark to blk
@@ -37,11 +41,18 @@ void	ft_unmark(const void *blk)
  */
 void	ft_mark(const void *blk)
 {
+	static t_vm	*vm = NULL;
 	t_obj	*obj;
 
+	if (!vm)
+		vm = ft_getvm();
 	obj = getobj(blk);
 	if (obj)
+	{
 		obj->marks++;
+		if (vm->ptrap)
+			obj->traps++;
+	}
 }
 
 static inline t_obj	*getobj(const void *blk)

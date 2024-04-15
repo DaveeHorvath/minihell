@@ -1,0 +1,6 @@
+echo 1
+ls
+ls | wc -l
+cat < Makefile
+cat </dev/random | head -n1
+export

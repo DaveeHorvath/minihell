@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rl_data.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 15:16:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:31:28 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 typedef enum e_rl_etype
 {
 	ACL,
-	EOF
+	EOFF
 }	t_rl_etype;
 
 typedef enum e_rl_wtype

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/14 11:03:48 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/15 15:32:28 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	execute_string(char *s)
 	int			validity;
 	const int	backup_fds_dont_fucking_touch[2] = {dup(0), dup(1)};
 
-	ft_pushtrap(PTRAP_ENABLE);
+	// ft_pushtrap(PTRAP_ENABLE);
 	validity = is_valid(s);
 	if (validity != 0)
 	{
@@ -57,7 +57,7 @@ static void	fix_fds(int backup_fds_dont_fucking_touch[2])
 	close(backup_fds_dont_fucking_touch[0]);
 	close(backup_fds_dont_fucking_touch[1]);
 	save_pipeline(NULL, 1);
-	ft_pushtrap(PTRAP_DISABLE | PTRAP_POP);
+	// ft_pushtrap(PTRAP_DISABLE | PTRAP_POP);
 }
 
 /*

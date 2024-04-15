@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 22:41:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/15 15:23:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:42:04 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ uint8_t	ft_rl_eof(t_rl_input *input)
 	if (!input || input->head)
 		return (1);
 	ft_putchar_fd('\n', 1);
-	input->exittype = EOF;
+	input->exittype = EOFF;
 	return (0);
 }
 
