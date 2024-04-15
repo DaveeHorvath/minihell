@@ -5,56 +5,107 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 22:11:12 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/26 13:33:09 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/03/28 16:08:53 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/11 09:12:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
-char	*ft_rl_history_next(void)
+static inline void	commit_replace(t_list **hist, t_rl_input *input);
+
+t_rl_input	*ft_rl_hist_getnext(t_rl_input *input, uint8_t cpy)
 {
 	t_list	*current;
 
-	current = *ft_rl_history_getcurrent(0);
-	if (current->next)
-		current = current->next;
-	ft_rl_history_setcurrent(current);
-	return (current->blk);
-}
-
-char	*ft_rl_history_prev(void)
-{
-	t_list	*current;
-
-	current = *ft_rl_history_getcurrent(0);
-	if (current->prev)
-		current = current->prev;
-	ft_rl_history_setcurrent(current);
-	return (current->blk);
-}
-
-void	ft_rl_history_update(char *line)
-{
-	t_list	*current;
-
-	current = *ft_rl_history_getcurrent(0);
+	current = *ft_rl_hist_getcurrent();
+	if (!current || !current->blk)
+		return (NULL);
 	if (!current->prev)
-		current->blk = line;
+		return (input);
+	if (cpy)
+	{
+		((t_rl_input *)current->blk)->cursor = input->cursor;
+		ft_rl_updateinput(current->blk, input);
+	}
+	current = current->prev;
+	ft_rl_hist_setcurrent(current);
+	return (current->blk);
 }
 
-void	ft_rl_history_commit(char *line)
+t_rl_input	*ft_rl_hist_getprev(t_rl_input *input, uint8_t cpy)
 {
-	t_list	**head;
 	t_list	*current;
 
-	if (!line)
+	current = *ft_rl_hist_getcurrent();
+	if (!current || !current->blk)
+		return (NULL);
+	if (!current->next)
+		return (input);
+	if (cpy)
+	{
+		((t_rl_input *)current->blk)->cursor = input->cursor;
+		ft_rl_updateinput(current->blk, input);
+	}
+	current = current->next;
+	ft_rl_hist_setcurrent(current);
+	return (current->blk);
+}
+
+void	ft_rl_hist_commit(t_rl_input *input)
+{
+	t_rl_word	*w;
+	t_list		**hist;
+
+	if (!input || !input->head)
 		return ;
-	head = ft_rl_history_gethead();
-	current = *ft_rl_history_getcurrent(0);
-	if (line && *line)
-		(*head)->blk = ft_push(ft_strdup(line));
-	else if (!current->blk || !*line)
-		ft_lstrmnode(head, *head);
-	ft_rl_history_getcurrent(1);
+	w = input->head;
+	while (w)
+	{
+		w->i = w->len;
+		w = w->next;
+	}
+	hist = ft_rl_hist_gethead();
+	if (!*hist || *(*hist)->size < RL_HISTORY_SIZE)
+		ft_lstadd_back(hist, ft_lstnew(ft_rl_dupinput(input)));
+	else
+		commit_replace(hist, input);
+}
+
+void	ft_rl_hist_add(t_list **hist, t_rl_input *input)
+{
+	t_list	*tmp;
+
+	if (!input)
+		return ;
+	if (!*hist || *(*hist)->size < RL_HISTORY_SIZE)
+		ft_lstadd_front(hist, ft_lstnew(input));
+	else
+	{
+		tmp = ft_lstlast(*hist);
+		if (tmp->prev)
+			tmp->prev->next = NULL;
+		ft_rl_popwords(tmp->blk);
+		ft_popblk(tmp->blk);
+		*tmp = (t_list){.next = *hist, .prev = NULL,
+			.size = tmp->size, .blk = input};
+		*hist = tmp;
+	}
+}
+
+static inline void	commit_replace(t_list **hist, t_rl_input *input)
+{
+	t_list	*tmp;
+	t_list	*last;
+
+	tmp = *hist;
+	last = ft_lstlast(tmp);
+	if (tmp->next)
+		tmp->next->prev = NULL;
+	ft_rl_popwords(tmp->blk);
+	ft_popblk(tmp->blk);
+	*tmp = (t_list){.next = NULL, .prev = last,
+		.size = tmp->size, .blk = input};
+	*hist = tmp->next;
+	last->next = tmp;
 }

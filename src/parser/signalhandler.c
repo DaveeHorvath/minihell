@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signalhandler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/05 14:29:39 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/14 12:45:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
+#include "ft_rl_internal.h"
 #include "libft.h"
 #include "parser.h"
 
