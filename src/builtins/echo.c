@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 23:03:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/08 14:54:26 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:28:18 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	msh_echo(char **args, int fd)
 		nl = 0;
 		args++;
 	}
-	if (*args)
-		out = ft_strdup(*args++);
+	out = ft_strdup("");
 	while (*args)
 		out = ft_strsjoin(out, *args++, ' ');
 	if (nl)
