@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:20:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 16:28:54 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:04:18 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ uint8_t	ft_rl_hlc(t_rl_input *input)
 
 uint8_t	ft_rl_dcl(t_rl_input *input)
 {
+	if (!input)
+		return (1);
 	ft_rl_hist_restore();
 	ft_rl_popwords(input->head);
 	input->current = NULL;
@@ -41,6 +43,8 @@ uint8_t	ft_rl_dcl(t_rl_input *input)
 
 uint8_t	ft_rl_ins(t_rl_input *input)
 {
+	if (!input)
+		return (1);
 	if (input->maxlen && ft_rl_getinputlen(input) == input->maxlen)
 		return (1);
 	ft_rl_addchar(input);
@@ -50,7 +54,7 @@ uint8_t	ft_rl_ins(t_rl_input *input)
 
 uint8_t	ft_rl_dcr(t_rl_input *input)
 {
-	if (!input->head)
+	if (!input || !input->head)
 		return (1);
 	ft_rl_rmchar(input);
 	ft_rl_redisplay(input, LINE);
@@ -59,7 +63,7 @@ uint8_t	ft_rl_dcr(t_rl_input *input)
 
 uint8_t	ft_rl_bdc(t_rl_input *input)
 {
-	if (!input->head)
+	if (!input || !input->head)
 		return (1);
 	ft_rl_rmchar_bck(input);
 	ft_rl_redisplay(input, LINE);
