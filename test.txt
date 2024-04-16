@@ -1,5 +1,0 @@
-echo 1
-ls
-ls | wc -l
-cat < test.txt
-
