@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rl_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:24:54 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/15 15:30:56 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:19:00 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_rl_word	*ft_rl_dupwords(t_rl_word *words)
 		else
 		{
 			word->next = ft_rl_strword(ft_strdup(words->word));
+			if (word->next)
+				word->next->prev = word;
 			word = word->next;
 		}
 		if (!word || !word->word)
