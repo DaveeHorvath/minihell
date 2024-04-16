@@ -5,51 +5,86 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 15:25:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/29 12:00:29 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/03/26 16:20:40 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/14 14:36:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline.h"
+#include "ft_rl_internal.h"
 
-void	ft_rl_movecursor(t_rl_input *input, size_t n, char direction)
+void	ft_rl_shiftcursor(size_t n, uint64_t direction)
 {
-	int		row;
-	int		col;
+	t_rl_cursor	*cursor;
 
-	if (!input->i)
-		return ;
-	ft_rl_term_cur_getpos(&row, &col, 0);
-	if (direction == KEY_RIGHT)
+	cursor = ft_rl_getcursor(NULL);
+	while (n--)
 	{
-		while (n-- && input->i < input->inputlen)
-		{
-			input->i++;
-			col++;
-		}
+		if (direction == KEY_LEFT)
+			cursor->col--;
+		else
+			cursor->col++;
 	}
-	else
-	{
-		while (n-- && input->i > 0)
-		{
-			input->i--;
-			col--;
-		}
-	}
-	ft_rl_term_cur_setpos(row, col);
+	ft_rl_updatecursor(cursor);
 }
 
-void	ft_rl_resetscreen(t_rl_input *input)
+void	ft_rl_updatecursor(t_rl_cursor *cursor)
 {
-	int	row;
-	int	col;
+	if (!cursor)
+		return ;
+	while (cursor->col > cursor->t_cols)
+	{
+		cursor->row++;
+		cursor->col -= cursor->t_cols;
+	}
+	while (cursor->col < 1)
+	{
+		cursor->row--;
+		cursor->col += cursor->t_cols;
+	}
+	while (cursor->row > cursor->t_rows && cursor->p_row > 1)
+		ft_rl_term_scroll(KEY_UP, cursor);
+	if ((cursor->row == cursor->p_row && cursor->col < cursor->p_col)
+		|| cursor->row < cursor->p_row)
+	{
+		cursor->row = cursor->i_row;
+		cursor->col = cursor->i_col;
+	}
+	ft_printf("\e[%d;%dH", cursor->row, cursor->col);
+}
 
-	ft_putstr_fd(TERM_CLEAR_SCREEN, 1);
-	ft_rl_term_cur_setpos(1, 1);
-	ft_rl_term_cur_updatepos(input->promptlen);
-	ft_rl_term_cur_getpos(&row, &col, 0);
-	ft_putstr_fd(input->prompt, 1);
-	if (input->input)
-		ft_putstr_fd(input->input, 1);
-	ft_rl_term_cur_setpos(row, col + input->promptlen + input->i);
+void	ft_rl_promptcursor(t_rl_input *input)
+{
+	if (!input || !input->cursor)
+		return ;
+	input->cursor->row = input->cursor->p_row;
+	input->cursor->col = input->cursor->p_col;
+	ft_rl_updatecursor(input->cursor);
+}
+
+void	ft_rl_inputcursor(t_rl_input *input)
+{
+	if (!input || !input->cursor)
+		return ;
+	input->cursor->row = input->cursor->i_row;
+	input->cursor->col = input->cursor->i_col;
+	ft_rl_updatecursor(input->cursor);
+}
+
+void	ft_rl_resetcursor(t_rl_input *input)
+{
+	t_rl_word	*w;
+	int16_t		n;
+
+	if (!input || !input->cursor)
+		return ;
+	n = 0;
+	w = input->head;
+	while (w && w->i)
+	{
+		n += w->i;
+		w = w->next;
+	}
+	input->cursor->row = input->cursor->i_row;
+	input->cursor->col = input->cursor->i_col + n;
+	ft_rl_updatecursor(input->cursor);
 }

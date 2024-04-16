@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/20 15:22:54 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:43:02 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ char	*msh_prompt(const char *p)
 		{
 			out = ft_strjoin(out, ft_substr(p, 0, ft_strclen(p, '%')));
 			p += ft_strclen(p, '%');
+		}
+		else if (out)
+		{
+			ft_push(out);
+			p = expandformat(p + 1, &out);
+			ft_pop();
 		}
 		else
 			p = expandformat(p + 1, &out);
@@ -55,7 +61,7 @@ static char	*expandformat(const char *cmd, char **out)
 		*out = ft_strjoin(*out, gethname(0));
 	else if (*cmd == 'm')
 		*out = ft_strjoin(*out, gethname(1));
-	else if (*cmd == 'd' || *cmd == 'D' || ft_isdigit(*cmd))
+	else if (*cmd == 'd' || *cmd == '/' || *cmd == '~' || ft_isdigit(*cmd))
 	{
 		depth = ft_atoi(cmd);
 		while (ft_isdigit(*cmd))
@@ -89,19 +95,23 @@ static char	*gethname(const char trunc)
 
 static char	*getdir(const char type, size_t depth)
 {
+	size_t	homelen;
 	char	*home;
 	char	*out;
-	char	*dir;
 
-	dir = getenv("PWD");
-	out = dir;
+	out = msh_getenv("PWD");
+	if (ft_strequals(out, "/"))
+		return (out);
 	if (type == '~')
 	{
-		home = getenv("HOME");
-		if (!ft_strncmp(dir, home, ft_strlen(home)))
+		home = msh_getenv("HOME");
+		homelen = ft_strlen(home);
+		if (!ft_strncmp(out, home, homelen))
 		{
-			out = ft_strdup(out) + ft_strlen(home) - 1;
-			*out = '~';
+			if (ft_strlen(out) > homelen)
+				out = ft_strjoin("~", ft_substr(out, homelen, ft_strlen(out)));
+			else
+				out = ft_strdup("~");
 		}
 	}
 	if (depth > 0)

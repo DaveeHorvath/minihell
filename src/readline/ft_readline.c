@@ -5,96 +5,83 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 18:11:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/24 19:53:58 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/03/25 16:17:01 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/14 15:27:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * @file ft_readline.c
- */
+#include "ft_rl_internal.h"
 
-#include "ft_readline.h"
+static inline size_t	getplen(const char *p);
+static inline char	*getline(const char *p, t_rl_histmode mode, t_list *hist);
 
-static size_t	getpromptlen(const char *prompt);
-static char		*getline(const char *prompt);
-
-/** @brief man 3 readline
- *
- * If something specified on the man page doesn't work it's not implemented
- * @param *p Prompt string
- * @retval char* Pointer to the line that was read,
- * or NULL if read EOF with no prior input
- */
-char	*ft_readline(const char *prompt)
+char	*ft_readline(const char *p, t_rl_histmode mode)
 {
-	t_rl_termsettings	term;
-	static char			init = 0;
-	t_list				*history;
-	char				*line;
+	struct termios	old;
+	struct termios	new;
+	char			*out;
 
-	tcgetattr(0, &term.oldsettings);
-	term.newsettings = term.oldsettings;
-	term.newsettings.c_lflag &= (~ICANON & ~ECHO);
-	tcsetattr(0, TCSANOW, &term.newsettings);
-	if (!init)
-	{
-		ft_rl_history_load();
-		init = 1;
-	}
-	history = *ft_rl_history_gethead();
-	if (!history || *history->size <= RL_HISTORY_SIZE)
-		ft_lstadd_front(ft_rl_history_gethead(), ft_lstnew(ft_strdup("")));
+	ft_rl_init();
+	ft_rl_signal(RL_SIG_ENABLE, RL_SIG_ALL);
+	tcgetattr(0, &old);
+	new = old;
+	new.c_lflag &= (~ICANON & ~ECHO);
+	tcsetattr(0, TCSANOW, &new);
+	if (mode != OFF)
+		out = getline(p, mode, ft_rl_hist_duphist(*ft_rl_hist_gethead()));
 	else
-		ft_rl_history_recycle();
-	line = getline(prompt);
-	ft_rl_history_commit(line);
-	tcsetattr(0, TCSANOW, &term.oldsettings);
-	return (line);
+		out = getline(p, mode, NULL);
+	tcsetattr(0, TCSANOW, &old);
+	ft_rl_signal(RL_SIG_DISABLE, RL_SIG_ALL);
+	return (out);
 }
 
-static size_t	getpromptlen(const char *prompt)
+static inline size_t	getplen(const char *p)
 {
-	size_t	i;
+	size_t	len;
 
-	i = 0;
-	while (*prompt)
+	len = 0;
+	while (*p)
 	{
-		if (*prompt == '\e')
+		if (*p == '\e')
 		{
-			while (*prompt && *prompt != 'm')
-				prompt++;
-			prompt++;
+			while (*p && *p != 'm')
+				p++;
+			p++;
 		}
-		if (*prompt == '\e')
+		if (*p == '\e')
 			continue ;
-		if (!*prompt)
+		if (!*p)
 			break ;
-		prompt++;
-		i++;
+		p++;
+		len++;
 	}
-	return (i);
+	return (len);
 }
 
-static char	*getline(const char *prompt)
+static inline char	*getline(const char *p, t_rl_histmode mode, t_list *hist)
 {
-	t_rl_input	input;
-	int			rv;
+	t_rl_input	*input;
 
-	input.i = 0;
-	input.input = ft_push(ft_strdup(""));
-	input.prompt = prompt;
-	input.inputlen = 0;
-	input.promptlen = getpromptlen(prompt);
-	ft_rl_term_cur_updatepos(input.promptlen);
-	ft_putstr_fd(prompt, 1);
-	rv = ft_rl_getinput(&input);
-	while (rv > 0)
-		rv = ft_rl_getinput(&input);
-	if (rv < 0)
+	input = ft_push(ft_calloc(1, sizeof(*input)));
+	*input = (t_rl_input){.prompt = p, .plen = getplen(p),
+		.maxlen = ft_rl_getinputmaxlen()};
+	input->cursor = ft_rl_getcursor(input);
+	input->cursor->col += input->plen;
+	if (mode != OFF)
 	{
-		ft_popblk(input.input);
-		return (NULL);
+		ft_rl_hist_add(&hist, ft_rl_dupinput(input));
+		ft_rl_hist_setcurrent(hist);
 	}
-	return (input.input);
+	else
+		ft_rl_hist_setcurrent(NULL);
+	ft_rl_setcurinput(input);
+	ft_putstr_fd(p, 1);
+	while (ft_rl_getinput(input))
+		;
+	if (mode == ON)
+		ft_rl_hist_commit(input);
+	ft_rl_hist_pop(hist);
+	ft_rl_setcurinput(NULL);
+	return (ft_rl_inputstr(input, 1));
 }

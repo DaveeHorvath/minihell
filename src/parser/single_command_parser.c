@@ -6,10 +6,11 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/26 17:50:40 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:18:14 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lft_printf.h"
 #include "parser.h"
 #include "libft.h"
 #include "env.h"
@@ -17,13 +18,20 @@
 static void		get_def_filedesc(int i, int need_pipe,
 					int *prev_out, t_cmd *current);
 
+/*
+	constructs t_cmd by parsing the current command
+	into arguments and redirections
+	//expand_wildcards(&tokens);
+*/
 t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 {
 	t_cmd		*out;
 	t_tokens	*tokens;
 
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
-	tokens = get_tokens(ft_strtrim(s, " "));
+	out->original = s;
+	tokens = get_tokens(ft_strtrim(ft_push(s), " ")); 
+	expand_wildcards(&tokens);
 	out->env = msh_getenvarr();
 	if (commands[i + 1])
 		get_def_filedesc(i, 1, prev_out, out);
@@ -38,12 +46,16 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 	return (out);
 }
 
+/*
+	tokenises the string with respect to quotes
+*/
 t_tokens	*get_tokens(char *s)
 {
 	int			i;
 	int			old_i;
 	t_tokens	*tokens;
 
+	ft_push(s);
 	i = 0;
 	tokens = NULL;
 	old_i = i;
@@ -66,13 +78,16 @@ t_tokens	*get_tokens(char *s)
 	return (tokens);
 }
 
+/*
+	from the tokens takes most recent fds
+*/
 int	get_fds(t_tokens *tokens, int fds[2])
 {
 	while (tokens)
 	{
 		if (tokens->content[0] && (tokens->content[0] == '<'))
 		{
-			if (!handle_infile(tokens, fds))
+			if (handle_infile(tokens, fds) == 0)
 				return (0);
 		}
 		else if (tokens->content[0] && tokens->content[0] == '>')
@@ -85,6 +100,9 @@ int	get_fds(t_tokens *tokens, int fds[2])
 	return (1);
 }
 
+/*
+	filters and expands the tokens
+*/
 char	**get_args(t_tokens *tokens)
 {
 	int			arg_count;
@@ -105,12 +123,17 @@ char	**get_args(t_tokens *tokens)
 	while (tokens)
 	{
 		if (tokens->content[0] != '<' && tokens->content[0] != '>')
+		{
 			args[arg_count++] = expand_token(tokens->content, NULL, none);
+		}
 		tokens = tokens->next;
 	}
 	return (args);
 }
 
+/*
+	opens and assigns pipes as needed
+*/
 static void	get_def_filedesc(int i, int need_pipe,
 	int *prev_out, t_cmd *current)
 {
@@ -125,7 +148,11 @@ static void	get_def_filedesc(int i, int need_pipe,
 		pipe(pipefds);
 		current->fd[1] = pipefds[1];
 		*prev_out = pipefds[0];
+		current->pipe_end = *prev_out;
 	}
 	else
+	{
 		current->fd[1] = 1;
+		current->pipe_end = -1;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:13:14 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/26 14:24:03 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:32:28 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,28 @@ static int	handle_heredoc(int fds[2], char *s)
 {
 	int		hd_fd;
 	char	*line;
+	int		shoudl_stop;
 
+	shoudl_stop = 0;
+	heredoc_stopper(&shoudl_stop, 1);
 	hd_fd = open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	ft_printf("> ");
 	line = ft_push(get_next_line(0));
-	while (line)
+	while (line && !shoudl_stop)
 	{
-		if (ft_strequals(s, ft_strtrim(line, "\n")))
-		{
-			ft_pop();
+		if (ft_strequals(s, ft_strtrim(line, "\n")) || shoudl_stop)
 			break ;
-		}
 		ft_putstr_fd(expand_token(line, NULL, none), hd_fd);
 		ft_pop();
 		ft_printf("> ");
 		line = ft_push(get_next_line(0));
 	}
 	close(hd_fd);
+	if (fds[0] != 0)
+		close(fds[0]);
 	fds[0] = open(".heredoc", O_RDONLY);
 	unlink(".heredoc");
 	if (fds[0] < 0)
-		return (handle_file_error(1, "heredoc"));
+		return (handle_file_error(0, "heredoc"));
 	return (0);
 }
 
@@ -53,7 +54,7 @@ static int	open_outfile(int fds[2], int type, char *s)
 		old_fd = fds[1];
 		fds[1] = open(expand_token(get_filename(s, 2), NULL, none),
 				O_CREAT | O_APPEND | O_WRONLY, 0644);
-		if (old_fd != -1)
+		if (old_fd != -1 || old_fd != 1)
 			close(old_fd);
 		if (fds[1] == -1)
 			return (handle_file_error(2, s));
@@ -63,7 +64,7 @@ static int	open_outfile(int fds[2], int type, char *s)
 		old_fd = fds[1];
 		fds[1] = open(expand_token(get_filename(s, 1), NULL, none),
 				O_CREAT | O_TRUNC | O_WRONLY, 0644);
-		if (old_fd != -1)
+		if (old_fd != -1 || old_fd != 1)
 			close(old_fd);
 		if (fds[1] == -1)
 			return (handle_file_error(1, s));
@@ -107,6 +108,7 @@ int	open_file(char *s, int fds[2], int type)
 
 	if (type == 0)
 	{
+		ft_printf("> ");
 		if (handle_heredoc(fds, get_filename(s, 2)) == 1)
 			return (1);
 	}
@@ -116,7 +118,7 @@ int	open_file(char *s, int fds[2], int type)
 		fds[0] = open(expand_token(get_filename(s, 1), NULL, none), O_RDONLY);
 		if (fds[0] == -1)
 			return (handle_file_error(1, s));
-		if (old_fd != -1)
+		if (old_fd != -1 || old_fd != 0)
 			close(old_fd);
 	}
 	if (type == 2 || type == 3)

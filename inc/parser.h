@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/02/29 14:44:04 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:33:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,17 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define UNMATCHED_S_QUOTE 1
-# define UNMATCHED_D_QUOTE 2
+# define U_S_QUOTE 1
+# define U_D_QUOTE 2
 # define UNMATCHED_PARENTHESIES 3
-# define WRONG_PARENTHESIES 4
+# define WRONG_PARENTH 4
 # define SYNTAX_ERROR 5
 # define MALLOC_FAIL 6
 # define PARENTHESIES_IN_NODE 7
 # define PIPELINE_ISSUE 8
+# define FORKFAIL 9
+# define DUP2_ERROR 10
+# define EXECVE_FAIL 11 
 
 enum e_quotes
 {
@@ -44,7 +47,6 @@ enum e_quotes
 	doublequote,
 	singlequote,
 };
-
 
 typedef struct s_node
 {
@@ -62,6 +64,8 @@ typedef struct s_tokens
 typedef struct s_cmd
 {
 	int				fd[2];
+	int				pipe_end;
+	char			*original;
 	char			**argv;
 	char			**env;
 	pid_t			pid;
@@ -75,15 +79,30 @@ t_cmd		*get_command(char *s, char **commands, int *prev_out, int i);
 int			update_quote(char c, enum e_quotes *quote);
 int			exec_pipeline(char *s);
 int			get_fds(t_tokens *tokens, int fds[2]);
-int			is_builtin(char *s);
+int			is_builtin(char *s, int isexpanded);
 int			exec_builtin(char *s, int outfd, int actual_exit);
 char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
+void		append(t_tokens **list, char *s);
+
+void 		smart_closer(int *fds);
+
 /* errors */
 void		cmd_not_found(t_cmd *cmd);
-void		child_error(void);
+void		child_error(int error);
 int			handle_file_error(int start, char *s);
+int			parse_error(int error);
+int			tree_parse_error(int error, t_node *tree);
+
+/* validity */
+int			is_valid(char *s);
+int			validate_tree(t_node *tree);
+
+/* signals */
+t_cmd		*save_pipeline(t_cmd *_pipline, int set);
+int			*heredoc_stopper(int *_heredocstopper, int set);
+void		keyboardinterupt(int sig);
 
 /* files */
 int			handle_outfile(t_tokens *tokens, int fds[2]);
@@ -96,5 +115,9 @@ int			handle_quotes(char *s, int i);
 int			handle_redirect(char *s, int i, t_tokens **tokens, int start);
 int			handle_space(char *s, int i, int *old_i, t_tokens **tokens);
 char		*get_filename(char *s, int start);
+
+int			expand_wildcards(t_tokens **tokens);
+t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist,
+				t_tokens *next);
 
 #endif
