@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 17:39:24 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:42:11 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 	const int		fds[2] = {0, outfd};
 	int				exitcode;
 
-	args = get_args((t_tokens *)tokens);
 	expand_wildcards((t_tokens **)&tokens);
+	args = get_args((t_tokens *)tokens);
 	if (get_fds((t_tokens *)tokens, (int *)fds) == 0)
 		return (1);
 	if (ft_strequals(args[0], "cd"))

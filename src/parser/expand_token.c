@@ -6,10 +6,11 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 15:24:40 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:42:48 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lft_printf.h"
 #include "parser.h"
 #include "libft.h"
 #include "env.h"
