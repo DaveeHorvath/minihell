@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/16 13:42:48 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:05:47 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ int	ambigous_redirect(char *s)
 		if (ft_strchr(&s[i], '*'))
 		{
 			wildcards = ft_rl_wildcard_expand(ft_strdup(&s[i]));
-			if (wildcards->matches->next)
+			if (wildcards && wildcards->matches && wildcards->matches->next)
 			{
-				ft_putstr_fd("minishell ", 2);
-				ft_putstr_fd(&s[i], 2);
-				ft_putstr_fd(" ambigous redirect\n", 2);
+				ft_dprintf(2, "minishell: %s: ambigous redirect\n", &s[i]);
 				return (1);
 			}
 		}

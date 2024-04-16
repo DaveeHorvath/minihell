@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/16 13:43:30 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:18:14 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	out->original = s;
 	tokens = get_tokens(ft_strtrim(ft_push(s), " ")); 
-	ft_dprintf(2, "%p\n", tokens);
 	expand_wildcards(&tokens);
 	out->env = msh_getenvarr();
 	if (commands[i + 1])

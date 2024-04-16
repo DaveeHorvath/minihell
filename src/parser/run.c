@@ -6,10 +6,11 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 15:32:28 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:10:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lft_str.h"
 #include "libft.h"
 #include "parser.h"
 #include "minish.h"
@@ -26,7 +27,9 @@ int	execute_string(char *s)
 	int			validity;
 	const int	backup_fds_dont_fucking_touch[2] = {dup(0), dup(1)};
 
-	// ft_pushtrap(PTRAP_ENABLE);
+	if (ft_strequals(ft_strtrim(s, " \t\r\n\v\f"), ""))
+		return (0);
+	ft_pushtrap(PTRAP_ENABLE);
 	validity = is_valid(s);
 	if (validity != 0)
 	{
@@ -57,7 +60,7 @@ static void	fix_fds(int backup_fds_dont_fucking_touch[2])
 	close(backup_fds_dont_fucking_touch[0]);
 	close(backup_fds_dont_fucking_touch[1]);
 	save_pipeline(NULL, 1);
-	// ft_pushtrap(PTRAP_DISABLE | PTRAP_POP);
+	ft_pushtrap(PTRAP_DISABLE | PTRAP_POP);
 }
 
 /*
