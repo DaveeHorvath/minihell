@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:24:54 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 16:55:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:07:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_rl_word	*ft_rl_dupwords(t_rl_word *words)
 		else
 		{
 			word->next = ft_rl_strword(ft_strdup(words->word));
+			if (word->next)
+				word->next->prev = word;
 			word = word->next;
 		}
 		if (!word || !word->word)
