@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:29:32 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/14 12:45:45 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:55:29 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,18 @@ void	keyboardinterupt(int sig)
 		close(0);
 		*heredoc_stop = 1;
 		heredoc_stopper(NULL, 1);
+	}
+}
+
+void	keyboardquit(int sig)
+{
+	t_cmd	*running;
+
+	(void)sig;
+	running = save_pipeline(NULL, 0);
+	if (running)
+	{
+		clean_pipeline(running);
+		save_pipeline(NULL, 1);
 	}
 }

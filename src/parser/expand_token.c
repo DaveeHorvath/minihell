@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/16 17:05:47 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:44:25 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	needs_filename_expansion(char *s)
 
 	i = 0;
 	quote = none;
-	while (s[i])
+	while (s && s[i])
 	{
 		update_quote(s[i], &quote);
 		if (quote == none && s[i] == '*')
@@ -75,19 +75,20 @@ t_tokens	*expand_filenames(char *s)
 	int			i;
 
 	new = NULL;
-	if (s[0] == '<' || s[0] == '>')
+	if (s && (s[0] == '<' || s[0] == '>'))
 	{
-		i = 0;
+		i = 1;
 		while (s[i] == ' ')
 			i++;
 		append(&new, ft_push(ft_strjoin(ft_substr(s, 0, 1),
 					ft_rl_wildcard_expand(ft_strdup(&s[i]))->matches->blk)));
 	}
-	else
+	else if (s)
 	{
 		wildcards = ft_rl_wildcard_expand(s);
-		matches = wildcards->matches;
-		while (matches)
+		if (wildcards)
+			matches = wildcards->matches;
+		while (wildcards && matches)
 		{
 			append(&new, matches->blk);
 			matches = matches->next;
@@ -133,7 +134,7 @@ char	*expand_token(char *tkn, char *cont, enum e_quotes quote)
 
 	i = -1;
 	old_i = 0;
-	while (tkn[++i])
+	while (tkn && tkn[++i])
 	{
 		if (tkn[i] == '\'' || tkn[i] == '\"')
 		{

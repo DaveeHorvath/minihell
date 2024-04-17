@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/16 15:18:14 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:28:05 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	out->original = s;
 	tokens = get_tokens(ft_strtrim(ft_push(s), " ")); 
-	expand_wildcards(&tokens);
-	out->env = msh_getenvarr();
-	if (commands[i + 1])
-		get_def_filedesc(i, 1, prev_out, out);
-	else
-		get_def_filedesc(i, 0, prev_out, out);
-	if (get_fds(tokens, out->fd) == 0)
+	if (expand_wildcards(&tokens) == 0)
 		out->exitcode = -1;
-	else
+	out->env = msh_getenvarr();
+	if (commands[i + 1] && out->exitcode != -1)
+		get_def_filedesc(i, 1, prev_out, out);
+	else if (out->exitcode != -1)
+		get_def_filedesc(i, 0, prev_out, out);
+	if (out->exitcode != -1 &&get_fds(tokens, out->fd) == 0)
+		out->exitcode = -1;
+	else if (out->exitcode != -1)
 		out->exitcode = 0;
-	out->argv = get_args(tokens);
+	if (out->exitcode != -1)
+		out->argv = get_args(tokens);
 	out->next = NULL;
 	return (out);
 }
