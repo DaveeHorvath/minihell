@@ -6,11 +6,12 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 22:41:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/15 16:42:04 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:37:49 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
+#include "parser.h"
 
 uint8_t	ft_rl_fwd_w(t_rl_input *input)
 {
@@ -63,6 +64,9 @@ uint8_t	ft_rl_acl(t_rl_input *input)
 	if (!input)
 		return (0);
 	ft_rl_eol(input);
+	input->key = KEY_RETURN;
+	if (heredoc_stopper(NULL, 0))
+		ft_rl_addchar(input);
 	ft_printf("\n%s", TERM_CLEAR_END);
 	input->exittype = ACL;
 	return (0);

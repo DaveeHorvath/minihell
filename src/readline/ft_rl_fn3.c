@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 20:56:41 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/29 01:14:52 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:25:38 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,26 @@ uint8_t	ft_rl_eoh(t_rl_input *input)
 
 uint8_t	ft_rl_rsh(t_rl_input *input)
 {
+	uint64_t	key;
+
 	ft_rl_eol(input);
-	return (ft_rl_hist_search(input, KEY_UP));
+	key = ft_rl_hist_search(input, KEY_UP);
+	if (input->sigexit)
+		return (0);
+	if (ft_rl_getmap(key) != ft_rl_rsh)
+		return (ft_rl_execmap(input, key));
+	return (1);
 }
 
 uint8_t	ft_rl_fsh(t_rl_input *input)
 {
+	uint64_t	key;
+
 	ft_rl_eol(input);
-	return (ft_rl_hist_search(input, KEY_DOWN));
+	key = ft_rl_hist_search(input, KEY_DOWN);
+	if (input->sigexit)
+		return (0);
+	if (ft_rl_getmap(key) != ft_rl_fsh)
+		return (ft_rl_execmap(input, key));
+	return (1);
 }

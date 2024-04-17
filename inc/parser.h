@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/17 15:54:58 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:04:45 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
 void		append(t_tokens **list, char *s);
 
-void 		smart_closer(int *fds);
+void		smart_closer(int *fds);
 
 /* errors */
 void		cmd_not_found(t_cmd *cmd);

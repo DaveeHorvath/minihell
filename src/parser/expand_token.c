@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/17 15:44:25 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:12:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_tokens	*expand_filenames(char *s)
 {
 	t_tokens	*new;
 	t_rl_wc		*wildcards;
-	t_list		*matches;
 	int			i;
 
 	new = NULL;
@@ -86,12 +85,10 @@ t_tokens	*expand_filenames(char *s)
 	else if (s)
 	{
 		wildcards = ft_rl_wildcard_expand(s);
-		if (wildcards)
-			matches = wildcards->matches;
-		while (wildcards && matches)
+		while (wildcards && wildcards->matches)
 		{
-			append(&new, matches->blk);
-			matches = matches->next;
+			append(&new, wildcards->matches->blk);
+			wildcards->matches = wildcards->matches->next;
 		}
 	}
 	return (new);
@@ -146,7 +143,7 @@ char	*expand_token(char *tkn, char *cont, enum e_quotes quote)
 		{
 			cont = ft_push(ft_strjoin(cont, ft_substr(tkn, 0, i++)));
 			old_i = i;
-			while (tkn[i] && (ft_isalpha(tkn[i]) || ft_isdigit(tkn[i])))
+			while (tkn[i] && (ft_isalnum(tkn[i]) || tkn[i] == '?'))
 				i++;
 			cont = ft_push(ft_strjoin(cont,
 						msh_getenv(ft_substr(tkn, old_i, i - old_i))));
