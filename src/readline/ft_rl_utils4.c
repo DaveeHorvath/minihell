@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alias.h                                            :+:      :+:    :+:   */
+/*   ft_rl_utils4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/04 09:58:18 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/04 13:55:07 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/17 17:09:11 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/17 17:33:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALIAS_H
-# define ALIAS_H
-# include "libft.h"
+#include "ft_rl_internal.h"
 
-typedef struct s_alias
+void	ft_rl_heredoc_hook(t_rl_input *input)
 {
-	char			*alias;
-	char			*command;
-	struct s_alias	*next;
-}	t_alias;
-
-// alias.c
-char	*msh_getalias(char *alias);
-int		msh_unsetalias(char *alias);
-int		msh_setalias(char *alias, char *command);
-
-#endif
+	input->sigexit = 1;
+	input->exittype = EOFF;
+	ft_putstr_fd(TERM_STATUS, 1);
+}

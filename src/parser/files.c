@@ -3,43 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:13:14 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/08 11:32:28 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:46:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+#include "ft_readline.h"
 
 static int	open_outfile(int fds[2], int type, char *s);
 static int	handle_heredoc(int fds[2], char *s);
 
 static int	handle_heredoc(int fds[2], char *s)
 {
-	int		hd_fd;
-	char	*line;
-	int		shoudl_stop;
+	const int		hd_fd = open(".hdoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	char			*line;
+	int				should_stop;
 
-	shoudl_stop = 0;
-	heredoc_stopper(&shoudl_stop, 1);
-	hd_fd = open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	line = ft_push(get_next_line(0));
-	while (line && !shoudl_stop)
+	should_stop = 0;
+	heredoc_stopper(&should_stop, 1);
+	line = ft_push(ft_readline("> ", OFF));
+	while (line && !should_stop)
 	{
-		if (ft_strequals(s, ft_strtrim(line, "\n")) || shoudl_stop)
+		if (ft_strequals(s, ft_strtrim(line, "\n")) || should_stop)
 			break ;
 		ft_putstr_fd(expand_token(line, NULL, none), hd_fd);
 		ft_pop();
-		ft_printf("> ");
-		line = ft_push(get_next_line(0));
+		line = ft_push(ft_readline("> ", OFF));
 	}
+	heredoc_stopper(NULL, 1);
 	close(hd_fd);
 	if (fds[0] != 0)
 		close(fds[0]);
-	fds[0] = open(".heredoc", O_RDONLY);
-	unlink(".heredoc");
+	fds[0] = open(".hdoc", O_RDONLY);
+	unlink(".hdoc");
 	if (fds[0] < 0)
 		return (handle_file_error(0, "heredoc"));
 	return (0);
@@ -108,7 +108,6 @@ int	open_file(char *s, int fds[2], int type)
 
 	if (type == 0)
 	{
-		ft_printf("> ");
 		if (handle_heredoc(fds, get_filename(s, 2)) == 1)
 			return (1);
 	}

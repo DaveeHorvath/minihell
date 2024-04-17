@@ -1,6 +1,0 @@
-CompileFlags:
-  Add: 
-    - "-I/Users/ivalimak/42Cursus/Projects/minishell/inc"
-    - "-I/Users/ivalimak/42Cursus/Projects/minishell/libft/inc"
-    - "-I/home/ilmu/Projects/minishell/inc"
-    - "-I/home/ilmu/Projects/minishell/libft/inc"

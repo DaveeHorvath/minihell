@@ -6,14 +6,13 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:58:07 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/25 11:58:09 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:45:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONFIG_H
 # define CONFIG_H
 # include "env.h"
-# include "alias.h"
 # include "libft.h"
 # include "parser.h"
 # include <fcntl.h>
