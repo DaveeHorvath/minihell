@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/17 15:56:51 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:12:01 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include "parser.h"
 #include <unistd.h>
 
 static void			updateprompt(char *format, char **prompt);
@@ -48,4 +49,5 @@ static void	updateprompt(char *format, char **prompt)
 {
 	ft_popblk(*prompt);
 	*prompt = ft_push(msh_prompt(format));
+	heredoc_stopper(NULL, 1);
 }

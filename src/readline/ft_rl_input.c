@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:31:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 15:16:40 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:17:56 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ uint8_t	ft_rl_getinput(t_rl_input *input)
 	input->key = 0;
 	if (read(0, &input->key, sizeof(input->key)) < 0)
 		return (-1);
+	if (input->sigexit)
+		return (0);
 	if (ft_rl_ismapped(input->key))
 	{
 		ft_rl_dbg_info(input, input->key);
