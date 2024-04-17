@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:04:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/01/31 13:23:52 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:30:57 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@ int	cfg_matchkw(char *line)
 		if (line[6] && !ft_isspace(line[6]))
 			return (-1);
 		return (0);
-	}
-	else if (!ft_strncmp(line, "alias", 5))
-	{
-		if (line[5] && !ft_isspace(line[5]))
-			return (-1);
-		return (1);
 	}
 	return (-1);
 }

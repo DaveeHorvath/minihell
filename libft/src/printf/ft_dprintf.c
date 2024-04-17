@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 18:28:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/13 13:28:03 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:20:28 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @param ... Arguments for format string conversions
  * @retval int Amount of characters printed or -1 if an error occurred
  */
-ssize_t	ft_dprintf(int32_t fd, const char *f, ...)
+int64_t	ft_dprintf(int32_t fd, const char *f, ...)
 {
 	va_list	args;
 	int		ret;

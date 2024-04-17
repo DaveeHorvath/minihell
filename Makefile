@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
+#    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 14:15:21 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/16 17:13:13 by dhorvath         ###   ########.fr        #
+#    Updated: 2024/04/17 14:31:37 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,12 +121,12 @@ OBJS	=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
 all: $(OBJDIR) $(NAME)
 
-$(NAME): $(OBJDIR) $(LIBFT) $(OBJS)
-	@echo Compiling $(NAME)...
+$(NAME): $(LIBFT) $(OBJDIR) $(OBJS)
+	@printf "\e[32;1mMSH >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) $(OBJS) -L$(LIBDIR) -lft -o $(NAME)
 
 $(OBJDIR):
-	@echo Creating objdir...
+	@printf "\e[32;1mMSH >\e[m Creating objdir\n"
 	@mkdir -p $(OBJDIR)/$(READLINEDIR)
 	@mkdir -p $(OBJDIR)/$(BUILTINDIR)
 	@mkdir -p $(OBJDIR)/$(CONFIGDIR)
@@ -138,31 +138,31 @@ $(LIBFT):
 	@make --no-print-directory -C $(LIBDIR) BUILD=$(BUILD) cflags.extra=$(cflags.extra)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@echo Compiling $@
+	@printf "\e[32;1mMSH >\e[m Compilign %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(READLINEDIR)/%.o: $(SRCDIR)/$(READLINEDIR)/%.c
-	@echo Compiling $@
+	@printf "\e[32;1mMSH >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(BUILTINDIR)/%.o: $(SRCDIR)/$(BUILTINDIR)/%.c
-	@echo Compiling $@
+	@printf "\e[32;1mMSH >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(CONFIGDIR)/%.o: $(SRCDIR)/$(CONFIGDIR)/%.c
-	@echo Compiling $@
+	@printf "\e[32;1mMSH >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(ENVDIR)/%.o: $(SRCDIR)/$(ENVDIR)/%.c
-	@echo Compiling $@
+	@printf "\e[32;1mMSH >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(PARSERDIR)/%.o: $(SRCDIR)/$(PARSERDIR)/%.c
-	@echo Compiling $@
+	@printf "\e[32;1mMSH >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 $(OBJDIR)/$(PROMPTDIR)/%.o: $(SRCDIR)/$(PROMPTDIR)/%.c
-	@echo Compiling $@
+	@printf "\e[32;1mMSH >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBDIR)/$(INCDIR) -c $< -o $@
 
 clean:
