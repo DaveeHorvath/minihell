@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 11:33:38 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/17 15:54:58 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int			validate_tree(t_node *tree);
 t_cmd		*save_pipeline(t_cmd *_pipline, int set);
 int			*heredoc_stopper(int *_heredocstopper, int set);
 void		keyboardinterupt(int sig);
+void		keyboardquit(int sig);
 
 /* files */
 int			handle_outfile(t_tokens *tokens, int fds[2]);
