@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 20:56:41 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/17 17:25:38 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:07:33 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ uint8_t	ft_rl_nxh(t_rl_input *input)
 {
 	t_rl_input	*newinput;
 
+	if (!input)
+		return (1);
 	newinput = ft_rl_hist_getnext(input, 1);
 	if (!newinput || input == newinput)
 		return (1);
@@ -31,6 +33,8 @@ uint8_t	ft_rl_soh(t_rl_input *input)
 	t_rl_input	*newinput;
 	t_rl_input	*tmp;
 
+	if (!input)
+		return (1);
 	newinput = ft_rl_hist_getprev(input, 1);
 	if (!newinput || input == newinput)
 		return (1);
@@ -53,6 +57,8 @@ uint8_t	ft_rl_eoh(t_rl_input *input)
 	t_rl_input	*newinput;
 	t_rl_input	*tmp;
 
+	if (!input)
+		return (1);
 	newinput = ft_rl_hist_getnext(input, 1);
 	if (!newinput || input == newinput)
 		return (1);
@@ -74,6 +80,8 @@ uint8_t	ft_rl_rsh(t_rl_input *input)
 {
 	uint64_t	key;
 
+	if (!input)
+		return (1);
 	ft_rl_eol(input);
 	key = ft_rl_hist_search(input, KEY_UP);
 	if (input->sigexit)
@@ -87,6 +95,8 @@ uint8_t	ft_rl_fsh(t_rl_input *input)
 {
 	uint64_t	key;
 
+	if (!input)
+		return (1);
 	ft_rl_eol(input);
 	key = ft_rl_hist_search(input, KEY_DOWN);
 	if (input->sigexit)

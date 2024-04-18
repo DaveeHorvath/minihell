@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:12:27 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 17:37:02 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:06:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ uint8_t	ft_rl_sol(t_rl_input *input)
 {
 	t_rl_word	*w;
 
+	if (!input)
+		return (1);
 	w = input->current;
 	while (w)
 	{
@@ -33,6 +35,8 @@ uint8_t	ft_rl_eol(t_rl_input *input)
 {
 	t_rl_word	*w;
 
+	if (!input)
+		return (1);
 	w = input->current;
 	while (w)
 	{
@@ -48,7 +52,7 @@ uint8_t	ft_rl_eol(t_rl_input *input)
 
 uint8_t	ft_rl_fwd(t_rl_input *input)
 {
-	if (!input->current)
+	if (!input || !input->current)
 		return (1);
 	if (input->current->i < input->current->len)
 	{
@@ -66,7 +70,7 @@ uint8_t	ft_rl_fwd(t_rl_input *input)
 
 uint8_t	ft_rl_bck(t_rl_input *input)
 {
-	if (!input->current)
+	if (!input || !input->current)
 		return (1);
 	if (input->current->i >= 1)
 	{
@@ -84,6 +88,8 @@ uint8_t	ft_rl_bck(t_rl_input *input)
 
 uint8_t	ft_rl_clr(t_rl_input *input)
 {
+	if (!input || !input->cursor)
+		return (1);
 	input->cursor->p_row = 1;
 	input->cursor->p_col = 1;
 	input->cursor->i_row = input->cursor->p_row;
