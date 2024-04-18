@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:29:24 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 13:56:34 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:49:05 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_rl_signal(uint8_t action, uint8_t sigs)
 		_enable(sigs);
 	else if (status != RL_SIG_DISABLE)
 		_disable(sigs);
+	status = action;
 }
 
 void	ft_rl_sigaction(int32_t signal)
