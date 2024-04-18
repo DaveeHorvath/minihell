@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
+#    By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/15 15:49:57 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/15 16:53:36 by dhorvath         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

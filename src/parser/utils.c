@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:56:37 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 11:33:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/16 13:40:15 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,20 @@ int	update_quote(char c, enum e_quotes *quote)
 t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist,
 				t_tokens *next)
 {
-	(*tokenlist)->next = new_tokens;
-	while (new_tokens && new_tokens->next)
-		new_tokens = new_tokens->next;
-	new_tokens->next = next;
-	return (new_tokens->next);
+	if (*tokenlist)
+	{
+		(*tokenlist)->next = new_tokens;
+		while (new_tokens && new_tokens->next)
+			new_tokens = new_tokens->next;
+		new_tokens->next = next;
+		return (new_tokens);
+	}
+	else
+	{
+		*tokenlist = new_tokens;
+		while (new_tokens && new_tokens->next)
+			new_tokens = new_tokens->next;
+		new_tokens->next = next;
+		return (new_tokens);
+	}
 }
