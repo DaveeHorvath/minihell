@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:18:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 17:38:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:26:04 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static inline uint8_t	complete_mult(t_rl_input *input, t_list *completions)
 		key = 0;
 		if (read(0, &key, sizeof(key)) < 0)
 			return (-1);
+		if (input->sigexit)
+			return (0);
 		if (ft_rl_getmap(key) == ft_rl_cmp)
 		{
 			ft_rl_replaceword(input, ft_rl_strword(completions->blk));

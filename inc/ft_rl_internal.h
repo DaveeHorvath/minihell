@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 16:29:27 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:49:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # define RL_SIG_ENABLE 0x0U
 # define RL_SIG_DISABLE 0x1U
 
-# define RL_SIG_ALL 0x3U
+# define RL_SIG_ALL 0x7U
 
 # define RL_SIG_INT 0x1U
 # define RL_SIG_WINCH 0x2U
+# define RL_SIG_QUIT 0x4U
 
 // ft_rl_signal.c
 void		ft_rl_signal(uint8_t action, uint8_t sigs);
@@ -60,7 +61,7 @@ void		ft_rl_hist_commit(t_rl_input *input);
 void		ft_rl_hist_add(t_list **hist, t_rl_input *input);
 
 // ft_rl_history_search.c
-uint8_t		ft_rl_hist_search(t_rl_input *input, uint64_t direction);
+uint64_t	ft_rl_hist_search(t_rl_input *input, uint64_t direction);
 
 // ft_rl_color.c
 char		*ft_rl_gethlcolor(void);
@@ -144,6 +145,9 @@ uint16_t	ft_rl_isdir(const char *path);
 size_t		ft_rl_getinputmaxlen(void);
 size_t		ft_rl_getinputlen(t_rl_input *input);
 void		ft_rl_resize_hook(t_rl_input *input);
+
+// ft_rl_utils4.c
+void		ft_rl_heredoc_hook(t_rl_input *input);
 
 // ft_rl_input_utils.c
 void		ft_rl_updateinput(t_rl_input *input, t_rl_input *newinput);

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 01:58:58 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 15:21:21 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:53:10 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # endif
 
 # ifndef RL_HISTORY_SIZE
-#  define RL_HISTORY_SIZE 100
+#  define RL_HISTORY_SIZE 10000
 # endif
 
 // ft_readline.c

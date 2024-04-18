@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:15:51 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/10 13:50:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:19:42 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ uint8_t	ft_rl_mta(t_rl_input *input)
 
 	key = 0;
 	read(0, &key, sizeof(key));
+	if (input->sigexit)
+		return (0);
 	key = (key << 8) + 0x1BULL;
 	if (ft_rl_ismapped(key))
 		return (ft_rl_execmap(input, key));

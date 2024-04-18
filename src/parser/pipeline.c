@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/16 18:06:27 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:50:41 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,15 @@ static char	*get_path(char *name)
 	i = 0;
 	if (ft_strequals("", name))
 		return (0);
+	if (access(name, F_OK) == 0)
+		return (name);
+	if (access(ft_strjoin("./", name), F_OK) == 0)
+		return (ft_push(ft_strjoin("./", name)));
+	if (!path)
+	{
+		ft_dprintf(2, "minishell: no such file or directory: %s\n", name);
+		return ("");
+	}
 	while (path[i])
 	{
 		c_path = ft_push(ft_strsjoin(path[i], name, '/'));
@@ -114,8 +123,6 @@ static char	*get_path(char *name)
 		ft_pop();
 		i++;
 	}
-	if (access(ft_strjoin("./", name), F_OK) == 0)
-		return (ft_push(ft_strjoin("./", name)));
 	return (NULL);
 }
 
@@ -137,7 +144,7 @@ static void	do_cmd(t_cmd *cmd)
 		path = get_path(cmd->argv[0]);
 		if (!path && cmd->argv[0])
 			cmd_not_found(cmd);
-		else if (!path)
+		else if (!path || ft_strequals(path, ""))
 			exit(0);
 		if (cmd->pipe_end != -1)
 			close(cmd->pipe_end);

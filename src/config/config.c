@@ -6,13 +6,12 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:48:19 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 15:22:47 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:31:14 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
 
-static void	cfg_alias(size_t lnbr, char *line);
 static void	cfg_export(size_t lnbr, char *line);
 static void	cfg_parseline(size_t lnbr, char *line);
 static int	cfg_open(const char *cfg_fname);
@@ -39,27 +38,6 @@ int	msh_parseconfig(const char *cfg_fname)
 	return (1);
 }
 
-static void	cfg_alias(size_t lnbr, char *line)
-{
-	size_t	vars;
-	char	*alias;
-	char	*cmd;
-
-	line = line + 5;
-	while (ft_isspace(*line))
-		line++;
-	vars = cfg_varcount(line);
-	if (vars != 2)
-		cfg_err(lnbr, "alias: syntax error");
-	else
-	{
-		alias = line;
-		cmd = ft_strchr(line, '=');
-		*cmd++ = '\0';
-		ft_dprintf(2, "cfg_alias: %s='%s'\n", cmd, alias);
-	}
-}
-
 static void	cfg_export(size_t lnbr, char *line)
 {
 	size_t	start;
@@ -84,7 +62,7 @@ static void	cfg_export(size_t lnbr, char *line)
 
 static void	cfg_parseline(size_t lnbr, char *line)
 {
-	static void	(*f[2])(size_t lnbr, char *line) = {cfg_export, cfg_alias};
+	static void	(*f[1])(size_t lnbr, char *line) = {cfg_export};
 	int			type;
 
 	type = cfg_matchkw(line);

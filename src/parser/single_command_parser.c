@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_command_parser.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/17 15:28:05 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:41:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	out->original = s;
-	tokens = get_tokens(ft_strtrim(ft_push(s), " ")); 
+	tokens = get_tokens(ft_strtrim(ft_push(s), " "));
 	if (expand_wildcards(&tokens) == 0)
 		out->exitcode = -1;
 	out->env = msh_getenvarr();
@@ -38,7 +38,7 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 		get_def_filedesc(i, 1, prev_out, out);
 	else if (out->exitcode != -1)
 		get_def_filedesc(i, 0, prev_out, out);
-	if (out->exitcode != -1 &&get_fds(tokens, out->fd) == 0)
+	if (out->exitcode != -1 && get_fds(tokens, out->fd) == 0)
 		out->exitcode = -1;
 	else if (out->exitcode != -1)
 		out->exitcode = 0;

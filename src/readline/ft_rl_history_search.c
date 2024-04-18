@@ -6,20 +6,19 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 00:50:38 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/14 18:13:09 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:25:15 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
 
 static inline t_list	*_match(t_rl_input *i, t_rl_input *s, uint64_t d);
-static inline t_list		*getmatch(t_rl_input *i, t_rl_input *s, uint64_t d);
-static inline uint8_t		getinput(t_rl_input *s);
-static inline void		display(t_rl_input *i, t_rl_input *s);
+static inline t_list	*getmatch(t_rl_input *i, t_rl_input *s, uint64_t d);
+static inline uint8_t	getinput(t_rl_input *s);
+static inline void	display(t_rl_input *i, t_rl_input *s);
 
-uint8_t	ft_rl_hist_search(t_rl_input *input, uint64_t direction)
+uint64_t	ft_rl_hist_search(t_rl_input *input, uint64_t direction)
 {
-	t_rl_fn		f;
 	t_rl_input	search;
 	t_list		*match;
 
@@ -40,11 +39,7 @@ uint8_t	ft_rl_hist_search(t_rl_input *input, uint64_t direction)
 	if (match)
 		ft_rl_hist_setcurrent(match);
 	ft_rl_redisplay(input, LINE);
-	f = ft_rl_getmap(search.key);
-	if ((direction == KEY_UP && f != ft_rl_rsh)
-		|| (direction == KEY_DOWN && f != ft_rl_fsh))
-		return (ft_rl_execmap(input, search.key));
-	return (1);
+	return (search.key);
 }
 
 static inline t_list	*getmatch(t_rl_input *i, t_rl_input *s, uint64_t d)
@@ -104,6 +99,8 @@ static inline uint8_t	getinput(t_rl_input *s)
 	t_rl_fn	f;
 
 	read(0, &s->key, sizeof(s->key));
+	if (ft_rl_getcurinput()->sigexit)
+		return (0);
 	f = ft_rl_getmap(s->key);
 	if (f == ft_rl_ins || f == ft_rl_dcr || f == ft_rl_bdc)
 		return (ft_rl_execmap(s, s->key));
