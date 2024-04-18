@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 00:50:38 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/17 17:25:15 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:00:20 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ uint64_t	ft_rl_hist_search(t_rl_input *input, uint64_t direction)
 	*search.cursor = (t_rl_cursor){.t_rows = input->cursor->t_rows,
 		.t_cols = input->cursor->t_cols, .i_row = input->cursor->row + 1,
 		.i_col = 1, .row = input->cursor->row + 1, .col = 1};
-	ft_rl_updatecursor(search.cursor);
-	ft_putstr_fd(search.prompt, 1);
+	display(input, &search);
 	match = _match(input, &search, direction);
 	if (match)
 		ft_rl_hist_setcurrent(match);
@@ -109,9 +108,16 @@ static inline uint8_t	getinput(t_rl_input *s)
 
 static inline void	display(t_rl_input *i, t_rl_input *s)
 {
+	ft_rl_eol(i);
 	if (i->cursor->row >= s->cursor->i_row)
 		*s->cursor = (t_rl_cursor){.i_row = i->cursor->row + 1,
 			.i_col = 1, .row = i->cursor->row + 1, .col = 1};
+	if (s->cursor->row > i->cursor->t_rows && i->cursor->row > 1)
+	{
+		ft_rl_term_scroll(KEY_UP, i->cursor);
+		s->cursor->i_row--;
+	}
+	ft_rl_redisplay(i, PROMPT);
 	ft_rl_inputcursor(s);
 	ft_printf("%s%s%s", TERM_CLEAR_END, s->prompt, ft_rl_inputstr(s, 0));
 }
