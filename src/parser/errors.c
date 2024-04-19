@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:50:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 17:05:55 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:01:56 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void	child_error(int error)
 
 int	handle_file_error(int start, char *s)
 {
-	ft_dprintf(2, "minishell: File %s doenst exist\n",
-		expand_token(get_filename(s, start), NULL, none));
+	if (ft_strequals(expand_token(get_filename(s, start), NULL, none), ""))
+		ft_dprintf(2, "minishell: ambigous redirect\n");
+	else
+		ft_dprintf(2, "minishell: File '%s' doesnt exist\n",
+			expand_token(get_filename(s, start), NULL, none));
 	return (1);
 }
 
@@ -65,6 +68,6 @@ int	tree_parse_error(int error, t_node *tree)
 	else if (error == PARENTHESIES_IN_NODE)
 		ft_dprintf(2, "minishell: Parenthesies inside pipeline\n");
 	else if (error == PIPELINE_ISSUE)
-		ft_dprintf(2, "minishell: Invalid token in pipeline\n");
+		ft_dprintf(2, "minishell: Syntax error in pipeline\n");
 	return (-1);
 }

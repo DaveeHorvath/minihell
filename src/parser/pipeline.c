@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/17 20:50:41 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:07:45 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static char	*get_path(char *name)
 	if (access(name, F_OK) == 0)
 		return (name);
 	if (access(ft_strjoin("./", name), F_OK) == 0)
-		return (ft_push(ft_strjoin("./", name)));
+		return (ft_push(ft_strjoin(msh_getenv("PWD"), name)));
 	if (!path)
 	{
 		ft_dprintf(2, "minishell: no such file or directory: %s\n", name);
