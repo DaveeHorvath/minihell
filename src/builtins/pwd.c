@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:33:01 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/02/29 18:46:52 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:15:25 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int	msh_pwd(int fd)
 {
-	char	*path;
+	char	cwd[MAXPATHLEN];
 
-	path = msh_getenv("PWD");
-	if (!path)
-		return (1);
-	ft_putendl_fd(path, fd);
+	ft_putendl_fd(getcwd((char *)cwd, MAXPATHLEN), fd);
 	return (0);
 }
