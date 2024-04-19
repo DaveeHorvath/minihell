@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:20:03 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/16 20:04:18 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:08:48 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ uint8_t	ft_rl_hlc(t_rl_input *input)
 
 uint8_t	ft_rl_dcl(t_rl_input *input)
 {
-	if (!input)
+	if (!input || !input->cursor)
 		return (1);
 	ft_rl_hist_restore();
 	ft_rl_popwords(input->head);

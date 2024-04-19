@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:51:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/17 17:17:54 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:05:15 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,5 @@ typedef struct s_rl_wc
 	char	*pattern;
 	t_list	*matches;
 }	t_rl_wc;
-
-typedef struct s_rl_termstate
-{
-	int	t_rows;
-	int	t_cols;
-	int	t_row;
-	int	t_col;
-	int	i_row;
-	int	i_col;
-}	t_rl_termstate;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:34:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/17 17:23:07 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:49:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define RL_SIG_ENABLE 0x0U
 # define RL_SIG_DISABLE 0x1U
 
-# define RL_SIG_ALL 0x3U
+# define RL_SIG_ALL 0x7U
 
 # define RL_SIG_INT 0x1U
 # define RL_SIG_WINCH 0x2U
