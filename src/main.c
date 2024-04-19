@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:49:34 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/17 18:12:01 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:35:09 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
 	prompt = NULL;
 	signal(2, keyboardinterupt);
 	signal(3, keyboardquit);
+	signal(9, keyboardinterupt);
 	msh_setenv("?", "0");
 	updateprompt(msh_getenv("PROMPT"), &prompt);
 	input = ft_push(ft_readline(prompt, ON));
