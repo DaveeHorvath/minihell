@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/17 16:41:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/20 15:27:52 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	**get_args(t_tokens *tokens)
 			arg_count++;
 		tokens = tokens->next;
 	}
-	args = ft_push(ft_calloc(arg_count + 1, sizeof(char *)));
+	args = ft_push(ft_calloc(arg_count + 10, sizeof(char *)));
 	arg_count = 0;
 	tokens = start;
 	while (tokens)
@@ -127,6 +127,7 @@ char	**get_args(t_tokens *tokens)
 		if (tokens->content[0] != '<' && tokens->content[0] != '>')
 		{
 			args[arg_count++] = expand_token(tokens->content, NULL, none);
+			fix_first(args, &arg_count);
 		}
 		tokens = tokens->next;
 	}
