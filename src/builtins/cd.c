@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:57:07 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/06 15:00:18 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:28:40 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	msh_cd(char *path)
 
 	if (!path)
 		return (1);
+	msh_setenv("PWD", getcwd(cwd, MAXPATHLEN));
 	if (chdir(path) == -1)
 	{
 		ft_dprintf(2, "msh: cd: %s: ", path);
