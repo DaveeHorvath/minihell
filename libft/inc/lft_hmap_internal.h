@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 03:59:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 19:51:25 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:26:41 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # define HMAP_DEF_SIZE 23ULL
 
 /*   alloc   */
-uint8_t	resizemap(t_hmap *hmap, size_t bsize);
-uint8_t	shrinkmap(t_hmap *hmap);
-uint8_t	growmap(t_hmap *hmap);
+uint8_t		resizemap(t_hmap *hmap, size_t bsize);
+uint8_t		shrinkmap(t_hmap *hmap);
+uint8_t		growmap(t_hmap *hmap);
 
-t_hmap	*ft_mapnew_size(size_t size);
+t_hmap		*ft_mapnew_size(size_t size);
 /*   alloc   */
 
 /*   no alloc   */

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 04:15:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 19:55:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:27:41 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ uint8_t	ft_maprm(t_hmap *hmap, const char *key)
 	pair = hmap->items[i];
 	while (pair)
 	{
-		if (pair != HMAP_DEL && ft_strequals(pair->key, key))
+		if (pair != (void *)HMAP_DEL && ft_strequals(pair->key, key))
 		{
 			ft_mappop(pair);
-			hmap->items[i] = HMAP_DEL;
+			hmap->items[i] = (void *)HMAP_DEL;
 			break ;
 		}
 		i = gethash(key, hmap->size, j++);
