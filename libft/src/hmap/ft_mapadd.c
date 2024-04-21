@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 03:18:50 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 19:52:32 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:18:12 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static inline t_hmap_pair	*_newpair(const char *key, const void *val)
 {
 	t_hmap_pair	*pair;
 
-	if (!key || !val)
+	if (!key)
 		return (NULL);
 	ft_pushn(2, key, val);
 	pair = ft_push(ft_calloc(1, sizeof(*pair)));
@@ -60,11 +60,14 @@ static inline t_hmap_pair	*_newpair(const char *key, const void *val)
 	if (!pair)
 		return (NULL);
 	pair->key = ft_push(ft_strdup(key));
-	pair->value = ft_push(_dupval(val));
-	ft_popblks(3, pair, pair->key, pair->value);
+	if (val)
+		pair->value = ft_push(_dupval(val));
+	else
+		pair->value = NULL;
+	ft_popblks(2 + (val != NULL), pair, pair->key, pair->value);
 	if (!pair->key || !pair->value)
 		return (NULL);
-	ft_pushn(3, pair, pair->key, pair->value);
+	ft_pushn(2 + (val != NULL), pair, pair->key, pair->value);
 	return (pair);
 }
 
