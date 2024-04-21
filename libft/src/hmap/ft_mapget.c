@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 04:06:26 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 04:24:39 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:52:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*ft_mapget(t_hmap *hmap, const char *key)
 	pair = hmap->items[i];
 	while (pair)
 	{
-		if (pair != getdelmarker() && ft_strequals(pair->key, key))
+		if (pair != HMAP_DEL && ft_strequals(pair->key, key))
 			return (pair->value);
 		i = gethash(key, hmap->size, j++);
 		pair = hmap->items[i];

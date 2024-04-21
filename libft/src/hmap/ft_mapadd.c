@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 03:18:50 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 07:41:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:52:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ uint8_t	ft_mapadd(t_hmap *hmap, const char *key, const void *val)
 	j = 0;
 	i = gethash(key, hmap->size, j++);
 	cur = hmap->items[i];
-	while (cur && cur != getdelmarker())
+	while (cur && cur != HMAP_DEL)
 	{
 		if (_replace(hmap, pair, i))
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 03:59:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 07:38:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:51:25 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ t_hmap	*ft_mapnew_size(size_t size);
 /*   alloc   */
 
 /*   no alloc   */
-t_hmap_pair	*getdelmarker(void);
-
 uint64_t	getnextprime(uint64_t n);
 
 size_t		gethash(const char *s, const size_t size, const size_t attempt);

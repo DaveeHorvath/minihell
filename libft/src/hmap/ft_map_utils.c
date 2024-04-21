@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 04:01:36 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 07:25:44 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:56:18 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 #include "lft_hmap_internal.h"
 
 static inline void	_swap(t_hmap *hmap, t_hmap *tmp);
-
-t_hmap_pair	*getdelmarker(void)
-{
-	static t_hmap_pair	marker = {NULL, NULL};
-
-	return (&marker);
-}
 
 uint64_t	getnextprime(uint64_t n)
 {
@@ -43,7 +36,7 @@ uint8_t	resizemap(t_hmap *hmap, size_t bsize)
 	i = 0;
 	while (i < hmap->size)
 	{
-		if (hmap->items[i] && hmap->items[i] != getdelmarker())
+		if (hmap->items[i] && hmap->items[i] != HMAP_DEL)
 		{
 			if (!ft_mapadd(tmp, hmap->items[i]->key, hmap->items[i]->value))
 			{
