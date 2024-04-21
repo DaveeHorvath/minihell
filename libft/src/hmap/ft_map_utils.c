@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 04:01:36 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 20:27:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:13:17 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ size_t	gethash(const char *s, const size_t size, const size_t attempt)
 
 	a = ft_strhash(s, HMAP_SALT_1, size);
 	b = ft_strhash(s, HMAP_SALT_2, size);
+	if (attempt >= 5)
+		b *= ft_strhash(s, HMAP_SALT_3, size);
 	return ((a + (attempt * (b + 1))) % size);
 }
 

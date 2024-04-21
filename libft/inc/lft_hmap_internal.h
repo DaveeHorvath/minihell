@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 03:59:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 20:26:41 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:10:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 # include "lft_hmap.h"
 
 # define HMAP_SALT_1 347ULL
-# define HMAP_SALT_2 677ULL
+# define HMAP_SALT_2 2903ULL
+# define HMAP_SALT_3 4973ULL
 
 # define HMAP_DEF_SIZE 23ULL
 
