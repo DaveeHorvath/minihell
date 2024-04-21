@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:24:18 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/08 11:29:49 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:55:47 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	validate_pipeline(char *s)
 		j = 0;
 		while (commands[i][j] == ' ')
 			j++;
-		if (!commands[i][j])
+		if (!commands[i][j] || commands[i][j] == '|')
 			return (PIPELINE_ISSUE);
 		i++;
 	}

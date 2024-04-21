@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:59:49 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/05 14:23:45 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:59:21 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	is_builtin(char *s, int isexpanded)
 		args = get_args(get_tokens(ft_push(ft_strtrim(s, " "))));
 	if (ft_strequals(args[0], "cd") || ft_strequals(args[0], "echo")
 		|| ft_strequals(args[0], "unset") || ft_strequals(args[0], "export")
-		|| ft_strequals(args[0], "exit") || ft_strequals(args[0], "pwd"))
+		|| ft_strequals(args[0], "exit") || ft_strequals(args[0], "pwd")
+		|| ft_strequals(args[0], "env"))
 		return (1);
 	else
 		return (0);
@@ -44,8 +45,8 @@ int	exec_builtin(char *s, int outfd, int actual_exit)
 	const int		fds[2] = {0, outfd};
 	int				exitcode;
 
-	args = get_args((t_tokens *)tokens);
 	expand_wildcards((t_tokens **)&tokens);
+	args = get_args((t_tokens *)tokens);
 	if (get_fds((t_tokens *)tokens, (int *)fds) == 0)
 		return (1);
 	if (ft_strequals(args[0], "cd"))

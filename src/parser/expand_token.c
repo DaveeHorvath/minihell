@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:56:09 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 15:24:40 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:51:43 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lft_printf.h"
 #include "parser.h"
 #include "libft.h"
 #include "env.h"
@@ -25,7 +26,7 @@ int	needs_filename_expansion(char *s)
 
 	i = 0;
 	quote = none;
-	while (s[i])
+	while (s && s[i])
 	{
 		update_quote(s[i], &quote);
 		if (quote == none && s[i] == '*')
@@ -51,11 +52,9 @@ int	ambigous_redirect(char *s)
 		if (ft_strchr(&s[i], '*'))
 		{
 			wildcards = ft_rl_wildcard_expand(ft_strdup(&s[i]));
-			if (wildcards->matches->next)
+			if (wildcards && wildcards->matches && wildcards->matches->next)
 			{
-				ft_putstr_fd("minishell ", 2);
-				ft_putstr_fd(&s[i], 2);
-				ft_putstr_fd(" ambigous redirect\n", 2);
+				ft_dprintf(2, "minishell: %s: ambigous redirect\n", &s[i]);
 				return (1);
 			}
 		}
@@ -72,26 +71,24 @@ t_tokens	*expand_filenames(char *s)
 {
 	t_tokens	*new;
 	t_rl_wc		*wildcards;
-	t_list		*matches;
 	int			i;
 
 	new = NULL;
-	if (s[0] == '<' || s[0] == '>')
+	if (s && (s[0] == '<' || s[0] == '>'))
 	{
-		i = 0;
+		i = 1;
 		while (s[i] == ' ')
 			i++;
 		append(&new, ft_push(ft_strjoin(ft_substr(s, 0, 1),
 					ft_rl_wildcard_expand(ft_strdup(&s[i]))->matches->blk)));
 	}
-	else
+	else if (s)
 	{
 		wildcards = ft_rl_wildcard_expand(s);
-		matches = wildcards->matches;
-		while (matches)
+		while (wildcards && wildcards->matches)
 		{
-			append(&new, matches->blk);
-			matches = matches->next;
+			append(&new, wildcards->matches->blk);
+			wildcards->matches = wildcards->matches->next;
 		}
 	}
 	return (new);
@@ -134,7 +131,7 @@ char	*expand_token(char *tkn, char *cont, enum e_quotes quote)
 
 	i = -1;
 	old_i = 0;
-	while (tkn[++i])
+	while (tkn && tkn[++i])
 	{
 		if (tkn[i] == '\'' || tkn[i] == '\"')
 		{
@@ -146,7 +143,7 @@ char	*expand_token(char *tkn, char *cont, enum e_quotes quote)
 		{
 			cont = ft_push(ft_strjoin(cont, ft_substr(tkn, 0, i++)));
 			old_i = i;
-			while (tkn[i] && (ft_isalpha(tkn[i]) || ft_isdigit(tkn[i])))
+			while (tkn[i] && (ft_isalnum(tkn[i]) || tkn[i] == '?'))
 				i++;
 			cont = ft_push(ft_strjoin(cont,
 						msh_getenv(ft_substr(tkn, old_i, i - old_i))));

@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:57:40 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 15:32:28 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:05:19 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lft_str.h"
 #include "libft.h"
 #include "parser.h"
 #include "minish.h"
@@ -26,7 +27,9 @@ int	execute_string(char *s)
 	int			validity;
 	const int	backup_fds_dont_fucking_touch[2] = {dup(0), dup(1)};
 
-	// ft_pushtrap(PTRAP_ENABLE);
+	if (ft_strequals(ft_strtrim(s, " \t\r\n\v\f"), ""))
+		return (0);
+	ft_pushtrap(PTRAP_ENABLE);
 	validity = is_valid(s);
 	if (validity != 0)
 	{
@@ -51,13 +54,21 @@ int	execute_string(char *s)
 */
 static void	fix_fds(int backup_fds_dont_fucking_touch[2])
 {
+	t_value	*env;
+
 	if (dup2(backup_fds_dont_fucking_touch[0], 0) == -1
 		|| dup2(backup_fds_dont_fucking_touch[1], 1) == -1)
 		ft_dprintf(2, "minishell: Failed to dup2 filedescriptors\n");
 	close(backup_fds_dont_fucking_touch[0]);
 	close(backup_fds_dont_fucking_touch[1]);
 	save_pipeline(NULL, 1);
-	// ft_pushtrap(PTRAP_DISABLE | PTRAP_POP);
+	ft_pushtrap(PTRAP_DISABLE | PTRAP_POP);
+	env = *msh_getenvhead();
+	while (env)
+	{
+		ft_pushn(3, env, env->val, env->var);
+		env = env->next;
+	}
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:56:37 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 11:33:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/20 15:28:59 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,39 @@ int	update_quote(char c, enum e_quotes *quote)
 t_tokens	*addfront(t_tokens *new_tokens, t_tokens **tokenlist,
 				t_tokens *next)
 {
-	(*tokenlist)->next = new_tokens;
-	while (new_tokens && new_tokens->next)
-		new_tokens = new_tokens->next;
-	new_tokens->next = next;
-	return (new_tokens->next);
+	if (*tokenlist)
+	{
+		(*tokenlist)->next = new_tokens;
+		while (new_tokens && new_tokens->next)
+			new_tokens = new_tokens->next;
+		new_tokens->next = next;
+		return (new_tokens);
+	}
+	else
+	{
+		*tokenlist = new_tokens;
+		while (new_tokens && new_tokens->next)
+			new_tokens = new_tokens->next;
+		new_tokens->next = next;
+		return (new_tokens);
+	}
+}
+
+void	fix_first(char **args, int *i)
+{
+	char	**splits;
+	int		j;
+
+	j = 0;
+	if (*i == 1)
+	{
+		splits = ft_pusharr(ft_split(args[0], ' '));
+		while (splits && splits[j])
+		{
+			args[*i - 1] = splits[j];
+			if (splits[j + 1])
+				(*i)++;
+			j++;
+		}
+	}
 }

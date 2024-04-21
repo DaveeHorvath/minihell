@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:58:30 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 11:35:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/20 14:31:52 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,17 @@ int	exec_pipeline(char *s)
 	prev_out = -1;
 	while (commands[i])
 	{
+		save_pipeline(head, 1);
 		if (i == 0 && !commands[1] && is_builtin((char *)commands[0], 0))
 			return (exec_builtin((char *)commands[0], 1, 1));
 		current = get_command((char *)commands[i], (char **)commands,
 				&prev_out, i);
 		add_cmd(&head, current);
 		if (current->exitcode != -1)
-		{
-			ft_dprintf(2, "\n%s closing %i %i\n",current->argv[0], current->fd[0], current->fd[1]);
 			do_cmd(current);
-			smart_closer(current->fd);
-		}
+		smart_closer(current->fd);
 		i++;
 	}
-	save_pipeline(head, 1);
 	return (wait_for_done(head));
 }
 
@@ -109,6 +106,15 @@ static char	*get_path(char *name)
 	i = 0;
 	if (ft_strequals("", name))
 		return (0);
+	if (access(ft_strjoin(msh_getenv("PWD"), name), F_OK) == 0)
+		return (ft_push(ft_strjoin(msh_getenv("PWD"), name)));
+	if (access(name, F_OK) == 0)
+		return (name);
+	if (!path)
+	{
+		ft_dprintf(2, "minishell: no such file or directory: %s\n", name);
+		return ("");
+	}
 	while (path[i])
 	{
 		c_path = ft_push(ft_strsjoin(path[i], name, '/'));
@@ -117,8 +123,6 @@ static char	*get_path(char *name)
 		ft_pop();
 		i++;
 	}
-	if (access(ft_strjoin("./", name), F_OK) == 0)
-		return (ft_push(ft_strjoin("./", name)));
 	return (NULL);
 }
 
@@ -140,7 +144,7 @@ static void	do_cmd(t_cmd *cmd)
 		path = get_path(cmd->argv[0]);
 		if (!path && cmd->argv[0])
 			cmd_not_found(cmd);
-		else if (!path)
+		else if (!path || ft_strequals(path, ""))
 			exit(0);
 		if (cmd->pipe_end != -1)
 			close(cmd->pipe_end);

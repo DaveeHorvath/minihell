@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rl_fn2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 22:41:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/15 15:33:33 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:06:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_rl_internal.h"
+#include "parser.h"
 
 uint8_t	ft_rl_fwd_w(t_rl_input *input)
 {
@@ -47,7 +48,10 @@ uint8_t	ft_rl_bck_w(t_rl_input *input)
 	else if (w->prev)
 		w = w->prev;
 	if (w->wtype == SPACE && w->prev)
+	{
+		w->i = 0;
 		w = w->prev;
+	}
 	if (w->i > 0)
 		w->i = 0;
 	input->current = w;
@@ -60,6 +64,9 @@ uint8_t	ft_rl_acl(t_rl_input *input)
 	if (!input)
 		return (0);
 	ft_rl_eol(input);
+	input->key = KEY_RETURN;
+	if (heredoc_stopper(NULL, 0))
+		ft_rl_addchar(input);
 	ft_printf("\n%s", TERM_CLEAR_END);
 	input->exittype = ACL;
 	return (0);
@@ -78,6 +85,8 @@ uint8_t	ft_rl_pvh(t_rl_input *input)
 {
 	t_rl_input	*newinput;
 
+	if (!input)
+		return (1);
 	newinput = ft_rl_hist_getprev(input, 1);
 	if (!newinput || input == newinput)
 		return (1);

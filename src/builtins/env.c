@@ -6,7 +6,7 @@
 /*   By: dhorvath <dhorvath@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:26:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/15 13:02:39 by dhorvath         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:40:07 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	msh_env(int fd)
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "?=", 2) != 0)
-			ft_putendl_fd(env[i++], fd);
+			ft_putendl_fd(env[i], fd);
+		i++;
 	}
 	return (0);
 }

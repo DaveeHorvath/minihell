@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   single_command_parser.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 15:02:55 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/14 10:40:16 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/20 15:27:52 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lft_printf.h"
 #include "parser.h"
 #include "libft.h"
 #include "env.h"
@@ -30,16 +31,19 @@ t_cmd	*get_command(char *s, char **commands, int *prev_out, int i)
 	out = ft_push(ft_alloc(sizeof(t_cmd)));
 	out->original = s;
 	tokens = get_tokens(ft_strtrim(ft_push(s), " "));
-	out->env = msh_getenvarr();
-	if (commands[i + 1])
-		get_def_filedesc(i, 1, prev_out, out);
-	else
-		get_def_filedesc(i, 0, prev_out, out);
-	if (get_fds(tokens, out->fd) == 0)
+	if (expand_wildcards(&tokens) == 0)
 		out->exitcode = -1;
-	else
+	out->env = msh_getenvarr();
+	if (commands[i + 1] && out->exitcode != -1)
+		get_def_filedesc(i, 1, prev_out, out);
+	else if (out->exitcode != -1)
+		get_def_filedesc(i, 0, prev_out, out);
+	if (out->exitcode != -1 && get_fds(tokens, out->fd) == 0)
+		out->exitcode = -1;
+	else if (out->exitcode != -1)
 		out->exitcode = 0;
-	out->argv = get_args(tokens);
+	if (out->exitcode != -1)
+		out->argv = get_args(tokens);
 	out->next = NULL;
 	return (out);
 }
@@ -115,7 +119,7 @@ char	**get_args(t_tokens *tokens)
 			arg_count++;
 		tokens = tokens->next;
 	}
-	args = ft_push(ft_calloc(arg_count + 1, sizeof(char *)));
+	args = ft_push(ft_calloc(arg_count + 10, sizeof(char *)));
 	arg_count = 0;
 	tokens = start;
 	while (tokens)
@@ -123,6 +127,7 @@ char	**get_args(t_tokens *tokens)
 		if (tokens->content[0] != '<' && tokens->content[0] != '>')
 		{
 			args[arg_count++] = expand_token(tokens->content, NULL, none);
+			fix_first(args, &arg_count);
 		}
 		tokens = tokens->next;
 	}

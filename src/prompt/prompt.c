@@ -6,11 +6,12 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:06:49 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/07 14:43:02 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:13:24 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
+#include "builtins.h"
 
 static char	*expandformat(const char *cmd, char **out);
 static char	*gethname(const char trunc);
@@ -96,10 +97,11 @@ static char	*gethname(const char trunc)
 static char	*getdir(const char type, size_t depth)
 {
 	size_t	homelen;
+	char	*cwd[MAXPATHLEN];
 	char	*home;
 	char	*out;
 
-	out = msh_getenv("PWD");
+	out = ft_push(ft_strdup(getcwd((char *)cwd, MAXPATHLEN)));
 	if (ft_strequals(out, "/"))
 		return (out);
 	if (type == '~')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:30:07 by dhorvath          #+#    #+#             */
-/*   Updated: 2024/04/15 11:33:38 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/20 15:17:08 by dhorvath         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ char		**get_args(t_tokens *tokens);
 t_tokens	*get_tokens(char *s);
 char		**ft_quoted_split(char *s, char c);
 void		append(t_tokens **list, char *s);
-
-void 		smart_closer(int *fds);
+void		fix_first(char **args, int *i);
+void		smart_closer(int *fds);
 
 /* errors */
 void		cmd_not_found(t_cmd *cmd);
@@ -103,6 +103,7 @@ int			validate_tree(t_node *tree);
 t_cmd		*save_pipeline(t_cmd *_pipline, int set);
 int			*heredoc_stopper(int *_heredocstopper, int set);
 void		keyboardinterupt(int sig);
+void		keyboardquit(int sig);
 
 /* files */
 int			handle_outfile(t_tokens *tokens, int fds[2]);
