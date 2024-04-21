@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:59:25 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/14 05:10:29 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:08:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,5 @@
  */
 uint8_t	ft_isdigit(uint8_t c)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	return (c >= '0' && c <= '9');
 }

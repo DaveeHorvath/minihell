@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 11:57:12 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/14 05:10:50 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:10:30 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,5 @@
  */
 uint8_t	ft_isupper(uint8_t c)
 {
-	if (c >= 'A' && c <= 'Z')
-		return (1);
-	return (0);
+	return (c >= 'A' && c <= 'Z');
 }

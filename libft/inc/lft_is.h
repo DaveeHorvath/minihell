@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:23:14 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/15 20:38:56 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 06:43:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ uint8_t	ft_islower(uint8_t c);
 uint8_t	ft_isprint(uint8_t c);
 uint8_t	ft_isspace(uint8_t c);
 uint8_t	ft_isupper(uint8_t c);
+uint8_t	ft_isprime(const uint64_t n);
 uint8_t	ft_isint(const char *n, size_t tsize);
 uint8_t	ft_isint_base(const char *n, size_t tsize, t_base base);
 uint8_t	ft_isuint(const char *n, size_t tsize);

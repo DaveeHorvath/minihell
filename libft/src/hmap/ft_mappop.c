@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_mappop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 04:33:14 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/21 02:22:56 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/21 07:51:34 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "lft_gc.h"
+#include "lft_hmap_internal.h"
 
-# include "lft_is.h"
-# include "lft_to.h"
-# include "lft_put.h"
-# include "lft_nbr.h"
-# include "lft_str.h"
-# include "lft_mem.h"
-# include "lft_lst.h"
-# include "lft_hmap.h"
-# include "lft_math.h"
-# include "lft_printf.h"
-# include "lft_printf_internal.h"
-# include "lft_gnl.h"
-# include "lft_gc.h"
+void	ft_mappop(t_hmap_pair *pair)
+{
+	if (!pair)
+		return ;
+	ft_popblks(3, pair, pair->key, pair->value);
+}
 
-# include "lft_data.h"
-# include "lft_limits.h"
+void	ft_mappop_all(t_hmap *hmap)
+{
+	size_t	i;
 
-#endif
+	if (!hmap)
+		return ;
+	i = 0;
+	while (i < hmap->size)
+		ft_mappop(hmap->items[i++]);
+	ft_popblks(2, hmap, hmap->items);
+}

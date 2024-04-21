@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:02:30 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/14 05:10:41 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:09:27 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,5 @@
  */
 uint8_t	ft_isprint(uint8_t c)
 {
-	if (c >= ' ' && c <= '~')
-		return (1);
-	return (0);
+	return (c >= ' ' && c <= '~');
 }

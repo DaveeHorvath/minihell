@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 22:49:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/11 23:04:13 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 07:15:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*prev;
 }	t_list;
+
+typedef struct s_hmap_pair
+{
+	const char	*key;
+	void		*value;
+}	t_hmap_pair;
+
+typedef struct s_hmap
+{
+	size_t		size;
+	size_t		bsize;
+	size_t		count;
+	t_hmap_pair	**items;
+}	t_hmap;
 
 typedef struct s_obj
 {

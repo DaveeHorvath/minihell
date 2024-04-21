@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_ceil.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 04:33:14 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/21 06:18:55 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/21 06:35:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+/**
+ * @file ft_ceil.c
+ */
 
-# include "lft_is.h"
-# include "lft_to.h"
-# include "lft_put.h"
-# include "lft_nbr.h"
-# include "lft_str.h"
-# include "lft_mem.h"
-# include "lft_lst.h"
-# include "lft_hmap.h"
-# include "lft_math.h"
-# include "lft_printf.h"
-# include "lft_printf_internal.h"
-# include "lft_gnl.h"
-# include "lft_gc.h"
+#include "lft_math.h"
 
-# include "lft_data.h"
-# include "lft_limits.h"
-
-#endif
+/** @brief Rounds n to the nearest bigger whole number
+ *
+ * @param n Number to round
+ * @retval double Nearest bigger whole number
+ */
+double	ft_ceil(const double n)
+{
+	if (n == (double)(int64_t)n)
+		return (n);
+	return ((double)(int64_t)n + 1.0);
+}

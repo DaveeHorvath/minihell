@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:41:00 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/03/14 05:10:55 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:08:15 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,5 @@
  */
 uint8_t	ft_isalpha(uint8_t c)
 {
-	if (ft_isupper(c) || ft_islower(c))
-		return (1);
-	return (0);
+	return (ft_isupper(c) || ft_islower(c));
 }

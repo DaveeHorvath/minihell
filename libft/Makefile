@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 15:26:18 by ivalimak          #+#    #+#              #
-#    Updated: 2024/04/15 15:49:57 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/04/21 07:51:56 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,10 @@ INCDIR	=	inc
 
 GCDIR	=	gc
 GNLDIR	=	gnl
+HMAPDIR	=	hmap
 ISDIR	=	is
 LSTDIR	=	lst
+MATHDIR	=	math
 MEMDIR	=	mem
 NBRDIR	=	nbr
 PFDIR	=	printf
@@ -57,6 +59,14 @@ GCFILES		=	ft_alloc.c \
 GNLFILES	=	gnl.c \
 				gnl_utils.c
 
+HMAPFILES	=	ft_mapadd.c \
+				ft_mapget.c \
+				ft_mapnew.c \
+				ft_mappop.c \
+				ft_maprm.c \
+				ft_map_utils.c \
+				ft_map_utils2.c
+
 ISFILES		=	ft_isalnum.c \
 				ft_isalpha.c \
 				ft_isascii.c \
@@ -65,6 +75,7 @@ ISFILES		=	ft_isalnum.c \
 				ft_isint.c \
 				ft_isint_utils.c \
 				ft_islower.c \
+				ft_isprime.c \
 				ft_isprint.c \
 				ft_isspace.c \
 				ft_isuint_base.c \
@@ -82,6 +93,17 @@ LSTFILES	=	ft_lstadd_back.c \
 				ft_lstpushall.c \
 				ft_lstpush.c \
 				ft_lstrmnode.c
+
+MATHFILES	=	ft_ceil.c \
+				ft_floor.c \
+				ft_max.c \
+				ft_min.c \
+				ft_pow.c \
+				ft_round.c \
+				ft_sqrt.c \
+				ft_umax.c \
+				ft_umin.c \
+				ft_upow.c
 
 MEMFILES	=	ft_bzero.c \
 				ft_memchr.c \
@@ -120,6 +142,7 @@ STRFILES	=	ft_split.c \
 				ft_strclen.c \
 				ft_strdup.c \
 				ft_strequals.c \
+				ft_strhash.c \
 				ft_strjoin.c \
 				ft_strnjoin.c \
 				ft_strlcat.c \
@@ -151,8 +174,10 @@ TOFILES		=	ft_atoi_base.c \
 
 FILES	=	$(addprefix $(GCDIR)/, $(GCFILES)) \
 			$(addprefix $(GNLDIR)/, $(GNLFILES)) \
+			$(addprefix $(HMAPDIR)/, $(HMAPFILES)) \
 			$(addprefix $(ISDIR)/, $(ISFILES)) \
 			$(addprefix $(LSTDIR)/, $(LSTFILES)) \
+			$(addprefix $(MATHDIR)/, $(MATHFILES)) \
 			$(addprefix $(MEMDIR)/, $(MEMFILES)) \
 			$(addprefix $(NBRDIR)/, $(NBRFILES)) \
 			$(addprefix $(PFDIR)/, $(PFFILES)) \
@@ -174,8 +199,10 @@ $(OBJDIR):
 	@printf "\e[34;1mLIBFT >\e[m Creating objdirs\n" $@
 	@mkdir -p $(OBJDIR)/$(GCDIR)
 	@mkdir -p $(OBJDIR)/$(GNLDIR)
+	@mkdir -p $(OBJDIR)/$(HMAPDIR)
 	@mkdir -p $(OBJDIR)/$(ISDIR)
 	@mkdir -p $(OBJDIR)/$(LSTDIR)
+	@mkdir -p $(OBJDIR)/$(MATHDIR)
 	@mkdir -p $(OBJDIR)/$(MEMDIR)
 	@mkdir -p $(OBJDIR)/$(NBRDIR)
 	@mkdir -p $(OBJDIR)/$(PFDIR)
@@ -183,43 +210,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)/$(STRDIR)
 	@mkdir -p $(OBJDIR)/$(TODIR)
 
-$(OBJDIR)/$(GCDIR)/%.o: $(SRCDIR)/$(GCDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(GNLDIR)/%.o: $(SRCDIR)/$(GNLDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(ISDIR)/%.o: $(SRCDIR)/$(ISDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(LSTDIR)/%.o: $(SRCDIR)/$(LSTDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(MEMDIR)/%.o: $(SRCDIR)/$(MEMDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(NBRDIR)/%.o: $(SRCDIR)/$(NBRDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(PFDIR)/%.o: $(SRCDIR)/$(PFDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(PUTDIR)/%.o: $(SRCDIR)/$(PUTDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(STRDIR)/%.o: $(SRCDIR)/$(STRDIR)/%.c
-	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
-	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
-
-$(OBJDIR)/$(TODIR)/%.o: $(SRCDIR)/$(TODIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@printf "\e[34;1mLIBFT >\e[m Compiling %s\n" $@
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
@@ -231,3 +222,5 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

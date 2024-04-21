@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_map_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 04:33:14 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/21 07:27:08 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/21 08:08:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "lft_hmap_internal.h"
 
-# include "lft_is.h"
-# include "lft_to.h"
-# include "lft_put.h"
-# include "lft_nbr.h"
-# include "lft_str.h"
-# include "lft_mem.h"
-# include "lft_lst.h"
-# include "lft_hmap.h"
-# include "lft_math.h"
-# include "lft_printf.h"
-# include "lft_printf_internal.h"
-# include "lft_gnl.h"
-# include "lft_gc.h"
+uint8_t	shrinkmap(t_hmap *hmap)
+{
+	return (resizemap(hmap, hmap->bsize / 2));
+}
 
-# include "lft_data.h"
-# include "lft_limits.h"
-
-#endif
+uint8_t	growmap(t_hmap *hmap)
+{
+	return (resizemap(hmap, hmap->bsize * 2));
+}

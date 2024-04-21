@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_islower.c                                       :+:      :+:    :+:   */
+/*   ft_isprime.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 12:00:11 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 19:09:13 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/21 06:41:14 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/21 06:46:25 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * @file ft_islower
+ * @file ft_isprime.c
  */
 
 #include "lft_is.h"
+#include "lft_math.h"
 
-/** @brief Checks if c is an lowercase character
+/** @brief Checks if n is a prime number
  *
- * @param c Character to check
- * @retval uint8_t 1 if c is lowercase, 0 if not
+ * @param n Number to check
+ * @retval uint8_t 1 if n is prime,
+ * 0 if not or undefined
  */
-uint8_t	ft_islower(uint8_t c)
+uint8_t	ft_isprime(const uint64_t n)
 {
-	return (c >= 'a' && c <= 'z');
+	size_t	i;
+
+	if (n < 2 || (n % 2) == 0)
+		return (0);
+	if (n < 4)
+		return (1);
+	i = 3;
+	while (i < ft_floor(ft_sqrt(n)))
+	{
+		if ((n % i) == 0)
+			return (0);
+		i += 2;
+	}
+	return (1);
 }

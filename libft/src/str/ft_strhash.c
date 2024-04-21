@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strhash.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 15:47:46 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/04/21 04:33:14 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/04/21 02:34:55 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/04/21 03:16:41 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "lft_str.h"
+#include "lft_math.h"
 
-# include "lft_is.h"
-# include "lft_to.h"
-# include "lft_put.h"
-# include "lft_nbr.h"
-# include "lft_str.h"
-# include "lft_mem.h"
-# include "lft_lst.h"
-# include "lft_hmap.h"
-# include "lft_math.h"
-# include "lft_printf.h"
-# include "lft_printf_internal.h"
-# include "lft_gnl.h"
-# include "lft_gc.h"
+uint64_t	ft_strhash(const char *s, const uint64_t salt, const size_t size)
+{
+	uint64_t	hash;
+	size_t		slen;
+	size_t		i;
 
-# include "lft_data.h"
-# include "lft_limits.h"
-
-#endif
+	if (!s)
+		return (0);
+	i = 0;
+	hash = 0;
+	slen = ft_strlen(s);
+	while (i < slen)
+	{
+		hash += ft_upow(salt, slen - i + 1) * s[i];
+		hash %= size;
+		i++;
+	}
+	return (hash);
+}
